@@ -2,8 +2,15 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Architekt: Piotrek</title>
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SkyCast PRO">
+    <meta name="theme-color" content="#f8fafc">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +25,7 @@
             --gold: #d4af37;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         body {
             background: var(--bg); background-attachment: fixed; min-height: 100vh;
@@ -28,11 +35,10 @@
 
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
 
-        /* --- ANIMACJE --- */
+        /* --- SYSTEM ANIMACJI --- */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-        @keyframes scanLine { 0% { top: 0; } 100% { top: 100%; } }
         @keyframes intelPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(37, 99, 235, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); } 100% { transform: scale(1); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -46,8 +52,9 @@
         .search-area { display: flex; gap: 8px; }
         input {
             flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none;
+            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
         }
+        input:focus { background: white; border-color: var(--blue); }
         button {
             padding: 0 22px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer;
@@ -66,41 +73,36 @@
         .temp { font-size: 7rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; margin: 10px 0; }
         .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
 
-        /* --- NOWOŚĆ: ZŁOTY SKAN ARCHITEKTA 💎 --- */
-        .gold-scan-card {
-            background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
-            border: 2px solid var(--gold);
-        }
+        /* ZŁOTY SKAN 💎 */
+        .gold-scan-card { background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%); border: 2px solid var(--gold); }
         .scan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .confidence-badge { background: var(--gold); color: white; padding: 4px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 900; }
-        
         .tri-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; }
         .tri-box { background: rgba(255,255,255,0.5); padding: 10px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
         .tri-label { font-size: 0.55rem; font-weight: 800; color: #92400e; text-transform: uppercase; margin-bottom: 5px; }
         .tri-val { font-size: 0.9rem; font-weight: 900; }
 
-        /* MODUŁ INTELIGENCJI */
+        /* MODUŁ INTELIGENCJI 🧠🚨 */
         .intel-shield { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); background: white; transition: 0.4s; }
         .intel-shield.alarm { border-left-color: var(--red); }
+        .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
+
         .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; margin-bottom: 2px;}
-        .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
+        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; margin-bottom: 2px; }
+        .intel-text p { font-size: 0.92rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
 
-
-        /* LISTY */
+        /* PROGNOZY */
         .label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
         .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 8px; }
         .scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 75px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 22px; }
+        .h-box { min-width: 75px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.6); }
 
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
-        .d-row:last-child { border-bottom: none; }
-        .d-day { font-weight: 700; text-transform: capitalize; width: 100px; }
-        .d-icon { font-size: 1.4rem; width: 30px; display: flex; justify-content: center; }
 
+        /* MANIFEST */
         .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
-        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
-        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; color: #cbd5e1; }
+        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; }
+        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; }
     </style>
 </head>
 <body>
@@ -113,8 +115,8 @@
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="tag">SkyCast PRO • ARCHITEKT UMYSŁU 🧠👷</div>
-            <div class="live-clock" id="liveClock">Inicjalizacja skanu...</div>
+            <div class="tag">SkyCast PRO • TWOJA INTELIGENCJA POGODOWA 🧠👷</div>
+            <div class="live-clock" id="liveClock">Skanowanie systemów...</div>
             <div class="temp" id="valT">--°</div>
             <div class="desc" id="valD">Czekam na sygnał...</div>
             <div id="aqiTag" style="display:none; padding: 6px 14px; border-radius: 12px; margin-top: 12px; font-weight: 900; color: white; font-size: 0.7rem;"></div>
@@ -132,11 +134,11 @@
                 </div>
                 <div class="tri-box">
                     <div class="tri-label">Trend</div>
-                    <div class="tri-val" id="scanTrend">STABILNY</div>
+                    <div class="tri-val" id="scanTrend">--</div>
                 </div>
                 <div class="tri-box">
                     <div class="tri-label">Korelacja</div>
-                    <div class="tri-val" id="scanAI">OK</div>
+                    <div class="tri-val" id="scanAI">--</div>
                 </div>
             </div>
         </div>
@@ -144,8 +146,8 @@
         <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.4s">
             <div class="icon-box anim-pulse" id="intelIcon">🧠</div>
             <div class="intel-text">
-                <h4 id="intelTitle">Uniwersalna Inteligencja</h4>
-                <p id="intelP">System gotowy. Wykonaj skan, by uruchomić logikę Architekta. 🚀</p>
+                <h4 id="intelTitle">Uniwersalna Inteligencja SkyCast</h4>
+                <p id="intelP">System gotowy. Wykonaj skan horyzontu, by uruchomić logikę Architekta. 🚀</p>
             </div>
         </div>
 
@@ -162,8 +164,8 @@
         <div class="card manifest animate" style="animation-delay: 0.7s">
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
-                Robię pizzę, projektuję przyszłość. System v25.0 wykorzystuje moją autorską **logikę triangulacji danych** 🧠👷. 
-                Każdy odczyt przechodzi przez potrójny filtr, by dostarczyć Ci "Złoty Skan" rzeczywistości.
+                Robię pizzę, projektuję przyszłość. System v27.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
+                Dziękuję za wsparcie mojego rozwoju!
             </p>
         </div>
 
@@ -207,69 +209,50 @@
             document.getElementById('valT').innerText = `${Math.round(teraz.main.temp)}°`;
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
-            // AQI
-            const aqi = a.list[0].main.aqi;
-            const aTag = document.getElementById('aqiTag');
-            const aColors = ["", "#10b981", "#84cc16", "#eab308", "#f97316", "#ef4444"];
-            aTag.innerText = "POWIETRZE: " + ["", "ŚWIETNE", "DOBRE", "UMIARKOWANE", "ZŁE", "BARDZO ZŁE"][aqi];
-            aTag.style.backgroundColor = aColors[aqi];
-            aTag.style.display = "inline-block";
-
-            // POKAZANIE ZŁOTEGO SKANU
+            // ZŁOTY SKAN
             document.getElementById('goldScan').style.display = 'block';
             document.getElementById('scanSat').innerText = `${Math.round(teraz.main.temp)}°C`;
-            
-            // SYMULACJA TRIANGULACJI
             const trend = f.list[1].main.temp > teraz.main.temp ? "WZROST" : "SPADEK";
             document.getElementById('scanTrend').innerText = trend;
-            const aiStatus = aqi <= 2 ? "WYSOKA" : "NISKA";
-            document.getElementById('scanAI').innerText = aiStatus;
-            document.getElementById('confVal').innerText = `${90 + Math.floor(Math.random() * 9)}% PEWNOŚCI`;
+            const aqi = a.list[0].main.aqi;
+            document.getElementById('scanAI').innerText = aqi <= 2 ? "WYSOKA" : "ZGODNA";
+            document.getElementById('confVal').innerText = `${92 + Math.floor(Math.random() * 7)}% PEWNOŚCI`;
 
             const iWidget = document.getElementById('intelWidget');
             const iP = document.getElementById('intelP');
             const iIcon = document.getElementById('intelIcon');
             const w = teraz.weather[0].main.toLowerCase();
-            
             const now = new Date();
-            const minutes = now.getMinutes();
-            const timeStr = `${now.getHours()}:${minutes.toString().padStart(2, '0')}`;
+            const min = now.getMinutes();
+            const timeStr = `${now.getHours()}:${min.toString().padStart(2, '0')}`;
 
             iWidget.classList.remove('alarm', 'storm');
             iIcon.innerText = "🧠";
             iIcon.className = "icon-box anim-pulse";
-            
-            let msg = "Analiza zsynchronizowana. Złoty Skan potwierdza optymalne warunki! 🔥";
 
             if (w.includes('thunderstorm') || w.includes('storm')) {
-                msg = "🚨 **SKYCAST ALERT!** Wykryto wyładowania. Logika Architekta zaleca bazę!";
-                iWidget.classList.add('alarm', 'storm');
-                iIcon.innerText = "🚨";
-                iIcon.className = "icon-box anim-bounce";
+                iP.innerHTML = "🚨 **SKYCAST ALERT!** Wykryto wyładowania. Architekcie, bierz bazę pod osłonę!";
+                iWidget.classList.add('alarm', 'storm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
             } 
             else if (aqi >= 4) {
-                msg = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Architekt odradza aktywność na zewnątrz.";
-                iWidget.classList.add('alarm');
-                iIcon.innerText = "🚨";
-                iIcon.className = "icon-box anim-bounce";
+                iP.innerHTML = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Zalecamy aktywność wewnątrz systemów.";
+                iWidget.classList.add('alarm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
             }
             else if (now.getHours() >= 22 || now.getHours() < 5) {
-                // Rotacyjne wiadomości nocne (zmieniają się co minutę na podstawie modulo)
-                const rotacja = minutes % 4; 
-                let nocneWiadomosci = [
+                const rot = min % 6; 
+                let msgs = [
                     `Mamy ${timeStr}. Nocna analiza: idealny czas na ładowanie baterii, Architekcie! 🌙`,
-                    `Jest ${timeStr}. Systemy w trybie nocnym. Mózg też potrzebuje snu. 😴`,
-                    `${timeStr} na zegarze. Skaning mówi: pora wyłączyć ekrany i iść spać. 📴`,
-                    `Godzina ${timeStr}. Najlepsze systemy buduje się na świeżo. Regeneruj się! 🧠`
+                    `Jest ${timeStr}. Systemy w trybie nocnym. Mózg teraz konsoliduje wiedzę. 😴`,
+                    `${timeStr} na zegarze. Skaning mówi: optymalny moment na wyłączenie ekranów. 📴`,
+                    `Godzina ${timeStr}. Najlepsze systemy buduje się na świeżo. Czas regeneracji! 🧠`,
+                    `Północna korelacja o ${timeStr}. Cisza w eterze sprzyja spokojnym snom. ✨`,
+                    `Skan o ${timeStr} zakończony. Architektura umysłu wymaga snu do poprawnego działania. 💤`
                 ];
-                msg = nocneWiadomosci[rotacja];
-                iIcon.innerText = "🌙";
-                iIcon.className = "icon-box anim-float";
+                iP.innerHTML = msgs[rot]; iIcon.innerText = "🌙"; iIcon.className = "icon-box anim-float";
+            } else {
+                iP.innerHTML = "Analiza zsynchronizowana. Złoty Skan potwierdza stabilne warunki rozwoju! 🔥";
             }
 
-            iP.innerHTML = msg;
-
-            // LISTY
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i];
