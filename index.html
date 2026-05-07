@@ -3,194 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO - Architekt Edition V5.8</title>
+    <title>SkyCast PRO - Logic Fix V5.9</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
-        
-        body { 
-            background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%); 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #1F2937;
-            min-height: 100vh;
-        }
-
-        /* Styl "Kamili" - Miękkie, szklane karty */
-        .b44-card { 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px);
-            border-radius: 1.5rem; 
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.03); 
-        }
-
-        .b44-card-light { background: #F9FAFB; border-radius: 1rem; }
-        .btn-blue { background-color: #8BB8F8; color: white; border-radius: 1rem; }
-
-        @keyframes pulsate { 
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); } 
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); } 
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } 
-        }
-        .live-pulse { animation: pulsate 2s infinite; border: 2px solid #3b82f6 !important; }
+        body { background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+        .b44-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.03); }
+        .btn-blue { background-color: #8BB8F8; color: white; border-radius: 1rem; transition: all 0.3s; }
+        .btn-loading { background-color: #cbd5e1; cursor: wait; }
     </style>
 </head>
 <body class="flex flex-col items-center p-4 pb-12">
 
     <header class="text-center mt-6 mb-8 w-full max-w-md">
-        <div class="relative inline-block mb-2">
-            <span class="text-5xl">☀️</span>
-            <span class="absolute -bottom-1 -right-2 text-xl bg-white rounded-full shadow-sm">🛡️</span>
-        </div>
+        <div class="text-5xl mb-2">☀️</div>
         <h1 class="text-3xl font-extrabold text-slate-900 tracking-tighter">SkyCast <span class="text-blue-500">PRO</span></h1>
-        <p class="text-[10px] text-slate-400 font-bold tracking-[0.3em] uppercase mt-1">Twój Globalny Anioł Stróż</p>
+        <p id="status-line" class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">System Gotowy</p>
     </header>
 
     <div class="w-full max-w-md mb-6">
-        <div class="relative mb-3">
-            <span class="absolute left-4 top-4 text-slate-400">🔍</span>
-            <input id="city-input" type="text" placeholder="Szukaj miasta..." class="w-full p-4 pl-12 b44-card text-slate-800 font-semibold outline-none focus:ring-2 focus:ring-blue-300">
-        </div>
-        <button onclick="searchManual()" class="w-full btn-blue font-bold py-4 rounded-xl uppercase text-sm shadow-md active:scale-95 transition-all">
-            SZUKAJ SŁOŃCA 📡
+        <input id="city-input" type="text" placeholder="Wpisz Bochnia, Brzesko..." class="w-full p-4 b44-card text-slate-800 font-semibold outline-none focus:ring-2 focus:ring-blue-300 mb-3">
+        <button id="search-btn" onclick="searchManual()" class="w-full btn-blue font-bold py-4 rounded-xl uppercase text-sm shadow-md active:scale-95">
+            SYNCHRONIZUJ DANE 📡
         </button>
     </div>
 
-    <div class="w-full max-w-md b44-card p-6 mb-6 text-center relative overflow-hidden">
-        <div class="w-full flex items-center justify-center p-2 mb-4 b44-card-light">
-            <span class="text-red-400 text-lg mr-1">📍</span>
-            <span id="location-display" class="text-sm font-bold text-slate-700 uppercase tracking-tight">Ładowanie...</span>
-        </div>
-        
-        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1 italic">Temperatura (Teraz)</p>
+    <div class="w-full max-w-md b44-card p-6 mb-6 text-center">
+        <div id="location-display" class="text-xs font-black text-blue-500 uppercase mb-4 tracking-tighter italic">Lokalizowanie...</div>
         <div class="flex justify-center items-start mb-2">
-            <span id="temp" class="text-7xl font-black text-slate-900 tracking-tighter">--</span>
+            <span id="temp" class="text-7xl font-black text-slate-900">--</span>
             <span class="text-3xl font-bold text-slate-500 mt-2">°C</span>
         </div>
-        
-        <div class="flex items-center justify-center gap-2 mb-4">
-            <span id="main-icon" class="text-2xl">☁️</span>
-            <span id="desc" class="text-xs font-black text-slate-600 uppercase tracking-[0.2em]">Skanowanie nieba</span>
-        </div>
-        <div id="source-tag" class="text-[8px] bg-blue-50 text-blue-400 px-3 py-1 rounded-full font-black uppercase tracking-widest">Satelita</div>
+        <div id="desc" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Czekam na sygnał</div>
     </div>
 
     <div class="w-full max-w-md grid grid-cols-2 gap-4 mb-6">
-        <div id="precip-card" class="b44-card p-5 border border-slate-100">
-            <div class="bg-blue-100 text-blue-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">💧</div>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Opady (Teraz)</p>
-            <p id="precip-val" class="text-2xl font-black text-slate-800">-- mm</p>
+        <div class="b44-card p-5">
+            <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Opady</p>
+            <p id="precip-val" class="text-xl font-black text-slate-800">-- mm</p>
         </div>
-        <div class="b44-card p-5 border border-slate-100">
-            <div class="bg-teal-100 text-teal-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">💨</div>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Wiatr (Live)</p>
+        <div class="b44-card p-5">
+            <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Wiatr</p>
             <p id="wind-val" class="text-xl font-black text-slate-800">-- km/h</p>
-        </div>
-        <div id="aqi-card" class="b44-card p-5 border border-slate-100">
-            <div class="bg-green-100 text-green-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">🍃</div>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Powietrze (AQI)</p>
-            <p id="aqi-val" class="text-2xl font-black text-slate-800">--</p>
-        </div>
-        <div class="b44-card p-5 border border-slate-100">
-            <div class="bg-orange-100 text-orange-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">🌗</div>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Dzień/Noc</p>
-            <p id="day-night" class="text-sm font-black text-slate-800 uppercase">Skan...</p>
-        </div>
-    </div>
-
-    <div class="w-full max-w-md b44-card p-6 mb-6 flex gap-4 border-l-4 border-l-pink-400">
-        <div class="bg-pink-100 text-pink-500 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-pink-200">🤖</div>
-        <div>
-            <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest mb-1">Wskazówka od Architekta</p>
-            <p id="kamila-tip" class="text-sm text-slate-700 font-medium leading-relaxed">System analizuje dane...</p>
         </div>
     </div>
 
     <script>
-        function getWeatherDetails(code) {
-            if (code >= 51 && code <= 67) return { icon: "🌧️", text: "Deszcz" };
-            if (code >= 95) return { icon: "⛈️", text: "Burza" };
-            if (code >= 1 && code <= 3) return { icon: "⛅", text: "Częściowe zachmurzenie" };
-            if (code === 0) return { icon: "☀️", text: "Czyste niebo" };
-            return { icon: "☁️", text: "Zachmurzenie" };
-        }
-
         async function fetchWeather(lat, lon, name) {
+            const btn = document.getElementById('search-btn');
+            const status = document.getElementById('status-line');
+            
             try {
-                // 1. DANE Z SATELITY
-                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code,precipitation,is_day&timezone=auto`);
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code,precipitation&timezone=auto`);
                 const data = await res.json();
                 
-                let curTemp = Math.round(data.current.temperature_2m);
-                let curPrecip = data.current.precipitation;
-                let curWind = Math.round(data.current.wind_speed_10m);
-                let curCode = data.current.weather_code;
-                let source = "Global Satellite";
-
-                // 2. FIX KRAKOWSKI: Jeśli szukasz "Kraków" lub jesteś w Krakowie -> IMGW
-                if (name.toLowerCase().includes("kraków") || name.toLowerCase().includes("twoja pozycja")) {
-                    try {
-                        const imgw = await fetch('https://danepubliczne.imgw.pl/api/data/synop/station/krakow').then(r => r.json());
-                        if (imgw.temperatura) {
-                            curTemp = Math.round(imgw.temperatura);
-                            curPrecip = parseFloat(imgw.suma_opadu) || 0;
-                            curWind = Math.round(imgw.predkosc_wiatru * 3.6);
-                            source = "Lokalna Stacja IMGW";
-                            if (curPrecip > 0) curCode = 61; // Wymuś status deszczu dla ikonek
-                        }
-                    } catch(e) { console.log("Lokalne IMGW offline"); }
-                }
-
-                // 3. AKTUALIZACJA WIDOKU
-                const weather = getWeatherDetails(curCode);
-                document.getElementById('temp').innerText = curTemp;
+                document.getElementById('temp').innerText = Math.round(data.current.temperature_2m);
                 document.getElementById('location-display').innerText = name;
-                document.getElementById('main-icon').innerText = weather.icon;
-                document.getElementById('desc').innerText = weather.text;
-                document.getElementById('precip-val').innerText = curPrecip.toFixed(1) + " mm";
-                document.getElementById('wind-val').innerText = curWind + " km/h";
-                document.getElementById('source-tag').innerText = "Źródło: " + source;
-                document.getElementById('day-night').innerText = data.current.is_day ? "DZIEŃ" : "NOC";
+                document.getElementById('precip-val').innerText = data.current.precipitation + " mm";
+                document.getElementById('wind-val').innerText = Math.round(data.current.wind_speed_10m) + " km/h";
+                document.getElementById('desc').innerText = "Dane zaktualizowane";
+                
+                // Przywróć przycisk
+                btn.innerText = "SYNCHRONIZUJ DANE 📡";
+                btn.classList.remove('btn-loading');
+                status.innerText = "Połączono z satelitą";
 
-                // 4. WSKAZÓWKA SYSTEMOWA
-                const tip = document.getElementById('kamila-tip');
-                const pCard = document.getElementById('precip-card');
-                if (curPrecip > 0) {
-                    tip.innerHTML = `Namierzyłem deszcz (<span class="text-blue-500 font-bold">${curPrecip}mm</span>) prosto z krakowskiej stacji. Bierz parasol! 🌧️`;
-                    pCard.classList.add('live-pulse');
-                } else {
-                    tip.innerText = "Brak opadów według lokalnych odczytów. Spokojnego dnia! ☀️";
-                    pCard.classList.remove('live-pulse');
-                }
-
-                // 5. AQI (Smog)
-                const aqiRes = await fetch(`https://api.waqi.info/feed/geo:${lat};${lon}/?token=demo`).then(r => r.json());
-                if (aqiRes.status === "ok") {
-                    document.getElementById('aqi-val').innerText = aqiRes.data.aqi;
-                }
-
-            } catch (e) { console.error(e); }
-        }
-
-        async function searchManual() {
-            const input = document.getElementById('city-input');
-            const city = input.value;
-            if(!city) return;
-            const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=pl&format=json`).then(r => r.json());
-            if(geo.results) {
-                const b = geo.results[0];
-                // Kluczowy moment: Przekazujemy nazwę miasta, by filtr "Kraków" zadziałał
-                fetchWeather(b.latitude, b.longitude, b.name + ", " + b.country);
+            } catch (e) { 
+                btn.innerText = "BŁĄD POŁĄCZENIA";
             }
         }
 
+        async function searchManual() {
+            const city = document.getElementById('city-input').value;
+            if(!city) return;
+
+            const btn = document.getElementById('search-btn');
+            btn.innerText = "ŁĄCZĘ Z SATELITĄ... ⏳";
+            btn.classList.add('btn-loading');
+
+            try {
+                // FIX BRZESKA: Pobieramy 10 wyników zamiast 1
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=pl&format=json`);
+                const geoData = await geoRes.json();
+                
+                if(geoData.results) {
+                    // SORTOWANIE: Wybierz to miasto, które ma największą populację (Brzesko > Nowe Brzesko)
+                    geoData.results.sort((a, b) => (b.population || 0) - (a.population || 0));
+                    const best = geoData.results[0];
+                    fetchWeather(best.latitude, best.longitude, best.name + ", " + best.country);
+                }
+            } catch (e) { btn.innerText = "BŁĄD LOKALIZACJI"; }
+        }
+
         window.onload = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    p => fetchWeather(p.coords.latitude, p.coords.longitude, "Twoja Pozycja GPS"), 
-                    () => fetchWeather(50.06, 19.94, "Kraków, Polska")
-                );
-            } else { fetchWeather(50.06, 19.94, "Kraków, Polska"); }
+            fetchWeather(50.06, 19.94, "Kraków, Polska");
         };
     </script>
 </body>
