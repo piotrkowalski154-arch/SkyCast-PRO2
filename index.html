@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Architekt: Piotrek</title>
     
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json-2">
     <meta name="theme-color" content="#2563eb">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,8 +51,9 @@
         .search-area { display: flex; gap: 8px; }
         input {
             flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none;
+            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
         }
+        input:focus { background: white; border-color: var(--blue); }
         button {
             padding: 0 22px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer;
@@ -83,6 +84,8 @@
         /* MODUŁ INTELIGENCJI 🧠🚨 */
         .intel-shield { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); background: white; transition: 0.4s; }
         .intel-shield.alarm { border-left-color: var(--red); }
+        .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
+
         .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
         .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; margin-bottom: 2px;}
         .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
@@ -161,7 +164,7 @@
         <div class="card manifest animate" style="animation-delay: 0.7s">
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
-                Robię pizzę, projektuję przyszłość. System wykorzystuje autorską logikę triangulacji danych 🧠👷. 
+                Robię pizzę, projektuję przyszłość. System v27.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
                 Dziękuję za wsparcie mojego rozwoju!
             </p>
         </div>
