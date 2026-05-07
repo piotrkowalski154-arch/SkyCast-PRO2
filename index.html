@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO - Lucky Smart Engine V5</title>
+    <title>SkyCast PRO - Threat Matrix V5.3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
         
-        /* 100% Zgodność z Szablonem Base44 - Styl tła i czcionka */
         body { 
             background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%); 
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -16,7 +15,6 @@
             min-height: 100vh;
         }
 
-        /* Klasyczne "szklane" karty z delikatnym cieniem z Base44 */
         .b44-card { 
             background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(10px);
@@ -28,11 +26,9 @@
         .b44-card-light { background: #F9FAFB; border-radius: 1rem; }
         .btn-blue { background-color: #8BB8F8; color: white; border-radius: 1rem; }
         
-        /* Ukrywanie paska przewijania (dla prognozy godzinowej) */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* PULSACYJNY SYSTEM OSTRZEGAWCZY (Gdy wiatr > 30 km/h) */
         @keyframes pulsateWarning {
             0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
             70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
@@ -44,9 +40,11 @@
 <body class="flex flex-col items-center p-4 pb-12">
 
     <header class="text-center mt-6 mb-8 relative w-full max-w-md">
-        <div class="text-4xl mb-1 relative">
-            <span class="relative">☀️</span>
-            <span class="text-xl absolute -top-3 -right-2">🛡️</span>
+        <div class="flex justify-center mb-2">
+            <div class="relative inline-block">
+                <span class="text-5xl">☀️</span>
+                <span class="absolute -bottom-1 -right-2 text-xl bg-white rounded-full shadow-sm">🛡️</span>
+            </div>
         </div>
         <h1 class="text-3xl font-extrabold text-slate-900 tracking-tighter">SkyCast <span class="text-blue-500">PRO</span></h1>
         <p class="text-[11px] text-slate-400 font-semibold tracking-widest mt-1">☁️ TWÓJ GLOBALNY ANIOŁ STRÓŻ ☁️</p>
@@ -55,7 +53,7 @@
     <div class="w-full max-w-md mb-6">
         <div class="relative mb-3">
             <span class="absolute left-4 top-4 text-slate-400">🔍</span>
-            <input id="city-input" type="text" placeholder="Szukaj miasta na świecie..." class="w-full p-4 pl-12 b44-card text-slate-800 font-semibold outline-none focus:ring-2 focus:ring-blue-300 transition-all placeholder:text-slate-300">
+            <input id="city-input" type="text" placeholder="Wpisz miasto..." class="w-full p-4 pl-12 b44-card text-slate-800 font-semibold outline-none focus:ring-2 focus:ring-blue-300 transition-all placeholder:text-slate-300">
         </div>
         <button onclick="searchManual()" class="w-full btn-blue font-bold py-4 rounded-xl uppercase tracking-widest text-sm shadow-md shadow-blue-200 active:scale-95 transition-all">
             SZUKAJ SŁOŃCA
@@ -64,25 +62,25 @@
 
     <div id="warning-bar" class="w-full max-w-md b44-card bg-red-50 p-5 mb-6 flex flex-col relative overflow-hidden border border-red-100 hidden">
         <div class="flex items-start gap-4 mb-3">
-            <div class="bg-red-100 p-3 rounded-xl text-red-500 text-xl flex-shrink-0">🔔</div>
+            <div class="bg-red-100 p-3 rounded-xl text-red-500 text-xl flex-shrink-0">🚨</div>
             <div>
-                <h3 class="font-bold text-red-700 text-sm flex items-center gap-1">⚡ Alerty Zagrożeń</h3>
-                <p class="text-xs text-red-600 mt-1">Namierzanie zagrożeń dla: <br><span id="alert-city" class="text-red-900 font-bold">Twoja Pozycja</span></p>
+                <h3 class="font-bold text-red-700 text-sm flex items-center gap-1">Alerty Systemowe</h3>
+                <p class="text-xs text-red-600 mt-1">Wykryto zagrożenia dla: <br><span id="alert-city" class="text-red-900 font-bold">Twoja Pozycja</span></p>
             </div>
         </div>
         <div class="flex items-center gap-2 mb-3">
             <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-            <span id="alert-title" class="text-xs font-bold text-red-700 uppercase tracking-widest">SYSTEM WYKRYŁ ZAGROŻENIE</span>
+            <span class="text-[10px] font-black text-red-700 uppercase tracking-widest">Wymagana Ostrożność</span>
         </div>
-        <div id="alert-msg" class="bg-red-100/50 text-red-800 p-3 rounded-xl text-xs font-bold flex items-center gap-2">
-            <span>🛡️</span> <span id="alert-detail">Czekam na dane...</span>
+        <div id="alert-msg" class="bg-red-100/50 text-red-800 p-3 rounded-xl text-xs font-semibold flex flex-col gap-2">
+            <div id="alert-detail">Czekam na dane...</div>
         </div>
     </div>
 
     <div class="w-full max-w-md b44-card p-6 mb-6 text-center relative overflow-hidden">
-        <div id="location-bar" class="w-full max-w-md flex items-center p-2 mb-4 b44-card-light">
-            <span class="text-blue-500 text-xl pl-2 pr-3">📍</span>
-            <input type="text" id="location-name-input" value="Twoja Lokalizacja" class="flex-grow p-1 bg-transparent outline-none text-sm font-semibold text-slate-800">
+        <div id="location-bar" class="w-full max-w-md flex items-center justify-center p-2 mb-4 b44-card-light">
+            <span class="text-red-400 text-lg mr-1">📍</span>
+            <input type="text" id="location-name-input" value="Lokalizowanie..." class="p-1 bg-transparent outline-none text-sm font-bold text-slate-700 text-center w-full" readonly>
         </div>
         
         <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Temperatura (Teraz)</p>
@@ -132,11 +130,11 @@
     </div>
 
     <div class="w-full max-w-md b44-card p-6 mb-6 flex gap-4 border-l-4 border-l-pink-400">
-        <div class="bg-pink-100 text-pink-500 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-pink-200">🤖</div>
+        <div class="bg-pink-100 text-pink-500 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-pink-200">🧠</div>
         <div>
-            <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest mb-1 flex items-center gap-1">✨ Analiza Systemowa V5</p>
+            <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest mb-1 flex items-center gap-1">✨ Analiza Systemowa V5.3</p>
             <p id="kamila-tip" class="text-sm text-slate-700 font-medium leading-relaxed">
-                Łączę się z bazą danych... sekunda! 😉
+                Przetwarzam dane z orbity...
             </p>
         </div>
     </div>
@@ -147,10 +145,10 @@
             O Projekcie
         </h3>
         <p class="text-[11px] text-slate-600 font-medium leading-relaxed mb-3">
-            Ten system pogodowy napisałem <strong>samodzielnie od podstaw</strong>, ucząc się logiki kodowania IT i integracji satelitarnej. To moje autorskie dzieło bez limitów i korporacji!
+            Ten system pogodowy napisałem <strong>samodzielnie od podstaw</strong>, ucząc się logiki kodowania IT i integracji satelitarnej. To moje autorskie dzieło bez limitów!
         </p>
         <div class="inline-block bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-[9px] font-extrabold uppercase tracking-widest">
-            Udało Się! (Kliknij 👋)
+            Kliknij Mnie 👋
         </div>
     </div>
 
@@ -160,9 +158,6 @@
     </div>
 
     <script>
-        // --- SEKCJA KODOWANIA: LOGIKA POGODOWA V5 ---
-        
-        // Tłumacz kodów WMO na interaktywne ikony i teksty (Live Edition)
         function getWeatherDetails(code) {
             if (code === 0) return { icon: "☀️", text: "Czyste Niebo" };
             if (code === 1 || code === 2 || code === 3) return { icon: "⛅", text: "Zmienne Zachmurzenie" };
@@ -174,23 +169,18 @@
             return { icon: "☁️", text: "Pochmurno" };
         }
 
-        // Główny silnik pobierania danych z satelity Open-Meteo
         async function fetchWeather(lat, lon, name) {
             try {
-                // Potężne zapytanie API pobierające mnóstwo danych na żywo
                 const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code&hourly=temperature_2m,precipitation_probability,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
                 const data = await res.json();
                 
-                // Dane bieżące
                 const current = data.current;
                 const weather = getWeatherDetails(current.weather_code);
                 const currentWind = current.wind_speed_10m;
                 
-                // Namierzanie Max/Min na dziś
                 const max = Math.round(data.daily.temperature_2m_max[0]);
                 const min = Math.round(data.daily.temperature_2m_min[0]);
                 
-                // Wypełnianie HTML (Oprawa Foto 1)
                 document.getElementById('location-name-input').value = name;
                 document.getElementById('alert-city').innerText = name;
                 document.getElementById('temp').innerText = Math.round(current.temperature_2m);
@@ -200,57 +190,80 @@
                 document.getElementById('desc').innerText = weather.text;
                 document.getElementById('state-small').innerText = weather.text;
                 
-                // Kafelki 4 Grid (Oprawa Foto 1)
                 document.getElementById('wind').innerText = currentWind + " km/h";
                 const windTextEl = document.querySelector('#wind-card p.text-slate-400.font-medium.mt-1');
-                if (currentWind > 10) windTextEl.innerText = "Satelita Skanuje: Wiatr Silniejszy";
-                else windTextEl.innerText = "Satelita Skanuje: Spokojnie";
+                if (currentWind > 10) windTextEl.innerText = "Satelita: Wiatr Silniejszy";
+                else windTextEl.innerText = "Satelita: Spokojnie";
 
-                // Prawdopodobieństwo opadów (dzisiaj popołudniu i wieczorem)
-                // Zakładamy: i=14 to 14:00 (Dzień), i=20 to 20:00 (Wieczór)
-                const currentHour_api = new Date().getHours();
                 const popDay = data.hourly.precipitation_probability[14] || 0; 
                 const popNight = data.hourly.precipitation_probability[20] || 0; 
                 document.getElementById('pop-day').innerText = popDay + "%";
                 document.getElementById('pop-night').innerText = popNight + "%";
 
-                // LOGIKA ALERTÓW (Design z Foto 2) ORAZ PULSACYJNE KAFELKI (Interactive)
+                // ==========================================
+                // 🚨 ZAAWANSOWANE ALERTY (CZERWONY PASEK)
+                // ==========================================
                 const warningBar = document.getElementById('warning-bar');
                 const windCard = document.getElementById('wind-card');
-                const popNightPercent = data.hourly.precipitation_probability[20];
+                
+                let isAlertActive = false;
+                let alertDetailHTML = "";
 
-                if (currentWind > 30 || popNightPercent > 70) {
-                    // Wyświetl Czerwony Pasek Zagrożeń z dzwonkiem (jak na foto 2)
+                if (current.weather_code >= 95) {
+                    alertDetailHTML += `<div class="flex items-start gap-1"><span>⚡</span><span>Wykryto burze/wyładowania w Twoim regionie!</span></div>`;
+                    isAlertActive = true;
+                }
+                if (currentWind >= 35) {
+                    alertDetailHTML += `<div class="flex items-start gap-1"><span>💨</span><span>Bardzo silny wiatr: <span class="font-black">${currentWind} km/h</span>.</span></div>`;
+                    isAlertActive = true;
+                }
+                if (max >= 32) {
+                    alertDetailHTML += `<div class="flex items-start gap-1"><span>🥵</span><span>Ekstremalny upał do <span class="font-black">${max}°C</span>. Unikaj słońca.</span></div>`;
+                    isAlertActive = true;
+                } else if (min <= -5) {
+                    alertDetailHTML += `<div class="flex items-start gap-1"><span>🥶</span><span>Silny mróz: <span class="font-black">${min}°C</span>. Możliwe oblodzenia.</span></div>`;
+                    isAlertActive = true;
+                }
+                if (popDay > 80 || popNight > 80) {
+                    alertDetailHTML += `<div class="flex items-start gap-1"><span>🌧️</span><span>Wysokie ryzyko ulewnych opadów dzisiaj.</span></div>`;
+                    isAlertActive = true;
+                }
+
+                if (isAlertActive) {
                     warningBar.classList.remove('hidden');
-                    // Dodaj interaktywną, pulsacyjną ramkę do kafelków wiatru/opadów
-                    windCard.classList.add('warning-pulsate');
+                    if(currentWind >= 35) windCard.classList.add('warning-pulsate');
+                    else windCard.classList.remove('warning-pulsate');
                     
-                    let alertDetailText = "";
-                    if (currentWind > 30) alertDetailText += `Wiatr przekracza <span class="font-bold">${currentWind} km/h</span>. `;
-                    if (popNightPercent > 70) alertDetailText += `Opady wieczorem <span class="font-bold">${popNightPercent}%</span>. Zabezpiecz teren!`;
-                    document.getElementById('alert-detail').innerHTML = alertDetailText;
-
+                    document.getElementById('alert-detail').innerHTML = alertDetailHTML;
                 } else {
-                    // Ukryj pasek zagrożeń, gdy jest spokojnie
                     warningBar.classList.add('hidden');
-                    // Usuń interaktywną ramkę
                     windCard.classList.remove('warning-pulsate');
                 }
 
-                // WSKAZÓWKA OD ARCHITEKTA: UNIWERSALNA, POGODOWA (ale w szablonie 'u Kamili')
+                // ==========================================
+                // MĄDRE WSKAZÓWKI (DOLNA KARTA)
+                // ==========================================
                 const tipEl = document.getElementById('kamila-tip');
-                const rainEvening = data.hourly.precipitation_probability[20];
                 const tempEvening = Math.round(data.hourly.temperature_2m[20]);
+                const currentCode = current.weather_code;
 
-                if (rainEvening > 40) {
-                    tipEl.innerHTML = `Mój system wykrył <span class="text-blue-500 font-bold">${rainEvening}% szansy na deszcz</span> w godzinach wieczornych. Warto zabrać ze sobą parasol i zabezpieczyć plany! 😉☂️`;
+                if (currentCode >= 95) {
+                    tipEl.innerHTML = `Wykryto <span class="text-pink-600 font-bold">burzę w rejonie</span>! Zostań w bezpiecznym miejscu, odłącz sprzęt i unikaj otwartych przestrzeni. ⚡🌪️`;
+                } else if (currentWind > 40) {
+                    tipEl.innerHTML = `Bardzo silne porywy wiatru (<span class="text-teal-600 font-bold">${currentWind} km/h</span>). Uważaj na spadające gałęzie i zachowaj ostrożność na drodze! 💨🚗`;
+                } else if (max > 30) {
+                    tipEl.innerHTML = `Ekstremalny upał! Temperatura osiągnie dziś <span class="text-orange-600 font-bold">${max}°C</span>. Pamiętaj o nawodnieniu i unikaj słońca w południe! 🥵💧`;
+                } else if (min < 0) {
+                    tipEl.innerHTML = `Uwaga na przymrozki! W nocy temperatura spadnie do <span class="text-blue-600 font-bold">${min}°C</span>. Uważaj na oblodzenia! 🥶⛸️`;
+                } else if (popNight > 40) {
+                    tipEl.innerHTML = `Mój system wykrył <span class="text-blue-500 font-bold">${popNight}% szansy na deszcz</span> w godzinach wieczornych. Warto zabrać ze sobą parasol! 😉☂️`;
                 } else if (tempEvening < 10) {
-                     tipEl.innerHTML = `Wieczór zapowiada się chłodno, temperatura spadnie do <span class="text-blue-500 font-bold">${tempEvening}°C</span>. Przygotuj cieplejszą kurtkę przed wyjściem! 😉🧥`;
+                     tipEl.innerHTML = `Wieczór zapowiada się chłodno, temperatura spadnie do <span class="text-blue-500 font-bold">${tempEvening}°C</span>. Przygotuj cieplejszą kurtkę! 😉🧥`;
                 } else {
-                    tipEl.innerHTML = `Warunki na dziś są optymalne. Wieczorna temperatura ustabilizuje się w okolicach <span class="text-orange-500 font-bold">${tempEvening}°C</span>. Dobry czas na aktywność na zewnątrz! 😉☀️`;
+                    tipEl.innerHTML = `Warunki na dziś są optymalne. Wieczorna temperatura ustabilizuje się w okolicach <span class="text-orange-500 font-bold">${tempEvening}°C</span>. Dobry czas na spacer! 😉☀️`;
                 }
 
-                // PĘTLA GODZINOWA (DYNAMICZNA): Design z Foto 1
+                // Pętla Godzinowa
                 const hourlyDiv = document.getElementById('hourly-container');
                 hourlyDiv.innerHTML = ""; 
                 const currentHour = new Date().getHours();
@@ -261,7 +274,7 @@
                     const hIcon = getWeatherDetails(data.hourly.weather_code[i]).icon;
                     
                     let timeText = (i === currentHour) ? "Teraz" : `${i}:00`;
-                    if (i >= 24) timeText = `${i-24}:00`; // Po północy
+                    if (i >= 24) timeText = `${i-24}:00`; 
                     
                     hourlyDiv.innerHTML += `
                         <div class="b44-card-light p-3 flex flex-col items-center min-w-[70px]">
@@ -274,20 +287,21 @@
                 }
             } catch (e) { 
                 console.error("Błąd API satelitarnego", e); 
-                document.getElementById('alert-city').innerText = "BŁĄD DANYCH API";
+                document.getElementById('location-name-input').value = "Błąd Połączenia";
             }
         }
 
-        // Funkcja wyszukiwania na świecie z API Open-Meteo
         async function searchManual() {
             const city = document.getElementById('city-input').value;
             if(!city) return;
             try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=pl&format=json`);
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=5&language=pl&format=json`);
                 const geoData = await geoRes.json();
-                if(geoData.results) {
-                    const { latitude, longitude, name, country } = geoData.results[0];
-                    fetchWeather(latitude, longitude, `${name}, ${country}`);
+                
+                if(geoData.results && geoData.results.length > 0) {
+                    geoData.results.sort((a, b) => (b.population || 0) - (a.population || 0));
+                    const bestMatch = geoData.results[0];
+                    fetchWeather(bestMatch.latitude, bestMatch.longitude, `${bestMatch.name}, ${bestMatch.country}`);
                 } else {
                      document.getElementById('city-input').value = "";
                      document.getElementById('city-input').placeholder = "Nie znaleziono miasta...";
@@ -295,22 +309,18 @@
             } catch (e) { console.error("Błąd lokalizacji"); }
         }
 
-        // START: AUTOMATYCZNE POBIERANIE GPS LUB FALLBACK NA KRAKÓW (Live Edition)
         window.onload = () => {
-            // Spróbuj pobrać GPS, jak się nie uda, to ładuj Kraków (tak jak na foto 1)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     p => {
-                        const { latitude, longitude } = p.coords;
-                        fetchWeather(latitude, longitude, "Twoja Pozycja GPS");
+                        fetchWeather(p.coords.latitude, p.coords.longitude, "Twoja Pozycja GPS");
                     },
                     (e) => { 
-                        console.log("GPS Wyłączony, fallback na Kraków");
-                        fetchWeather(50.06, 19.94, "Kraków"); // Fallback
+                        fetchWeather(50.06, 19.94, "Kraków, Polska"); 
                     }
                 );
             } else {
-                fetchWeather(50.06, 19.94, "Kraków");
+                fetchWeather(50.06, 19.94, "Kraków, Polska");
             }
         };
     </script>
