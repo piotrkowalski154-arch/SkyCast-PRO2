@@ -3,143 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO | Architekt: Piotrek</title>
+    <title>SkyCast PRO | Projekt: Piotrek</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #dbeafe;
-            --glass: rgba(255, 255, 255, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --accent-blue: #2563eb;
             --accent-orange: #f59e0b;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
         body {
             background: linear-gradient(160deg, #bae6fd 0%, #dbeafe 50%, #fdf4ff 100%);
             background-color: var(--bg-color);
             background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            color: var(--text-dark);
+            display: flex; justify-content: center; padding: 20px; color: var(--text-dark);
         }
 
-        .app-wrapper {
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .app-wrapper { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; }
 
         /* WYSZUKIWARKA */
-        .search-container {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-        }
-
+        .search-container { display: flex; gap: 10px; width: 100%; }
         .search-container input {
-            flex: 1;
-            padding: 15px 20px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            font-size: 1rem;
-            outline: none;
-            font-weight: 600;
+            flex: 1; padding: 15px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
+            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; outline: none; font-weight: 600;
         }
-
-        .search-container button {
-            padding: 0 20px;
-            border-radius: 20px;
-            border: none;
-            background: var(--text-dark);
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-        }
+        .search-container button { padding: 0 20px; border-radius: 20px; border: none; background: var(--text-dark); color: white; font-weight: 700; cursor: pointer; }
 
         /* SZKLANE KAFELKI */
         .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 30px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
-        /* GŁÓWNY MODUŁ */
         .main-weather { text-align: center; padding: 25px 20px; }
         .city-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
-        .big-temp { font-size: 6rem; font-weight: 800; line-height: 1; margin: 10px 0; letter-spacing: -4px; }
-        .condition { font-size: 1.3rem; font-weight: 600; color: var(--accent-blue); }
+        .big-temp { font-size: 6.5rem; font-weight: 800; line-height: 1; margin: 10px 0; letter-spacing: -5px; }
+        .condition { font-size: 1.3rem; font-weight: 600; color: var(--accent-blue); text-transform: capitalize; }
 
-        /* PROGNOZA GODZINOWA */
+        /* SEKCJE PROGNOZ */
         .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: block; }
         
-        .hourly-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
-            padding-bottom: 5px;
-        }
+        .hourly-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; }
         .hourly-scroll::-webkit-scrollbar { display: none; }
         
         .hour-item {
-            min-width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 5px;
-            border-radius: 18px;
+            min-width: 65px; display: flex; flex-direction: column; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.2); padding: 12px 8px; border-radius: 18px;
         }
         .h-time { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
-        .h-temp { font-size: 1rem; font-weight: 800; }
+        .h-temp { font-size: 1.1rem; font-weight: 800; }
 
-        /* PROGNOZA 5 DNI */
         .daily-list { display: flex; flex-direction: column; gap: 10px; }
-        .daily-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
+        .daily-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
         .daily-row:last-child { border-bottom: none; }
-        .d-name { width: 80px; font-weight: 600; }
-        .d-temp { font-weight: 700; font-size: 0.9rem; }
+        .d-name { width: 90px; font-weight: 600; text-transform: capitalize; }
+        .d-temp { font-weight: 700; font-size: 0.95rem; }
 
-        /* WSKAZÓWKA PIOTRKA */
-        .peters-tip {
-            display: flex; gap: 15px; align-items: center;
-            border-left: 5px solid var(--accent-orange);
-        }
+        /* WSKAZÓWKA */
+        .peters-tip { display: flex; gap: 15px; align-items: center; border-left: 5px solid var(--accent-orange); }
         .avatar { font-size: 1.8rem; background: #fff; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .tip-text h4 { font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px; }
-        .tip-text p { font-size: 0.9rem; line-height: 1.4; font-weight: 500; }
+        .tip-text p { font-size: 0.95rem; line-height: 1.4; font-weight: 600; }
 
-        /* HISTORIA - MOJA DROGA IT */
+        /* HISTORIA PIOTRKA */
         .history-card { background: #0f172a; color: #f8fafc; padding: 25px; }
-        .history-card h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
-        .history-card p { font-size: 0.95rem; line-height: 1.6; font-weight: 300; color: #cbd5e1; }
-        .history-card strong { color: #fbbf24; }
-
+        .history-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; }
+        .history-card p { font-size: 1rem; line-height: 1.7; font-weight: 300; color: #cbd5e1; }
+        .history-card strong { color: #fbbf24; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -147,36 +84,27 @@
     <div class="app-wrapper">
         
         <div class="search-container">
-            <input type="text" id="citySearch" placeholder="Wpisz miasto...">
-            <button onclick="startSearch()">SZUKAJ</button>
+            <input type="text" id="cityInput" placeholder="Wpisz miasto..." value="Kraków">
+            <button onclick="pobierzPogode()">SKANUJ</button>
         </div>
 
         <div class="glass-card main-weather">
-            <div class="city-label" id="cityName">SkyCast PRO • Kraków</div>
-            <div class="big-temp" id="mainTemp">24°C</div>
-            <div class="condition" id="mainDesc">☀️ Słonecznie</div>
+            <div class="city-label" id="cityNameDisplay">SkyCast PRO • Oczekiwanie</div>
+            <div class="big-temp" id="mainTempDisplay">--°</div>
+            <div class="condition" id="mainDescDisplay">Skanuj niebo, bracie</div>
         </div>
 
         <div class="glass-card">
             <span class="section-label">Prognoza Godzinowa</span>
-            <div class="hourly-scroll">
-                <div class="hour-item"><span class="h-time">Teraz</span><span>☀️</span><span class="h-temp">24°</span></div>
-                <div class="hour-item"><span class="h-time">15:00</span><span>☀️</span><span class="h-temp">26°</span></div>
-                <div class="hour-item"><span class="h-time">16:00</span><span>🌤️</span><span class="h-temp">25°</span></div>
-                <div class="hour-item"><span class="h-time">17:00</span><span>🌤️</span><span class="h-temp">23°</span></div>
-                <div class="hour-item"><span class="h-time">18:00</span><span>⛅</span><span class="h-temp">21°</span></div>
-                <div class="hour-item"><span class="h-time">19:00</span><span>☁️</span><span class="h-temp">19°</span></div>
+            <div class="hourly-scroll" id="hourlyContainer">
+                <div style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">Brak danych do wyświetlenia</div>
             </div>
         </div>
 
         <div class="glass-card">
-            <span class="section-label">Prognoza na 5 dni</span>
-            <div class="daily-list">
-                <div class="daily-row"><span class="d-name">Jutro</span><span>☀️</span><span class="d-temp"><span style="color:#ef4444">26°</span> / <span style="color:#3b82f6">15°</span></span></div>
-                <div class="daily-row"><span class="d-name">Sobota</span><span>⛅</span><span class="d-temp"><span style="color:#ef4444">23°</span> / <span style="color:#3b82f6">14°</span></span></div>
-                <div class="daily-row"><span class="d-name">Niedziela</span><span>🌧️</span><span class="d-temp"><span style="color:#ef4444">19°</span> / <span style="color:#3b82f6">12°</span></span></div>
-                <div class="daily-row"><span class="d-name">Poniedz.</span><span>🌩️</span><span class="d-temp"><span style="color:#ef4444">18°</span> / <span style="color:#3b82f6">11°</span></span></div>
-                <div class="daily-row"><span class="d-name">Wtorek</span><span>🌤️</span><span class="d-temp"><span style="color:#ef4444">21°</span> / <span style="color:#3b82f6">13°</span></span></div>
+            <span class="section-label">Najbliższe 5 dni</span>
+            <div class="daily-list" id="dailyContainer">
+                <div style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">Brak danych do wyświetlenia</div>
             </div>
         </div>
 
@@ -184,18 +112,16 @@
             <div class="avatar">👨‍💻</div>
             <div class="tip-text">
                 <h4>✨ Wskazówka od Piotrka</h4>
-                <p id="tipP">Niebo jest czyste. Idealny moment na <strong>pracę nad projektami</strong>. Pamiętaj o nawodnieniu! 😉</p>
+                <p id="tipP">Skanuję serwery pogodowe... zaraz powiem Ci, jaki jest plan! 😉</p>
             </div>
         </div>
 
         <div class="glass-card history-card">
             <h2>Cześć, tu Piotrek!</h2>
             <p>
-                Na co dzień możecie mnie spotkać w gastronomii – **robię dla Was pizzę** i dbam o to, by smakowała najlepiej. To moja praca, którą szanuję, ale to, co tu widzicie, to moja prawdziwa pasja.
+                Na co dzień robię dla Was pizzę i dbam o to, by smakowała najlepiej na świecie. To moja praca, którą szanuję. Ale to, co tu widzicie, to moja wielka pasja – **świat IT**.
                 <br><br>
-                **Świat IT to moje hobby**, które stało się sposobem na życie po godzinach. Sam nauczyłem się kodowania i buduję SkyCast PRO od podstaw. Każdy kafel i linijka kodu to owoc mojej nauki.
-                <br><br>
-                Liczę na Wasze wsparcie w tym projekcie – fajnie, że tu zajrzeliście!
+                Nauczyłem się kodowania samemu i buduję ten projekt od podstaw jako moje hobby. Każda linijka tego kodu to dla mnie krok naprzód. Liczę na Wasze wsparcie!
                 <br><br>
                 <strong>Płyniemy z pasją!</strong> 🚀
             </p>
@@ -204,13 +130,96 @@
     </div>
 
     <script>
-        function startSearch() {
-            const city = document.getElementById('citySearch').value;
+        /* ========================================================
+           KONFIGURACJA: WKLEJ SWÓJ KLUCZ API PONIŻEJ:
+           ========================================================
+        */
+        const API_KEY = 'WPISZ_TU_SWÓJ_KLUCZ'; 
+
+        async function pobierzPogode() {
+            const city = document.getElementById('cityInput').value;
             if(!city) return;
 
-            // Symulacja działania bez API (potem tu podepniemy "kable")
-            document.getElementById('cityName').innerText = `SkyCast PRO • ${city.toUpperCase()}`;
-            alert("Skanowanie miasta " + city + "... (W następnym kroku podepniemy tu realne dane z API)");
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric&lang=pl`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if(data.cod === "200") {
+                    odswiezInterfejs(data);
+                } else {
+                    alert("Bracie, nie znalazłem takiego miasta. Sprawdź pisownię!");
+                }
+            } catch (err) {
+                alert("Błąd połączenia. Sprawdź swój klucz API w kodzie!");
+            }
+        }
+
+        function odswiezInterfejs(data) {
+            const teraz = data.list[0];
+            
+            // 1. GŁÓWNA POGODA
+            document.getElementById('cityNameDisplay').innerText = `SkyCast PRO • ${data.city.name}`;
+            document.getElementById('mainTempDisplay').innerText = `${Math.round(teraz.main.temp)}°`;
+            document.getElementById('mainDescDisplay').innerText = teraz.weather[0].description;
+
+            // 2. TWOJE WSKAZÓWKI (Logika od Architekta)
+            const tipBox = document.getElementById('tipP');
+            const temp = teraz.main.temp;
+            const stan = teraz.weather[0].main.toLowerCase();
+            const wiatr = teraz.wind.speed * 3.6;
+
+            let TwojaRada = "Niebo jest stabilne. Idealny czas na kodowanie lub spacer! 🔥";
+
+            if (stan.includes('rain')) {
+                TwojaRada = "System wykrył deszcz. <strong>Koniecznie weź parasol</strong>, żebyś nie zmokła/nie zmokł! ☂️";
+            } else if (temp > 26) {
+                TwojaRada = "Upał na horyzoncie! <strong>Pamiętaj o wodzie</strong> i unikaj słońca w południe. ☀️";
+            } else if (temp < 6) {
+                TwojaRada = "Zrobiło się chłodno. Ubierz się ciepło, zanim wyjdziesz! 🧥";
+            } else if (wiatr > 35) {
+                TwojaRada = "Uwaga, mocno wieje! Uważaj na siebie na zewnątrz. 💨";
+            } else if (stan.includes('clear')) {
+                TwojaRada = "Niebo jest czyste! Korzystaj z pogody, to będzie dobry dzień. 😉";
+            }
+            tipBox.innerHTML = TwojaRada;
+
+            // 3. PROGNOZA GODZINOWA
+            const hBox = document.getElementById('hourlyContainer');
+            hBox.innerHTML = '';
+            for(let i=0; i<8; i++) {
+                const h = data.list[i];
+                const g = new Date(h.dt * 1000).getHours() + ":00";
+                hBox.innerHTML += `
+                    <div class="hour-item">
+                        <span class="h-time">${g}</span>
+                        <span>${pobierzEmotke(h.weather[0].main)}</span>
+                        <span class="h-temp">${Math.round(h.main.temp)}°</span>
+                    </div>`;
+            }
+
+            // 4. PROGNOZA 5 DNI
+            const dBox = document.getElementById('dailyContainer');
+            dBox.innerHTML = '';
+            for(let i=8; i<data.list.length; i+=8) {
+                const d = data.list[i];
+                const nazwaDnia = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
+                dBox.innerHTML += `
+                    <div class="daily-row">
+                        <span class="d-name">${nazwaDnia}</span>
+                        <span>${pobierzEmotke(d.weather[0].main)}</span>
+                        <span class="d-temp">
+                            <span style="color:#ef4444">${Math.round(d.main.temp_max)}°</span> / 
+                            <span style="color:#3b82f6">${Math.round(d.main.temp_min)}°</span>
+                        </span>
+                    </div>`;
+            }
+        }
+
+        function pobierzEmotke(main) {
+            const map = { 'Clear': '☀️', 'Clouds': '🌤️', 'Rain': '🌧️', 'Thunderstorm': '🌩️', 'Snow': '❄️' };
+            return map[main] || '☁️';
         }
     </script>
 </body>
