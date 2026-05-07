@@ -8,10 +8,12 @@
     <style>
         :root {
             --bg-gradient: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 100%);
-            --card-white: rgba(255, 255, 255, 0.9);
-            --text-main: #1e293b;
-            --accent-blue: #3b82f6;
+            --glass: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-dark: #1e293b;
+            --accent-blue: #2563eb;
             --accent-orange: #f59e0b;
+            --accent-green: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -20,110 +22,90 @@
             background: var(--bg-gradient);
             background-attachment: fixed;
             min-height: 100vh;
-            display: flex; justify-content: center; padding: 20px; color: var(--text-main);
+            display: flex; justify-content: center; padding: 20px; color: var(--text-dark);
         }
 
-        .app-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; }
+        .app-wrapper { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; }
 
-        /* WYSZUKIWARKA */
-        .search-bar { display: flex; gap: 10px; width: 100%; }
+        .search-container { display: flex; gap: 10px; width: 100%; }
         input {
-            flex: 1; padding: 18px 25px; border-radius: 25px; border: 1px solid #e2e8f0;
-            background: white; font-size: 1rem; font-weight: 600; outline: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex: 1; padding: 15px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
+            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; outline: none; font-weight: 600;
         }
-        button {
-            padding: 0 25px; border-radius: 25px; border: none; background: #1e293b;
-            color: white; font-weight: 800; cursor: pointer; transition: 0.2s;
-        }
-        button:hover { transform: scale(1.05); }
+        button { padding: 0 20px; border-radius: 20px; border: none; background: var(--text-dark); color: white; font-weight: 700; cursor: pointer; }
 
-        /* PANEL GŁÓWNY */
-        .main-card {
-            background: var(--card-white); border-radius: 40px; padding: 40px 20px; text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); backdrop-filter: blur(10px);
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 30px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
-        .header-tag { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; font-weight: 800; color: #64748b; }
-        .temp-display { font-size: 7.5rem; font-weight: 900; line-height: 1; color: #0f172a; letter-spacing: -6px; margin: 15px 0; }
-        .status-display { font-size: 1.5rem; font-weight: 600; color: var(--accent-blue); text-transform: capitalize; }
 
-        /* SIATKA 2x2 */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .stat-card {
-            background: var(--card-white); border-radius: 30px; padding: 25px 20px;
-            display: flex; flex-direction: column; gap: 10px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        .main-weather { text-align: center; padding: 25px 20px; }
+        .temp-big { font-size: 6rem; font-weight: 800; line-height: 1; letter-spacing: -4px; margin: 10px 0; }
+        
+        /* NOWY STYL DLA SMOGU */
+        .air-quality-badge {
+            display: inline-block; padding: 8px 15px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 800; margin-top: 10px;
         }
-        .icon-box { font-size: 1.5rem; margin-bottom: 5px; }
-        .stat-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #94a3b8; }
-        .stat-value { font-size: 1.5rem; font-weight: 900; }
 
-        /* WSKAZÓWKA OD CIEBIE */
-        .tip-section {
-            background: #fff; border-radius: 30px; padding: 25px; display: flex; gap: 20px; align-items: center;
-            border-left: 6px solid var(--accent-orange); box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: block; }
+        
+        .hourly-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 5px; }
+        .hourly-scroll::-webkit-scrollbar { display: none; }
+        
+        .hour-item {
+            min-width: 65px; display: flex; flex-direction: column; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.2); padding: 10px 5px; border-radius: 18px;
         }
-        .avatar-box { font-size: 2rem; background: #f1f5f9; min-width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; }
-        .tip-content h4 { font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; }
-        .tip-content p { font-size: 1rem; font-weight: 600; line-height: 1.4; }
 
-        /* TWOJA HISTORIA */
-        .bio-card { background: #0f172a; color: white; border-radius: 40px; padding: 35px; }
-        .bio-card h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 15px; }
-        .bio-card p { font-size: 1.05rem; line-height: 1.8; opacity: 0.9; font-weight: 300; }
-        .bio-card strong { color: #38bdf8; }
+        .daily-list { display: flex; flex-direction: column; gap: 10px; }
+        .daily-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+
+        .tip-box { display: flex; gap: 15px; align-items: center; border-left: 5px solid var(--accent-orange); }
+        .avatar { font-size: 1.8rem; background: #fff; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+
+        .history-card { background: #0f172a; color: #f8fafc; padding: 25px; }
+        .history-card strong { color: #fbbf24; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="app-wrapper">
         
-        <div class="search-bar">
-            <input type="text" id="cityInput" placeholder="Skanuj miasto..." value="Kraków">
-            <button onclick="pobierzDane()">SKANUJ</button>
+        <div class="search-container">
+            <input type="text" id="cityInput" placeholder="Wpisz miasto..." value="Kraków">
+            <button onclick="pobierzWszystko()">SKANUJ</button>
         </div>
 
-        <div class="card main-card">
-            <div class="header-tag" id="locLabel">POGODA</div>
-            <div class="temp-display" id="tempVal">--°</div>
-            <div class="status-display" id="descVal">Wpisz miasto i skanuj</div>
+        <div class="glass-card main-weather">
+            <div id="cityName">SKANER ARCHITEKTA</div>
+            <div class="temp-big" id="tempNow">--°</div>
+            <div id="descNow">Czekam na dane...</div>
+            <div id="airQuality" class="air-quality-badge" style="display: none;"></div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="icon-box">💧</div>
-                <div class="stat-label">Wilgotność</div>
-                <div class="stat-value" id="humVal">--%</div>
-            </div>
-            <div class="stat-card">
-                <div class="icon-box">💨</div>
-                <div class="stat-label">Wiatr</div>
-                <div class="stat-value" id="windVal">-- <small>km/h</small></div>
-            </div>
-            <div class="stat-card">
-                <div class="icon-box">☁️</div>
-                <div class="stat-label">Chmury</div>
-                <div class="stat-value" id="cloudVal">--%</div>
-            </div>
-            <div class="stat-card">
-                <div class="icon-box">🌡️</div>
-                <div class="stat-label">Ciśnienie</div>
-                <div class="stat-value" id="pressVal">--</div>
-            </div>
+        <div class="glass-card">
+            <span class="section-label">Najbliższe godziny</span>
+            <div class="hourly-scroll" id="hourlyBox"></div>
         </div>
 
-        <div class="tip-section">
-            <div class="avatar-box">👨‍💻</div>
+        <div class="glass-card">
+            <span class="section-label">Kolejne dni</span>
+            <div class="daily-list" id="dailyBox"></div>
+        </div>
+
+        <div class="glass-card tip-box">
+            <div class="avatar">👨‍💻</div>
             <div class="tip-content">
                 <h4>✨ Wskazówka od Piotrka</h4>
-                <p id="tipText">Skanuję niebo, żeby dać Ci znać, co robić! 😉</p>
+                <p id="tipP">Skanuję serwery... zaraz podpowiem Ci, co robić! 😉</p>
             </div>
         </div>
 
-        <div class="bio-card">
+        <div class="glass-card history-card">
             <h2>Cześć, tu Piotrek!</h2>
             <p>
-                Na co dzień robię dla Was pizzę i dbam o to, by smakowała najlepiej na świecie. Ale to, co tu widzicie, to moja wielka pasja – **świat IT**. Sam nauczyłem się kodowania od podstaw. Marzyłem o tym od dziecka i w końcu odważyłem się zacząć. Liczę na Wasze wsparcie! **Płyniemy z pasją!** 🚀
+                Robię pizzę, ale w IT czuję moc. Ten projekt to mój pierwszy krok. Każda linijka kodu przybliża mnie do celu. **Płyniemy z pasją!** 🚀
             </p>
         </div>
     </div>
@@ -131,45 +113,76 @@
     <script>
         const API_KEY = '107ed911408754b7edeb889e26791ab0';
 
-        async function pobierzDane() {
+        async function pobierzWszystko() {
             const miasto = document.getElementById('cityInput').value;
             if(!miasto) return;
 
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${miasto}&appid=${API_KEY}&units=metric&lang=pl`;
+            // 1. POBIERAMY PROGNOZĘ I WSPÓŁRZĘDNE
+            const urlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${miasto}&appid=${API_KEY}&units=metric&lang=pl`;
 
             try {
-                const response = await fetch(url);
-                const data = await response.json();
+                const res = await fetch(urlForecast);
+                const data = await res.json();
 
-                if(data.cod === 200) {
-                    odswiezUI(data);
-                } else {
-                    alert("Błąd: " + data.message);
+                if(data.cod === "200") {
+                    const lat = data.city.coord.lat;
+                    const lon = data.city.coord.lon;
+                    
+                    // 2. POBIERAMY SMOG (Używając lat i lon)
+                    const urlAir = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+                    const resAir = await fetch(urlAir);
+                    const dataAir = await resAir.json();
+
+                    wyswietlWszystko(data, dataAir);
                 }
             } catch (err) {
-                alert("Błąd połączenia z serwerem.");
+                console.error("Błąd skanowania:", err);
             }
         }
 
-        function odswiezUI(data) {
-            document.getElementById('locLabel').innerText = `POGODA • ${data.name.toUpperCase()}`;
-            document.getElementById('tempVal').innerText = `${Math.round(data.main.temp)}°`;
-            document.getElementById('descVal').innerText = data.weather[0].description;
-            document.getElementById('humVal').innerText = `${data.main.humidity}%`;
-            document.getElementById('windVal').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
-            document.getElementById('cloudVal').innerText = `${data.clouds.all}%`;
-            document.getElementById('pressVal').innerText = `${data.main.pressure} hPa`;
-
-            const tip = document.getElementById('tipText');
-            const t = data.main.temp;
-            const w = data.weather[0].main.toLowerCase();
-
-            let msg = "Pogoda jest stabilna. Idealny dzień na spacer lub kodowanie! 🔥";
-            if (w.includes('rain')) msg = "System wykrył deszcz. <strong>Koniecznie weź parasol</strong>! ☂️";
-            else if (t > 25) msg = "Jest gorąco! <strong>Pamiętaj o wodzie</strong>. Słońce dopisuje! ☀️";
-            else if (t < 8) msg = "Zimno! Ubierz się ciepło przed wyjściem. 🧥";
+        function wyswietlWszystko(data, air) {
+            const teraz = data.list[0];
             
+            // POGODA
+            document.getElementById('cityName').innerText = `SkyCast PRO • ${data.city.name.toUpperCase()}`;
+            document.getElementById('tempNow').innerText = `${Math.round(teraz.main.temp)}°`;
+            document.getElementById('descNow').innerText = teraz.weather[0].description;
+
+            // SMOG (Mapowanie indeksu 1-5 na tekst)
+            const aqi = air.list[0].main.aqi;
+            const aqiLabel = ["Błąd", "Bardzo Dobra", "Dobra", "Umiarkowana", "Zła", "Bardzo Zła"][aqi];
+            const aqiColors = ["", "#10b981", "#84cc16", "#eab308", "#f97316", "#ef4444"];
+            
+            const smogBadge = document.getElementById('airQuality');
+            smogBadge.innerText = `Powietrze: ${aqiLabel}`;
+            smogBadge.style.backgroundColor = aqiColors[aqi];
+            smogBadge.style.color = "white";
+            smogBadge.style.display = "inline-block";
+
+            // LOGIKA PIOTRKA
+            const tip = document.getElementById('tipP');
+            let msg = "Warunki stabilne, bracie. Możesz działać! 🔥";
+            if (aqi >= 4) msg = "Uwaga! <strong>Słabe powietrze</strong>. Lepiej zostań w domu i koduj! 😷";
+            else if (teraz.weather[0].main.toLowerCase().includes('rain')) msg = "Pada! Weź parasol, żeby nie zmokła pizza! ☂️";
             tip.innerHTML = msg;
+
+            // GODZINOWA
+            const hBox = document.getElementById('hourlyBox');
+            hBox.innerHTML = '';
+            for(let i=0; i<8; i++) {
+                const h = data.list[i];
+                const godz = new Date(h.dt * 1000).getHours() + ":00";
+                hBox.innerHTML += `<div class="hour-item"><span>${godz}</span><span>${Math.round(h.main.temp)}°</span></div>`;
+            }
+
+            // DNIOWA
+            const dBox = document.getElementById('dailyBox');
+            dBox.innerHTML = '';
+            for(let i=8; i<data.list.length; i+=8) {
+                const d = data.list[i];
+                const nazwa = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
+                dBox.innerHTML += `<div class="daily-row"><span>${nazwa}</span><span>${Math.round(d.main.temp)}°</span></div>`;
+            }
         }
     </script>
 </body>
