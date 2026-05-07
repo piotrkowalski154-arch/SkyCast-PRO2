@@ -3,96 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO - Intelligence v2.1</title>
+    <title>SkyCast PRO - Oprawa Mistrzowska</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'weather-bg': '#F9FAFB',
+                        'weather-text': '#1F2937',
+                        'weather-mint': '#2DD4BF',
+                        'weather-accent': '#99F6E4',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; }
-        .shield-glow { box-shadow: 0 0 50px rgba(59, 130, 246, 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&display=swap');
+        body { background-color: #F9FAFB; font-family: 'Urbanist', sans-serif; color: #1F2937; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05); }
+        .location-bar { background: white; border-radius: 999px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03); }
+        .warning-overlay { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="flex flex-col items-center min-h-screen p-4 bg-black">
+<body class="flex flex-col items-center p-4">
 
-    <header class="w-full max-w-md text-center py-8">
-        <h1 class="text-4xl font-black text-blue-500 italic">SKYCAST <span class="text-white text-3xl font-light">PRO</span></h1>
-        <p class="text-[9px] text-zinc-500 uppercase tracking-[0.4em] mt-1 font-bold italic">Tactical Intelligence System</p>
-    </header>
-
-    <div id="alert-box" class="w-full max-w-md mb-4 p-4 rounded-2xl border border-zinc-800 bg-zinc-900/50 text-center text-[10px] font-black tracking-[0.2em] text-zinc-500 uppercase">
-        Inicjalizacja Systemu...
+    <div class="w-full max-w-md mt-2 flex items-center justify-center relative mb-6">
+        <h1 class="text-3xl font-extrabold italic tracking-tighter text-slate-800">SKYCAST <span class="text-teal-500">PRO</span></h1>
     </div>
 
-    <div class="w-full max-w-md bg-zinc-900/40 border border-zinc-800 rounded-[2.5rem] p-8 shield-glow backdrop-blur-3xl mb-4 text-center">
-        <div id="location-name" class="text-[10px] text-zinc-500 uppercase mb-4 tracking-widest">Namierzanie GPS...</div>
-        <div id="temp" class="text-9xl font-black text-white mb-2 drop-shadow-lg">--°</div>
-        <div id="description" class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Czekam na dane z satelity</div>
+    <div class="w-full max-w-md location-bar flex items-center p-1 mb-8">
+        <span class="text-teal-400 text-xl pl-4 pr-3">📍</span>
+        <input id="city-input" type="text" placeholder="Szukaj miasta na świecie..." class="flex-grow p-3 bg-transparent outline-none text-sm font-semibold placeholder:text-slate-400 text-slate-800">
+        <button onclick="searchWorld()" class="bg-teal-400 hover:bg-teal-500 text-white p-3 rounded-full flex items-center justify-center transition-all">
+            🔍
+        </button>
+    </div>
+
+    <div id="warning-card" class="w-full max-w-md rounded-full warning-overlay p-6 flex items-center justify-center gap-4 mb-8 text-center shadow-xl shadow-slate-100 hidden">
+        <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-4xl text-red-500">
+            🔔
+        </div>
+        <div>
+            <h3 class="font-bold text-red-700 tracking-tight text-sm">UWAGA: NIEBEZPIECZEŃSTWO</h3>
+            <p id="alert-status" class="text-xs text-red-600 font-medium leading-relaxed uppercase tracking-widest mt-1">Skanowanie zagrożeń dla wybranej strefy...</p>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md glass-card p-10 flex flex-col items-center text-center mb-8 relative">
         
-        <div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-zinc-800/50">
-            <div>
-                <div class="text-[8px] text-zinc-600 uppercase mb-1 tracking-widest font-bold">Siła Wiatru</div>
-                <div id="wind" class="text-lg font-black">-- km/h</div>
+        <div id="location-name" class="text-[10px] text-teal-600 font-black uppercase tracking-[0.3em] mb-4">Namierzanie GPS...</div>
+        
+        <div class="text-9xl mb-3">☀️</div>
+        
+        <div id="temp" class="text-8xl font-black text-slate-900 tracking-tighter drop-shadow-sm mb-1">--°</div>
+        <div id="description" class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Czekam na dane</div>
+        <div id="current-time" class="text-[10px] text-slate-400 font-medium">--:--:-- | --/--</div>
+    </div>
+
+    <div class="w-full max-w-md glass-card p-8 grid grid-cols-3 gap-6 mb-8 text-center">
+        <div>
+            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Zachmurzenie</div>
+            <div id="cloud-cover" class="text-2xl font-black text-teal-600">--%</div>
+        </div>
+        <div>
+            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Opady</div>
+            <div id="precipitation" class="text-2xl font-black text-teal-600">--%</div>
+        </div>
+        <div>
+            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Wiatr</div>
+            <div id="wind" class="text-2xl font-black text-teal-600">-- <span class="text-[10px] font-bold">km/h</span></div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md glass-card p-6 mb-10 overflow-x-auto">
+        <div class="flex items-center gap-6 text-center">
+            <div class="flex-shrink-0">
+                <p class="text-[10px] text-slate-400 font-bold mb-1">Teraz</p>
+                <p class="text-xl">☀️</p>
+                <p class="text-sm font-bold text-slate-800">--°</p>
             </div>
-            <div>
-                <div class="text-[8px] text-zinc-600 uppercase mb-1 tracking-widest font-bold">Kierunek</div>
-                <div id="direction" class="text-lg font-black">--</div>
+            <div class="flex-shrink-0">
+                <p class="text-[10px] text-slate-400 font-bold mb-1">14:00</p>
+                <p class="text-xl">☀️</p>
+                <p class="text-sm font-bold text-slate-800">--°</p>
+            </div>
+            <div class="flex-shrink-0">
+                <p class="text-[10px] text-slate-400 font-bold mb-1">15:00</p>
+                <p class="text-xl">☀️</p>
+                <p class="text-sm font-bold text-slate-800">--°</p>
+            </div>
+            <div class="flex-shrink-0">
+                <p class="text-[10px] text-slate-400 font-bold mb-1">16:00</p>
+                <p class="text-xl">⛅</p>
+                <p class="text-sm font-bold text-slate-800">--°</p>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3 w-full max-w-md mb-6">
-        <a href="https://www.accuweather.com/" target="_blank" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[9px] text-center font-black hover:border-orange-500/50 transition-all text-zinc-500 uppercase tracking-widest">AccuWeather 📡</a>
-        <a href="https://www.windy.com/" target="_blank" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[9px] text-center font-black hover:border-blue-500/50 transition-all text-zinc-500 uppercase tracking-widest">Windy Radar 🌀</a>
-    </div>
-
-    <button onclick="initSentinel()" class="w-full max-w-md bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-3xl active:scale-95 transition-all text-xs uppercase tracking-widest shadow-lg shadow-blue-900/20">
-        AKTUALIZUJ STATUS 🛡️
-    </button>
-
-    <footer class="mt-auto pb-6 text-center text-zinc-800 text-[8px] font-bold uppercase tracking-[0.3em]">
-        Architekt: Piotrek • Lucky Smart 2.0 Engine
+    <footer class="mt-auto pb-6 text-center">
+        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.3em]">Architekt: Piotrek • Lucky Smart Engine V3</p>
     </footer>
 
     <script>
-        async function initSentinel() {
-            const locLabel = document.getElementById('location-name');
-            const alertBox = document.getElementById('alert-box');
+        async function fetchWeather(lat, lon, name = "Twoja Lokalizacja") {
+            try {
+                // Nowe API pobiera więcej szczegółów (Zachmurzenie, Opady, Godziny)
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,cloud_cover,wind_speed_10m&hourly=temperature_2m,weather_code&timezone=auto`);
+                const data = await res.json();
+                
+                const current = data.current;
+                const temp = Math.round(current.temperature_2m);
+                const wind = current.wind_speed_10m;
+                const cloud = current.cloud_cover;
+                const precip = current.precipitation;
 
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    
-                    try {
-                        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                        const data = await res.json();
-                        
-                        const temp = Math.round(data.current_weather.temperature);
-                        const wind = data.current_weather.windspeed;
+                // Aktualizacja głównego panelu
+                document.getElementById('temp').innerText = temp + "°";
+                document.getElementById('description').innerText = "System Sentinel Czuwa";
+                document.getElementById('location-name').innerText = name;
+                
+                // Aktualizacja panelu szczegółów (Zunifikowany design)
+                document.getElementById('cloud-cover').innerText = cloud + "%";
+                document.getElementById('precipitation').innerText = Math.round(precip) + "%";
+                document.getElementById('wind').innerText = wind + " km/h";
 
-                        document.getElementById('temp').innerText = temp + "°";
-                        document.getElementById('wind').innerText = wind + " km/h";
-                        document.getElementById('direction').innerText = data.current_weather.winddirection + "°";
-                        document.getElementById('description').innerText = "System Sentinel Czuwa";
-                        locLabel.innerText = `POS: ${lat.toFixed(2)}N, ${lon.toFixed(2)}E`;
-                        
-                        // LOGIKA ALERTÓW (To jest Twoja pierwsza funkcja 'IF')
-                        if (wind > 35) {
-                            alertBox.innerText = "⚠️ ZAGROŻENIE: BARDZO SILNY WIATR!";
-                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-red-600 bg-red-600/20 text-center text-[10px] font-black text-red-500 uppercase tracking-widest";
-                        } else if (temp < 0) {
-                            alertBox.innerText = "❄️ ALERT: RYZYKO GOŁOLEDZI";
-                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-blue-400 bg-blue-400/20 text-center text-[10px] font-black text-blue-300 uppercase tracking-widest";
-                        } else {
-                            alertBox.innerText = "✅ WARUNKI ATMOSFERYCZNE STABILNE";
-                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-green-500/30 bg-green-500/5 text-center text-[10px] font-black text-green-500 uppercase tracking-widest";
-                        }
-                    } catch (e) { 
-                        alertBox.innerText = "BŁĄD DANYCH API";
-                    }
-                });
+                // LOGIKA ALERTÓW (Okrągły panel z Foto 2)
+                const warningCard = document.getElementById('warning-card');
+                const alertStatus = document.getElementById('alert-status');
+
+                if (wind > 25 || temp > 30) {
+                    warningCard.classList.remove('hidden');
+                    alertStatus.innerText = "🛑 UWAGA: SILNY WIATR / UPAŁ - ZACHOWAJ OSTROŻNOŚĆ";
+                } else {
+                    warningCard.classList.add('hidden');
+                }
+
+                // Czas i Data
+                const now = new Date();
+                document.getElementById('current-time').innerText = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} | ${now.getDate()}/${now.getMonth() + 1}`;
+
+            } catch (e) { console.error("Błąd API"); }
+        }
+
+        async function searchWorld() {
+            const city = document.getElementById('city-input').value;
+            if (!city) return;
+            const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=pl&format=json`);
+            const geoData = await geoRes.json();
+            if (geoData.results) {
+                const { latitude, longitude, name, country } = geoData.results[0];
+                fetchWeather(latitude, longitude, `${name}, ${country}`);
             }
         }
-        initSentinel();
+
+        window.onload = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(p => fetchWeather(p.coords.latitude, p.coords.longitude));
+            }
+        };
     </script>
 </body>
 </html>
