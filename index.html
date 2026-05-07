@@ -187,7 +187,13 @@
             const iTitle = document.getElementById('intelTitle');
             const iIcon = document.getElementById('intelIcon');
             const weather = teraz.weather[0].main.toLowerCase();
-            const hour = new Date().getHours();
+            
+            // POBIERAMY DOKŁADNY CZAS DO KOMUNIKATU
+            const now = new Date();
+            const hour = now.getHours();
+            // Formatujemy minuty, żeby zawsze miały 2 cyfry (np. "05" zamiast "5")
+            const minute = now.getMinutes().toString().padStart(2, '0');
+            const fullTime = `${hour}:${minute}`;
 
             iWidget.classList.remove('alarm', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja SkyCast";
@@ -209,7 +215,8 @@
                 iIcon.className = "icon-box anim-bounce";
             }
             else if (hour >= 22 || hour < 5) {
-                msg = `Mamy godzinę ${hour}:00. Jaki rower? 🌙🤣🤣 Architekt już odpoczywa, Ty też powinieneś!`;
+                // TUTAJ WSTAWIONY JEST DOKŁADNY CZAS
+                msg = `Mamy godzinę ${fullTime}. Jaki rower? 🌙🤣🤣 Architekt już odpoczywa, Ty też powinieneś!`;
                 iIcon.innerText = "🌙";
                 iIcon.className = "icon-box anim-float";
             }
