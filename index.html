@@ -3,251 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO</title>
+    <title>SkyCast PRO - Architekt: Piotrek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #121212;
-            --tile-bg: rgba(255, 255, 255, 0.05);
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --accent: #00e5ff;
-            --alert: #ff4757;
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
+            --icon-blue: #60a5fa;
+            --icon-purple: #a78bfa;
+            --icon-teal: #2dd4bf;
+            --icon-orange: #fb923c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 20px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            background: linear-gradient(90deg, var(--accent), #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .search-box {
+        .search-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
             display: flex;
             gap: 10px;
-            margin-top: 15px;
         }
 
-        input {
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid var(--text-muted);
-            background: transparent;
-            color: var(--text-main);
+        .search-container input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             font-size: 1rem;
             outline: none;
-            width: 250px;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
         }
 
-        button {
-            padding: 12px 25px;
-            border-radius: 25px;
+        .search-container button {
+            padding: 15px 25px;
+            border-radius: 20px;
             border: none;
-            background-color: var(--accent);
-            color: #000;
-            font-weight: bold;
+            background: var(--text-dark);
+            color: white;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease;
         }
 
-        button:hover {
+        .search-container button:hover {
             transform: scale(1.05);
         }
 
-        /* Nowoczesny układ kafelkowy */
         .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
             width: 100%;
-            max-width: 900px;
-        }
-
-        .tile {
-            background: var(--tile-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            gap: 15px;
+        }
+
+        /* Wspólny styl kafelków (Glassmorphism) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Główny kafelek temperatury */
+        .main-temp {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .tile:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 229, 255, 0.1);
-        }
-
-        .tile-title {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        .main-temp h2 {
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
         }
-
-        .tile-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* Animacje statusów */
-        .alert-active {
-            border: 2px solid var(--alert);
-            animation: pulse-alert 2s infinite;
-        }
-
-        .rain-active {
-            border: 1px solid var(--accent);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .rain-active::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: 0;
-            width: 100%;
-            height: 200%;
-            background: linear-gradient(to bottom, rgba(0,229,255,0) 0%, rgba(0,229,255,0.1) 50%, rgba(0,229,255,0) 100%);
-            animation: rain-fall 1.5s linear infinite;
-        }
-
-        @keyframes pulse-alert {
-            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 71, 87, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
-        }
-
-        @keyframes rain-fall {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50%); }
-        }
-
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>SkyCast PRO</h1>
-        <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Wpisz miasto (np. Kraków)">
-            <button onclick="fetchWeatherData()">Skanuj</button>
-        </div>
-    </header>
-
-    <div class="dashboard" id="weatherDashboard">
-        <div class="tile">
-            <div class="tile-title">Status</div>
-            <div class="tile-value" style="font-size: 1.2rem;">Oczekuję na dane...</div>
-        </div>
-    </div>
-
-    <script>
-        // Tutaj wklej swój klucz API (np. z OpenWeatherMap lub IMGW)
-        const API_KEY = 'TWÓJ_KLUCZ_API'; 
-
-        async function fetchWeatherData() {
-            const city = document.getElementById('cityInput').value.trim();
-            if (!city) return;
-
-            // OPCJA 1: Wymuszanie lokalizacji w Polsce
-            // Doklejamy ",PL", aby odciąć zagraniczne duplikaty nazw miast
-            const queryLocation = `${city},PL`;
-            
-            const dashboard = document.getElementById('weatherDashboard');
-            dashboard.innerHTML = `<div class="tile"><div class="tile-value" style="font-size: 1.2rem;">Skanowanie atmosfery...</div></div>`;
-
-            try {
-                // Przykładowy endpoint OpenWeatherMap (zmień URL jeśli używasz innego API)
-                // Wymuszamy jednostki metryczne (Celsius) i język polski
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=${queryLocation}&appid=${API_KEY}&units=metric&lang=pl`;
-                
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Nie znaleziono miasta lub błąd API');
-                
-                const data = await response.json();
-                
-                updateDashboard(data);
-            } catch (error) {
-                dashboard.innerHTML = `
-                    <div class="tile alert-active">
-                        <div class="tile-title">Błąd Skanera</div>
-                        <div class="tile-value" style="font-size: 1.5rem; color: #ff4757;">${error.message}</div>
-                    </div>`;
-            }
-        }
-
-        function updateDashboard(data) {
-            const dashboard = document.getElementById('weatherDashboard');
-            
-            // Pobieranie kluczowych danych
-            const temp = Math.round(data.main.temp);
-            const description = data.weather[0].description;
-            const humidity = data.main.humidity;
-            const wind = Math.round(data.wind.speed * 3.6); // Konwersja na km/h
-            const isRaining = data.weather[0].main.toLowerCase() === 'rain';
-            const isAlert = wind > 70 || temp > 35 || temp < -15; // Przykładowe parametry alertu
-
-            // Renderowanie kafelków z dynamicznymi klasami (animacje)
-            dashboard.innerHTML = `
-                <div class="tile">
-                    <div class="tile-title">Lokalizacja</div>
-                    <div class="tile-value" style="font-size: 2rem;">${data.name}</div>
-                    <div style="color: var(--text-muted);">Polska</div>
-                </div>
-
-                <div class="tile">
-                    <div class="tile-title">Temperatura</div>
-                    <div class="tile-value">${temp}°C</div>
-                    <div style="color: var(--text-muted); text-transform: capitalize;">${description}</div>
-                </div>
-
-                <div class="tile ${isRaining ? 'rain-active' : ''}">
-                    <div class="tile-title">Wilgotność / Opad</div>
-                    <div class="tile-value">${humidity}%</div>
-                    <div style="color: var(--text-muted);">${isRaining ? 'Trwają opady za oknem' : 'Brak opadów'}</div>
-                </div>
-
-                <div class="tile ${isAlert ? 'alert-active' : ''}">
-                    <div class="tile-title">Wiatr</div>
-                    <div class="tile-value">${wind} km/h</div>
-                    <div style="color: var(--alert); font-weight: bold; display: ${isAlert ? 'block' : 'none'};">
-                        ⚠️ ALERT POGODOWY
-                    </div>
-                </div>
-            `;
-        }
-
-        // Automatyczne odświeżanie danych co 10 minut (600 000 ms), aby pokazywać to, co za oknem
-        setInterval(() => {
-            if(document.getElementById('cityInput').value.trim() !== "") {
-                fetchWeatherData();
-            }
-        }, 600000);
-
-    </script>
-</body>
-</html>
+        
