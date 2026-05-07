@@ -27,35 +27,36 @@
 
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
 
-        /* --- ANIMACJE --- */
+        /* --- ANIMACJE INTERAKTYWNE --- */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-        @keyframes intelPulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.2); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
-        .anim-pulse { display: inline-block; animation: intelPulse 2s ease-in-out infinite; }
-        
-        .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
+        .animate { animation: slideIn 0.5s ease-out forwards; opacity: 0; }
 
         /* WYSZUKIWARKA */
         .search-area { display: flex; gap: 8px; }
         input {
             flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none;
+            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
         }
+        input:focus { background: white; border-color: var(--blue); }
         button {
             padding: 0 20px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer; transition: 0.2s;
         }
+        button:hover { transform: scale(1.05); }
 
         /* KAFELKI */
         .card {
             background: var(--glass); backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
             border-radius: 30px; padding: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: 0.3s;
         }
 
         .main-hero { text-align: center; padding: 35px 15px; }
@@ -64,27 +65,29 @@
         .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
 
         /* MODUŁ INTELIGENCJI 🧠👷 */
-        .intel-shield { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); background: white; }
-        .intel-shield.alarm { border-left-color: var(--red); }
-        .intel-shield.storm { border-left-color: var(--purple); }
+        .intel-shield { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); background: white; cursor: pointer; }
+        .intel-shield:active { transform: scale(0.98); }
+        .intel-shield.alarm { border-left-color: var(--red); animation: pulseAlert 2s infinite; }
+        .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
 
         .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
         .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; }
         .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
 
-        /* LISTY */
+        /* PROGNOZY */
         .label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; display: block; }
         .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; }
         .scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 70px; display: flex; flex-direction: column; align-items: center; gap: 6px; background: rgba(255,255,255,0.4); padding: 12px 0; border-radius: 20px; }
+        .h-box { min-width: 70px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); padding: 15px 0; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
+        .h-box:hover { background: white; border-color: var(--glass-border); transform: translateY(-5px); }
 
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
-        .d-row:last-child { border-bottom: none; }
+        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); transition: 0.2s; }
+        .d-row:hover { background: rgba(255,255,255,0.3); border-radius: 10px; padding-left: 10px; padding-right: 10px; }
 
         /* MANIFEST */
         .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
-        .manifest h2 { font-size: 1.4rem; margin-bottom: 12px; color: #fff; }
-        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; color: #94a3b8; }
+        .manifest h2 { font-size: 1.4rem; margin-bottom: 12px; }
+        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; }
     </style>
 </head>
 <body>
@@ -103,7 +106,7 @@
             <div id="aqiTag" style="display:none; padding: 6px 14px; border-radius: 12px; margin-top: 12px; font-weight: 900; color: white; font-size: 0.7rem;"></div>
         </div>
 
-        <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.3s">
+        <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.3s" onclick="alert('System SkyCast PRO jest aktywny i czuwa nad Twoim rozwojem! 🚀')">
             <div class="icon-box anim-pulse" id="intelIcon">🧠</div>
             <div class="intel-text">
                 <h4 id="intelTitle">Uniwersalna Inteligencja SkyCast</h4>
@@ -112,12 +115,12 @@
         </div>
 
         <div class="card animate" style="animation-delay: 0.4s">
-            <span class="label">Skan Godzinowy PRO</span>
+            <span class="label">Skan Godzinowy PRO (Interaktywny)</span>
             <div class="scroll" id="hList"></div>
         </div>
 
         <div class="card animate" style="animation-delay: 0.5s">
-            <span class="label">Trendy Rozwoju (5 Dni)</span>
+            <span class="label">Trendy Inteligencji (5 Dni)</span>
             <div id="dList"></div>
         </div>
 
@@ -125,7 +128,7 @@
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
                 Robię pizzę, ale projektuję przyszłość. SkyCast PRO to mój autorski system budowania uniwersalnej inteligencji 🧠👷. 
-                Uczę swój umysł nowych wzorców, by każdy problem był szansą na optymalizację. To dopiero początek naszej wspólnej drogi w IT.
+                Uczę swój umysł nowych wzorców, by każdy problem był szansą na optymalizację. Wspieraj mój rozwój – budujmy to razem.
                 <br><br>
                 <strong>Płyniemy z pasją!</strong> 🚀
             </p>
@@ -167,7 +170,7 @@
             const aqi = a.list[0].main.aqi;
             const aTag = document.getElementById('aqiTag');
             const aColors = ["", "#10b981", "#84cc16", "#eab308", "#f97316", "#ef4444"];
-            aTag.innerText = "POWIETRZE: " + ["", "B. DOBRE", "DOBRE", "OK", "ZŁE", "BARDZO ZŁE"][aqi];
+            aTag.innerText = "POWIETRZE: " + ["", "ŚWIETNE", "DOBRE", "OK", "ZŁE", "BARDZO ZŁE"][aqi];
             aTag.style.backgroundColor = aColors[aqi];
             aTag.style.display = "inline-block";
 
@@ -181,7 +184,6 @@
             iWidget.classList.remove('alarm', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja SkyCast";
             iIcon.innerText = "🧠";
-            iIcon.className = "icon-box anim-pulse";
 
             let msg = "Analiza optymalna. System SkyCast PRO wspiera Twoje dzisiejsze cele! 🔥";
 
@@ -189,12 +191,10 @@
                 msg = "🚨 **SKYCAST ALERT!** Wykryto burzę. Architekcie, bierz baze pod osłonę i analizuj bezpiecznie!";
                 iWidget.classList.add('alarm', 'storm');
                 iIcon.innerText = "🚨";
-                iIcon.className = "icon-box anim-bounce";
             } 
             else if (hour >= 22 || hour < 5) {
                 msg = `SkyCast PRO raportuje nocną ciszę. 🌙 Rower o tej porze? 🤣🤣 Czas na regenerację inteligencji!`;
                 iIcon.innerText = "🌙";
-                iIcon.className = "icon-box anim-float";
             }
 
             iP.innerHTML = msg;
