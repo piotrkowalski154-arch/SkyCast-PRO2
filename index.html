@@ -27,11 +27,11 @@
 
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
 
-        /* --- ANIMACJE --- */
+        /* --- SYSTEM ANIMACJI --- */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-        @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.3); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0); } }
+        @keyframes pulseAlert { 0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { transform: scale(1); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
@@ -44,12 +44,12 @@
         /* WYSZUKIWARKA */
         .search-area { display: flex; gap: 8px; }
         input {
-            flex: 1; padding: 16px 20px; border-radius: 25px; border: 1px solid var(--glass-border);
+            flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
             background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
         }
         input:focus { background: white; border-color: var(--blue); }
         button {
-            padding: 0 22px; border-radius: 25px; border: none; background: #1e293b;
+            padding: 0 22px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer; transition: 0.2s;
         }
 
@@ -70,7 +70,7 @@
         .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
 
         .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; }
+        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; margin-bottom: 2px; }
         .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
 
         /* LISTY */
@@ -83,8 +83,8 @@
 
         /* MANIFEST */
         .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
-        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; }
-        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; }
+        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
+        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; color: #cbd5e1; }
     </style>
 </head>
 <body>
@@ -104,10 +104,10 @@
         </div>
 
         <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.3s">
-            <div class="icon-box anim-pulse" id="intelIcon">🧠</div>
+            <div class="icon-box" id="intelIcon">🧠</div>
             <div class="intel-text">
                 <h4 id="intelTitle">Uniwersalna Inteligencja SkyCast</h4>
-                <p id="intelP">Piotrek, system jest gotowy do analizy, bracie! 🚀</p>
+                <p id="intelP">Witaj w systemie! Skanuję horyzont, by dostarczyć Ci precyzyjną analizę Piotrka. 🚀</p>
             </div>
         </div>
 
@@ -126,7 +126,7 @@
             <p>
                 Robię pizzę, ale projektuję przyszłość. SkyCast PRO to mój autorski system budowania uniwersalnej inteligencji 🧠👷. Uczę swój umysł nowych wzorców, by każdy problem był szansą na wzrost. 
                 <br><br>
-                <strong>Płyniemy z pasją!</strong> 🚀
+                Zostań z nami i zobacz, jak technologia wspiera pasję. **Płyniemy z pasją!** 🚀
             </p>
         </div>
 
@@ -181,25 +181,24 @@
             iWidget.classList.remove('alarm', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja SkyCast";
             iIcon.innerText = "🧠";
-            iIcon.className = "icon-box anim-pulse";
+            iIcon.className = "icon-box";
 
-            let msg = "Analiza optymalna. System SkyCast PRO wspiera Twoje dzisiejsze cele! 🔥";
+            let msg = "Analiza optymalna. System SkyCast PRO pracuje na Twoją korzyść! 🔥";
 
-            // POPRAWKA LOGIKI IKON ALARMOWYCH (🚨)
             if (weather.includes('thunderstorm') || weather.includes('storm')) {
-                msg = "🚨 **SKYCAST ALERT!** Wykryto burzę. Architekcie, bierz baze pod osłonę i analizuj bezpiecznie!";
+                msg = "🚨 **SKYCAST ALERT!** Wykryto burzę. Gościu, Architekt zaleca bezpieczne schronienie!";
                 iWidget.classList.add('alarm', 'storm');
-                iIcon.innerText = "🚨"; // Tu była luka!
+                iIcon.innerText = "🚨";
                 iIcon.className = "icon-box anim-bounce";
             } 
             else if (aqi >= 4) {
-                msg = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Buduj inteligencję w domu, dbaj o swoje zasoby.";
+                msg = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Architekt odradza aktywność na zewnątrz.";
                 iWidget.classList.add('alarm');
-                iIcon.innerText = "🚨"; // I tu!
+                iIcon.innerText = "🚨";
                 iIcon.className = "icon-box anim-bounce";
             }
             else if (hour >= 22 || hour < 5) {
-                msg = `Godzina ${hour}:00. Jaki rower? 🌙🤣🤣 Regeneruj inteligencję, bracie. To czas na sen lub spokojny plan.`;
+                msg = `Godzina ${hour}:00. Jaki rower? 🌙🤣🤣 Architekt Piotrek już odpoczywa, Ty też powinieneś!`;
                 iIcon.innerText = "🌙";
                 iIcon.className = "icon-box anim-float";
             }
