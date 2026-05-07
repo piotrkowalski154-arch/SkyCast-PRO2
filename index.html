@@ -42,6 +42,7 @@
             padding: 0 20px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer; transition: 0.2s;
         }
+        button:hover { transform: scale(1.05); background: #020617; }
 
         /* KAFELKI */
         .card {
@@ -80,7 +81,6 @@
         .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
         .manifest h2 { font-size: 1.4rem; margin-bottom: 12px; letter-spacing: -0.5px; }
         .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; font-weight: 300; color: #94a3b8; }
-        .manifest strong { color: #38bdf8; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="tag">SkyCast PRO • ARCHITEKT UMYSŁU</div>
+            <div class="tag">SkyCast PRO • ARCHITEKT ROZWOJU</div>
             <div class="temp" id="valT">--°</div>
             <div class="desc" id="valD">Czekam na sygnał...</div>
             <div id="aqiTag" style="display:none; padding: 6px 14px; border-radius: 12px; margin-top: 12px; font-weight: 900; color: white; font-size: 0.7rem;"></div>
@@ -103,7 +103,7 @@
             <div class="icon-box" id="intelIcon">🧠</div>
             <div class="intel-text">
                 <h4 id="intelTitle">Uniwersalna Inteligencja</h4>
-                <p id="intelP">System gotowy. Analizuję dane w czasie rzeczywistym... 🚀</p>
+                <p id="intelP">Budowanie nowych modeli myślenia... 🚀</p>
             </div>
         </div>
 
@@ -113,16 +113,16 @@
         </div>
 
         <div class="card animate" style="animation-delay: 0.5s">
-            <span class="label">Analiza Trendów (5 Dni)</span>
+            <span class="label">Analiza Trendów</span>
             <div id="dList"></div>
         </div>
 
         <div class="card manifest animate" style="animation-delay: 0.6s">
             <h2>Piotrek | Architekt Rozwoju</h2>
             <p>
-                Robię dla Was pizzę, ale w IT i logice buduję swoją prawdziwą przyszłość. Ten projekt to nie tylko kod – to **budowanie uniwersalnej inteligencji** 🧠👷. 
+                Robię dla Was pizzę, ale w IT i logice projektuję swoją przyszłość. Ten projekt to proces **budowania uniwersalnej inteligencji** 🧠👷. 
                 <br><br>
-                Uczę swój umysł nowych modeli myślenia, by w każdym wyzwaniu widzieć strukturę i szansę na optymalizację. Moim celem jest ciągły wzrost. 
+                Zamiast tylko pisać kod, uczę swój umysł nowych wzorców. Każdy problem to dla mnie okazja do optymalizacji i wzrostu. 
                 <br><br>
                 <strong>Płyniemy z pasją!</strong> 🚀
             </p>
@@ -171,27 +171,26 @@
             const w = teraz.weather[0].main.toLowerCase();
             const hour = new Date().getHours();
 
-            // Reset
             iWidget.classList.remove('alarm', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja";
             iTitle.style.color = "#64748b";
             iIcon.innerText = "🧠";
 
-            let msg = "Analiza optymalna. Warunki sprzyjają rozwojowi Twoich projektów! 🔥";
+            let msg = "Analiza ukończona. Twoje modele myślenia pracują na najwyższych obrotach! 🔥";
 
             if (w.includes('thunderstorm')) {
-                msg = "🚨 **ALARM BURZOWY!** Wykryto wyładowania. Architekcie, chroń sprzęt i analizuj z bazy!";
+                msg = "🚨 **ALARM BURZOWY!** Wykryto wyładowania. Architekcie, chroń system i analizuj z bazy!";
                 iWidget.classList.add('alarm', 'storm');
                 iTitle.innerText = "SYSTEM OSTRZEGANIA";
                 iTitle.style.color = "var(--purple)";
                 iIcon.innerText = "🚨";
             } 
             else if (hour >= 22 || hour < 5) {
-                msg = `Mamy godzinę ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}. Rower o tej porze? 🤣🤣 Czas na regenerację inteligencji i spokojny plan na jutro.`;
+                msg = `Godzina ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}. Rower o tej porze? 🤣🤣 Czas na regenerację inteligencji i planowanie przyszłości.`;
                 iIcon.innerText = "🌙";
             }
             else if (aqi >= 4) {
-                msg = "🚨 **SMOG ALERT!** Powietrze jest toksyczne. Buduj inteligencję w domu, nie wychodź na zewnątrz.";
+                msg = "🚨 **SMOG ALERT!** Powietrze jest toksyczne. Buduj inteligencję w domu, dbaj o swoje zasoby.";
                 iWidget.classList.add('alarm');
                 iIcon.innerText = "😷";
             }
