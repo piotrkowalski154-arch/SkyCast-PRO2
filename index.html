@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO | Architekt: Piotrek</title>
+    <title>SkyCast PRO | Projekt: Piotrek</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.45);
             --glass-border: rgba(255, 255, 255, 0.6);
-            --text-dark: #0f172a;
+            --text-dark: #1e293b;
             --text-muted: #475569;
             --accent-blue: #2563eb;
-            --accent-pink: #db2777;
+            --accent-orange: #f59e0b;
         }
 
         * {
@@ -40,201 +40,41 @@
             gap: 20px;
         }
 
-        /* Glassmorphism Cards */
+        /* Glassmorphism Card Style */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
             border-radius: 35px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        /* Główny Moduł */
+        /* Główny Moduł Pogodowy */
         .main-weather {
             text-align: center;
         }
 
-        .location-tag {
+        .header-title {
             font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--text-muted);
+            margin-bottom: 5px;
         }
 
         .big-temp {
-            font-size: 6rem;
+            font-size: 6.5rem;
             font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -4px;
-            margin: 10px 0;
-            background: linear-gradient(180deg, #1e293b 0%, #475569 100%);
+            line-height: 1;
+            letter-spacing: -5px;
+            margin: 15px 0;
+            background: linear-gradient(180deg, #0f172a 0%, #334155 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .status-line {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--accent-blue);
-        }
-
-        /* Siatka statystyk */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .mini-tile {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .icon-box {
-            width: 45px; height: 45px;
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; margin-bottom: 5px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        .value { font-size: 1.4rem; font-weight: 800; }
-
-        /* Wskazówka Architekta */
-        .architect-tip {
-            display: flex; gap: 15px; align-items: center;
-            border-left: 5px solid var(--accent-pink);
-        }
-
-        .tip-avatar {
-            font-size: 2.2rem;
-            background: white;
-            width: 60px; height: 60px;
-            border-radius: 18px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .tip-content h4 {
-            font-size: 0.75rem;
-            color: var(--accent-pink);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 4px;
-        }
-
-        .tip-content p { font-size: 1rem; line-height: 1.4; }
-
-        /* Sekcja O MNIE - Twój Manifest */
-        .about-me {
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 30px;
-        }
-
-        .about-me h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #94a3b8;
-            margin-bottom: 10px;
-        }
-
-        .about-me h2 {
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .about-me p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            font-weight: 300;
-            color: #cbd5e1;
-        }
-
-        .about-me strong {
-            color: #38bdf8;
-            font-weight: 700;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="app-wrapper">
+        .
         
-        <div class="glass-card main-weather">
-            <div class="location-tag">Architekt: Piotrek • Kraków</div>
-            <div class="big-temp">21°C</div>
-            <div class="status-line">☀️ Bezchmurnie</div>
-            <div style="margin-top: 15px; font-weight: 700; font-size: 0.9rem;">
-                <span style="color: #ef4444;">↑ Max 21°C</span> &nbsp;&nbsp; 
-                <span style="color: #2563eb;">↓ Min 12°C</span>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="glass-card mini-tile">
-                <div class="icon-box" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">💧</div>
-                <div class="label">Opady</div>
-                <div class="value">5%</div>
-            </div>
-
-            <div class="glass-card mini-tile">
-                <div class="icon-box" style="background: linear-gradient(135deg, #fb923c, #ea580c);">💨</div>
-                <div class="label">Wiatr</div>
-                <div class="value">12 <small>mph</small></div>
-            </div>
-
-            <div class="glass-card mini-tile">
-                <div class="icon-box" style="background: linear-gradient(135deg, #2dd4bf, #0d9488);">☀️</div>
-                <div class="label">Indeks UV</div>
-                <div class="value">Niski</div>
-            </div>
-
-            <div class="glass-card mini-tile">
-                <div class="icon-box" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">☁️</div>
-                <div class="label">Zachmurzenie</div>
-                <div class="value">10%</div>
-            </div>
-        </div>
-
-        <div class="glass-card architect-tip">
-            <div class="tip-avatar">👨‍💻</div>
-            <div class="tip-content">
-                <h4>✨ Wskazówka od Architekta</h4>
-                <p>System SkyCast PRO nie wykrył zagrożeń. Idealny moment na <strong>pracę nad kodem</strong> i rozwój projektów. 🔥</p>
-            </div>
-        </div>
-
-        <div class="glass-card about-me">
-            <h3>Moja Misja</h3>
-            <h2>Od Kuchni do Kodu</h2>
-            <p>
-                Jako profesjonalny pizzer i kucharz małej gastronomii, przez lata dbałem o każdy detal w kuchni. Dzisiaj, jako 37-latek, przekuwam tę samą precyzję w **architekturę oprogramowania**. 
-                <br><br>
-                **SkyCast PRO** to projekt, który zbudowałem od podstaw, aby udowodnić, że zmiana branży na **IT, AI i Cyberbezpieczeństwo** to nie tylko plan, ale rzeczywistość. Każda linijka tego kodu to krok w stronę nowej tożsamości cyfrowej. 
-                <strong>Płyniemy z tematem!</strong>
-            </p>
-        </div>
-
-    </div>
-
-</body>
-</html>
