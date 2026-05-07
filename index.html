@@ -3,166 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO - Oprawa Mistrzowska</title>
+    <title>SkyCast PRO - Base44 Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'weather-bg': '#F9FAFB',
-                        'weather-text': '#1F2937',
-                        'weather-mint': '#2DD4BF',
-                        'weather-accent': '#99F6E4',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&display=swap');
-        body { background-color: #F9FAFB; font-family: 'Urbanist', sans-serif; color: #1F2937; }
-        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05); }
-        .location-bar { background: white; border-radius: 999px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03); }
-        .warning-overlay { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
+        body { 
+            /* Gradient z Base44 */
+            background: linear-gradient(180deg, #E0F2FE 0%, #EFF6FF 50%, #EEF2FF 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1E293B;
+            min-height: 100vh;
+        }
+        .b44-card { 
+            background: #FFFFFF; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.01); 
+        }
+        .b44-card-light {
+            background: #F8FAFC;
+            border-radius: 1rem;
+        }
+        .btn-blue { background-color: #8BB8F8; color: white; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="flex flex-col items-center p-4">
+<body class="flex flex-col items-center p-4 pb-10">
 
-    <div class="w-full max-w-md mt-2 flex items-center justify-center relative mb-6">
-        <h1 class="text-3xl font-extrabold italic tracking-tighter text-slate-800">SKYCAST <span class="text-teal-500">PRO</span></h1>
-    </div>
+    <header class="text-center mt-6 mb-8">
+        <div class="text-4xl mb-1">☀️<span class="text-xl relative -top-3 -left-2">🛡️</span></div>
+        <h1 class="text-3xl font-black text-slate-800 tracking-tight">SkyCast <span class="text-blue-500">PRO</span></h1>
+        <p class="text-[11px] text-slate-400 font-semibold tracking-widest mt-1">☁️ TWÓJ POGODOWY ANIOŁ STRÓŻ ☁️</p>
+    </header>
 
-    <div class="w-full max-w-md location-bar flex items-center p-1 mb-8">
-        <span class="text-teal-400 text-xl pl-4 pr-3">📍</span>
-        <input id="city-input" type="text" placeholder="Szukaj miasta na świecie..." class="flex-grow p-3 bg-transparent outline-none text-sm font-semibold placeholder:text-slate-400 text-slate-800">
-        <button onclick="searchWorld()" class="bg-teal-400 hover:bg-teal-500 text-white p-3 rounded-full flex items-center justify-center transition-all">
-            🔍
+    <div class="w-full max-w-md mb-6">
+        <div class="relative mb-3">
+            <span class="absolute left-4 top-4 text-slate-400">🔍</span>
+            <input id="city-input" type="text" placeholder="Kraków" class="w-full p-4 pl-12 b44-card text-slate-700 font-semibold outline-none focus:ring-2 focus:ring-blue-200 transition-all">
+        </div>
+        <button onclick="searchWorld()" class="w-full btn-blue font-bold py-4 rounded-2xl uppercase tracking-widest text-sm shadow-md shadow-blue-200 active:scale-95 transition-all">
+            SZUKAJ SŁOŃCA
         </button>
     </div>
 
-    <div id="warning-card" class="w-full max-w-md rounded-full warning-overlay p-6 flex items-center justify-center gap-4 mb-8 text-center shadow-xl shadow-slate-100 hidden">
-        <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-4xl text-red-500">
-            🔔
+    <div class="w-full max-w-md b44-card p-5 mb-6 flex flex-col relative overflow-hidden">
+        <div class="flex items-start gap-4 mb-3">
+            <div class="bg-purple-100 p-3 rounded-2xl text-purple-500 text-xl flex-shrink-0">🔔</div>
+            <div>
+                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-1">⚡ Pogodowe Ostrzeżenie</h3>
+                <p class="text-xs text-slate-500 mt-1">Moja misja: Chronić Cię! Skanuję dla: <br><span id="alert-city" class="text-purple-600 font-bold">Kraków</span></p>
+            </div>
         </div>
-        <div>
-            <h3 class="font-bold text-red-700 tracking-tight text-sm">UWAGA: NIEBEZPIECZEŃSTWO</h3>
-            <p id="alert-status" class="text-xs text-red-600 font-medium leading-relaxed uppercase tracking-widest mt-1">Skanowanie zagrożeń dla wybranej strefy...</p>
+        <div class="flex items-center gap-2 mb-3">
+            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+            <span id="alert-title" class="text-xs font-bold text-slate-600 uppercase tracking-widest">ANIELSKI BŁĘKIT - BRAK ZAGROŻEŃ</span>
+        </div>
+        <div id="alert-msg" class="bg-green-50 text-green-600 p-3 rounded-xl text-xs font-semibold flex items-center gap-2 border border-green-100">
+            <span>🛡️</span> Brak zagrożeń! Pogoda sprzyja – korzystaj ze dnia! ☀️
         </div>
     </div>
 
-    <div class="w-full max-w-md glass-card p-10 flex flex-col items-center text-center mb-8 relative">
-        
-        <div id="location-name" class="text-[10px] text-teal-600 font-black uppercase tracking-[0.3em] mb-4">Namierzanie GPS...</div>
-        
-        <div class="text-9xl mb-3">☀️</div>
-        
-        <div id="temp" class="text-8xl font-black text-slate-900 tracking-tighter drop-shadow-sm mb-1">--°</div>
-        <div id="description" class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Czekam na dane</div>
-        <div id="current-time" class="text-[10px] text-slate-400 font-medium">--:--:-- | --/--</div>
-    </div>
-
-    <div class="w-full max-w-md glass-card p-8 grid grid-cols-3 gap-6 mb-8 text-center">
-        <div>
-            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Zachmurzenie</div>
-            <div id="cloud-cover" class="text-2xl font-black text-teal-600">--%</div>
+    <div class="w-full max-w-md b44-card p-6 mb-6 text-center">
+        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">Temperatura</p>
+        <div class="flex justify-center items-start mb-1">
+            <span id="temp" class="text-7xl font-black text-slate-800 tracking-tighter">--</span>
+            <span class="text-3xl font-bold text-slate-500 mt-2">°C</span>
         </div>
-        <div>
-            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Opady</div>
-            <div id="precipitation" class="text-2xl font-black text-teal-600">--%</div>
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <span class="text-blue-400 text-lg">🌧️</span>
+            <span id="desc" class="font-bold text-slate-600">Oczekiwanie...</span>
         </div>
-        <div>
-            <div class="text-[9px] text-slate-400 uppercase font-black mb-1 tracking-widest">Wiatr</div>
-            <div id="wind" class="text-2xl font-black text-teal-600">-- <span class="text-[10px] font-bold">km/h</span></div>
+        <div class="flex justify-center gap-4 text-xs font-bold text-slate-500">
+            <span class="text-red-400">↑ Max <span id="t-max">--</span>°C</span>
+            <span class="text-blue-400">↓ Min <span id="t-min">--</span>°C</span>
         </div>
     </div>
 
-    <div class="w-full max-w-md glass-card p-6 mb-10 overflow-x-auto">
-        <div class="flex items-center gap-6 text-center">
-            <div class="flex-shrink-0">
-                <p class="text-[10px] text-slate-400 font-bold mb-1">Teraz</p>
-                <p class="text-xl">☀️</p>
-                <p class="text-sm font-bold text-slate-800">--°</p>
-            </div>
-            <div class="flex-shrink-0">
-                <p class="text-[10px] text-slate-400 font-bold mb-1">14:00</p>
-                <p class="text-xl">☀️</p>
-                <p class="text-sm font-bold text-slate-800">--°</p>
-            </div>
-            <div class="flex-shrink-0">
-                <p class="text-[10px] text-slate-400 font-bold mb-1">15:00</p>
-                <p class="text-xl">☀️</p>
-                <p class="text-sm font-bold text-slate-800">--°</p>
-            </div>
-            <div class="flex-shrink-0">
-                <p class="text-[10px] text-slate-400 font-bold mb-1">16:00</p>
-                <p class="text-xl">⛅</p>
-                <p class="text-sm font-bold text-slate-800">--°</p>
-            </div>
+    <div class="w-full max-w-md grid grid-cols-2 gap-4 mb-6">
+        <div class="b44-card p-5">
+            <div class="bg-blue-100 text-blue-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">💧</div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Opady (Dzień)</p>
+            <p id="pop-day" class="text-2xl font-black text-slate-800">--%</p>
+        </div>
+        <div class="b44-card p-5">
+            <div class="bg-purple-100 text-purple-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">☂️</div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Opady (Wieczór)</p>
+            <p id="pop-night" class="text-2xl font-black text-slate-800">--%</p>
+        </div>
+        <div class="b44-card p-5">
+            <div class="bg-teal-100 text-teal-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">💨</div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Wiatr</p>
+            <p id="wind" class="text-xl font-black text-slate-800">-- km/h</p>
+            <p class="text-[10px] text-slate-400 font-semibold mt-1">z zachodu</p>
+        </div>
+        <div class="b44-card p-5">
+            <div class="bg-orange-100 text-orange-500 w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3">🌤️</div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Stan</p>
+            <p id="state-small" class="text-sm font-black text-slate-800">Czuwanie</p>
         </div>
     </div>
 
-    <footer class="mt-auto pb-6 text-center">
-        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.3em]">Architekt: Piotrek • Lucky Smart Engine V3</p>
-    </footer>
+    <div class="w-full max-w-md b44-card p-6 mb-6">
+        <p class="text-[11px] text-slate-500 font-bold uppercase tracking-widest mb-4">Prognoza Godzinowa</p>
+        <div id="hourly-container" class="flex gap-4 overflow-x-auto hide-scroll pb-2">
+            <div class="text-center">Ładowanie...</div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md b44-card p-6 mb-6 flex gap-4">
+        <div class="bg-blue-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-blue-200">☂️</div>
+        <div>
+            <p class="text-[10px] text-pink-400 font-black uppercase tracking-widest mb-2 flex items-center gap-1">✨ Wskazówka od Architekta</p>
+            <p id="kamila-tip" class="text-sm text-slate-700 font-medium leading-relaxed">
+                Kamila, analizuję dane... chwilkę! 😉
+            </p>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md flex flex-col items-center justify-center mt-2">
+        <div class="bg-indigo-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-indigo-200 mb-3">🖧</div>
+        <p class="text-[10px] text-slate-400 font-black uppercase tracking-[0.3em]">IT PORTFOLIO</p>
+    </div>
 
     <script>
-        async function fetchWeather(lat, lon, name = "Twoja Lokalizacja") {
+        async function fetchWeather(lat, lon, name) {
             try {
-                // Nowe API pobiera więcej szczegółów (Zachmurzenie, Opady, Godziny)
-                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,cloud_cover,wind_speed_10m&hourly=temperature_2m,weather_code&timezone=auto`);
+                // Potężne zapytanie API pobierające mnóstwo danych na raz
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code&hourly=temperature_2m,precipitation_probability,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`);
                 const data = await res.json();
                 
-                const current = data.current;
-                const temp = Math.round(current.temperature_2m);
-                const wind = current.wind_speed_10m;
-                const cloud = current.cloud_cover;
-                const precip = current.precipitation;
-
-                // Aktualizacja głównego panelu
-                document.getElementById('temp').innerText = temp + "°";
-                document.getElementById('description').innerText = "System Sentinel Czuwa";
-                document.getElementById('location-name').innerText = name;
+                // Dane bieżące
+                const temp = Math.round(data.current.temperature_2m);
+                const wind = data.current.wind_speed_10m;
+                const max = Math.round(data.daily.temperature_2m_max[0]);
+                const min = Math.round(data.daily.temperature_2m_min[0]);
                 
-                // Aktualizacja panelu szczegółów (Zunifikowany design)
-                document.getElementById('cloud-cover').innerText = cloud + "%";
-                document.getElementById('precipitation').innerText = Math.round(precip) + "%";
+                // Prawdopodobieństwo opadów (Dzień vs Wieczór)
+                const popDay = data.hourly.precipitation_probability[12]; // O godz 12:00
+                const popNight = data.hourly.precipitation_probability[20]; // O godz 20:00
+
+                // Wypełnianie HTML
+                document.getElementById('alert-city').innerText = name;
+                document.getElementById('temp').innerText = temp;
+                document.getElementById('t-max').innerText = max;
+                document.getElementById('t-min').innerText = min;
+                
+                document.getElementById('pop-day').innerText = popDay + "%";
+                document.getElementById('pop-night').innerText = popNight + "%";
                 document.getElementById('wind').innerText = wind + " km/h";
 
-                // LOGIKA ALERTÓW (Okrągły panel z Foto 2)
-                const warningCard = document.getElementById('warning-card');
-                const alertStatus = document.getElementById('alert-status');
+                // Logika stanu pogody (Uproszczona)
+                let stateText = temp > 20 ? "Ciepło" : "Chłodno";
+                if(popDay > 50) stateText = "Deszczowo";
+                document.getElementById('desc').innerText = stateText;
+                document.getElementById('state-small').innerText = stateText;
 
-                if (wind > 25 || temp > 30) {
-                    warningCard.classList.remove('hidden');
-                    alertStatus.innerText = "🛑 UWAGA: SILNY WIATR / UPAŁ - ZACHOWAJ OSTROŻNOŚĆ";
+                // Logika Wskazówki dla Kamili
+                const tipEl = document.getElementById('kamila-tip');
+                if (popNight > 40) {
+                    tipEl.innerHTML = `Kamila, weź dziś parasol – mój system wykrył <span class="text-blue-500 font-bold">${popNight}% szansy na deszcz</span> wieczorem! Zadbam o to, żebyś nie zmokła. 😉`;
                 } else {
-                    warningCard.classList.add('hidden');
+                    tipEl.innerHTML = `Kamila, zostaw parasol w domu – niebo jest czyste! Temperatura wieczorem ok. <span class="text-blue-500 font-bold">${Math.round(data.hourly.temperature_2m[20])}°C</span>. Pięknego dnia! 😉`;
                 }
 
-                // Czas i Data
-                const now = new Date();
-                document.getElementById('current-time').innerText = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} | ${now.getDate()}/${now.getMonth() + 1}`;
+                // Generowanie Prognozy Godzinowej (Pętla JavaScript)
+                const hourlyDiv = document.getElementById('hourly-container');
+                hourlyDiv.innerHTML = ""; // Czyścimy stare dane
+                
+                // Pobieramy najbliższe 5 godzin
+                const currentHour = new Date().getHours();
+                for(let i = currentHour; i < currentHour + 5; i++) {
+                    const hTemp = Math.round(data.hourly.temperature_2m[i]);
+                    const hPop = data.hourly.precipitation_probability[i];
+                    
+                    hourlyDiv.innerHTML += `
+                        <div class="b44-card-light p-3 flex flex-col items-center min-w-[70px]">
+                            <p class="text-[10px] text-slate-500 font-bold mb-2">${i}:00</p>
+                            <p class="text-xl mb-2">☁️</p>
+                            <p class="text-sm font-black text-slate-800 mb-2">${hTemp}°C</p>
+                            <p class="text-[9px] font-bold text-blue-400 flex items-center gap-1"><span class="text-blue-300">💧</span> ${hPop}%</p>
+                        </div>
+                    `;
+                }
 
-            } catch (e) { console.error("Błąd API"); }
+            } catch (e) { console.error("Błąd pobierania", e); }
         }
 
         async function searchWorld() {
-            const city = document.getElementById('city-input').value;
-            if (!city) return;
+            const city = document.getElementById('city-input').value || "Kraków";
             const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=pl&format=json`);
             const geoData = await geoRes.json();
             if (geoData.results) {
-                const { latitude, longitude, name, country } = geoData.results[0];
-                fetchWeather(latitude, longitude, `${name}, ${country}`);
+                const { latitude, longitude, name } = geoData.results[0];
+                fetchWeather(latitude, longitude, name);
             }
         }
 
-        window.onload = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(p => fetchWeather(p.coords.latitude, p.coords.longitude));
-            }
-        };
+        // Start (Domyślnie ładuje Kraków, tak jak było na zrzucie)
+        window.onload = () => searchWorld();
     </script>
 </body>
 </html>
