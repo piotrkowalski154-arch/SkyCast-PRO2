@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyCast PRO | Projekt: Piotrek</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* DEFINICJA KOLORÓW I TŁA - USTAWIONE NA SZTYWNO, ŻEBY ZAWSZE DZIAŁAŁO */
         :root {
-            --bg-color: #dbeafe; /* Jasnoniebieski fundament */
+            --bg-color: #dbeafe;
             --glass: rgba(255, 255, 255, 0.5);
             --glass-border: rgba(255, 255, 255, 0.7);
             --text-dark: #1e293b;
+            --text-muted: #64748b;
             --accent-blue: #2563eb;
             --accent-orange: #f59e0b;
         }
@@ -25,7 +25,8 @@
 
         body {
             background: linear-gradient(160deg, #bae6fd 0%, #dbeafe 50%, #fdf4ff 100%);
-            background-color: var(--bg-color); /* Backup gdyby gradient nie zadziałał */
+            background-color: var(--bg-color);
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -35,133 +36,80 @@
 
         .app-wrapper {
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* KAFELKI SZKLANE */
         .glass-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         /* GŁÓWNY MODUŁ */
-        .main-weather {
-            text-align: center;
-        }
+        .main-weather { text-align: center; padding: 30px 20px; }
+        .header-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+        .big-temp { font-size: 6.5rem; font-weight: 800; line-height: 1; margin: 15px 0; color: var(--text-dark); letter-spacing: -4px; }
+        .condition { font-size: 1.4rem; font-weight: 600; color: var(--accent-blue); }
 
-        .header-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #64748b;
-        }
-
-        .big-temp {
-            font-size: 6rem;
-            font-weight: 800;
-            line-height: 1;
-            margin: 15px 0;
-            color: var(--text-dark);
-        }
-
-        .condition {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--accent-blue);
-        }
-
-        /* SIATKA 2x2 */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .mini-card {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 5px;
-        }
-
-        .value {
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        /* WSKAZÓWKA OD PIOTRKA */
-        .peters-tip {
+        /* PROGNOZA GODZINOWA - SCROLLOWANA */
+        .hourly-container {
             display: flex;
+            overflow-x: auto;
             gap: 15px;
+            padding-bottom: 10px;
+        }
+        /* Ukrycie scrollbara dla estetyki */
+        .hourly-container::-webkit-scrollbar { display: none; }
+        
+        .hour-item {
+            min-width: 65px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 5px;
+            border-radius: 20px;
+        }
+        .hour-time { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+        .hour-val { font-size: 1.1rem; font-weight: 800; }
+
+        /* PROGNOZA 5 DNI */
+        .daily-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        .daily-row:last-child { border-bottom: none; }
+        .day-name { width: 80px; font-weight: 600; }
+        .day-icon { font-size: 1.3rem; }
+        .day-temp-range { font-weight: 700; font-size: 0.95rem; }
+
+        /* WSKAZÓWKA PIOTRKA */
+        .peters-tip {
+            display: flex; gap: 15px; align-items: center;
             border-left: 5px solid var(--accent-orange);
         }
+        .avatar { font-size: 2rem; background: #fff; width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .tip-text h4 { font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 3px; }
+        .tip-text p { font-size: 0.95rem; line-height: 1.4; font-weight: 500; }
 
-        .tip-avatar {
-            font-size: 2rem;
-            background: #fff;
-            width: 55px;
-            height: 55px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
+        /* BIO - HISTORIA */
+        .history-card { background: #0f172a; color: #f8fafc; padding: 30px; }
+        .history-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+        .history-card p { font-size: 1rem; line-height: 1.7; font-weight: 300; color: #cbd5e1; }
+        .history-card strong { color: #fbbf24; }
 
-        .tip-text h4 {
-            font-size: 0.75rem;
-            color: var(--accent-orange);
-            text-transform: uppercase;
-            margin-bottom: 3px;
-        }
-
-        .tip-text p {
-            font-size: 0.95rem;
-            line-height: 1.4;
-            font-weight: 500;
-        }
-
-        /* HISTORIA - MOJA DROGA IT */
-        .history-card {
-            background: #0f172a;
-            color: #f8fafc;
-            padding: 30px;
-        }
-
-        .history-card h2 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .history-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            font-weight: 300;
-            color: #cbd5e1;
-        }
-
-        .history-card strong {
-            color: #fbbf24;
-            font-weight: 600;
-        }
+        .label-small { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; display: block; }
     </style>
 </head>
 <body>
@@ -172,43 +120,16 @@
             <div class="header-title">SkyCast PRO • Kraków</div>
             <div class="big-temp">24°C</div>
             <div class="condition">☀️ Słonecznie</div>
-            <div style="margin-top: 10px; font-weight: 600; font-size: 0.85rem;">
-                <span style="color: #ef4444;">↑ Max 24°C</span> &nbsp;&nbsp; 
-                <span style="color: #3b82f6;">↓ Min 14°C</span>
-            </div>
         </div>
 
-        <div class="grid">
-            <div class="glass-card mini-card">
-                <div class="label">Szansa na deszcz</div>
-                <div class="value">0%</div>
-            </div>
-            <div class="glass-card mini-card">
-                <div class="label">Wiatr</div>
-                <div class="value">8 km/h</div>
-            </div>
-        </div>
-
-        <div class="glass-card peters-tip">
-            <div class="tip-avatar">👨‍💻</div>
-            <div class="tip-text">
-                <h4>✨ Wskazówka od Piotrka</h4>
-                <p>Niebo jest czyste, więc dziś <strong>nie potrzebujesz parasola</strong>. Korzystaj ze słońca! 😉</p>
-            </div>
-        </div>
-
-        <div class="glass-card history-card">
-            <h2>Cześć, tu Piotrek</h2>
-            <p>
-                Przez lata mogliście mnie spotkać w gastronomii. Robiłem dla Was pizzę, dbając o każdy detal. Choć kochałem ten fach, od zawsze marzyłem o **tworzeniu własnych aplikacji**. 
-                <br><br>
-                Długo brakowało mi odwagi, ale w końcu stwierdziłem, że **teraz jest mój czas**. SkyCast PRO to efekt moich wieczorów przy kodzie. Zbudowałem tę aplikację od zera, bo wierzę, że na pasję nigdy nie jest za późno. 
-                <br><br>
-                <strong>Lecimy w świat IT!</strong> 🚀
-            </p>
-        </div>
-
-    </div>
-
-</body>
-</html>
+        <div class="glass-card">
+            <span class="label-small">Prognoza Godzinowa</span>
+            <div class="hourly-container">
+                <div class="hour-item"><span class="hour-time">Teraz</span><span>☀️</span><span class="hour-val">24°</span></div>
+                <div class="hour-item"><span class="hour-time">14:00</span><span>☀️</span><span class="hour-val">25°</span></div>
+                <div class="hour-item"><span class="hour-time">15:00</span><span>☀️</span><span class="hour-val">26°</span></div>
+                <div class="hour-item"><span class="hour-time">16:00</span><span>🌤️</span><span class="hour-val">25°</span></div>
+                <div class="hour-item"><span class="hour-time">17:00</span><span>🌤️</span><span class="hour-val">23°</span></div>
+                <div class="hour-item"><span class="hour-time">18:00</span><span>⛅</span><span class="hour-val">21°</span></div>
+                <div class="hour-item"><span class="hour-time">19:0
+                    
