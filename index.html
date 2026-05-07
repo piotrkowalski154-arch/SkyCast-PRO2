@@ -27,8 +27,17 @@
 
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
 
+        /* --- MAGICZNE ANIMACJE (KINETIC SYSTEM) --- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+        @keyframes intelPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(37, 99, 235, 0.2); } 50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); } 100% { transform: scale(1); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseRed { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.2); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0); } }
+
+        .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
+        .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
+        .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
+        .anim-pulse { animation: intelPulse 2s ease-in-out infinite; }
         
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
 
@@ -39,16 +48,15 @@
             background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none;
         }
         button {
-            padding: 0 20px; border-radius: 20px; border: none; background: #1e293b;
+            padding: 0 22px; border-radius: 20px; border: none; background: #1e293b;
             color: white; font-weight: 900; cursor: pointer; transition: 0.2s;
         }
-        button:hover { transform: scale(1.05); background: #020617; }
+        button:hover { transform: scale(1.05); }
 
         /* KAFELKI */
         .card {
-            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 30px; padding: 22px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            background: var(--glass); backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
+            border-radius: 30px; padding: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
         .main-hero { text-align: center; padding: 35px 15px; }
@@ -56,31 +64,38 @@
         .temp { font-size: 7rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; margin: 10px 0; }
         .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
 
-        /* MODUŁ INTELIGENCJI 🧠👷 */
-        .intel-shield {
-            display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue);
+        /* MODUŁ INTELIGENCJI UNIWERSALNEJ 🚨🧠👷 */
+        .intel-shield { 
+            display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); 
             background: white; transition: 0.4s;
         }
-        .intel-shield.alarm { border-left-color: var(--red); animation: pulseRed 2s infinite; }
+        .intel-shield.alert { border-left-color: var(--red); animation: intelPulse 1.5s infinite; }
         .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
 
         .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; margin-bottom: 2px; font-weight: 900; }
+        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; }
         .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
 
-        /* LISTY */
-        .label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; display: block; }
-        .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; }
+        /* PROGNOZY */
+        .label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
+        .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 8px; }
         .scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 65px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: rgba(255,255,255,0.4); padding: 12px 0; border-radius: 20px; }
+        
+        .h-box {
+            min-width: 75px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.6);
+        }
+        .h-icon { font-size: 1.6rem; line-height: 1; }
 
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
         .d-row:last-child { border-bottom: none; }
+        .d-day { font-weight: 700; text-transform: capitalize; width: 100px; }
+        .d-icon { font-size: 1.4rem; }
 
         /* MANIFEST ARCHITEKTA */
         .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
-        .manifest h2 { font-size: 1.4rem; margin-bottom: 12px; letter-spacing: -0.5px; }
-        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; font-weight: 300; color: #94a3b8; }
+        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; }
+        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.8; font-weight: 300; }
     </style>
 </head>
 <body>
@@ -93,36 +108,34 @@
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="tag">SkyCast PRO • ARCHITEKT ROZWOJU</div>
+            <div class="tag">SkyCast PRO • ARCHITEKT ROZWOJU 🧠👷</div>
             <div class="temp" id="valT">--°</div>
-            <div class="desc" id="valD">Czekam na sygnał...</div>
+            <div class="desc" id="valD">Budzenie systemów...</div>
             <div id="aqiTag" style="display:none; padding: 6px 14px; border-radius: 12px; margin-top: 12px; font-weight: 900; color: white; font-size: 0.7rem;"></div>
         </div>
 
         <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.3s">
-            <div class="icon-box" id="intelIcon">🧠</div>
+            <div class="icon-box anim-pulse" id="intelIcon">🧠</div>
             <div class="intel-text">
                 <h4 id="intelTitle">Uniwersalna Inteligencja</h4>
-                <p id="intelP">Budowanie nowych modeli myślenia... 🚀</p>
+                <p id="intelP">System gotowy do analizy, bracie! 🚀</p>
             </div>
         </div>
 
         <div class="card animate" style="animation-delay: 0.4s">
-            <span class="label">Skan Godzinowy</span>
+            <span class="label">Godzinowy Model Pogody</span>
             <div class="scroll" id="hList"></div>
         </div>
 
         <div class="card animate" style="animation-delay: 0.5s">
-            <span class="label">Analiza Trendów</span>
+            <span class="label">Trendy Inteligencji (5 Dni)</span>
             <div id="dList"></div>
         </div>
 
         <div class="card manifest animate" style="animation-delay: 0.6s">
             <h2>Piotrek | Architekt Rozwoju</h2>
             <p>
-                Robię dla Was pizzę, ale w IT i logice projektuję swoją przyszłość. Ten projekt to proces **budowania uniwersalnej inteligencji** 🧠👷. 
-                <br><br>
-                Zamiast tylko pisać kod, uczę swój umysł nowych wzorców. Każdy problem to dla mnie okazja do optymalizacji i wzrostu. 
+                Robię pizzę, ale projektuję przyszłość. Ten system to proces **budowania uniwersalnej inteligencji** 🧠👷. Uczę swój umysł nowych wzorców, by każdy problem był szansą na wzrost. 
                 <br><br>
                 <strong>Płyniemy z pasją!</strong> 🚀
             </p>
@@ -136,17 +149,26 @@
         async function pobierzDane() {
             const miasto = document.getElementById('cityIn').value;
             if(!miasto) return;
-
             try {
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miasto}&appid=${KEY}&units=metric&lang=pl`);
                 const dataF = await resF.json();
-
                 if(dataF.cod === "200") {
                     const resA = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${dataF.city.coord.lat}&lon=${dataF.city.coord.lon}&appid=${KEY}`);
                     const dataA = await resA.json();
                     renderUI(dataF, dataA);
                 }
             } catch (err) { alert("Błąd połączenia!"); }
+        }
+
+        // --- GENERATOR KINETYCZNYCH IKON ---
+        function getAnimatedIcon(weatherMain) {
+            const w = weatherMain.toLowerCase();
+            if (w.includes('clear')) return '<span class="anim-spin">☀️</span>';
+            if (w.includes('cloud')) return '<span class="anim-float">☁️</span>';
+            if (w.includes('rain')) return '<span class="anim-bounce">🌧️</span>';
+            if (w.includes('thunder')) return '<span class="anim-bounce" style="color:var(--purple)">🌩️</span>';
+            if (w.includes('snow')) return '<span class="anim-float">❄️</span>';
+            return '<span class="anim-float">🌤️</span>';
         }
 
         function renderUI(f, a) {
@@ -158,57 +180,69 @@
             const aqi = a.list[0].main.aqi;
             const aTag = document.getElementById('aqiTag');
             const aColors = ["", "#10b981", "#84cc16", "#eab308", "#f97316", "#ef4444"];
-            aTag.innerText = "POWIETRZE: " + ["", "B. DOBRE", "DOBRE", "UMIARKOWANE", "ZŁE", "BARDZO ZŁE"][aqi];
+            aTag.innerText = "POWIETRZE: " + ["", "ŚWIETNE", "DOBRE", "UMIARKOWANE", "ZŁE", "BARDZO ZŁE"][aqi];
             aTag.style.backgroundColor = aColors[aqi];
             aTag.style.display = "inline-block";
 
-            // ANALIZA ARCHITEKTA 🧠👷
+            // LOGIKA ARCHITEKTA 🚨🧠👷
             const iWidget = document.getElementById('intelWidget');
             const iP = document.getElementById('intelP');
             const iTitle = document.getElementById('intelTitle');
             const iIcon = document.getElementById('intelIcon');
-            
-            const w = teraz.weather[0].main.toLowerCase();
+            const weather = teraz.weather[0].main.toLowerCase();
             const hour = new Date().getHours();
 
-            iWidget.classList.remove('alarm', 'storm');
+            iWidget.classList.remove('alert', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja";
-            iTitle.style.color = "#64748b";
             iIcon.innerText = "🧠";
+            iIcon.className = "icon-box anim-pulse";
 
-            let msg = "Analiza ukończona. Twoje modele myślenia pracują na najwyższych obrotach! 🔥";
+            let msg = "Analiza optymalna. Twoje modele myślenia pracują na najwyższych obrotach! 🔥";
 
-            if (w.includes('thunderstorm')) {
-                msg = "🚨 **ALARM BURZOWY!** Wykryto wyładowania. Architekcie, chroń system i analizuj z bazy!";
-                iWidget.classList.add('alarm', 'storm');
+            if (weather.includes('thunderstorm') || weather.includes('storm')) {
+                msg = "🚨 **ALERT BURZOWY!** Wykryto skok energii w atmosferze. Architekcie, bierz baze pod osłonę!";
+                iWidget.classList.add('alert', 'storm');
                 iTitle.innerText = "SYSTEM OSTRZEGANIA";
-                iTitle.style.color = "var(--purple)";
-                iIcon.innerText = "🚨";
+                iIcon.innerText = "🌩️";
+                iIcon.className = "icon-box anim-bounce";
             } 
             else if (hour >= 22 || hour < 5) {
-                msg = `Godzina ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}. Rower o tej porze? 🤣🤣 Czas na regenerację inteligencji i planowanie przyszłości.`;
+                msg = `Godzina ${hour}:00. Jaki rower? 🌙🤣🤣 Regeneruj inteligencję, bracie. To czas na sen lub spokojny plan.`;
                 iIcon.innerText = "🌙";
+                iIcon.className = "icon-box anim-float";
             }
             else if (aqi >= 4) {
-                msg = "🚨 **SMOG ALERT!** Powietrze jest toksyczne. Buduj inteligencję w domu, dbaj o swoje zasoby.";
-                iWidget.classList.add('alarm');
+                msg = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Buduj potęgę umysłu w domu.";
+                iWidget.classList.add('alert');
                 iIcon.innerText = "😷";
             }
 
             iP.innerHTML = msg;
 
+            // GODZINOWA
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i];
                 const g = new Date(h.dt * 1000).getHours() + ":00";
-                hL.innerHTML += `<div class="h-box"><span>${g}</span><strong>${Math.round(h.main.temp)}°</strong></div>`;
+                hL.innerHTML += `
+                    <div class="h-box">
+                        <span style="font-size:0.7rem; font-weight:800; opacity:0.6">${g}</span>
+                        <div class="h-icon">${getAnimatedIcon(h.weather[0].main)}</div>
+                        <strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong>
+                    </div>`;
             }
 
+            // DNIOWA
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=8; i<f.list.length; i+=8) {
                 const d = f.list[i];
                 const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
-                dL.innerHTML += `<div class="d-row"><strong>${n}</strong><span>${Math.round(d.main.temp_max)}° / ${Math.round(d.main.temp_min)}°</span></div>`;
+                dL.innerHTML += `
+                    <div class="d-row">
+                        <span class="d-day">${n}</span>
+                        <div class="d-icon">${getAnimatedIcon(d.weather[0].main)}</div>
+                        <span style="font-weight:900; font-size:1.1rem">${Math.round(d.main.temp_max)}° / ${Math.round(d.main.temp_min)}°</span>
+                    </div>`;
             }
         }
     </script>
