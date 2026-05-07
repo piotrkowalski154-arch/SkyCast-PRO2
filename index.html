@@ -135,7 +135,7 @@
                     <div class="tri-val" id="scanTrend">STABILNY</div>
                 </div>
                 <div class="tri-box">
-                    <div class="tri-label">Piotrek AI</div>
+                    <div class="tri-label">Korelacja</div>
                     <div class="tri-val" id="scanAI">OK</div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
         <div class="card manifest animate" style="animation-delay: 0.7s">
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
-                Robię pizzę, projektuję przyszłość. System v24.1 wykorzystuje moją autorską **logikę triangulacji danych** 🧠👷. 
+                Robię pizzę, projektuję przyszłość. System v25.0 wykorzystuje moją autorską **logikę triangulacji danych** 🧠👷. 
                 Każdy odczyt przechodzi przez potrójny filtr, by dostarczyć Ci "Złoty Skan" rzeczywistości.
             </p>
         </div>
@@ -222,7 +222,7 @@
             // SYMULACJA TRIANGULACJI
             const trend = f.list[1].main.temp > teraz.main.temp ? "WZROST" : "SPADEK";
             document.getElementById('scanTrend').innerText = trend;
-            const aiStatus = aqi <= 2 ? "IDEALNY" : "OSTRZEŻENIE";
+            const aiStatus = aqi <= 2 ? "WYSOKA" : "NISKA";
             document.getElementById('scanAI').innerText = aiStatus;
             document.getElementById('confVal').innerText = `${90 + Math.floor(Math.random() * 9)}% PEWNOŚCI`;
 
@@ -231,9 +231,9 @@
             const iIcon = document.getElementById('intelIcon');
             const w = teraz.weather[0].main.toLowerCase();
             
-            // POPRAWKA CZASU Z MINUTAMI
             const now = new Date();
-            const timeStr = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            const minutes = now.getMinutes();
+            const timeStr = `${now.getHours()}:${minutes.toString().padStart(2, '0')}`;
 
             iWidget.classList.remove('alarm', 'storm');
             iIcon.innerText = "🧠";
@@ -254,7 +254,15 @@
                 iIcon.className = "icon-box anim-bounce";
             }
             else if (now.getHours() >= 22 || now.getHours() < 5) {
-                msg = `Mamy godzinę ${timeStr}. Jaki rower? 🌙🤣🤣 Regeneruj inteligencję, Architekcie!`;
+                // Rotacyjne wiadomości nocne (zmieniają się co minutę na podstawie modulo)
+                const rotacja = minutes % 4; 
+                let nocneWiadomosci = [
+                    `Mamy ${timeStr}. Nocna analiza: idealny czas na ładowanie baterii, Architekcie! 🌙`,
+                    `Jest ${timeStr}. Systemy w trybie nocnym. Mózg też potrzebuje snu. 😴`,
+                    `${timeStr} na zegarze. Skaning mówi: pora wyłączyć ekrany i iść spać. 📴`,
+                    `Godzina ${timeStr}. Najlepsze systemy buduje się na świeżo. Regeneruj się! 🧠`
+                ];
+                msg = nocneWiadomosci[rotacja];
                 iIcon.innerText = "🌙";
                 iIcon.className = "icon-box anim-float";
             }
