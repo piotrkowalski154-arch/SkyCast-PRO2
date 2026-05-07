@@ -7,13 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-bg: rgba(255, 255, 255, 0.4);
             --glass-border: rgba(255, 255, 255, 0.6);
-            --text-main: #1e293b;
+            --text-dark: #0f172a;
             --text-muted: #475569;
             --accent-blue: #2563eb;
-            --accent-pink: #ec4899;
-            --rain-color: rgba(37, 99, 235, 0.4);
+            --accent-pink: #db2777;
         }
 
         * {
@@ -21,292 +20,221 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
         }
 
         body {
-            background: linear-gradient(-45deg, #e0f2fe, #bae6fd, #7dd3fc, #fdf4ff);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-main);
+            background: linear-gradient(160deg, #bae6fd 0%, #dbeafe 50%, #fdf4ff 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 40px 20px;
+            padding: 20px;
+            color: var(--text-dark);
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .dashboard-container {
+        .app-wrapper {
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .glass-panel {
+        /* Glassmorphism Cards */
+        .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(31, 38, 135, 0.1);
-            position: relative;
-            overflow: hidden;
+            border-radius: 35px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        .glass-panel:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(31, 38, 135, 0.15);
-        }
-
-        /* Demo Controller - ukryty panel */
-        .demo-controls {
-            display: none;
-            position: fixed;
-            top: 10px; right: 10px;
-            background: var(--glass-bg);
-            padding: 10px; border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            z-index: 1000;
-        }
-
-        .demo-controls button {
-            padding: 5px 10px; margin: 2px;
-            border: none; border-radius: 8px;
-            background: #fff; cursor: pointer;
-        }
-
-        /* Główny Panel */
-        .main-weather-panel {
+        /* Główny Moduł */
+        .main-weather {
             text-align: center;
         }
 
-        .arch-header {
-            font-size: 0.8rem;
+        .location-tag {
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--text-muted);
-            cursor: pointer;
         }
 
         .big-temp {
-            font-size: 6.5rem;
+            font-size: 6rem;
             font-weight: 900;
-            letter-spacing: -5px;
-            margin: 15px 0;
-            background: linear-gradient(135deg, #0f172a, #334155);
+            line-height: 1.1;
+            letter-spacing: -4px;
+            margin: 10px 0;
+            background: linear-gradient(180deg, #1e293b 0%, #475569 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .condition-desc {
+        .status-line {
             font-size: 1.3rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--accent-blue);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
 
-        /* Siatka parametrów */
+        /* Siatka statystyk */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .stat-card {
-            padding: 25px 20px;
-            display: flex; flex-direction: column; gap: 10px;
+        .mini-tile {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .icon-box {
-            width: 50px; height: 50px;
-            border-radius: 16px;
+            width: 45px; height: 45px;
+            border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem; color: white;
+            font-size: 1.3rem; margin-bottom: 5px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .stat-label {
-            font-size: 0.75rem;
+        .label {
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 1px;
         }
 
-        .stat-value {
-            font-size: 1.6rem;
-            font-weight: 900;
-        }
+        .value { font-size: 1.4rem; font-weight: 800; }
 
-        /* Sekcja Wskazówki Piotrka */
+        /* Wskazówka Architekta */
         .architect-tip {
-            display: flex; gap: 20px; align-items: center;
+            display: flex; gap: 15px; align-items: center;
             border-left: 5px solid var(--accent-pink);
         }
 
-        .avatar {
+        .tip-avatar {
             font-size: 2.2rem;
-            background: rgba(255,255,255,0.7);
+            background: white;
             width: 60px; height: 60px;
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .tip-content h4 {
+            font-size: 0.75rem;
             color: var(--accent-pink);
-            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 5px;
-            font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        .tip-content p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            font-weight: 400;
+        .tip-content p { font-size: 1rem; line-height: 1.4; }
+
+        /* Sekcja O MNIE - Twój Manifest */
+        .about-me {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 30px;
         }
 
-        /* NOWA SEKCJA: Moja Droga IT */
-        .about-section {
-            display: flex; flex-direction: column; gap: 15px;
-            background: var(--text-main);
-            color: white;
-            padding: 35px;
-        }
-
-        .about-header {
+        .about-me h3 {
             font-size: 0.8rem;
-            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: rgba(255,255,255,0.7);
+            color: #94a3b8;
+            margin-bottom: 10px;
         }
 
-        .about-title {
-            font-size: 1.5rem;
+        .about-me h2 {
+            font-size: 1.4rem;
             font-weight: 900;
-            margin: 5px 0;
+            margin-bottom: 15px;
             color: #fff;
         }
 
-        .about-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
+        .about-me p {
+            font-size: 0.95rem;
+            line-height: 1.7;
             font-weight: 300;
-            color: rgba(255,255,255,0.9);
+            color: #cbd5e1;
         }
 
-        .about-text strong {
+        .about-me strong {
+            color: #38bdf8;
             font-weight: 700;
-            color: var(--accent-blue);
         }
-
-        /* ----------------------------------------------------
-           INTERAKTYWNE ANIMACJE - CSS CONDITIONS
-        ---------------------------------------------------- */
-
-        /* GŁÓWNA NAKŁADKA DESZCZU */
-        .rain-overlay {
-            display: none; /* Domyślnie wyłączona */
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent;
-            z-index: 1;
-        }
-
-        .rain-drop {
-            position: absolute;
-            background: var(--rain-color);
-            width: 2px; height: 10px;
-            border-radius: 2px;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(100vh); }
-        }
-
-        /* NAKŁADKA BURZY (BŁYSKI) */
-        .storm-overlay {
-            display: none; /* Domyślnie wyłączona */
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
-            z-index: 0;
-            animation: flash 4s linear infinite;
-        }
-
-        @keyframes flash {
-            0%, 90%, 100% { background: rgba(0,0,0,0.3); }
-            92%, 96% { background: rgba(255,255,255,0.6); }
-        }
-
-        /* ANIMACJA WIATRU (KOŁYSANIE) */
-        @keyframes sway {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        /* AKTYWACJA ANIMACJI PRZEZ KLASY */
-
-        /* Stan Deszcz: body.is-rain */
-        body.is-rain .rain-overlay { display: block; }
-        body.is-rain .main-weather-panel { border-color: #2563eb; }
-
-        /* Stan Burza: body.is-storm */
-        body.is-storm .storm-overlay { display: block; }
-        body.is-storm .rain-overlay { display: block; } /* Też pada przy burzy */
-        body.is-storm #conditionLabel { color: #fff; }
-        body.is-storm #conditionDescSpan { color: #fff; }
-        body.is-storm .big-temp { -webkit-text-fill-color: #fff; }
-        body.is-storm .main-weather-panel { background: rgba(0,0,0,0.6); backdrop-filter: blur(40px); }
-
-        /* Stan Wiatr: body.is-wind */
-        body.is-wind #windIcon { animation: sway 1s ease-in-out infinite; }
 
     </style>
 </head>
-<body id="mainBody">
+<body>
 
-    <div class="demo-controls" id="demoPanel">
-        <b>DEMO:</b>
-        <button onclick="setWeather('sun')">Słońce</button>
-        <button onclick="setWeather('rain')">Deszcz</button>
-        <button onclick="setWeather('storm')">Burza</button>
-        <button onclick="toggleWind()">💨 Wiatr</button>
-    </div>
-
-    <div class="dashboard-container">
+    <div class="app-wrapper">
         
-        <div class="glass-panel main-weather-panel">
-            <div class="rain-overlay" id="rainLayer">
-                </div>
-            <div class="storm-overlay"></div>
-
-            <div style="position: relative; z-index: 2;">
-                <div class="arch-header" id="conditionLabel" onclick="toggleDemoPanel()">
-                    Architekt: Piotrek • Kraków
-                </div>
-                <div class="big-temp">21°C</div>
-                <div class="condition-desc">
-                    ☀️ <span id="conditionDescSpan">Bezchmurnie</span>
-                </div>
-                <div style="margin-top: 15px; font-size: 0.95rem; font-weight: 700;">
-                    <span style="color: #ef4444;">↑ Max 21°C</span>
-                    <span style="color: #3b82f6; margin-left: 15px;">↓ Min 12°C</span>
-                </div>
+        <div class="glass-card main-weather">
+            <div class="location-tag">Architekt: Piotrek • Kraków</div>
+            <div class="big-temp">21°C</div>
+            <div class="status-line">☀️ Bezchmurnie</div>
+            <div style="margin-top: 15px; font-weight: 700; font-size: 0.9rem;">
+                <span style="color: #ef4444;">↑ Max 21°C</span> &nbsp;&nbsp; 
+                <span style="color: #2563eb;">↓ Min 12°C</span>
             </div>
         </div>
 
+        <div class="stats-grid">
+            <div class="glass-card mini-tile">
+                <div class="icon-box" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">💧</div>
+                <div class="label">Opady</div>
+                <div class="value">5%</div>
+            </div>
 
-        
+            <div class="glass-card mini-tile">
+                <div class="icon-box" style="background: linear-gradient(135deg, #fb923c, #ea580c);">💨</div>
+                <div class="label">Wiatr</div>
+                <div class="value">12 <small>mph</small></div>
+            </div>
+
+            <div class="glass-card mini-tile">
+                <div class="icon-box" style="background: linear-gradient(135deg, #2dd4bf, #0d9488);">☀️</div>
+                <div class="label">Indeks UV</div>
+                <div class="value">Niski</div>
+            </div>
+
+            <div class="glass-card mini-tile">
+                <div class="icon-box" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">☁️</div>
+                <div class="label">Zachmurzenie</div>
+                <div class="value">10%</div>
+            </div>
+        </div>
+
+        <div class="glass-card architect-tip">
+            <div class="tip-avatar">👨‍💻</div>
+            <div class="tip-content">
+                <h4>✨ Wskazówka od Architekta</h4>
+                <p>System SkyCast PRO nie wykrył zagrożeń. Idealny moment na <strong>pracę nad kodem</strong> i rozwój projektów. 🔥</p>
+            </div>
+        </div>
+
+        <div class="glass-card about-me">
+            <h3>Moja Misja</h3>
+            <h2>Od Kuchni do Kodu</h2>
+            <p>
+                Jako profesjonalny pizzer i kucharz małej gastronomii, przez lata dbałem o każdy detal w kuchni. Dzisiaj, jako 37-latek, przekuwam tę samą precyzję w **architekturę oprogramowania**. 
+                <br><br>
+                **SkyCast PRO** to projekt, który zbudowałem od podstaw, aby udowodnić, że zmiana branży na **IT, AI i Cyberbezpieczeństwo** to nie tylko plan, ale rzeczywistość. Każda linijka tego kodu to krok w stronę nowej tożsamości cyfrowej. 
+                <strong>Płyniemy z tematem!</strong>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
