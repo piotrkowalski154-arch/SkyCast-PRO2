@@ -3,138 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO | Architekt: Piotrek</title>
+    <title>SkyCast PRO | Projekt: Piotrek</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
-            --glass: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-light: #ffffff;
-            --accent-orange: #fbbf24;
+            --bg-color: #f0f7ff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a;
+            --accent-blue: #3b82f6;
+            --accent-orange: #f59e0b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
         body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
+            background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 100%);
             min-height: 100vh;
-            display: flex; justify-content: center; align-items: flex-start;
-            padding: 20px; color: var(--text-light);
-            overflow-x: hidden;
+            display: flex; justify-content: center; padding: 20px; color: var(--text-main);
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            animation: fadeIn 0.8s ease-out;
-        }
+        .app-wrapper { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* WYSZUKIWARKA */
-        .search-box { display: flex; gap: 10px; width: 100%; }
+        /* Wyszukiwarka */
+        .search-row { display: flex; gap: 10px; width: 100%; }
         input {
-            flex: 1; padding: 18px 25px; border-radius: 25px; border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
-            color: white; font-size: 1rem; font-weight: 600; outline: none;
+            flex: 1; padding: 18px; border-radius: 25px; border: 1px solid #e2e8f0;
+            background: white; font-size: 1rem; font-weight: 600; outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        input::placeholder { color: rgba(255, 255, 255, 0.7); }
         button {
-            padding: 0 25px; border-radius: 25px; border: none; background: white;
-            color: #2563eb; font-weight: 800; cursor: pointer; transition: transform 0.2s;
+            padding: 0 25px; border-radius: 25px; border: none; background: #1e293b;
+            color: white; font-weight: 800; cursor: pointer; transition: transform 0.2s;
         }
-        button:hover { transform: scale(1.05); }
+        button:hover { transform: scale(1.03); }
 
-        /* KAFELKI */
+        /* Karta Główna */
         .card {
-            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 35px; padding: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg); border-radius: 35px; padding: 30px 20px; text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); backdrop-filter: blur(10px);
         }
+        .header-label { text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 10px; }
+        .temp-val { font-size: 6.5rem; font-weight: 900; line-height: 1; color: #0f172a; letter-spacing: -4px; }
+        .condition-text { font-size: 1.4rem; font-weight: 600; color: var(--accent-blue); text-transform: capitalize; }
 
-        .main-card { text-align: center; }
-        .city-name { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8; }
-        .temp-display { font-size: 7rem; font-weight: 900; line-height: 1; margin: 15px 0; letter-spacing: -5px; }
-        .desc-display { font-size: 1.4rem; font-weight: 600; text-transform: capitalize; }
-
-        .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; opacity: 0.7; }
-        
-        .hourly-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 5px; }
-        .hourly-scroll::-webkit-scrollbar { display: none; }
-        
-        .hour-tile {
-            min-width: 65px; display: flex; flex-direction: column; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.1); padding: 15px 5px; border-radius: 20px;
+        /* Statystyki */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .stat-box {
+            background: var(--card-bg); border-radius: 25px; padding: 20px;
+            display: flex; flex-direction: column; gap: 8px;
         }
+        .stat-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #64748b; }
+        .stat-val { font-size: 1.4rem; font-weight: 800; }
 
-        .day-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .day-row:last-child { border-bottom: none; }
-        .d-name { width: 90px; font-weight: 600; text-transform: capitalize; }
-
-        /* WSKAZÓWKA */
-        .tip-card { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--accent-orange); }
-        .avatar { font-size: 2rem; background: white; min-width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #333; }
-        .tip-content h4 { font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px; }
+        /* Wskazówka */
+        .tip-box {
+            background: #fff; border-radius: 25px; padding: 20px; display: flex; gap: 15px; align-items: center;
+            border-left: 6px solid var(--accent-orange); box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        }
+        .avatar { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .tip-content h4 { font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; }
         .tip-content p { font-size: 0.95rem; font-weight: 600; line-height: 1.4; }
 
-        /* HISTORIA */
-        .bio-card { background: #0f172a; color: #f8fafc; border: none; }
-        .bio-card h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; color: #fff; }
-        .bio-card p { font-size: 1rem; line-height: 1.7; font-weight: 300; color: #cbd5e1; }
-        .bio-card strong { color: var(--accent-orange); }
+        /* TWOJA HISTORIA (O MNIE) */
+        .history-card { background: #0f172a; color: white; border-radius: 35px; padding: 30px; }
+        .history-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: #fff; }
+        .history-card p { font-size: 1rem; line-height: 1.7; opacity: 0.9; font-weight: 300; color: #cbd5e1; }
+        .history-card strong { color: #38bdf8; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="app-wrapper">
         
-        <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Wpisz miasto..." value="Kraków">
+        <div class="search-row">
+            <input type="text" id="citySearch" placeholder="Wpisz miasto..." value="Kraków">
             <button onclick="pobierzPogode()">SKANUJ</button>
         </div>
 
-        <div class="card main-card">
-            <div class="city-name" id="displayCity">SkyCast PRO • Architekt</div>
-            <div class="temp-display" id="displayTemp">--°</div>
-            <div class="desc-display" id="displayDesc">Skanuj atmosferę, bracie</div>
+        <div class="card">
+            <div class="header-label" id="labelCity">SkyCast PRO • ARCHITEKT</div>
+            <div class="temp-val" id="mainTemp">--°</div>
+            <div class="condition-text" id="mainDesc">Wpisz miasto i skanuj niebo</div>
         </div>
 
-        <div class="card">
-            <span class="section-title">Prognoza Godzinowa</span>
-            <div class="hourly-scroll" id="hourlyList">
-                <div style="opacity: 0.5;">Czekam na dane...</div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Wilgotność</div>
+                <div class="stat-val" id="humVal">--%</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Wiatr</div>
+                <div class="stat-val" id="windVal">-- <small>km/h</small></div>
             </div>
         </div>
 
-        <div class="card">
-            <span class="section-title">Najbliższe 5 dni</span>
-            <div class="daily-list" id="dailyList">
-                <div style="opacity: 0.5;">Skanuję serwery...</div>
-            </div>
-        </div>
-
-        <div class="card tip-card">
+        <div class="tip-box">
             <div class="avatar">👨‍💻</div>
             <div class="tip-content">
                 <h4>✨ Wskazówka od Piotrka</h4>
-                <p id="petersTip">Kliknij SKANUJ, a ja sprawdzę co się dzieje na niebie! 😉</p>
+                <p id="petersTip">Kliknij SKANUJ, a ja sprawdzę dane i dam Ci znać, co robić! 😉</p>
             </div>
         </div>
 
-        <div class="card bio-card">
+        <div class="history-card">
             <h2>Cześć, tu Piotrek!</h2>
             <p>
-                Na co dzień pracuję w gastronomii i **robię dla Was pizzę** – dbam o to, by smakowała najlepiej. To moja praca, którą szanuję, ale IT to moja prawdziwa pasja i hobby. 
+                Na co dzień wciąż możecie mnie spotkać w gastronomii – **robię dla Was pizzę** i dbam o to, by smakowała najlepiej na świecie. To moja praca, którą szanuję.
                 <br><br>
-                Nauczyłem się kodowania zupełnie sam i buduję ten projekt od podstaw. Marzyłem o tym od dziecka i w końcu odważyłem się zacząć. Liczę na Wasze wsparcie!
+                Ale to, co tu widzicie, to moja wielka pasja i hobby – **świat IT**. Sam nauczyłem się kodowania zupełnie sam i buduję ten projekt od podstaw. Marzyłem o tym od dziecka i w końcu odważyłem się zacząć.
+                <br><br>
+                Każda linijka tego kodu to dla mnie krok naprzód. Liczę na Wasze wsparcie w tym projekcie!
                 <br><br>
                 <strong>Płyniemy z pasją!</strong> 🚀
             </p>
@@ -142,90 +120,53 @@
     </div>
 
     <script>
-        // TWÓJ KLUCZ API JEST JUŻ TUTAJ:
-        const MOJ_KLUCZ_API = '6def6302b0a9b722144968390f4b8522'; 
+        const API_KEY = '107ed911408754b7edeb889e26791ab0';
 
         async function pobierzPogode() {
-            const miasto = document.getElementById('cityInput').value;
+            const miasto = document.getElementById('citySearch').value;
             if(!miasto) return;
 
-            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${miasto}&appid=${MOJ_KLUCZ_API}&units=metric&lang=pl`;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${miasto}&appid=${API_KEY}&units=metric&lang=pl`;
 
             try {
                 const response = await fetch(url);
                 const data = await response.json();
 
-                if(data.cod === "200") {
-                    zaktualizujUI(data);
+                if(data.cod === 200) {
+                    zaktualizujEkran(data);
                 } else {
-                    alert("Bracie, coś nie gra z nazwą miasta!");
+                    alert("Bracie, nie znalazłem miasta. Sprawdź czy klucz API jest już aktywny!");
                 }
             } catch (err) {
                 alert("Błąd połączenia. Sprawdź internet!");
             }
         }
 
-        function zaktualizujUI(data) {
-            const teraz = data.list[0];
-            
-            // 1. GŁÓWNA POGODA
-            document.getElementById('displayCity').innerText = `SkyCast PRO • ${data.city.name}`;
-            document.getElementById('displayTemp').innerText = `${Math.round(teraz.main.temp)}°`;
-            document.getElementById('displayDesc').innerText = teraz.weather[0].description;
+        function zaktualizujEkran(data) {
+            document.getElementById('labelCity').innerText = `SkyCast PRO • ${data.name}`;
+            document.getElementById('mainTemp').innerText = `${Math.round(data.main.temp)}°`;
+            document.getElementById('mainDesc').innerText = data.weather[0].description;
+            document.getElementById('humVal').innerText = `${data.main.humidity}%`;
+            document.getElementById('windVal').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
 
-            // 2. WSKAZÓWKA OD PIOTRKA (Logika na żywo)
-            const tipEl = document.getElementById('petersTip');
-            const temp = teraz.main.temp;
-            const stan = teraz.weather[0].main.toLowerCase();
+            // TWOJA LOGIKA (Piotrek radzi)
+            const tip = document.getElementById('petersTip');
+            const t = data.main.temp;
+            const w = data.weather[0].main.toLowerCase();
 
-            let rada = "Niebo wygląda stabilnie. Dobry czas na spacer lub pracę nad kodem! 🔥";
+            let rada = "Warunki są stabilne. Idealny czas na realizację planów! 🔥";
 
-            if (stan.includes('rain')) {
+            if (w.includes('rain')) {
                 rada = "System wykrył deszcz. <strong>Koniecznie weź parasol</strong>, żebyś nie zmokła/nie zmokł! ☂️";
-            } else if (temp > 26) {
-                rada = "Upał na horyzoncie! <strong>Pamiętaj o wodzie</strong> i unikaj pełnego słońca. ☀️";
-            } else if (temp < 6) {
-                rada = "Zimno dzisiaj. Ubierz się ciepło, zanim wyjdziesz! 🧥";
-            } else if (stan.includes('clear')) {
+            } else if (t > 25) {
+                rada = "Upał! <strong>Pamiętaj o nawodnieniu</strong> i unikaj pełnego słońca. ☀️";
+            } else if (t < 7) {
+                rada = "Chłodno dzisiaj. Ubierz się ciepło, zanim wyjdziesz! 🧥";
+            } else if (w.includes('clear')) {
                 rada = "Niebo jest czyste! Korzystaj z pogody, to będzie dobry dzień. 😉";
             }
-            tipEl.innerHTML = rada;
-
-            // 3. GODZINOWA
-            const hList = document.getElementById('hourlyList');
-            hList.innerHTML = '';
-            for(let i=0; i<8; i++) {
-                const h = data.list[i];
-                const g = new Date(h.dt * 1000).getHours() + ":00";
-                hList.innerHTML += `
-                    <div class="hour-tile">
-                        <span class="h-time">${g}</span>
-                        <span style="font-size:1.2rem">${ikona(h.weather[0].main)}</span>
-                        <span class="h-temp">${Math.round(h.main.temp)}°</span>
-                    </div>`;
-            }
-
-            // 4. NA 5 DNI
-            const dList = document.getElementById('dailyList');
-            dList.innerHTML = '';
-            for(let i=8; i<data.list.length; i+=8) {
-                const d = data.list[i];
-                const nazwa = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
-                dList.innerHTML += `
-                    <div class="day-row">
-                        <span class="d-name">${nazwa}</span>
-                        <span>${ikona(d.weather[0].main)}</span>
-                        <span class="d-range">
-                            <span style="color:#fca5a5">${Math.round(d.main.temp_max)}°</span> / 
-                            <span style="color:#93c5fd">${Math.round(d.main.temp_min)}°</span>
-                        </span>
-                    </div>`;
-            }
-        }
-
-        function ikona(p) {
-            const m = { 'Clear': '☀️', 'Clouds': '🌤️', 'Rain': '🌧️', 'Thunderstorm': '🌩️', 'Snow': '❄️' };
-            return m[p] || '☁️';
+            
+            tip.innerHTML = rada;
         }
     </script>
 </body>
