@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO | Projekt: Piotrek</title>
+    <title>SkyCast PRO | Architekt: Piotrek</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,7 +12,6 @@
             --glass-border: rgba(255, 255, 255, 0.4);
             --text-light: #ffffff;
             --accent-orange: #fbbf24;
-            --accent-pink: #f472b6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -31,7 +30,7 @@
             max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -40,121 +39,57 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* WYSZUKIWARKA PREMIUM */
-        .search-box {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-        }
-
+        /* WYSZUKIWARKA */
+        .search-box { display: flex; gap: 10px; width: 100%; }
         input {
-            flex: 1;
-            padding: 18px 25px;
-            border-radius: 25px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            outline: none;
-            transition: all 0.3s;
+            flex: 1; padding: 18px 25px; border-radius: 25px; border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            color: white; font-size: 1rem; font-weight: 600; outline: none;
         }
-
         input::placeholder { color: rgba(255, 255, 255, 0.7); }
-        input:focus { background: rgba(255, 255, 255, 0.25); border-color: white; }
-
         button {
-            padding: 0 25px;
-            border-radius: 25px;
-            border: none;
-            background: white;
-            color: #2563eb;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.2s;
+            padding: 0 25px; border-radius: 25px; border: none; background: white;
+            color: #2563eb; font-weight: 800; cursor: pointer; transition: transform 0.2s;
         }
-
-        button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        button:hover { transform: scale(1.05); }
 
         /* KAFELKI */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: 35px;
-            padding: 25px;
+            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 35px; padding: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
-        /* GŁÓWNA POGODA */
         .main-card { text-align: center; }
-        .city-name { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.8); }
-        .temp-display { font-size: 7.5rem; font-weight: 900; line-height: 1; margin: 15px 0; letter-spacing: -6px; text-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .desc-display { font-size: 1.5rem; font-weight: 600; text-transform: capitalize; }
+        .city-name { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8; }
+        .temp-display { font-size: 7rem; font-weight: 900; line-height: 1; margin: 15px 0; letter-spacing: -5px; }
+        .desc-display { font-size: 1.4rem; font-weight: 600; text-transform: capitalize; }
 
-        /* PROGNOZA GODZINOWA - SCROLL */
-        .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; color: rgba(255,255,255,0.7); }
+        .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; opacity: 0.7; }
         
-        .hourly-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
-            padding-bottom: 5px;
-        }
+        .hourly-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 5px; }
         .hourly-scroll::-webkit-scrollbar { display: none; }
         
         .hour-tile {
-            min-width: 70px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.1);
-            padding: 15px 5px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            min-width: 65px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.1); padding: 15px 5px; border-radius: 20px;
         }
-        .h-time { font-size: 0.8rem; font-weight: 700; opacity: 0.8; }
-        .h-temp { font-size: 1.2rem; font-weight: 800; }
 
-        /* LISTA 5 DNI */
-        .day-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .day-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .day-row:last-child { border-bottom: none; }
         .d-name { width: 90px; font-weight: 600; text-transform: capitalize; }
-        .d-range { font-weight: 800; font-size: 1rem; }
 
-        /* WSKAZÓWKA PIOTRKA */
-        .tip-card { display: flex; gap: 20px; align-items: center; border-left: 6px solid var(--accent-orange); }
-        .avatar { font-size: 2.2rem; background: white; min-width: 65px; height: 65px; border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .tip-content h4 { font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px; }
-        .tip-content p { font-size: 1.05rem; line-height: 1.4; font-weight: 500; }
+        /* WSKAZÓWKA */
+        .tip-card { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--accent-orange); }
+        .avatar { font-size: 2rem; background: white; min-width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #333; }
+        .tip-content h4 { font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px; }
+        .tip-content p { font-size: 0.95rem; font-weight: 600; line-height: 1.4; }
 
-        /* BIO - HISTORIA */
-        .bio-card {
-            background: #0f172a;
-            color: #f8fafc;
-            border: none;
-        }
-        .bio-card h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 15px; background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bio-card p { font-size: 1.05rem; line-height: 1.8; font-weight: 300; color: #cbd5e1; }
-        .bio-card strong { color: var(--accent-orange); font-weight: 700; }
-
-        /* Animacja Pulsu dla alertów */
-        .pulse { animation: pulseAnim 2s infinite; }
-        @keyframes pulseAnim {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
+        /* HISTORIA */
+        .bio-card { background: #0f172a; color: #f8fafc; border: none; }
+        .bio-card h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; color: #fff; }
+        .bio-card p { font-size: 1rem; line-height: 1.7; font-weight: 300; color: #cbd5e1; }
+        .bio-card strong { color: var(--accent-orange); }
     </style>
 </head>
 <body>
@@ -162,42 +97,136 @@
     <div class="app-container">
         
         <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Wyszukaj miasto..." value="Kraków">
+            <input type="text" id="cityInput" placeholder="Wpisz miasto..." value="Kraków">
             <button onclick="pobierzPogode()">SKANUJ</button>
         </div>
 
-        <div class="card main-card" id="mainCard">
+        <div class="card main-card">
             <div class="city-name" id="displayCity">SkyCast PRO • Architekt</div>
             <div class="temp-display" id="displayTemp">--°</div>
-            <div class="desc-display" id="displayDesc">Wpisz miasto i skanuj niebo</div>
+            <div class="desc-display" id="displayDesc">Skanuj atmosferę, bracie</div>
         </div>
 
         <div class="card">
-            <span class="section-title">Prognoza Godzinowa (24h)</span>
+            <span class="section-title">Prognoza Godzinowa</span>
             <div class="hourly-scroll" id="hourlyList">
-                <div style="opacity: 0.5; padding: 10px;">Czekam na dane...</div>
+                <div style="opacity: 0.5;">Czekam na dane...</div>
             </div>
         </div>
 
         <div class="card">
             <span class="section-title">Najbliższe 5 dni</span>
             <div class="daily-list" id="dailyList">
-                <div style="opacity: 0.5; padding: 10px;">Skanuję serwery...</div>
+                <div style="opacity: 0.5;">Skanuję serwery...</div>
             </div>
         </div>
 
-        <div class="card tip-card" id="tipContainer">
+        <div class="card tip-card">
             <div class="avatar">👨‍💻</div>
             <div class="tip-content">
                 <h4>✨ Wskazówka od Piotrka</h4>
-                <p id="petersTip">Wpisz miasto, a ja sprawdzę dane i podpowiem Ci, co robić! 😉</p>
+                <p id="petersTip">Kliknij SKANUJ, a ja sprawdzę co się dzieje na niebie! 😉</p>
             </div>
         </div>
 
         <div class="card bio-card">
             <h2>Cześć, tu Piotrek!</h2>
             <p>
-                Na co dzień robię dla Was pizzę i dbam o to, by smakowała najlepiej na świecie. To moja praca, którą szanuję. Ale to, co tu widzicie, to moja wielka pasja i hobby – **świat IT**. 
+                Na co dzień pracuję w gastronomii i **robię dla Was pizzę** – dbam o to, by smakowała najlepiej. To moja praca, którą szanuję, ale IT to moja prawdziwa pasja i hobby. 
                 <br><br>
-                Nauczyłem się kodowania samemu i buduję **SkyCast PRO** zupełnie od podstaw. Marzyłem o tym od dziecka, ale dopiero teraz znalazłem odwagę,
-                
+                Nauczyłem się kodowania zupełnie sam i buduję ten projekt od podstaw. Marzyłem o tym od dziecka i w końcu odważyłem się zacząć. Liczę na Wasze wsparcie!
+                <br><br>
+                <strong>Płyniemy z pasją!</strong> 🚀
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // TWÓJ KLUCZ API JEST JUŻ TUTAJ:
+        const MOJ_KLUCZ_API = '6def6302b0a9b722144968390f4b8522'; 
+
+        async function pobierzPogode() {
+            const miasto = document.getElementById('cityInput').value;
+            if(!miasto) return;
+
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${miasto}&appid=${MOJ_KLUCZ_API}&units=metric&lang=pl`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if(data.cod === "200") {
+                    zaktualizujUI(data);
+                } else {
+                    alert("Bracie, coś nie gra z nazwą miasta!");
+                }
+            } catch (err) {
+                alert("Błąd połączenia. Sprawdź internet!");
+            }
+        }
+
+        function zaktualizujUI(data) {
+            const teraz = data.list[0];
+            
+            // 1. GŁÓWNA POGODA
+            document.getElementById('displayCity').innerText = `SkyCast PRO • ${data.city.name}`;
+            document.getElementById('displayTemp').innerText = `${Math.round(teraz.main.temp)}°`;
+            document.getElementById('displayDesc').innerText = teraz.weather[0].description;
+
+            // 2. WSKAZÓWKA OD PIOTRKA (Logika na żywo)
+            const tipEl = document.getElementById('petersTip');
+            const temp = teraz.main.temp;
+            const stan = teraz.weather[0].main.toLowerCase();
+
+            let rada = "Niebo wygląda stabilnie. Dobry czas na spacer lub pracę nad kodem! 🔥";
+
+            if (stan.includes('rain')) {
+                rada = "System wykrył deszcz. <strong>Koniecznie weź parasol</strong>, żebyś nie zmokła/nie zmokł! ☂️";
+            } else if (temp > 26) {
+                rada = "Upał na horyzoncie! <strong>Pamiętaj o wodzie</strong> i unikaj pełnego słońca. ☀️";
+            } else if (temp < 6) {
+                rada = "Zimno dzisiaj. Ubierz się ciepło, zanim wyjdziesz! 🧥";
+            } else if (stan.includes('clear')) {
+                rada = "Niebo jest czyste! Korzystaj z pogody, to będzie dobry dzień. 😉";
+            }
+            tipEl.innerHTML = rada;
+
+            // 3. GODZINOWA
+            const hList = document.getElementById('hourlyList');
+            hList.innerHTML = '';
+            for(let i=0; i<8; i++) {
+                const h = data.list[i];
+                const g = new Date(h.dt * 1000).getHours() + ":00";
+                hList.innerHTML += `
+                    <div class="hour-tile">
+                        <span class="h-time">${g}</span>
+                        <span style="font-size:1.2rem">${ikona(h.weather[0].main)}</span>
+                        <span class="h-temp">${Math.round(h.main.temp)}°</span>
+                    </div>`;
+            }
+
+            // 4. NA 5 DNI
+            const dList = document.getElementById('dailyList');
+            dList.innerHTML = '';
+            for(let i=8; i<data.list.length; i+=8) {
+                const d = data.list[i];
+                const nazwa = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
+                dList.innerHTML += `
+                    <div class="day-row">
+                        <span class="d-name">${nazwa}</span>
+                        <span>${ikona(d.weather[0].main)}</span>
+                        <span class="d-range">
+                            <span style="color:#fca5a5">${Math.round(d.main.temp_max)}°</span> / 
+                            <span style="color:#93c5fd">${Math.round(d.main.temp_min)}°</span>
+                        </span>
+                    </div>`;
+            }
+        }
+
+        function ikona(p) {
+            const m = { 'Clear': '☀️', 'Clouds': '🌤️', 'Rain': '🌧️', 'Thunderstorm': '🌩️', 'Snow': '❄️' };
+            return m[p] || '☁️';
+        }
+    </script>
+</body>
+</html>
