@@ -68,6 +68,10 @@
 
         .main-hero { text-align: center; padding: 30px 15px; }
         .tag { font-size: 0.65rem; font-weight: 900; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+        
+        /* NOWOŚĆ LOKALIZACJA */
+        .location-tag { font-size: 0.8rem; font-weight: 800; color: #64748b; margin-bottom: 5px; }
+        
         .live-clock { font-size: 0.75rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
         .temp { font-size: 7rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; margin: 10px 0; }
         .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
@@ -116,6 +120,7 @@
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
             <div class="tag">SkyCast PRO • ARCHITEKT UMYSŁU 🧠👷</div>
+            <div class="location-tag" id="locTag">📍 Oczekuję na cel...</div>
             <div class="live-clock" id="liveClock">Skanowanie systemów...</div>
             <div class="temp" id="valT">--°</div>
             <div class="desc" id="valD">Czekam na sygnał...</div>
@@ -164,7 +169,7 @@
         <div class="card manifest animate" style="animation-delay: 0.7s">
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
-                Robię pizzę, projektuję przyszłość. System v27.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
+                Robię pizzę, projektuję przyszłość. System v29.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
                 Dziękuję za wsparcie mojego rozwoju!
             </p>
         </div>
@@ -189,16 +194,35 @@
         }
 
         async function pobierzDane() {
-            const miasto = document.getElementById('cityIn').value;
-            if(!miasto) return;
+            const miastoInput = document.getElementById('cityIn').value;
+            if(!miastoInput) return;
             try {
-                const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miasto}&appid=${KEY}&units=metric&lang=pl`);
-                const dataF = await resF.json();
-                if(dataF.cod === "200") {
-                    const resA = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${dataF.city.coord.lat}&lon=${dataF.city.coord.lon}&appid=${KEY}`);
-                    const dataA = await resA.json();
-                    renderUI(dataF, dataA);
-                    updateClock();
+                // 1. Zmiana: Najpierw pobieramy dokładne dane geograficzne z Geocoding API
+                const geoRes = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${miastoInput}&limit=1&appid=${KEY}`);
+                const geoData = await geoRes.json();
+
+                if (geoData && geoData.length > 0) {
+                    const lat = geoData[0].lat;
+                    const lon = geoData[0].lon;
+                    const cityName = geoData[0].name;
+                    const state = geoData[0].state || "Region nieokreślony"; // Np. Lesser Poland Voivodeship
+                    const country = geoData[0].country; // Np. PL
+                    
+                    // Pokazujemy dokładną lokalizację na ekranie
+                    document.getElementById('locTag').innerText = `📍 ${cityName}, ${state}, ${country}`;
+
+                    // 2. Pobieramy pogodę już dla dokładnych koordynatów, a nie samej nazwy miasta
+                    const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric&lang=pl`);
+                    const dataF = await resF.json();
+
+                    if(dataF.cod === "200") {
+                        const resA = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${KEY}`);
+                        const dataA = await resA.json();
+                        renderUI(dataF, dataA);
+                        updateClock();
+                    }
+                } else {
+                    document.getElementById('locTag').innerText = `📍 Nie znaleziono: ${miastoInput}`;
                 }
             } catch (err) { alert("Błąd połączenia!"); }
         }
