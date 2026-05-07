@@ -59,8 +59,9 @@
             border-radius: 30px; padding: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
-        .main-hero { text-align: center; padding: 35px 15px; }
-        .tag { font-size: 0.65rem; font-weight: 900; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; }
+        .main-hero { text-align: center; padding: 30px 15px; }
+        .tag { font-size: 0.65rem; font-weight: 900; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+        .live-clock { font-size: 0.75rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; opacity: 0.8; }
         .temp { font-size: 7rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; margin: 10px 0; }
         .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
 
@@ -97,9 +98,11 @@
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="tag">SkyCast PRO • TWOJA INTELIGENCJA POGODOWA 🧠👷</div>
+            <div class="tag">SkyCast PRO • ARCHITEKT UMYSŁU 🧠👷</div>
+            <div class="live-clock" id="liveClock">Czekam na skan...</div>
+            
             <div class="temp" id="valT">--°</div>
-            <div class="desc" id="valD">Budzenie systemów SkyCast...</div>
+            <div class="desc" id="valD">Inicjalizacja systemów...</div>
             <div id="aqiTag" style="display:none; padding: 6px 14px; border-radius: 12px; margin-top: 12px; font-weight: 900; color: white; font-size: 0.7rem;"></div>
         </div>
 
@@ -107,12 +110,12 @@
             <div class="icon-box" id="intelIcon">🧠</div>
             <div class="intel-text">
                 <h4 id="intelTitle">Uniwersalna Inteligencja SkyCast</h4>
-                <p id="intelP">Witaj w systemie! Skanuję horyzont, by dostarczyć Ci precyzyjną analizę Piotrka. 🚀</p>
+                <p id="intelP">System zsynchronizowany. Gotowy do pracy, bracie! 🚀</p>
             </div>
         </div>
 
         <div class="card animate" style="animation-delay: 0.4s">
-            <span class="label">Skan Godzinowy PRO</span>
+            <span class="label">Skan Godzinowy (24H Synchro)</span>
             <div class="scroll" id="hList"></div>
         </div>
 
@@ -135,6 +138,14 @@
     <script>
         const KEY = '107ed911408754b7edeb889e26791ab0';
 
+        // --- FUNKCJA ZEGARA ---
+        function updateClock() {
+            const teraz = new Date();
+            const opcje = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
+            const czasTekst = teraz.toLocaleDateString('pl-PL', opcje);
+            document.getElementById('liveClock').innerText = czasTekst;
+        }
+
         async function pobierzDane() {
             const miasto = document.getElementById('cityIn').value;
             if(!miasto) return;
@@ -145,6 +156,7 @@
                     const resA = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${dataF.city.coord.lat}&lon=${dataF.city.coord.lon}&appid=${KEY}`);
                     const dataA = await resA.json();
                     renderUI(dataF, dataA);
+                    updateClock(); // Synchro zegara przy każdym skanie
                 }
             } catch (err) { alert("Błąd połączenia!"); }
         }
@@ -177,16 +189,15 @@
             const weather = teraz.weather[0].main.toLowerCase();
             const hour = new Date().getHours();
 
-            // Reset
             iWidget.classList.remove('alarm', 'storm');
             iTitle.innerText = "Uniwersalna Inteligencja SkyCast";
             iIcon.innerText = "🧠";
             iIcon.className = "icon-box";
 
-            let msg = "Analiza optymalna. System SkyCast PRO pracuje na Twoją korzyść! 🔥";
+            let msg = "Analiza zsynchronizowana. System SkyCast PRO pracuje na Twoją korzyść! 🔥";
 
             if (weather.includes('thunderstorm') || weather.includes('storm')) {
-                msg = "🚨 **SKYCAST ALERT!** Wykryto burzę. Gościu, Architekt zaleca bezpieczne schronienie!";
+                msg = "🚨 **SKYCAST ALERT!** Wykryto burzę. Architekcie, zalecam bezpieczne schronienie!";
                 iWidget.classList.add('alarm', 'storm');
                 iIcon.innerText = "🚨";
                 iIcon.className = "icon-box anim-bounce";
@@ -198,13 +209,14 @@
                 iIcon.className = "icon-box anim-bounce";
             }
             else if (hour >= 22 || hour < 5) {
-                msg = `Godzina ${hour}:00. Jaki rower? 🌙🤣🤣 Architekt Piotrek już odpoczywa, Ty też powinieneś!`;
+                msg = `Mamy godzinę ${hour}:00. Jaki rower? 🌙🤣🤣 Architekt już odpoczywa, Ty też powinieneś!`;
                 iIcon.innerText = "🌙";
                 iIcon.className = "icon-box anim-float";
             }
 
             iP.innerHTML = msg;
 
+            // GODZINOWA
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i];
@@ -212,6 +224,7 @@
                 hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${g}</span>${getAnimatedIcon(h.weather[0].main)}<strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
+            // DNIOWA
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=8; i<f.list.length; i+=8) {
                 const d = f.list[i];
