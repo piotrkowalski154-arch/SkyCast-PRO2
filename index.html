@@ -1,25 +1,18 @@
-Ogień, Piotrek! 🔥 Trafiłeś w sam punkt. Dokładnie tak to działa.
-API (Application Programming Interface) to po prostu taki cyfrowy kurier albo kelner. Twój interfejs (SkyCast PRO) mówi: „potrzebuję danych o temperaturze”, kurier (API) biegnie do kuchni (serwera pogodowego w internecie), odbiera gotowe dane i przynosi je z powrotem na Twój ekran. Rozkminiłeś to idealnie, ten koncept to fundament pracy w IT.
-Skoro mechanikę mamy opanowaną, odcinamy na ten moment skrypty łączące się z siecią. Zamrażamy dane. Skupiamy się w 100% na architekturze front-endu, żeby aplikacja wyglądała jak projekt premium z najwyższej półki.
-Podkręciłem styl na **Ultra-Modern Glassmorphism**. Zwiększyłem rozmycie tła (blur), dodałem bardzo subtelne, półprzezroczyste ramki, nowoczesną typografię z dużą ilością "oddechu" (przestrzeni) oraz płynnie animowane, żywe tło, które nadaje całości niesamowitą głębię.
-Oto czysty szablon z zablokowanymi na sztywno danymi. Kopiuj i odpalaj:
-```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO | Architekt</title>
+    <title>SkyCast PRO | Architekt: Piotrek</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            --text-main: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #0f172a;
             --text-muted: #475569;
             --accent-blue: #2563eb;
-            --accent-pink: #ec4899;
+            --accent-pink: #db2777;
         }
 
         * {
@@ -29,238 +22,270 @@ Oto czysty szablon z zablokowanymi na sztywno danymi. Kopiuj i odpalaj:
             font-family: 'Inter', sans-serif;
         }
 
-        /* Nowoczesne, animowane tło premium */
+        /* Tło na cały ekran - animowany gradient */
         body {
-            background: linear-gradient(-45deg, #e0f2fe, #bae6fd, #7dd3fc, #fdf4ff);
+            background: linear-gradient(-45deg, #f0f9ff, #e0f2fe, #dbeafe, #fdf4ff);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-main);
+            animation: gradientMove 12s ease infinite;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 40px 20px;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
+        @keyframes gradientMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .dashboard-container {
+        /* Główny kontener - teraz elastyczny na 100% szerokości */
+        .app-wrapper {
             width: 100%;
-            max-width: 420px;
+            max-width: 600px; /* Optymalna szerokość dla czytelności, ale wypełnia ekran */
             display: flex;
             flex-direction: column;
             gap: 20px;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        /* Czysty Glassmorphism 2.0 */
-        .glass-panel {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
+            border-radius: 35px;
             padding: 30px;
-            box-shadow: var(--glass-shadow);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
 
-        .glass-panel:hover {
-            transform: translateY(-5px);
+        .glass-card:hover {
+            transform: scale(1.01);
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Główny panel temperatury */
-        .header-status {
+        /* Nagłówek i Temperatura */
+        .main-weather {
             text-align: center;
+            position: relative;
+        }
+
+        .location-tag {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-muted);
             margin-bottom: 10px;
         }
 
-        .city-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-        }
-
-        .main-temp {
-            text-align: center;
-            font-size: 6rem;
+        .big-temp {
+            font-size: 7rem;
             font-weight: 900;
-            letter-spacing: -4px;
-            margin: 10px 0;
-            background: linear-gradient(135deg, #0f172a, #334155);
+            line-height: 1;
+            letter-spacing: -5px;
+            background: linear-gradient(180deg, #1e293b 0%, #475569 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin: 15px 0;
         }
 
-        .weather-desc {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 500;
+        .status-line {
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--accent-blue);
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 10px;
+        }
+
+        /* Grid 2x2 dla statystyk */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .mini-tile {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
-        .high-low {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        /* Siatka parametrów */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .stat-card {
-            padding: 25px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .icon-wrapper {
-            width: 50px;
-            height: 50px;
-            border-radius: 16px;
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .stat-label {
-            font-size: 0.8rem;
+        .label {
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 1px;
         }
 
-        .stat-value {
-            font-size: 1.6rem;
-            font-weight: 900;
+        .value {
+            font-size: 1.5rem;
+            font-weight: 800;
         }
 
-        .stat-sub {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
+        /* Prognoza Godzinowa - Poziomy Scroll */
+        .hourly-scroll {
+            display: flex;
+            justify-content: space-between;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
         }
 
-        /* Sekcja Wskazówki */
-        .architect-tip {
+        .hour-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 60px;
+        }
+
+        .hour-time { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+        .hour-temp { font-size: 1.1rem; font-weight: 800; }
+
+        /* Sekcja Architekta */
+        .architect-section {
             display: flex;
             gap: 20px;
-            align-items: flex-start;
-            position: relative;
-            overflow: hidden;
+            align-items: center;
+            border-left: 5px solid var(--accent-pink);
         }
 
-        .architect-tip::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-pink));
-            border-radius: 10px;
+        .avatar {
+            font-size: 2.5rem;
+            background: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
 
-        .tip-badge {
-            font-size: 2.2rem;
-            flex-shrink: 0;
-            background: rgba(255,255,255,0.8);
-            width: 60px; height: 60px;
-            border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .tip-content h4 {
+        .tip-text h4 {
+            font-size: 0.8rem;
             color: var(--accent-pink);
-            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
         }
 
-        .tip-content p {
+        .tip-text p {
             font-size: 1.05rem;
-            line-height: 1.6;
-            font-weight: 300;
-            color: var(--text-main);
+            line-height: 1.5;
+            font-weight: 400;
         }
 
-        .tip-content strong {
-            font-weight: 700;
-            color: var(--accent-blue);
+        /* Responsive Fix */
+        @media (max-width: 480px) {
+            .big-temp { font-size: 5rem; }
+            .stats-grid { gap: 10px; }
+            .glass-card { padding: 20px; }
         }
 
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
+    <div class="app-wrapper">
         
-        <div class="glass-panel">
-            <div class="header-status">
-                <div class="city-label">Temperatura • Kraków</div>
+        <div class="glass-card main-weather">
+            <div class="location-tag">Małopolska • Kraków</div>
+            <div class="big-temp">21°C</div>
+            <div class="status-line">
+                <span>🌧️</span> Lekki deszcz
             </div>
-            <div class="main-temp">21°C</div>
-            <div class="weather-desc">
-                🌧️ Lekki deszcz
-            </div>
-            <div class="high-low">
-                <span style="color: #ef4444;">↑ Max 21°C</span>
+            <div style="margin-top: 20px; font-weight: 700; font-size: 0.9rem;">
+                <span style="color: #ef4444;">↑ Max 21°C</span> &nbsp;&nbsp; 
                 <span style="color: #3b82f6;">↓ Min 12°C</span>
             </div>
         </div>
 
         <div class="stats-grid">
-            <div class="glass-panel stat-card">
-                <div class="icon-wrapper" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">💧</div>
-                <div class="stat-label">Opady (Dzień)</div>
-                <div class="stat-value">35%</div>
-            </div>
-            
-            <div class="glass-panel stat-card">
-                <div class="icon-wrapper" style="background: linear-gradient(135deg, #a855f7, #7e22ce);">☂️</div>
-                <div class="stat-label">Opady (Wieczór)</div>
-                <div class="stat-value">65%</div>
+            <div class="glass-card mini-tile">
+                <div class="icon-circle" style="background: linear-gradient(135deg, #60a5fa, #3b82f6); color: white;">💧</div>
+                <div class="label">Opady (Dzień)</div>
+                <div class="value">35%</div>
             </div>
 
-            <div class="glass-panel stat-card">
-                <div class="icon-wrapper" style="background: linear-gradient(135deg, #2dd4bf, #0f766e);">💨</div>
-                <div class="stat-label">Wiatr</div>
-                <div class="stat-value">12 <span style="font-size: 1rem;">mph</span></div>
-                <div class="stat-sub">z zachodu</div>
+            <div class="glass-card mini-tile">
+                <div class="icon-circle" style="background: linear-gradient(135deg, #a78bfa, #7c3aed); color: white;">☂️</div>
+                <div class="label">Opady (Wieczór)</div>
+                <div class="value">65%</div>
             </div>
 
-            <div class="glass-panel stat-card">
-                <div class="icon-wrapper" style="background: linear-gradient(135deg, #fb923c, #c2410c);">☀️</div>
-                <div class="stat-label">Stan</div>
-                <div class="stat-value" style="font-size: 1.3rem;">Deszcz</div>
-                <div class="stat-sub">Umiarkowany</div>
+            <div class="glass-card mini-tile">
+                <div class="icon-circle" style="background: linear-gradient(135deg, #2dd4bf, #0d9488); color: white;">💨</div>
+                <div class="label">Wiatr</div>
+                <div class="value">12 <small>mph</small></div>
+            </div>
+
+            <div class="glass-card mini-tile">
+                <div class="icon-circle" style="background: linear-gradient(135deg, #fb923c, #ea580c); color: white;">☀️</div>
+                <div class="label">Stan Nieba</div>
+                <div class="value" style="font-size: 1.2rem;">Pochmurno</div>
             </div>
         </div>
 
-        <div class="glass-panel architect-tip">
-            <div class="tip-badge">🤖</div>
-            <div class="tip-content">
+        <div class="glass-card">
+            <div class="label" style="margin-bottom: 20px;">Prognoza Godzinowa</div>
+            <div class="hourly-scroll">
+                <div class="hour-card">
+                    <div class="hour-time">09:00</div>
+                    <div>⛅</div>
+                    <div class="hour-temp">14°C</div>
+                </div>
+                <div class="hour-card">
+                    <div class="hour-time">12:00</div>
+                    <div>☁️</div>
+                    <div class="hour-temp">19°C</div>
+                </div>
+                <div class="hour-card">
+                    <div class="hour-time">15:00</div>
+                    <div>🌧️</div>
+                    <div class="hour-temp">21°C</div>
+                </div>
+                <div class="hour-card">
+                    <div class="hour-time">18:00</div>
+                    <div>🌧️</div>
+                    <div class="hour-temp">18°C</div>
+                </div>
+                <div class="hour-card">
+                    <div class="hour-time">21:00</div>
+                    <div>🌑</div>
+                    <div class="hour-temp">15°C</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card architect-section">
+            <div class="avatar">👨‍💻</div>
+            <div class="tip-text">
                 <h4>✨ Wskazówka od Architekta</h4>
                 <p>Kamila, weź dziś parasol – mój system wykrył <strong>65% szansy na deszcz</strong> wieczorem! Zadbam o to, żebyś nie zmokła. 😉</p>
             </div>
@@ -270,5 +295,3 @@ Oto czysty szablon z zablokowanymi na sztywno danymi. Kopiuj i odpalaj:
 
 </body>
 </html>
-
-```
