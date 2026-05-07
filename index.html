@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast PRO - Intelligence v2.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; }
+        .shield-glow { box-shadow: 0 0 50px rgba(59, 130, 246, 0.1); }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen p-4 bg-black">
+
+    <header class="w-full max-w-md text-center py-8">
+        <h1 class="text-4xl font-black text-blue-500 italic">SKYCAST <span class="text-white text-3xl font-light">PRO</span></h1>
+        <p class="text-[9px] text-zinc-500 uppercase tracking-[0.4em] mt-1 font-bold italic">Tactical Intelligence System</p>
+    </header>
+
+    <div id="alert-box" class="w-full max-w-md mb-4 p-4 rounded-2xl border border-zinc-800 bg-zinc-900/50 text-center text-[10px] font-black tracking-[0.2em] text-zinc-500 uppercase">
+        Inicjalizacja Systemu...
+    </div>
+
+    <div class="w-full max-w-md bg-zinc-900/40 border border-zinc-800 rounded-[2.5rem] p-8 shield-glow backdrop-blur-3xl mb-4 text-center">
+        <div id="location-name" class="text-[10px] text-zinc-500 uppercase mb-4 tracking-widest">Namierzanie GPS...</div>
+        <div id="temp" class="text-9xl font-black text-white mb-2 drop-shadow-lg">--°</div>
+        <div id="description" class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Czekam na dane z satelity</div>
+        
+        <div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-zinc-800/50">
+            <div>
+                <div class="text-[8px] text-zinc-600 uppercase mb-1 tracking-widest font-bold">Siła Wiatru</div>
+                <div id="wind" class="text-lg font-black">-- km/h</div>
+            </div>
+            <div>
+                <div class="text-[8px] text-zinc-600 uppercase mb-1 tracking-widest font-bold">Kierunek</div>
+                <div id="direction" class="text-lg font-black">--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 w-full max-w-md mb-6">
+        <a href="https://www.accuweather.com/" target="_blank" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[9px] text-center font-black hover:border-orange-500/50 transition-all text-zinc-500 uppercase tracking-widest">AccuWeather 📡</a>
+        <a href="https://www.windy.com/" target="_blank" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[9px] text-center font-black hover:border-blue-500/50 transition-all text-zinc-500 uppercase tracking-widest">Windy Radar 🌀</a>
+    </div>
+
+    <button onclick="initSentinel()" class="w-full max-w-md bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-3xl active:scale-95 transition-all text-xs uppercase tracking-widest shadow-lg shadow-blue-900/20">
+        AKTUALIZUJ STATUS 🛡️
+    </button>
+
+    <footer class="mt-auto pb-6 text-center text-zinc-800 text-[8px] font-bold uppercase tracking-[0.3em]">
+        Architekt: Piotrek • Lucky Smart 2.0 Engine
+    </footer>
+
+    <script>
+        async function initSentinel() {
+            const locLabel = document.getElementById('location-name');
+            const alertBox = document.getElementById('alert-box');
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    try {
+                        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                        const data = await res.json();
+                        
+                        const temp = Math.round(data.current_weather.temperature);
+                        const wind = data.current_weather.windspeed;
+
+                        document.getElementById('temp').innerText = temp + "°";
+                        document.getElementById('wind').innerText = wind + " km/h";
+                        document.getElementById('direction').innerText = data.current_weather.winddirection + "°";
+                        document.getElementById('description').innerText = "System Sentinel Czuwa";
+                        locLabel.innerText = `POS: ${lat.toFixed(2)}N, ${lon.toFixed(2)}E`;
+                        
+                        // LOGIKA ALERTÓW (To jest Twoja pierwsza funkcja 'IF')
+                        if (wind > 35) {
+                            alertBox.innerText = "⚠️ ZAGROŻENIE: BARDZO SILNY WIATR!";
+                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-red-600 bg-red-600/20 text-center text-[10px] font-black text-red-500 uppercase tracking-widest";
+                        } else if (temp < 0) {
+                            alertBox.innerText = "❄️ ALERT: RYZYKO GOŁOLEDZI";
+                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-blue-400 bg-blue-400/20 text-center text-[10px] font-black text-blue-300 uppercase tracking-widest";
+                        } else {
+                            alertBox.innerText = "✅ WARUNKI ATMOSFERYCZNE STABILNE";
+                            alertBox.className = "w-full max-w-md mb-4 p-4 rounded-2xl border border-green-500/30 bg-green-500/5 text-center text-[10px] font-black text-green-500 uppercase tracking-widest";
+                        }
+                    } catch (e) { 
+                        alertBox.innerText = "BŁĄD DANYCH API";
+                    }
+                });
+            }
+        }
+        initSentinel();
+    </script>
+</body>
+</html>
