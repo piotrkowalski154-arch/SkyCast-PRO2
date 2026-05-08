@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Architekt: Piotrek</title>
     
-    <link rel="manifest" href="/manifest.json-2">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563eb">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -69,7 +69,6 @@
         .main-hero { text-align: center; padding: 30px 15px; }
         .tag { font-size: 0.65rem; font-weight: 900; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
         
-        /* NOWOŚĆ LOKALIZACJA */
         .location-tag { font-size: 0.8rem; font-weight: 800; color: #64748b; margin-bottom: 5px; }
         
         .live-clock { font-size: 0.75rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
@@ -169,7 +168,7 @@
         <div class="card manifest animate" style="animation-delay: 0.7s">
             <h2>Piotrek | Architekt SkyCast PRO</h2>
             <p>
-                Robię pizzę, projektuję przyszłość. System v29.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
+                Robię pizzę, projektuję przyszłość. System v30.0 wykorzystuje autorską logikę triangulacji danych 🧠👷. 
                 Dziękuję za wsparcie mojego rozwoju!
             </p>
         </div>
@@ -197,7 +196,6 @@
             const miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             try {
-                // 1. Zmiana: Najpierw pobieramy dokładne dane geograficzne z Geocoding API
                 const geoRes = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${miastoInput}&limit=1&appid=${KEY}`);
                 const geoData = await geoRes.json();
 
@@ -205,13 +203,11 @@
                     const lat = geoData[0].lat;
                     const lon = geoData[0].lon;
                     const cityName = geoData[0].name;
-                    const state = geoData[0].state || "Region nieokreślony"; // Np. Lesser Poland Voivodeship
-                    const country = geoData[0].country; // Np. PL
+                    const state = geoData[0].state || "Region nieokreślony";
+                    const country = geoData[0].country;
                     
-                    // Pokazujemy dokładną lokalizację na ekranie
                     document.getElementById('locTag').innerText = `📍 ${cityName}, ${state}, ${country}`;
 
-                    // 2. Pobieramy pogodę już dla dokładnych koordynatów, a nie samej nazwy miasta
                     const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric&lang=pl`);
                     const dataF = await resF.json();
 
@@ -236,13 +232,56 @@
             return '<span class="anim-float">🌤️</span>';
         }
 
+        // BAZA HUMORU INTELIGENCJI
+        function getHumorMsg(weatherMain, temp, min, timeStr) {
+            const rot = min % 3; // Rotacja losuje 1 z 3 tekstów dla danych warunków
+            const w = weatherMain.toLowerCase();
+            
+            if (w.includes('thunderstorm') || w.includes('storm')) {
+                return [
+                    "🚨 **BUM!** Idzie burza. Chowaj rowery, zamykaj okna i analizuj z bazy!",
+                    "🚨 Zeusem nie jesteś! Wykryto wyładowania. Lepiej zostań w bezpiecznym miejscu.",
+                    "🚨 Skan satelitarny donosi: z nieba lecą pioruny. Bezpieczeństwo to podstawa!"
+                ][rot];
+            }
+            if (w.includes('rain')) {
+                return [
+                    "Deszcz leje. Czas na Netflixa i optymalizację algorytmów na kanapie! 🌧️",
+                    "Bez parasola ani rusz! System odradza spacery bez osłony. ☔",
+                    "Zapowiada się mokry skan horyzontu. Uważaj na kałuże, bracie! 💧"
+                ][rot];
+            }
+            if (w.includes('clear')) {
+                if (temp > 25) return [
+                    "Upał na horyzoncie! ☀️ Szukaj cienia i pamiętaj o nawodnieniu, Architekcie.",
+                    "Patelnia! 🔥 Temperatura rośnie, a system radzi uważać na słońce.",
+                    "Idealne warunki na relaks. Tylko nie spal sobie procesora na tym słońcu! ⛱️"
+                ][rot];
+                return [
+                    "Czyste niebo! ☀️ Wychyl się z bazy, pogoda jest dziś Twoim sprzymierzeńcem.",
+                    "Brak chmur na radarze. Idealny moment na działanie na zewnątrz. 😎",
+                    "Skan optymalny! Wykorzystaj to słońce i ładuj baterie słoneczne. 🔋"
+                ][rot];
+            }
+            return [
+                "Analiza zsynchronizowana. Złoty Skan potwierdza stabilne warunki rozwoju! 🔥",
+                "Horyzont czysty. System pracuje płynnie, Ty też rób swoje! 🚀",
+                "Piotrek AI zatwierdza. Możesz ze spokojem wyjść z bazy. 🧠"
+            ][rot];
+        }
+
         function renderUI(f, a) {
             const teraz = f.list[0];
-            document.getElementById('valT').innerText = `${Math.round(teraz.main.temp)}°`;
+            const wMain = teraz.weather[0].main;
+            const temp = Math.round(teraz.main.temp);
             
+            document.getElementById('valT').innerText = `${temp}°`;
+            // PRZYWRÓCONY OPIS:
+            document.getElementById('valD').innerText = teraz.weather[0].description;
+
             // POKAZANIE ZŁOTEGO SKANU
             document.getElementById('goldScan').style.display = 'block';
-            document.getElementById('scanSat').innerText = `${Math.round(teraz.main.temp)}°C`;
+            document.getElementById('scanSat').innerText = `${temp}°C`;
             const trend = f.list[1].main.temp > teraz.main.temp ? "WZROST" : "SPADEK";
             document.getElementById('scanTrend').innerText = trend;
             const aqi = a.list[0].main.aqi;
@@ -252,7 +291,7 @@
             const iWidget = document.getElementById('intelWidget');
             const iP = document.getElementById('intelP');
             const iIcon = document.getElementById('intelIcon');
-            const w = teraz.weather[0].main.toLowerCase();
+            const w = wMain.toLowerCase();
             const now = new Date();
             const min = now.getMinutes();
             const timeStr = `${now.getHours()}:${min.toString().padStart(2, '0')}`;
@@ -261,11 +300,7 @@
             iIcon.innerText = "🧠";
             iIcon.className = "icon-box anim-pulse";
 
-            if (w.includes('thunderstorm') || w.includes('storm')) {
-                iP.innerHTML = "🚨 **SKYCAST ALERT!** Wykryto wyładowania. Architekcie, bierz bazę pod osłonę!";
-                iWidget.classList.add('alarm', 'storm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
-            } 
-            else if (aqi >= 4) {
+            if (aqi >= 4 && !w.includes('thunderstorm') && !w.includes('storm')) {
                 iP.innerHTML = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie. Zalecamy aktywność wewnątrz systemów.";
                 iWidget.classList.add('alarm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
             }
@@ -281,7 +316,12 @@
                 ];
                 iP.innerHTML = msgs[rot]; iIcon.innerText = "🌙"; iIcon.className = "icon-box anim-float";
             } else {
-                iP.innerHTML = "Analiza zsynchronizowana. Złoty Skan potwierdza stabilne warunki rozwoju! 🔥";
+                // NOWY SYSTEM HUMORU
+                const humorMsg = getHumorMsg(wMain, temp, min, timeStr);
+                iP.innerHTML = humorMsg;
+                if(w.includes('thunderstorm') || w.includes('storm')) {
+                     iWidget.classList.add('alarm', 'storm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
+                }
             }
 
             const hL = document.getElementById('hList'); hL.innerHTML = '';
