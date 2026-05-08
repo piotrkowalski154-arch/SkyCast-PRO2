@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyCast PRO | Fuzja Ostateczna</title>
+    <title>SkyCast PRO |twój Radar 🚨🛡️</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -32,13 +32,11 @@
         /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
-        .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         .alert-active { animation: pulseAlert 2s infinite; }
 
@@ -188,94 +186,87 @@
             const teraz = new Date();
             const opcje = { weekday: 'long', day: 'numeric', month: 'long' };
             const dateStr = teraz.toLocaleDateString('pl-PL', opcje);
-            document.getElementById('currentDate').innerText = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+            const formattedDate = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+            
+            const dateEl = document.getElementById('currentDate');
+            if (dateEl) dateEl.innerText = formattedDate;
         }
 
         async function pobierzDane() {
             const miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             
-            // BLOKADA PRZYCISKU (Stan ładowania)
             const btn = document.getElementById('searchBtn');
-            btn.innerText = "ŁADOWANIE...";
-            btn.disabled = true;
-            document.getElementById('cityName').innerText = "Szukam...";
-            document.getElementById('valT').innerText = "--°";
-            document.getElementById('mainIcon').innerHTML = '<span class="anim-spin">⚙️</span>';
-            document.getElementById('valD').innerText = "Trwa fuzja danych...";
-            document.getElementById('imgwTag').innerHTML = "📡 Silnik: Globalny"; // Reset IMGW
+            const cityNameEl = document.getElementById('cityName');
+            const tempEl = document.getElementById('valT');
+            const iconEl = document.getElementById('mainIcon');
+            const descEl = document.getElementById('valD');
+
+            if(btn) { btn.innerText = "ŁADOWANIE..."; btn.disabled = true; }
+            if(cityNameEl) cityNameEl.innerText = "Szukam...";
+            if(tempEl) tempEl.innerText = "--°";
+            if(iconEl) iconEl.innerHTML = '<span class="anim-spin">⚙️</span>';
+            if(descEl) descEl.innerText = "Trwa fuzja danych...";
 
             try {
-                // JEDNO ZAPYTANIE GLOBALNE (Szybkość!)
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miastoInput}&appid=${API_KEY}&units=metric&lang=pl`);
-                
-                if (!resF.ok) throw new Error("Błąd Pogody");
+                if (!resF.ok) throw new Error("Błąd");
                 const dataF = await resF.json();
 
                 if(dataF.cod === "200") {
-                    document.getElementById('cityName').innerText = dataF.city.name;
+                    if(cityNameEl) cityNameEl.innerText = dataF.city.name;
                     updateDateTime();
                     renderUI(dataF);
 
-                    // FUZJA: Odpalenie polskiego radaru IMGW jeśli jesteśmy w PL
                     if(dataF.city.country === "PL") {
                         pobierzIMGW(miastoInput.toLowerCase());
                     } else {
-                        document.getElementById('imgwTag').innerHTML = "🌍 Silnik: Globalny (Poza PL)";
+                        const imgwTag = document.getElementById('imgwTag');
+                        if(imgwTag) imgwTag.innerHTML = "🌍 Silnik: Globalny (Poza PL)";
                     }
-                } else {
-                    throw new Error("Nie znaleziono");
                 }
             } catch (err) { 
-                document.getElementById('cityName').innerText = "Błąd Lokalizacji";
-                document.getElementById('valD').innerText = "Spróbuj ponownie.";
-                document.getElementById('mainIcon').innerHTML = '❌';
+                if(cityNameEl) cityNameEl.innerText = "Błąd";
+                if(descEl) descEl.innerText = "Spróbuj ponownie.";
+                if(iconEl) iconEl.innerHTML = '❌';
             } finally {
-                // ODBLOKOWANIE PRZYCISKU
-                btn.innerText = "SKANUJ";
-                btn.disabled = false;
+                if(btn) { btn.innerText = "SKANUJ"; btn.disabled = false; }
             }
         }
 
         async function pobierzIMGW(miasto) {
-            // Czyszczenie polskich znaków (np. Kraków -> krakow)
             const miastoClean = miasto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l");
+            const imgwTag = document.getElementById('imgwTag');
             try {
                 const res = await fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${miastoClean}`);
-                if(res.ok) {
+                if(res.ok && imgwTag) {
                     const d = await res.json();
-                    document.getElementById('imgwTag').innerHTML = `✅ IMGW Live: <span class="imgw-live">${d.temperatura}°C</span> | ${d.cisnienie} hPa`;
-                } else {
-                    document.getElementById('imgwTag').innerHTML = "⚠️ IMGW: Stacja poza zasięgiem";
+                    imgwTag.innerHTML = `✅ IMGW Live: <span class="imgw-live">${d.temperatura}°C</span> | ${d.cisnienie} hPa`;
+                } else if(imgwTag) {
+                    imgwTag.innerHTML = "⚠️ IMGW: Brak stacji lokalnej";
                 }
             } catch(e) { 
-                document.getElementById('imgwTag').innerHTML = "⚠️ IMGW: Błąd radaru";
+                if(imgwTag) imgwTag.innerHTML = "⚠️ IMGW: Offline";
             }
         }
 
         function getAnimatedIcon(weatherMain, hour) {
             const w = weatherMain.toLowerCase();
             const isNight = hour >= 20 || hour < 6;
-
             if (w.includes('clear')) return isNight ? '<span class="anim-float">🌙</span>' : '<span class="anim-spin">☀️</span>';
             if (w.includes('cloud')) return isNight ? '<span class="anim-float">☁️</span>' : '<span class="anim-float">⛅</span>';
             if (w.includes('rain')) return '<span class="anim-bounce">🌧️</span>';
             if (w.includes('thunder')) return '<span class="anim-bounce" style="color:var(--purple)">🌩️</span>';
             if (w.includes('snow')) return '<span class="anim-bounce">🌨️</span>';
-            if (w.includes('mist') || w.includes('fog')) return '<span class="anim-float">🌫️</span>';
             return '<span class="anim-float">🌤️</span>';
         }
 
         function getThesis(teraz) {
-            const w = teraz.weather[0].main;
-            const m = w.toLowerCase();
+            const w = teraz.weather[0].main.toLowerCase();
             const temp = Math.round(teraz.main.temp);
-
-            if (m.includes('thunderstorm')) return "Burza w okolicy! Architekt zaleca pozostanie w bezpiecznej strefie.";
+            if (w.includes('thunder')) return "Burza w okolicy! Architekt zaleca bezpieczną bazę.";
             if (temp > 30) return "Upał na skanerze! ☀️ Pamiętaj o nawodnieniu.";
-            if (temp < 0) return "Temperatura spadła poniżej zera. Ogrzewanie na maxa! ❄️";
-            if (m.includes('rain')) return "Deszczowo. 🌧️ Parasol dzisiaj to podstawa.";
-            if (m.includes('clear')) return "Czyste niebo! Skaner pokazuje idealne warunki na relaks.";
+            if (temp < 0) return "Temperatura ujemna. Ogrzewanie na maxa! ❄️";
             return "Stabilna sytuacja pogodowa. Parametry w normie. 🚀";
         }
 
@@ -284,78 +275,88 @@
             const wMain = teraz.weather[0].main;
             const temp = Math.round(teraz.main.temp);
             const pressure = teraz.main.pressure;
-            const windSpeedKmh = Math.round(teraz.wind.speed * 3.6); 
+            const windSpeed = Math.round(teraz.wind.speed * 3.6); 
             const currentHour = new Date().getHours();
             
-            document.getElementById('valT').innerText = `${temp}°`;
-            document.getElementById('mainIcon').innerHTML = getAnimatedIcon(wMain, currentHour);
-            document.getElementById('valD').innerText = teraz.weather[0].description;
+            const tempEl = document.getElementById('valT');
+            const iconEl = document.getElementById('mainIcon');
+            const descEl = document.getElementById('valD');
+            const bioScanEl = document.getElementById('bioScan');
+            const pressEl = document.getElementById('valPress');
+            const bioBoxEl = document.getElementById('bioStatusBox');
+            const valBioEl = document.getElementById('valBio');
+            const thesisEl = document.getElementById('thesisP');
+            const hourlyEl = document.getElementById('hourlyCard');
+            const dailyEl = document.getElementById('dailyCard');
 
-            // ALERTY METEO 🚨
+            if(tempEl) tempEl.innerText = `${temp}°`;
+            if(iconEl) iconEl.innerHTML = getAnimatedIcon(wMain, currentHour);
+            if(descEl) descEl.innerText = teraz.weather[0].description;
+
+            // ALERTY - ZABEZPIECZONE
             const alertWidget = document.getElementById('alertWidget');
             const alertContent = document.getElementById('alertContent');
-            let alerts = [];
-
-            if (wMain.toLowerCase().includes('thunderstorm') || wMain.toLowerCase().includes('storm')) alerts.push("⚡ WYKRYTO BURZĘ LUB WYŁADOWANIA!");
-            if (temp >= 30) alerts.push("🔥 EKSTREMALNY UPAŁ (Ryzyko udaru)!");
-            if (temp <= -5) alerts.push("❄️ SILNY MRÓZ (Uważaj na oblodzenia)!");
-            if (windSpeedKmh >= 40) alerts.push(`🌬️ SILNY WIATR (${windSpeedKmh} km/h)!`);
-            if (wMain.toLowerCase().includes('rain') || wMain.toLowerCase().includes('drizzle')) alerts.push("🌧️ OPADY DESZCZU (Zabierz parasol)!");
-
-            alertWidget.style.display = 'block';
-            if (alerts.length > 0) {
-                alertWidget.style.borderLeftColor = 'var(--red)';
-                alertWidget.style.background = 'rgba(239, 68, 68, 0.1)';
-                alertWidget.classList.add('alert-active'); 
-                alertContent.style.color = 'var(--red)';
-                alertContent.innerHTML = alerts.join('<br>');
-            } else {
-                alertWidget.style.borderLeftColor = 'var(--green)';
-                alertWidget.style.background = 'rgba(22, 163, 74, 0.1)';
-                alertWidget.classList.remove('alert-active');
-                alertContent.style.color = 'var(--green)';
-                alertContent.innerHTML = "✅ Brak aktywnych zagrożeń pogodowych.";
+            if(alertWidget && alertContent) {
+                let alerts = [];
+                if (wMain.toLowerCase().includes('storm')) alerts.push("⚡ WYKRYTO WYŁADOWANIA!");
+                if (temp >= 30) alerts.push("🔥 EKSTREMALNY UPAŁ!");
+                if (windSpeed >= 40) alerts.push(`🌬️ SILNY WIATR (${windSpeed} km/h)!`);
+                
+                alertWidget.style.display = 'block';
+                if (alerts.length > 0) {
+                    alertWidget.style.borderLeftColor = 'var(--red)';
+                    alertWidget.style.background = 'rgba(239, 68, 68, 0.1)';
+                    alertWidget.classList.add('alert-active'); 
+                    alertContent.style.color = 'var(--red)';
+                    alertContent.innerHTML = alerts.join('<br>');
+                } else {
+                    alertWidget.style.borderLeftColor = 'var(--green)';
+                    alertWidget.style.background = 'rgba(22, 163, 74, 0.1)';
+                    alertWidget.classList.remove('alert-active');
+                    alertContent.style.color = 'var(--green)';
+                    alertContent.innerHTML = "✅ Brak aktywnych zagrożeń.";
+                }
             }
 
-            // ATMOSFERA
-            document.getElementById('bioScan').style.display = 'block';
-            document.getElementById('valPress').innerText = `${pressure} hPa`;
-            
-            const bioBox = document.getElementById('bioStatusBox');
-            const valBio = document.getElementById('valBio');
-            if (pressure >= 1010 && pressure <= 1025) {
-                valBio.innerText = "KORZYSTNE";
-                bioBox.style.background = "rgba(22, 163, 74, 0.1)"; 
-                valBio.style.color = "var(--green)";
-            } else {
-                valBio.innerText = "SŁABE";
-                bioBox.style.background = "rgba(239, 68, 68, 0.1)"; 
-                valBio.style.color = "var(--red)";
+            if(bioScanEl) bioScanEl.style.display = 'block';
+            if(pressEl) pressEl.innerText = `${pressure} hPa`;
+            if(valBioEl) {
+                if (pressure >= 1010 && pressure <= 1025) {
+                    valBioEl.innerText = "KORZYSTNE";
+                    if(bioBoxEl) bioBoxEl.style.background = "rgba(22, 163, 74, 0.1)";
+                    valBioEl.style.color = "var(--green)";
+                } else {
+                    valBioEl.innerText = "SŁABE";
+                    if(bioBoxEl) bioBoxEl.style.background = "rgba(239, 68, 68, 0.1)";
+                    valBioEl.style.color = "var(--red)";
+                }
             }
             
-            document.getElementById('thesisP').innerHTML = getThesis(teraz);
+            if(thesisEl) thesisEl.innerHTML = getThesis(teraz);
+            if(hourlyEl) hourlyEl.style.display = 'block';
+            if(dailyEl) dailyEl.style.display = 'block';
 
-            // POKAZANIE KART (Prognozy godzinowe i dniowe)
-            document.getElementById('hourlyCard').style.display = 'block';
-            document.getElementById('dailyCard').style.display = 'block';
-
-            // GODZINOWA
-            const hL = document.getElementById('hList'); hL.innerHTML = '';
-            for(let i=0; i<8; i++) {
-                const h = f.list[i];
-                const hHour = new Date(h.dt * 1000).getHours();
-                const g = hHour + ":00";
-                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${g}</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
+            const hL = document.getElementById('hList');
+            if(hL) {
+                hL.innerHTML = '';
+                for(let i=0; i<8; i++) {
+                    const h = f.list[i];
+                    const hHour = new Date(h.dt * 1000).getHours();
+                    hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
+                }
             }
 
-            // DNIOWA
-            const dL = document.getElementById('dList'); dL.innerHTML = '';
-            for(let i=8; i<f.list.length; i+=8) {
-                const d = f.list[i];
-                const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
-                dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span style="font-size:1.8rem">${getAnimatedIcon(d.weather[0].main, 12)}</span><span style="font-weight:900">${Math.round(d.main.temp_max)}° / <span style="color:#64748b">${Math.round(d.main.temp_min)}°</span></span></div>`;
+            const dL = document.getElementById('dList');
+            if(dL) {
+                dL.innerHTML = '';
+                for(let i=8; i<f.list.length; i+=8) {
+                    const d = f.list[i];
+                    const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
+                    dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span style="font-size:1.8rem">${getAnimatedIcon(d.weather[0].main, 12)}</span><span style="font-weight:900">${Math.round(d.main.temp_max)}° / <span style="color:#64748b">${Math.round(d.main.temp_min)}°</span></span></div>`;
+                }
             }
         }
     </script>
 </body>
-</html>
+    </html>
+    
