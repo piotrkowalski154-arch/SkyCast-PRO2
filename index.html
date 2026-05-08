@@ -3,114 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyCast PRO | Architekt: Piotrek</title>
+    <title>SkyCast PRO | Twoja Aplikacja Pogodowa</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-            --glass: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 1);
             --text: #0f172a;
             --blue: #2563eb;
-            --orange: #f59e0b;
+            --green: #16a34a;
             --red: #ef4444;
-            --purple: #7e22ce;
-            --gold: #d4af37;
+            --orange: #f59e0b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         body {
             background: var(--bg); background-attachment: fixed; min-height: 100vh;
-            display: flex; justify-content: center; padding: 15px; color: var(--text);
+            display: flex; justify-content: center; padding: 10px; color: var(--text);
             overflow-x: hidden;
         }
 
-        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
+        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
 
-        /* --- ANIMACJE --- */
+        /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-        @keyframes intelPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(37, 99, 235, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); } 100% { transform: scale(1); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
-        .anim-pulse { animation: intelPulse 2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
 
         /* WYSZUKIWARKA */
         .search-area { display: flex; gap: 8px; }
         input {
             flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
+            background: var(--glass); backdrop-filter: blur(5px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
         }
         input:focus { background: white; border-color: var(--blue); }
         button {
-            padding: 0 22px; border-radius: 20px; border: none; background: #1e293b;
+            padding: 0 20px; border-radius: 20px; border: none; background: var(--blue);
             color: white; font-weight: 900; cursor: pointer;
         }
 
         /* KAFELKI */
         .card {
             background: var(--glass); backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
-            border-radius: 30px; padding: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             position: relative; overflow: hidden;
         }
 
-        .main-hero { text-align: center; padding: 30px 15px; }
-        .tag { font-size: 0.65rem; font-weight: 900; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+        .main-hero { text-align: center; padding: 25px 10px; }
+        .brand-title { font-size: 1.8rem; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
+        .brand-sub { font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
         
-        .location-tag { font-size: 0.8rem; font-weight: 800; color: #64748b; margin-bottom: 5px; }
-        .live-clock { font-size: 0.75rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+        .cityName { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; color: #020617; }
+        .currentDate { font-size: 1.1rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: capitalize; }
         
-        /* GŁÓWNY WIDOK TEMPERATURY I IKONY */
-        .hero-temp-wrapper { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0; }
-        .temp { font-size: 7rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; }
-        .hero-icon { font-size: 6rem; }
+        .hero-temp-wrapper { display: flex; justify-content: center; align-items: center; gap: 5px; margin: 10px 0; }
+        .temp { font-size: 7.5rem; font-weight: 900; line-height: 1; letter-spacing: -6px; color: #020617; }
+        .hero-icon { font-size: 5.5rem; }
 
-        .desc { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-transform: capitalize; }
+        .desc { font-size: 1.3rem; font-weight: 700; color: #1e293b; text-transform: capitalize; }
 
-        /* PARAMETRY BIOMETRYCZNE */
-        .bio-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; margin-top: 5px; }
-        .bio-box { background: rgba(255,255,255,0.6); padding: 12px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.05); }
-        .bio-label { font-size: 0.6rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
-        .bio-val { font-size: 1.1rem; font-weight: 900; color: #0f172a; }
+        /* ATMOSFERA */
+        .bio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .bio-box { padding: 18px; border-radius: 22px; border: 1px solid rgba(0,0,0,0.03); text-align: center; }
+        .bio-label { font-size: 0.65rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
+        .bio-val { font-size: 1.3rem; font-weight: 900; }
 
-        /* ZŁOTY SKAN 💎 */
-        .gold-scan-card { background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%); border: 2px solid var(--gold); }
-        .scan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .confidence-badge { background: var(--gold); color: white; padding: 4px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 900; }
-        .tri-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; }
-        .tri-box { background: rgba(255,255,255,0.5); padding: 10px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
-        .tri-label { font-size: 0.55rem; font-weight: 800; color: #92400e; text-transform: uppercase; margin-bottom: 5px; }
-        .tri-val { font-size: 0.9rem; font-weight: 900; }
+        /* TEZA */
+        .thesis-card { border-left: 6px solid var(--blue); background: #fff; }
+        .thesis-card h4 { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
+        .thesis-card p { font-size: 1rem; font-weight: 700; color: #1e293b; line-height: 1.5; }
 
-        /* MODUŁ INTELIGENCJI 🧠🚨 */
-        .intel-shield { display: flex; gap: 15px; align-items: center; border-left: 6px solid var(--blue); background: white; transition: 0.4s; }
-        .intel-shield.alarm { border-left-color: var(--red); }
-        .intel-shield.storm { border-left-color: var(--purple); background: rgba(126, 34, 206, 0.05); }
-
-        .icon-box { font-size: 1.8rem; background: #f1f5f9; min-width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .intel-text h4 { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 900; margin-bottom: 2px;}
-        .intel-text p { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: #1e293b; }
-
-        /* LISTY */
-        .label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
-        .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 8px; }
+        /* SCROLL */
+        .label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
+        .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; }
         .scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 22px; font-size: 1.5rem; }
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.5); padding: 15px 5px; border-radius: 20px; }
 
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
         .d-row:last-child { border-bottom: none; }
-        .d-day { font-weight: 700; text-transform: capitalize; width: 100px; }
 
-        .manifest { background: #020617; color: white; border-radius: 35px; padding: 30px; }
-        .manifest h2 { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
-        .manifest p { font-size: 0.95rem; line-height: 1.7; opacity: 0.85; font-weight: 300; color: #cbd5e1; }
+        /* O MNIE - NOWY DESIGN */
+        .manifest { background: #020617; color: white; border-radius: 30px; padding: 25px; text-align: left; }
+        .manifest h2 { font-size: 1.2rem; color: #fff; margin-bottom: 10px; font-weight: 900; }
+        .manifest p { font-size: 0.9rem; line-height: 1.6; opacity: 0.9; font-weight: 400; color: #cbd5e1; }
+        .pizza-badge { display: inline-block; background: var(--orange); color: #000; padding: 4px 10px; border-radius: 8px; font-weight: 900; font-size: 0.7rem; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -118,142 +103,94 @@
     <div class="container">
         
         <div class="search-area animate" style="animation-delay: 0.1s">
-            <input type="text" id="cityIn" placeholder="Skanuj horyzont..." value="Kraków">
+            <input type="text" id="cityIn" placeholder="Wpisz miasto..." value="Kraków">
             <button onclick="pobierzDane()">SKANUJ</button>
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="tag">SkyCast PRO • ARCHITEKT UMYSŁU 🧠👷</div>
-            <div class="location-tag" id="locTag">📍 Oczekuję na cel...</div>
-            <div class="live-clock" id="liveClock">Skanowanie systemów...</div>
+            <div class="brand-title">SkyCast PRO</div>
+            <div class="brand-sub">Twoja aplikacja pogodowa</div>
+            
+            <div class="cityName" id="cityName">Kraków</div>
+            <div class="currentDate" id="currentDate">--</div>
             
             <div class="hero-temp-wrapper">
-                <div class="hero-icon" id="mainIcon"></div>
                 <div class="temp" id="valT">--°</div>
+                <div class="hero-icon" id="mainIcon"></div>
             </div>
             
-            <div class="desc" id="valD">Czekam na sygnał...</div>
+            <div class="desc" id="valD">Czekam na dane...</div>
         </div>
 
         <div class="card animate" id="bioScan" style="animation-delay: 0.25s; display: none;">
-            <span class="label">Pomiary Atmosferyczne</span>
             <div class="bio-grid">
-                <div class="bio-box">
-                    <div class="bio-label">Ciśnienie</div>
-                    <div class="bio-val" id="valPress">-- hPa</div>
+                <div class="bio-box" style="background: rgba(37, 99, 235, 0.05);">
+                    <div class="bio-label" style="color: var(--blue);">Ciśnienie</div>
+                    <div class="bio-val" id="valPress" style="color: var(--blue);">-- hPa</div>
                 </div>
-                <div class="bio-box">
+                <div class="bio-box" id="bioStatusBox">
                     <div class="bio-label">Biometeo</div>
                     <div class="bio-val" id="valBio">--</div>
                 </div>
-                <div class="bio-box">
-                    <div class="bio-label">Wilgotność</div>
-                    <div class="bio-val" id="valHum">--%</div>
-                </div>
             </div>
         </div>
 
-        <div class="card gold-scan-card animate" id="goldScan" style="animation-delay: 0.3s; display: none;">
-            <div class="scan-header">
-                <span style="font-size: 0.7rem; font-weight: 900; color: #92400e;">💎 ZŁOTY SKAN (LOGIKA TRIANGULACJI)</span>
-                <span class="confidence-badge" id="confVal">98% PEWNOŚCI</span>
-            </div>
-            <div class="tri-grid">
-                <div class="tri-box">
-                    <div class="tri-label">Satelita</div>
-                    <div class="tri-val" id="scanSat">--</div>
-                </div>
-                <div class="tri-box">
-                    <div class="tri-label">Trend</div>
-                    <div class="tri-val" id="scanTrend">--</div>
-                </div>
-                <div class="tri-box">
-                    <div class="tri-label">Korelacja</div>
-                    <div class="tri-val" id="scanAI">--</div>
-                </div>
-            </div>
+        <div class="card thesis-card animate" id="thesisWidget" style="animation-delay: 0.3s">
+            <h4>Analiza Architekta</h4>
+            <p id="thesisP">Gotowy do pracy. Wybierz miasto, aby otrzymać tezę pogodową.</p>
         </div>
 
-        <div class="card intel-shield animate" id="intelWidget" style="animation-delay: 0.4s">
-            <div class="icon-box anim-pulse" id="intelIcon">🧠</div>
-            <div class="intel-text">
-                <h4 id="intelTitle">Uniwersalna Inteligencja SkyCast</h4>
-                <p id="intelP">System gotowy. Wykonaj skan horyzontu, by uruchomić logikę Architekta. 🚀</p>
-            </div>
-        </div>
-
-        <div class="card animate" style="animation-delay: 0.5s">
-            <span class="label">Skan Godzinowy PRO</span>
+        <div class="card animate" style="animation-delay: 0.4s">
+            <span class="label">Skan Godzinowy</span>
             <div class="scroll" id="hList"></div>
         </div>
 
-        <div class="card animate" style="animation-delay: 0.6s">
-            <span class="label">Trendy Inteligencji (5 Dni)</span>
+        <div class="card animate" style="animation-delay: 0.5s">
+            <span class="label">Prognoza 5-dniowa</span>
             <div id="dList"></div>
         </div>
 
-        <div class="card manifest animate" style="animation-delay: 0.7s">
-            <h2>Piotrek | Architekt SkyCast PRO</h2>
+        <div class="card manifest animate" style="animation-delay: 0.6s">
+            <h2>Piotrek | Autor SkyCast</h2>
             <p>
-                Zoptymalizowany silnik. Moduł Ciśnienia i Biometeo wdrożony. System operuje na sprawdzonym zasilaniu. 🧠👷
+                Na co dzień pracuję w restauracji, gdzie przygotowuję dla Was najlepszą pizzę. Jednak moją wielką pasją jest świat nowoczesnych technologii. 
+                W przyszłości planuję zostać Architektem Systemów, a dziś prezentuję Wam moje hobby – aplikację SkyCast PRO. 
+                Stworzyłem ją, aby służyła Wam rzetelną informacją każdego dnia.
             </p>
+            <div class="pizza-badge">🍕 PIZZA & KODOWANIE 💻</div>
         </div>
 
     </div>
 
     <script>
-        // --- KLUCZ WPIĘTY AUTOMATYCZNIE PRZEZ INTELIGENCJĘ ---
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
-        function updateClock() {
+        function updateDateTime(cityName) {
             const teraz = new Date();
-            const opcje = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('liveClock').innerText = teraz.toLocaleDateString('pl-PL', opcje);
+            const opcje = { weekday: 'long', day: 'numeric', month: 'long' };
+            document.getElementById('cityName').innerText = cityName;
+            document.getElementById('currentDate').innerText = teraz.toLocaleDateString('pl-PL', opcje);
         }
 
         async function pobierzDane() {
             const miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
-            
-            document.getElementById('locTag').innerText = "📡 Nawiązywanie połączenia...";
-            
             try {
                 const geoRes = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${miastoInput}&limit=1&appid=${API_KEY}`);
-                if (!geoRes.ok) throw new Error("Błąd Geo");
                 const geoData = await geoRes.json();
-
-                if (geoData && geoData.length > 0) {
-                    const lat = geoData[0].lat;
-                    const lon = geoData[0].lon;
-                    const cityName = geoData[0].name;
-                    const country = geoData[0].country;
-                    
-                    document.getElementById('locTag').innerText = `📍 ${cityName}, ${country}`;
-
+                if (geoData.length > 0) {
+                    const {lat, lon, name} = geoData[0];
+                    updateDateTime(geoData[0].local_names ? geoData[0].local_names.pl : name);
                     const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pl`);
-                    if (!resF.ok) throw new Error("Błąd Pogody");
                     const dataF = await resF.json();
-
-                    if(dataF.cod === "200") {
-                        const resA = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
-                        let dataA = null;
-                        if(resA.ok) dataA = await resA.json();
-                        
-                        renderUI(dataF, dataA);
-                        updateClock();
-                    }
-                } else {
-                    document.getElementById('locTag').innerText = "🚨 Nie znaleziono lokalizacji.";
+                    renderUI(dataF);
                 }
-            } catch (err) { 
-                document.getElementById('locTag').innerText = "🚨 Błąd połączenia. Sprawdź klucz API!";
-            }
+            } catch (err) { console.log("Błąd API"); }
         }
 
         function getAnimatedIcon(weatherMain, hour) {
             const w = weatherMain.toLowerCase();
             const isNight = hour >= 20 || hour < 6;
-
             if (w.includes('clear')) return isNight ? '<span class="anim-float">🌙</span>' : '<span class="anim-spin">☀️</span>';
             if (w.includes('cloud')) return isNight ? '<span class="anim-float">☁️</span>' : '<span class="anim-float">⛅</span>';
             if (w.includes('rain')) return '<span class="anim-bounce">🌧️</span>';
@@ -261,92 +198,51 @@
             return '<span class="anim-float">🌤️</span>';
         }
 
-        function getHumorMsg(wMain, temp, min, timeStr) {
-            const rot = min % 3; 
-            const w = wMain.toLowerCase();
-            
-            if (w.includes('thunderstorm') || w.includes('storm')) return ["🚨 BUM! Idzie burza. Analizuj z bazy!", "🚨 Wykryto wyładowania. Bezpieczeństwo to podstawa!", "🚨 Z nieba lecą pioruny. Uważaj!"][rot];
-            if (w.includes('rain')) return ["Deszcz leje. Czas na optymalizację algorytmów na kanapie! 🌧️", "Bez parasola ani rusz! ☔", "Zapowiada się mokry skan horyzontu. 💧"][rot];
-            if (w.includes('clear')) {
-                if (temp > 25) return ["Upał na horyzoncie! ☀️ Szukaj cienia.", "Patelnia! 🔥 Uważaj na procesor.", "Gorąco! Idealne warunki na cień. ⛱️"][rot];
-                return ["Czyste niebo! ☀️ Wychyl się z bazy.", "Brak chmur na radarze. 😎", "Skan optymalny! 🔋"][rot];
-            }
-            return ["Złoty Skan potwierdza stabilne warunki! 🔥", "Horyzont czysty. System pracuje płynnie. 🚀", "Korelacja zatwierdzona. 🧠"][rot];
+        function getThesis(w, temp) {
+            const m = w.toLowerCase();
+            if (m.includes('storm')) return "🚨 **Alarm w bazie!** Wykryto wyładowania. To nie jest czas na spacery, pilnuj systemów wewnątrz.";
+            if (m.includes('rain')) return "Horyzont dziś zapłakany. Zabierz parasol, żeby nie zamoczyć procesora! 🌧️";
+            if (m.includes('clear')) return temp > 25 ? "☀️ **Patelnia!** Idealne warunki na zimną colę. Pamiętaj o nawodnieniu!" : "Czyste niebo! Wykorzystaj ten dzień na 100%. Optymalne warunki.";
+            return "Stabilna sytuacja na horyzoncie. System zatwierdza wyjście z bazy. 🚀";
         }
 
-        function renderUI(f, a) {
+        function renderUI(f) {
             const teraz = f.list[0];
             const wMain = teraz.weather[0].main;
             const temp = Math.round(teraz.main.temp);
-            const pressure = teraz.main.pressure;
-            const humidity = teraz.main.humidity;
-            const currentHour = new Date().getHours();
+            const press = teraz.main.pressure;
+            const hour = new Date().getHours();
             
             document.getElementById('valT').innerText = `${temp}°`;
-            document.getElementById('mainIcon').innerHTML = getAnimatedIcon(wMain, currentHour);
+            document.getElementById('mainIcon').innerHTML = getAnimatedIcon(wMain, hour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
-
             document.getElementById('bioScan').style.display = 'block';
-            document.getElementById('valPress').innerText = `${pressure} hPa`;
-            document.getElementById('valHum').innerText = `${humidity}%`;
+            document.getElementById('valPress').innerText = `${press} hPa`;
             
-            let biometeo = "NEUTRALNE 😐";
-            if (pressure >= 1010 && pressure <= 1025 && temp >= 15 && temp <= 25 && !wMain.toLowerCase().includes('rain') && !wMain.toLowerCase().includes('storm')) {
-                biometeo = "KORZYSTNE 🟢";
-            } else if (pressure < 1000 || pressure > 1030 || wMain.toLowerCase().includes('storm') || temp > 30 || temp < -5) {
-                biometeo = "SŁABE 🔴";
-            }
-            document.getElementById('valBio').innerText = biometeo;
-
-            document.getElementById('goldScan').style.display = 'block';
-            document.getElementById('scanSat').innerText = `${temp}°C`;
-            const trend = f.list[1].main.temp > teraz.main.temp ? "WZROST" : "SPADEK";
-            document.getElementById('scanTrend').innerText = trend;
-            
-            if (a) {
-                const aqi = a.list[0].main.aqi;
-                document.getElementById('scanAI').innerText = aqi <= 2 ? "WYSOKA" : "ZGODNA";
+            const bioBox = document.getElementById('bioStatusBox');
+            const valBio = document.getElementById('valBio');
+            if (press >= 1010 && press <= 1025) {
+                valBio.innerText = "KORZYSTNE 🟢";
+                bioBox.style.background = "rgba(22, 163, 74, 0.1)";
             } else {
-                document.getElementById('scanAI').innerText = "BRAK DANYCH";
+                valBio.innerText = "SŁABE 🔴";
+                bioBox.style.background = "rgba(239, 68, 68, 0.1)";
             }
             
-            document.getElementById('confVal').innerText = `${92 + Math.floor(Math.random() * 7)}% PEWNOŚCI`;
-
-            const iWidget = document.getElementById('intelWidget');
-            const iP = document.getElementById('intelP');
-            const iIcon = document.getElementById('intelIcon');
-            const w = wMain.toLowerCase();
-            const now = new Date();
-            const min = now.getMinutes();
-            const timeStr = `${now.getHours()}:${min.toString().padStart(2, '0')}`;
-
-            iWidget.classList.remove('alarm', 'storm');
-            iIcon.innerText = "🧠";
-            iIcon.className = "icon-box anim-pulse";
-
-            if (a && a.list[0].main.aqi >= 4 && !w.includes('storm')) {
-                iP.innerHTML = "🚨 **ALERT SMOGOWY!** Toksyny w horyzoncie.";
-                iWidget.classList.add('alarm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
-            } else {
-                iP.innerHTML = getHumorMsg(wMain, temp, min, timeStr);
-                if(w.includes('storm')) {
-                     iWidget.classList.add('alarm', 'storm'); iIcon.innerText = "🚨"; iIcon.className = "icon-box anim-bounce";
-                }
-            }
+            document.getElementById('thesisP').innerHTML = getThesis(wMain, temp);
 
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i];
-                const hHour = new Date(h.dt * 1000).getHours();
-                const g = hHour + ":00";
-                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${g}</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
+                const hH = new Date(h.dt * 1000).getHours();
+                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem;opacity:0.6">${hH}:00</span>${getAnimatedIcon(h.weather[0].main, hH)}<strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=8; i<f.list.length; i+=8) {
                 const d = f.list[i];
                 const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
-                dL.innerHTML += `<div class="d-row"><strong style="text-transform:capitalize">${n}</strong><span style="font-size:1.8rem">${getAnimatedIcon(d.weather[0].main, 12)}</span><span style="font-weight:900">${Math.round(d.main.temp_max)}° / ${Math.round(d.main.temp_min)}°</span></div>`;
+                dL.innerHTML += `<div class="d-row"><strong style="text-transform:capitalize">${n}</strong><span>${getAnimatedIcon(d.weather[0].main, 12)}</span><span style="font-weight:900">${Math.round(d.main.temp_max)}° / ${Math.round(d.main.temp_min)}°</span></div>`;
             }
         }
     </script>
