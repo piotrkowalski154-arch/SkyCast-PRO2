@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyCast PRO | twój Radar 🚨🛡️</title>
+    <title>SkyCast PRO | Fuzja Ostateczna</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://openweathermap.org/img/wn/02d@4x.png">
+    <link rel="apple-touch-icon" href="https://openweathermap.org/img/wn/02d@4x.png">
+    
     <style>
         :root {
             --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
@@ -32,11 +35,13 @@
         /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
+        .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         .alert-active { animation: pulseAlert 2s infinite; }
 
@@ -165,7 +170,7 @@
         </div>
 
         <div class="card animate" id="dailyCard" style="animation-delay: 0.5s; display: none;">
-            <span class="label">Prognoza 5-dniowa</span>
+            <span class="label">Prognoza na 5 dni</span>
             <div id="dList"></div>
         </div>
 
@@ -210,7 +215,7 @@
 
             try {
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miastoInput}&appid=${API_KEY}&units=metric&lang=pl`);
-                if (!resF.ok) throw new Error("Błąd");
+                if (!resF.ok) throw new Error("Błąd API");
                 const dataF = await resF.json();
 
                 if(dataF.cod === "200") {
@@ -227,7 +232,7 @@
                 }
             } catch (err) { 
                 if(cityNameEl) cityNameEl.innerText = "Błąd";
-                if(descEl) descEl.innerText = "Spróbuj ponownie.";
+                if(descEl) descEl.innerText = "Sprawdź nazwę miasta.";
                 if(iconEl) iconEl.innerHTML = '❌';
             } finally {
                 if(btn) { btn.innerText = "SKANUJ"; btn.disabled = false; }
@@ -246,7 +251,7 @@
                     imgwTag.innerHTML = "⚠️ IMGW: Brak stacji lokalnej";
                 }
             } catch(e) { 
-                if(imgwTag) imgwTag.innerHTML = "⚠️ IMGW: Offline";
+                if(imgwTag) imgwTag.innerHTML = "⚠️ IMGW: System Offline";
             }
         }
 
@@ -293,12 +298,12 @@
             if(iconEl) iconEl.innerHTML = getAnimatedIcon(wMain, currentHour);
             if(descEl) descEl.innerText = teraz.weather[0].description;
 
-            // ALERTY - ZABEZPIECZONE
+            // ALERTY METEO 
             const alertWidget = document.getElementById('alertWidget');
             const alertContent = document.getElementById('alertContent');
             if(alertWidget && alertContent) {
                 let alerts = [];
-                if (wMain.toLowerCase().includes('storm')) alerts.push("⚡ WYKRYTO WYŁADOWANIA!");
+                if (wMain.toLowerCase().includes('storm') || wMain.toLowerCase().includes('thunder')) alerts.push("⚡ WYKRYTO WYŁADOWANIA!");
                 if (temp >= 30) alerts.push("🔥 EKSTREMALNY UPAŁ!");
                 if (windSpeed >= 40) alerts.push(`🌬️ SILNY WIATR (${windSpeed} km/h)!`);
                 
@@ -318,6 +323,7 @@
                 }
             }
 
+            // BIOMETEO
             if(bioScanEl) bioScanEl.style.display = 'block';
             if(pressEl) pressEl.innerText = `${pressure} hPa`;
             if(valBioEl) {
@@ -336,6 +342,7 @@
             if(hourlyEl) hourlyEl.style.display = 'block';
             if(dailyEl) dailyEl.style.display = 'block';
 
+            // SKAN GODZINOWY
             const hL = document.getElementById('hList');
             if(hL) {
                 hL.innerHTML = '';
@@ -346,9 +353,10 @@
                 }
             }
 
+            // KULOODPORNA PROGNOZA 5-DNIOWA (Zawsze Działa)
             const dL = document.getElementById('dList');
             if(dL) {
-                dL.innerHTML = '';
+                dL.innerHTML = ''; // ZAWSZE CZYŚCI STARE DANE PRZED DODANIEM NOWYCH
                 for(let i=8; i<f.list.length; i+=8) {
                     const d = f.list[i];
                     const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
@@ -358,5 +366,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
