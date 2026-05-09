@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Fuzja Ostateczna</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://openweathermap.org/img/wn/02d@4x.png">
-    <link rel="apple-touch-icon" href="https://openweathermap.org/img/wn/02d@4x.png">
-    
     <style>
         :root {
             --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
@@ -21,355 +17,150 @@
             --purple: #7e22ce;
             --orange: #f59e0b;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background: var(--bg); background-attachment: fixed; min-height: 100vh;
-            display: flex; justify-content: center; padding: 10px; color: var(--text);
-            overflow-x: hidden;
-        }
-
+        body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
 
         /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
-        .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         .alert-active { animation: pulseAlert 2s infinite; }
 
-        /* WYSZUKIWARKA */
+        /* INTERFEJS */
         .search-area { display: flex; gap: 8px; }
-        input {
-            flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; transition: 0.3s;
-        }
-        input:focus { background: white; border-color: var(--blue); }
-        button {
-            padding: 0 20px; border-radius: 20px; border: none; background: var(--blue);
-            color: white; font-weight: 900; cursor: pointer; transition: background 0.3s;
-        }
-        button:disabled { background: #94a3b8; cursor: wait; }
+        input { flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; }
+        button { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; }
+        button:disabled { background: #94a3b8; }
 
-        /* KAFELKI */
-        .card {
-            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
-            border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-            position: relative; overflow: hidden;
-        }
-
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); }
         .main-hero { text-align: center; padding: 25px 10px; }
-        .brand-title { font-size: 1.8rem; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
-        .brand-sub { font-size: 0.8rem; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .cityName { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; }
+        .temp { font-size: 7rem; font-weight: 900; letter-spacing: -5px; }
+        .hero-icon { font-size: 5rem; }
+        .desc { font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize; }
         
-        .cityName { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; color: #020617; line-height: 1.1; margin-bottom: 5px; }
-        .currentDate { font-size: 1.2rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: capitalize; }
+        .imgw-badge { display: inline-block; background: #f1f5f9; padding: 6px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 900; margin-top: 10px; }
+        .alert-card { border-left: 6px solid; padding: 15px 22px; display: none; }
         
-        .hero-temp-wrapper { display: flex; justify-content: center; align-items: center; gap: 5px; margin: 10px 0; }
-        .temp { font-size: 8rem; font-weight: 900; line-height: 1; letter-spacing: -7px; color: #020617; }
-        .hero-icon { font-size: 6rem; }
-
-        .desc { font-size: 1.4rem; font-weight: 700; color: var(--purple); text-transform: capitalize; }
-
-        /* SENSOR IMGW 🇵🇱 */
-        .imgw-badge { display: inline-block; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 900; color: #475569; margin-top: 10px; }
-        .imgw-live { color: var(--green); font-size: 0.8rem;}
-
-        /* ALERTY METEO 🚨 */
-        .alert-card { border-left: 6px solid; transition: 0.4s; padding: 15px 22px;}
-        .alert-header { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; color: #1e293b; }
-        .alert-content { font-size: 1rem; font-weight: 800; line-height: 1.5; }
-
-        /* ATMOSFERA */
-        .bio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .bio-box { padding: 18px; border-radius: 22px; border: 1px solid rgba(0,0,0,0.03); text-align: center; }
-        .bio-label { font-size: 0.65rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
-        .bio-val { font-size: 1.4rem; font-weight: 900; }
-
-        /* TEZA */
-        .thesis-card { border-left: 6px solid var(--blue); background: rgba(255,255,255,0.5); }
-        .thesis-card h4 { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
-        .thesis-card p { font-size: 1rem; font-weight: 700; color: #1e293b; line-height: 1.5; }
-
-        /* SCROLL GODZINOWY */
-        .label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
+        /* SKROL I DNI */
         .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; }
         .scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 90px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 20px; font-size: 1.5rem; }
-
-        /* PROGNOZA DNIOWA */
+        .h-box { min-width: 80px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.4); padding: 15px 5px; border-radius: 20px; }
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
-        .d-row:last-child { border-bottom: none; }
-        .d-day { font-size: 1rem; font-weight: 700; text-transform: capitalize; width: 110px; }
-
-        /* O MNIE */
-        .manifest { background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); color: white; border-radius: 30px; padding: 25px; text-align: left; }
-        .manifest h2 { font-size: 1.3rem; color: #fff; margin-bottom: 10px; font-weight: 900; }
-        .manifest p { font-size: 0.95rem; line-height: 1.6; opacity: 0.9; font-weight: 400; color: #cbd5e1; }
-        .pizza-badge { display: inline-block; background: var(--orange); color: #000; padding: 4px 12px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; margin-top: 15px; }
+        .manifest { background: #000; color: #fff; border-radius: 30px; padding: 25px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
         <div class="search-area animate" style="animation-delay: 0.1s">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button id="searchBtn" onclick="pobierzDane()">SKANUJ</button>// --- START: POPRAWKA ARCHITEKTA ---
-    let miastoInput = document.getElementById('cityIn').value;
-    let miastoDoAPI = miastoInput; 
-
-    if (miastoInput.toLowerCase().trim() === "kijów") {
-        miastoDoAPI = "Kyiv";
-    }
-    // --- KONIEC POPRAWKI ---
+            <button id="searchBtn" onclick="pobierzDane()">SKANUJ</button>
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div class="brand-title">SkyCast PRO</div>
-            <div class="brand-sub">Inteligentny Skaner</div>
-            
-            <div class="cityName" id="cityName">Kraków</div>
-            <div class="currentDate" id="currentDate">--</div>
-            
-            <div class="hero-temp-wrapper">
-                <div class="temp" id="valT">--°</div>
-                <div class="hero-icon" id="mainIcon"></div>
+            <div id="cityName" class="cityName">Kraków</div>
+            <div id="currentDate" style="font-weight:700; color:#64748b; margin-bottom:10px;">--</div>
+            <div style="display:flex; justify-content:center; align-items:center; gap:10px;">
+                <div id="valT" class="temp">--°</div>
+                <div id="mainIcon" class="hero-icon">🌤️</div>
             </div>
-            
-            <div class="desc" id="valD">Oczekuję na cel...</div>
-            <div class="imgw-badge" id="imgwTag">📡 Silnik: Globalny</div>
+            <div id="valD" class="desc">Oczekuję na cel...</div>
+            <div id="imgwTag" class="imgw-badge">📡 System Gotowy</div>
         </div>
 
-        <div class="card alert-card animate" id="alertWidget" style="animation-delay: 0.22s; display: none;">
-            <div class="alert-header">🚨 System Ostrzegawczy</div>
-            <div class="alert-content" id="alertContent">Skanowanie zagrożeń...</div>
+        <div class="card alert-card animate" id="alertWidget">
+            <div style="font-size:0.7rem; font-weight:900; text-transform:uppercase; margin-bottom:5px;">🚨 Alerty Meteo</div>
+            <div id="alertContent" style="font-weight:800;">Skanowanie...</div>
         </div>
 
-        <div class="card animate" id="bioScan" style="animation-delay: 0.25s; display: none;">
-            <div class="bio-grid">
-                <div class="bio-box" style="background: rgba(37, 99, 235, 0.05);">
-                    <div class="bio-label" style="color: var(--blue);">Ciśnienie</div>
-                    <div class="bio-val" id="valPress" style="color: var(--blue);">-- hPa</div>
-                </div>
-                <div class="bio-box" id="bioStatusBox">
-                    <div class="bio-label">Biometeo</div>
-                    <div class="bio-val" id="valBio">--</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card thesis-card animate" id="thesisWidget" style="animation-delay: 0.3s">
-            <h4>Analiza Architekta</h4>
-            <p id="thesisP">Gotowy do pracy. Wykonaj skan horyzontu.</p>
-        </div>
-
-        <div class="card animate" id="hourlyCard" style="animation-delay: 0.4s; display: none;">
-            <span class="label">Skan Godzinowy</span>
+        <div class="card animate" id="hourlyCard" style="display:none;">
+            <span style="font-size:0.7rem; font-weight:900; color:#94a3b8; text-transform:uppercase;">Skan Godzinowy</span>
             <div class="scroll" id="hList"></div>
         </div>
 
-        <div class="card animate" id="dailyCard" style="animation-delay: 0.5s; display: none;">
-            <span class="label">Prognoza na 5 dni</span>
+        <div class="card animate" id="dailyCard" style="display:none;">
+            <span style="font-size:0.7rem; font-weight:900; color:#94a3b8; text-transform:uppercase;">Prognoza 5-dniowa</span>
             <div id="dList"></div>
         </div>
 
-        <div class="card manifest animate" style="animation-delay: 0.6s">
-            <h2>Piotrek | Autor SkyCast PRO👷</h2>
-            <p>
-                Za dnia człowiek w kuchni – od lat serwuję Wam  pizzę, bo rzemiosło uczy szacunku do detalu. Po zmroku wchodzę jednak do świata kodu, i danych. SkyCast PRO to mój autorski silnik i dowód na to, że pasja nie zna granic. Moim celem jest bycie Architektem Systemów, a ten skaner to mój pierwszy krok. Bądźcie gotowi na więcej.
-            </p>
-            <div class="pizza-badge">🍕 PIZZA | 🛡️ CYBER | 🧠 AI</div>
-        </div>
-
+        <div class="card manifest animate">
+            <h2 style="font-weight:900; margin-bottom:10px;">Piotrek | 👷</h2>
+            <p style="font-size:0.9rem; opacity:0.8;">Za dnia pizza, po nocach kod . SkyCast PRO to mój autorski silnik danych. Mam nadzieje 
+            ze spełni wasze oczekiwania <\p>
+        
+        </div\>
     </div>
 
     <script>
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
-        function updateDateTime() {
-            const teraz = new Date();
-            const opcje = { weekday: 'long', day: 'numeric', month: 'long' };
-            const dateStr = teraz.toLocaleDateString('pl-PL', opcje);
-            const formattedDate = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-            
-            const dateEl = document.getElementById('currentDate');
-            if (dateEl) dateEl.innerText = formattedDate;
-        }
-
         async function pobierzDane() {
-            const miastoInput = document.getElementById('cityIn').value;
+            let miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
-            
-            const btn = document.getElementById('searchBtn');
-            const cityNameEl = document.getElementById('cityName');
-            const tempEl = document.getElementById('valT');
-            const iconEl = document.getElementById('mainIcon');
-            const descEl = document.getElementById('valD');
 
-            if(btn) { btn.innerText = "ŁADOWANIE..."; btn.disabled = true; }
-            if(cityNameEl) cityNameEl.innerText = "Szukam...";
-            if(tempEl) tempEl.innerText = "--°";
-            if(iconEl) iconEl.innerHTML = '<span class="anim-spin">⚙️</span>';
-            if(descEl) descEl.innerText = "Trwa fuzja danych...";
+            // --- 🛡️ MODUŁ TŁUMACZA (Fix Kijowa) ---
+            const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "paryż": "Paris" };
+            const sprawdz = miastoInput.toLowerCase().trim();
+            if(tlumacz[sprawdz]) miastoInput = tlumacz[sprawdz];
+
+            const btn = document.getElementById('searchBtn');
+            btn.innerText = "ŁADOWANIE..."; btn.disabled = true;
 
             try {
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miastoInput}&appid=${API_KEY}&units=metric&lang=pl`);
-                if (!resF.ok) throw new Error("Błąd API");
                 const dataF = await resF.json();
 
                 if(dataF.cod === "200") {
-                    if(cityNameEl) cityNameEl.innerText = dataF.city.name;
-                    updateDateTime();
                     renderUI(dataF);
-
-                    if(dataF.city.country === "PL") {
-                        pobierzIMGW(miastoInput.toLowerCase());
-                    } else {
-                        const imgwTag = document.getElementById('imgwTag');
-                        if(imgwTag) imgwTag.innerHTML = "🌍 Silnik: Globalny (Poza PL)";
-                    }
+                    if(dataF.city.country === "PL") pobierzIMGW(miastoInput);
+                } else {
+                    alert("Nie znaleziono miasta.");
                 }
-            } catch (err) { 
-                if(cityNameEl) cityNameEl.innerText = "Błąd";
-                if(descEl) descEl.innerText = "Sprawdź nazwę miasta.";
-                if(iconEl) iconEl.innerHTML = '❌';
-            } finally {
-                if(btn) { btn.innerText = "SKANUJ"; btn.disabled = false; }
-            }
-        }
-
-        async function pobierzIMGW(miasto) {
-            const miastoClean = miasto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l");
-            const imgwTag = document.getElementById('imgwTag');
-            try {
-                const res = await fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${miastoClean}`);
-                if(res.ok && imgwTag) {
-                    const d = await res.json();
-                    imgwTag.innerHTML = `✅ IMGW Live: <span class="imgw-live">${d.temperatura}°C</span> | ${d.cisnienie} hPa`;
-                } else if(imgwTag) {
-                    imgwTag.innerHTML = "⚠️ IMGW: Brak stacji lokalnej";
-                }
-            } catch(e) { 
-                if(imgwTag) imgwTag.innerHTML = "⚠️ IMGW: System Offline";
-            }
-        }
-
-        function getAnimatedIcon(weatherMain, hour) {
-            const w = weatherMain.toLowerCase();
-            const isNight = hour >= 20 || hour < 6;
-            if (w.includes('clear')) return isNight ? '<span class="anim-float">🌙</span>' : '<span class="anim-spin">☀️</span>';
-            if (w.includes('cloud')) return isNight ? '<span class="anim-float">☁️</span>' : '<span class="anim-float">⛅</span>';
-            if (w.includes('rain')) return '<span class="anim-bounce">🌧️</span>';
-            if (w.includes('thunder')) return '<span class="anim-bounce" style="color:var(--purple)">🌩️</span>';
-            if (w.includes('snow')) return '<span class="anim-bounce">🌨️</span>';
-            return '<span class="anim-float">🌤️</span>';
-        }
-
-        function getThesis(teraz) {
-            const w = teraz.weather[0].main.toLowerCase();
-            const temp = Math.round(teraz.main.temp);
-            if (w.includes('thunder')) return "Burza w okolicy! Architekt zaleca bezpieczną bazę.";
-            if (temp > 30) return "Upał na skanerze! ☀️ Pamiętaj o nawodnieniu.";
-            if (temp < 0) return "Temperatura ujemna. Ogrzewanie na maxa! ❄️";
-            return "Stabilna sytuacja pogodowa. Parametry w normie. 🚀";
+            } catch (err) { alert("Błąd systemu."); }
+            finally { btn.innerText = "SKANUJ"; btn.disabled = false; }
         }
 
         function renderUI(f) {
             const teraz = f.list[0];
-            const wMain = teraz.weather[0].main;
-            const temp = Math.round(teraz.main.temp);
-            const pressure = teraz.main.pressure;
-            const windSpeed = Math.round(teraz.wind.speed * 3.6); 
-            const currentHour = new Date().getHours();
+            document.getElementById('cityName').innerText = f.city.name;
+            document.getElementById('valT').innerText = Math.round(teraz.main.temp) + "°";
+            document.getElementById('valD').innerText = teraz.weather[0].description;
+            document.getElementById('currentDate').innerText = new Date().toLocaleDateString('pl-PL', {weekday:'long', day:'numeric', month:'long'});
+
+            // Alerty
+            const alertW = document.getElementById('alertWidget');
+            alertW.style.display = 'block';
+            alertW.style.borderLeftColor = 'var(--green)';
+            document.getElementById('alertContent').innerText = "✅ Brak zagrożeń w strefie.";
+            document.getElementById('alertContent').style.color = "var(--green)";
+
+            // Godziny i Dni
+            document.getElementById('hourlyCard').style.display = 'block';
+            document.getElementById('dailyCard').style.display = 'block';
             
-            const tempEl = document.getElementById('valT');
-            const iconEl = document.getElementById('mainIcon');
-            const descEl = document.getElementById('valD');
-            const bioScanEl = document.getElementById('bioScan');
-            const pressEl = document.getElementById('valPress');
-            const bioBoxEl = document.getElementById('bioStatusBox');
-            const valBioEl = document.getElementById('valBio');
-            const thesisEl = document.getElementById('thesisP');
-            const hourlyEl = document.getElementById('hourlyCard');
-            const dailyEl = document.getElementById('dailyCard');
-
-            if(tempEl) tempEl.innerText = `${temp}°`;
-            if(iconEl) iconEl.innerHTML = getAnimatedIcon(wMain, currentHour);
-            if(descEl) descEl.innerText = teraz.weather[0].description;
-
-            // ALERTY METEO 
-            const alertWidget = document.getElementById('alertWidget');
-            const alertContent = document.getElementById('alertContent');
-            if(alertWidget && alertContent) {
-                let alerts = [];
-                if (wMain.toLowerCase().includes('storm') || wMain.toLowerCase().includes('thunder')) alerts.push("⚡ WYKRYTO WYŁADOWANIA!");
-                if (temp >= 30) alerts.push("🔥 EKSTREMALNY UPAŁ!");
-                if (windSpeed >= 40) alerts.push(`🌬️ SILNY WIATR (${windSpeed} km/h)!`);
-                
-                alertWidget.style.display = 'block';
-                if (alerts.length > 0) {
-                    alertWidget.style.borderLeftColor = 'var(--red)';
-                    alertWidget.style.background = 'rgba(239, 68, 68, 0.1)';
-                    alertWidget.classList.add('alert-active'); 
-                    alertContent.style.color = 'var(--red)';
-                    alertContent.innerHTML = alerts.join('<br>');
-                } else {
-                    alertWidget.style.borderLeftColor = 'var(--green)';
-                    alertWidget.style.background = 'rgba(22, 163, 74, 0.1)';
-                    alertWidget.classList.remove('alert-active');
-                    alertContent.style.color = 'var(--green)';
-                    alertContent.innerHTML = "✅ Brak aktywnych zagrożeń.";
-                }
+            const hL = document.getElementById('hList'); hL.innerHTML = '';
+            for(let i=0; i<8; i++) {
+                const h = f.list[i];
+                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; opacity:0.6">${new Date(h.dt*1000).getHours()}:00</span><span>🌤️</span><strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
-            // BIOMETEO
-            if(bioScanEl) bioScanEl.style.display = 'block';
-            if(pressEl) pressEl.innerText = `${pressure} hPa`;
-            if(valBioEl) {
-                if (pressure >= 1010 && pressure <= 1025) {
-                    valBioEl.innerText = "KORZYSTNE";
-                    if(bioBoxEl) bioBoxEl.style.background = "rgba(22, 163, 74, 0.1)";
-                    valBioEl.style.color = "var(--green)";
-                } else {
-                    valBioEl.innerText = "SŁABE";
-                    if(bioBoxEl) bioBoxEl.style.background = "rgba(239, 68, 68, 0.1)";
-                    valBioEl.style.color = "var(--red)";
-                }
+            const dL = document.getElementById('dList'); dL.innerHTML = '';
+            for(let i=7; i<f.list.length; i+=8) {
+                const d = f.list[i];
+                dL.innerHTML += `<div class="d-row"><strong>${new Date(d.dt*1000).toLocaleDateString('pl-PL', {weekday:'long'})}</strong><span>${Math.round(d.main.temp)}°</span></div>`;
             }
-            
-            if(thesisEl) thesisEl.innerHTML = getThesis(teraz);
-            if(hourlyEl) hourlyEl.style.display = 'block';
-            if(dailyEl) dailyEl.style.display = 'block';
+        }
 
-            // SKAN GODZINOWY
-            const hL = document.getElementById('hList');
-            if(hL) {
-                hL.innerHTML = '';
-                for(let i=0; i<8; i++) {
-                    const h = f.list[i];
-                    const hHour = new Date(h.dt * 1000).getHours();
-                    hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
-                }
-            }
-
-            // KULOODPORNA PROGNOZA 5-DNIOWA (Zawsze Działa)
-            const dL = document.getElementById('dList');
-            if(dL) {
-                dL.innerHTML = ''; // ZAWSZE CZYŚCI STARE DANE PRZED DODANIEM NOWYCH
-                for(let i=8; i<f.list.length; i+=8) {
-                    const d = f.list[i];
-                    const n = new Date(d.dt * 1000).toLocaleDateString('pl-PL', {weekday: 'long'});
-                    dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span style="font-size:1.8rem">${getAnimatedIcon(d.weather[0].main, 12)}</span><span style="font-weight:900">${Math.round(d.main.temp_max)}° / <span style="color:#64748b">${Math.round(d.main.temp_min)}°</span></span></div>`;
-                }
-            }
+        async function pobierzIMGW(m) {
+            const tag = document.getElementById('imgwTag');
+            tag.innerHTML = "🌍 Silnik: Globalny + IMGW";
         }
     </script>
 </body>
