@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Fuzja Ostateczna</title>
+
     <link rel="icon" type="image/png" href="skyfast-logo.png">
+    <link rel="apple-touch-icon" href="skyfast-logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* KOLORY DZIENNE (Domyślne) */
             --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
             --glass: rgba(255, 255, 255, 0.75);
             --glass-border: rgba(255, 255, 255, 1);
@@ -22,7 +28,6 @@
             --card-text: #1e293b;
         }
 
-        /* KOLORY NOCNE (Aktywują się same po 20:00) */
         body.night-mode {
             --bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
             --glass: rgba(15, 23, 42, 0.6);
@@ -44,20 +49,16 @@
 
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
 
-        /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
-        .alert-active { animation: pulseAlert 2s infinite; }
 
-        /* WYSZUKIWARKA */
         .search-area { display: flex; gap: 8px; }
         input {
             flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
@@ -68,7 +69,6 @@
             color: white; font-weight: 900; cursor: pointer;
         }
 
-        /* KAFELKI */
         .card {
             background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
             border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: 0.5s;
@@ -78,17 +78,16 @@
         .brand-title { font-size: 1.8rem; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
         .brand-sub { font-size: 0.8rem; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
         
-        .cityName { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; color: var(--main-title); line-height: 1.1; margin-bottom: 5px; transition: color 0.5s;}
+        .cityName { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; color: var(--main-title); line-height: 1.1; margin-bottom: 5px; }
         .currentDate { font-size: 1.2rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: capitalize; }
         
         .hero-temp-wrapper { display: flex; justify-content: center; align-items: center; gap: 5px; margin: 10px 0; }
-        .temp { font-size: 8rem; font-weight: 900; line-height: 1; letter-spacing: -7px; color: var(--main-title); transition: color 0.5s;}
+        .temp { font-size: 8rem; font-weight: 900; line-height: 1; letter-spacing: -7px; color: var(--main-title); }
         .hero-icon { font-size: 6rem; }
-        .desc { font-size: 1.4rem; font-weight: 700; color: var(--purple); text-transform: capitalize; transition: color 0.5s;}
+        .desc { font-size: 1.4rem; font-weight: 700; color: var(--purple); text-transform: capitalize; }
 
         .imgw-badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid var(--glass-border); padding: 6px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 900; margin-top: 10px; }
 
-        /* ALERTY I BIOMETEO */
         .alert-card { border-left: 6px solid; padding: 15px 22px;}
         .alert-header { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; color: var(--card-text); }
         .alert-content { font-size: 1rem; font-weight: 800; line-height: 1.5; }
@@ -102,13 +101,10 @@
         .thesis-card h4 { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
         .thesis-card p { font-size: 1rem; font-weight: 700; color: var(--card-text); line-height: 1.5; }
 
-        /* LISTY */
         .label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; }
         .scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; }
-        .scroll::-webkit-scrollbar { display: none; }
         .h-box { min-width: 90px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 20px; font-size: 1.5rem; }
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(150,150,150,0.1); }
-        .d-row:last-child { border-bottom: none; }
         .d-day { font-size: 1rem; font-weight: 700; text-transform: capitalize; width: 130px; }
         .d-temp { font-size: 1.4rem; font-weight: 900; width: 60px; text-align: right; }
 
@@ -175,7 +171,7 @@
 
         <div class="card manifest animate" style="animation-delay: 0.6s">
             <h2 style="font-size: 1.3rem; margin-bottom: 10px; font-weight: 900;">Piotrek | Autor SkyCast PRO👷</h2>
-            <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.9; color: #cbd5e1;">Na co dzień jestem pizzerem i z pełnym profesjonalizmem serwuję najlepszą pizzę. Jednak moją prawdziwą pasją jest kodowanie i świat IT. SkyCast PRO to mój autorski silnik danych. Bądźcie gotowi na więcej!</p>
+            <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.9; color: #cbd5e1;">Na co dzień perfekcjonista w kuchni – od lat serwuję najlepszą pizzę. Jednak po pracy moja pasja przenosi się do świata kodu i IT. SkyCast PRO to mój autorski silnik danych meteorologicznych.</p>
             <div style="background: var(--orange); color: #000; padding: 4px 12px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; margin-top: 15px; display: inline-block;">🍕 PIZZA | 🛡️ CYBER | 🧠 AI</div>
         </div>
 
@@ -193,14 +189,12 @@
             let miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             
-            // --- MODUŁ TŁUMACZA (Kijów i inne) ---
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "paryż": "Paris", "londyn": "London" };
             const sprawdz = miastoInput.toLowerCase().trim();
-            let miastoDoAPI = tlumacz[sprawdz] || miastoInput; // Jeśli jest w słowniku, podmień. Jak nie, zostaw.
-            // ------------------------------------
+            let miastoDoAPI = tlumacz[sprawdz] || miastoInput;
 
             const btn = document.getElementById('searchBtn');
-            btn.innerText = "ŁADOWANIE..."; btn.disabled = true;
+            btn.innerText = "..."; btn.disabled = true;
 
             try {
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miastoDoAPI}&appid=${API_KEY}&units=metric&lang=pl`);
@@ -215,7 +209,6 @@
                 }
             } catch (err) { 
                 document.getElementById('cityName').innerText = "Błąd!";
-                document.getElementById('valD').innerText = "Sprawdź nazwę miasta.";
             } finally {
                 btn.innerText = "SKANUJ"; btn.disabled = false;
             }
@@ -229,7 +222,7 @@
                 if(res.ok) {
                     const d = await res.json();
                     tag.innerHTML = `✅ IMGW Live: <span style="color:var(--green)">${d.temperatura}°C</span> | ${d.cisnienie} hPa`;
-                } else tag.innerHTML = "🌍 Silnik: Globalny (Brak stacji IMGW)";
+                }
             } catch(e) { tag.innerHTML = "🌍 Silnik: Globalny"; }
         }
 
@@ -249,80 +242,52 @@
             const wMain = teraz.weather[0].main;
             const temp = Math.round(teraz.main.temp);
             const pressure = teraz.main.pressure;
-            const wind = Math.round(teraz.wind.speed * 3.6); 
             const currentHour = new Date().getHours();
             
-            // --- TRYB DZIEŃ/NOC ---
             const modeInd = document.getElementById('modeIndicator');
             if (currentHour >= 20 || currentHour < 6) {
                 document.body.classList.add('night-mode');
-                modeInd.innerText = "TRYB NOCNY AKTYWNY 🌙";
-                modeInd.style.color = "var(--purple)";
+                modeInd.innerText = "TRYB NOCNY 🌙";
             } else {
                 document.body.classList.remove('night-mode');
-                modeInd.innerText = "TRYB DZIENNY AKTYWNY ☀️";
-                modeInd.style.color = "var(--orange)";
+                modeInd.innerText = "TRYB DZIENNY ☀️";
             }
-            // -----------------------
 
             document.getElementById('valT').innerText = `${temp}°`;
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(wMain, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
-            // ALERTY
             const alertW = document.getElementById('alertWidget');
             const alertC = document.getElementById('alertContent');
-            let alerts = [];
-            if (wMain.toLowerCase().includes('thunder')) alerts.push("⚡ WYKRYTO BURZĘ!");
-            if (temp >= 30) alerts.push("🔥 UPAŁ!");
-            if (wind >= 40) alerts.push(`🌬️ SILNY WIATR (${wind} km/h)!`);
-            
             alertW.style.display = 'block';
-            if (alerts.length > 0) {
+            if (wMain.toLowerCase().includes('thunder') || temp >= 30) {
                 alertW.style.borderLeftColor = 'var(--red)';
-                alertW.style.background = 'rgba(239, 68, 68, 0.1)';
-                alertC.style.color = 'var(--red)';
-                alertC.innerHTML = alerts.join('<br>');
+                alertC.innerHTML = "🚨 ZAGROŻENIE W OKOLICY!";
             } else {
                 alertW.style.borderLeftColor = 'var(--green)';
-                alertW.style.background = 'rgba(22, 163, 74, 0.1)';
-                alertC.style.color = 'var(--green)';
-                alertC.innerHTML = "✅ Brak aktywnych zagrożeń.";
+                alertC.innerHTML = "✅ Brak zagrożeń.";
             }
 
-            // BIOMETEO
             document.getElementById('bioScan').style.display = 'block';
             document.getElementById('valPress').innerText = `${pressure} hPa`;
-            const bioVal = document.getElementById('valBio');
-            const bioBox = document.getElementById('bioStatusBox');
-            if (pressure >= 1010 && pressure <= 1025) {
-                bioVal.innerText = "KORZYSTNE"; bioVal.style.color = "var(--green)"; bioBox.style.borderColor = "var(--green)";
-            } else {
-                bioVal.innerText = "SŁABE"; bioVal.style.color = "var(--red)"; bioBox.style.borderColor = "var(--red)";
-            }
+            document.getElementById('valBio').innerText = pressure > 1010 ? "KORZYSTNE" : "SŁABE";
 
-            // TEZA ARCHITEKTA
             document.getElementById('thesisWidget').style.display = 'block';
-            let teza = "Stabilna sytuacja pogodowa. Parametry w normie. 🚀";
-            if(wMain.toLowerCase().includes('thunder')) teza = "Burza w okolicy! Architekt zaleca bezpieczną bazę.";
-            else if(temp > 28) teza = "Wysoka temperatura. Pamiętaj o chłodzeniu procesora! ☀️";
-            else if(temp < 0) teza = "Temperatura ujemna. Ogrzewanie na maxa! ❄️";
-            document.getElementById('thesisP').innerText = teza;
+            document.getElementById('thesisP').innerText = "Silnik gotowy do pracy. Parametry stabilne.";
 
-            // GODZINY I DNI
             document.getElementById('hourlyCard').style.display = 'block';
             document.getElementById('dailyCard').style.display = 'block';
             
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i]; const hHour = new Date(h.dt*1000).getHours();
-                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem; font-weight:800; opacity:0.6">${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
+                hL.innerHTML += `<div class="h-box"><span>${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=7; i<f.list.length; i+=8) {
                 const d = f.list[i]; const n = new Date(d.dt*1000).toLocaleDateString('pl-PL', {weekday:'long'});
-                dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span style="font-size:1.8rem">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
+                dL.innerHTML += `<div class="d-row"><strong>${n}</strong><span>${getAnimatedIcon(d.weather[0].main, 12)}</span><span>${Math.round(d.main.temp)}°</span></div>`;
             }
         }
     </script>
