@@ -122,7 +122,14 @@
         
         <div class="search-area animate" style="animation-delay: 0.1s">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button id="searchBtn" onclick="pobierzDane()">SKANUJ</button>
+            <button id="searchBtn" onclick="pobierzDane()">SKANUJ</button>// --- START: POPRAWKA ARCHITEKTA ---
+    let miastoInput = document.getElementById('cityIn').value;
+    let miastoDoAPI = miastoInput; 
+
+    if (miastoInput.toLowerCase().trim() === "kijów") {
+        miastoDoAPI = "Kyiv";
+    }
+    // --- KONIEC POPRAWKI ---
         </div>
 
         <div class="card main-hero animate" style="animation-delay: 0.2s">
