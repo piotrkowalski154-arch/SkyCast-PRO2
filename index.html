@@ -100,6 +100,7 @@
     </div>
 
     <script>
+        // 🔊 SILNIK AUDIO
         let skyAudio = new Audio();
 
         function grajPogode(warunki, godzina) {
@@ -116,14 +117,21 @@
             } else {
                 skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
             }
-            skyAudio.play().catch(e => console.log("Czekam na skanowanie..."));
+            skyAudio.play().catch(e => console.log("Audio block bypass active."));
         }
     </script>
 
     <script>
+        // 🧠 LOGIKA GŁÓWNA (APK)
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
+            // 🔊 KOPNIAK DLA AUDIO (Odblokowanie głośnika)
+            skyAudio.play().then(() => {
+                skyAudio.pause();
+                skyAudio.currentTime = 0;
+            }).catch(e => console.log("Bypass prep."));
+
             let miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
@@ -149,7 +157,6 @@
             const teraz = f.list[0];
             const currentHour = new Date().getHours();
             
-            // Tryb Nocny/Dzienny
             if (currentHour >= 20 || currentHour < 6) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
 
@@ -158,14 +165,12 @@
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
-            // Myśl Piotrka
             document.getElementById('thesisWidget').style.display = 'block';
             let mysl = "Idealne warunki na testy. Czyste niebo!";
             if(teraz.main.temp > 25) mysl = "Upał! Chłodź procesor i pij dużo wody. 🌊";
             else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas na kodowanie. ☕";
             document.getElementById('thesisP').innerText = mysl;
 
-            // Godziny
             document.getElementById('hourlyCard').style.display = 'block';
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
@@ -173,7 +178,6 @@
                 hL.innerHTML += `<div class="h-box"><span>${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
-            // Prognoza 5 dni
             document.getElementById('dailyCard').style.display = 'block';
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=7; i<f.list.length; i+=8) {
@@ -181,7 +185,7 @@
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
 
-            // 🔊 TUTAJ JEST KLUCZ: Wywołanie dźwięku POZA pętlami
+            // ODPALENIE DŹWIĘKU
             grajPogode(teraz.weather[0].main, currentHour);
         }
 
