@@ -61,17 +61,9 @@
         /* Główne karty */
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         
-        /* 🚨 ALERT BOX */
-        .alert-card { 
-            background: rgba(239, 68, 68, 0.15); 
-            border: 2px solid var(--red); 
-            animation: pulseRed 2s infinite; 
-        }
-        @keyframes pulseRed { 
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } 
-        }
+        /* 🚨 STARY ALERT BOX (Ukryty, zostawiony jako fallback) */
+        .alert-card { background: rgba(239, 68, 68, 0.15); border: 2px solid var(--red); animation: pulseRed 2s infinite; }
+        @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
@@ -132,6 +124,11 @@
             <p id="thesisP">Przetwarzam dane...</p>
         </div>
 
+        <div class="card animate" id="regionalAlertCard" style="display: none; border-left: 6px solid var(--green); background: rgba(22, 163, 74, 0.05); margin-top: -2px;">
+            <h4 id="regAlertTitle" style="font-size: 0.8rem; color: var(--green); text-transform: uppercase; font-weight: 900; margin-bottom: 8px;">✅ Status Meteo</h4>
+            <p id="regAlertText" style="font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: var(--card-text);">Skanowanie zagrożeń...</p>
+        </div>
+
         <div class="card animate" id="hourlyCard" style="display: none;">
             <span class="label">Skan Godzinowy</span>
             <div class="h-scroll" id="hList"></div>
@@ -149,8 +146,7 @@
                 Napisałem ją z jedną główną myślą: żeby komuś pomóc. Wierzę, że szybkie i precyzyjne dane mogą kiedyś ostrzec kogoś przed groźnym załamaniem pogody, uchronić przed niebezpieczeństwem, a może nawet uratować życie.
             </p>
             <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.5;">
-                Jeśli podoba ❤️ 🧠🌩️👷🚨 ci sie moj pomysł wesprzyj mnie ❤️🌩️🛡️👑
-                numer konta 📟➡️ 33291000062469800210321093
+                Jednocześnie chciałbym Wam tu przedstawić moją wielką pasję. Przechodzę fascynującą drogę – od wypieku doskonałej pizzy, prosto do świata IT, cyberbezpieczeństwa i kodowania. Ta aplikacja to mój pierwszy, solidny krok w tę stronę!
             </p>
             <div style="background: var(--orange); color: #000; padding: 6px 14px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; margin-top: 18px; display: inline-block; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
                 🌍 OSTRZEGANIE POGODOWE | 🛡️ CYBERSEC | 💻 KODOWANIE
@@ -178,9 +174,9 @@
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase()] || miastoInput;
             
-            const alertBox = document.getElementById('alertBox');
-            const alertMsg = document.getElementById('alertMsg');
-            alertBox.style.display = 'none';
+            // Ukrywamy biuletyn podczas ładowania
+            const regAlertCard = document.getElementById('regionalAlertCard');
+            if (regAlertCard) regAlertCard.style.display = 'none';
 
             try {
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoDoAPI)}&appid=${API_KEY}&units=metric&lang=pl`);
@@ -189,22 +185,48 @@
                 if(dataF.cod === "200") {
                     renderUI(dataF);
                     
-                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Patch 2.1)
+                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Patch 3.0 - Biuletyn Regionalny)
                     try {
                         const wiatrKm = Math.round(dataF.list[0].wind.speed * 3.6);
                         const stanPogody = dataF.list[0].weather[0].main.toLowerCase(); 
                         const opisPogody = dataF.list[0].weather[0].description.toLowerCase();
                         const nazwaMiasta = dataF.city.name.toUpperCase();
                         
-                        if (wiatrKm > 40 || (dataF.list[0].wind.gust && (dataF.list[0].wind.gust * 3.6) > 55)) {
-                            alertBox.style.display = "block";
-                            alertMsg.innerHTML = `<strong>UWAGA DLA REGIONU ${nazwaMiasta}:</strong> Wykryto potężne porywy wiatru. Zabezpiecz otoczenie!`;
-                        } 
-                        else if (stanPogody.includes("thunderstorm") || stanPogody.includes("tornado") || stanPogody.includes("extreme") || opisPogody.includes("burz") || opisPogody.includes("ulew")) {
-                            alertBox.style.display = "block";
-                            alertMsg.innerHTML = `<strong>ZAGROŻENIE (${nazwaMiasta}):</strong> Wykryto gwałtowne zjawiska atmosferyczne (burza/wyładowania). Znajdź bezpieczne schronienie!`;
+                        const regAlertTitle = document.getElementById('regAlertTitle');
+                        const regAlertText = document.getElementById('regAlertText');
+
+                        // Ukrywamy stary, górny alert, bo mamy teraz piękny biuletyn
+                        if (document.getElementById('alertBox')) {
+                            document.getElementById('alertBox').style.display = 'none';
                         }
-                    } catch(e) { console.log("Błąd modułu alertów."); }
+
+                        regAlertCard.style.display = "block"; // Pokazujemy kartę zawsze
+
+                        // BRAMKA 1: CZERWONY ALARM (Wiatr)
+                        if (wiatrKm > 40 || (dataF.list[0].wind.gust && (dataF.list[0].wind.gust * 3.6) > 55)) {
+                            regAlertCard.style.borderLeft = "6px solid var(--red)";
+                            regAlertCard.style.background = "rgba(239, 68, 68, 0.05)";
+                            regAlertTitle.style.color = "var(--red)";
+                            regAlertTitle.innerHTML = `⚠️ OSTRZEŻENIE METEO: ${nazwaMiasta}`;
+                            regAlertText.innerText = `Wykryto potężne porywy wiatru (ok. ${wiatrKm} km/h). Zaleca się zabezpieczenie luźnych przedmiotów na balkonach.`;
+                        } 
+                        // BRAMKA 2: CZERWONY ALARM (Burza/Ulewy)
+                        else if (stanPogody.includes("thunderstorm") || stanPogody.includes("tornado") || stanPogody.includes("extreme") || opisPogody.includes("burz") || opisPogody.includes("ulew")) {
+                            regAlertCard.style.borderLeft = "6px solid var(--red)";
+                            regAlertCard.style.background = "rgba(239, 68, 68, 0.05)";
+                            regAlertTitle.style.color = "var(--red)";
+                            regAlertTitle.innerHTML = `🚨 ZAGROŻENIE BURZOWE: ${nazwaMiasta}`;
+                            regAlertText.innerText = `Możliwe gwałtowne wyładowania atmosferyczne i intensywne opady. Znajdź bezpieczne schronienie.`;
+                        } 
+                        // BRAMKA 3: ZIELONY STATUS (Czysto)
+                        else {
+                            regAlertCard.style.borderLeft = "6px solid var(--green)";
+                            regAlertCard.style.background = "rgba(22, 163, 74, 0.05)";
+                            regAlertTitle.style.color = "var(--green)";
+                            regAlertTitle.innerHTML = `✅ STATUS BEZPIECZEŃSTWA: ${nazwaMiasta}`;
+                            regAlertText.innerText = `Brak aktywnych ostrzeżeń pogodowych pierwszego stopnia. Warunki w regionie są stabilne.`;
+                        }
+                    } catch(e) { console.log("Błąd modułu biuletynu."); }
 
                     // POBIERANIE JAKOŚCI POWIETRZA
                     try {
@@ -281,8 +303,8 @@
             if (teraz.main.temp > 25) {
                 mysl = "Gorąco! Idealny czas na zimną lemoniadę, odpoczynek w cieniu i odrobinę luzu. Pamiętaj o nawodnieniu! 🌊";
             } else if (w.includes('rain') || w.includes('drizzle')) {
-                mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem 💆‍♂️🛏️☕🍰";
-            } else if (w.includes('clear')) {
+                mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem 💆‍♂️🛏️☕🍰"
+                  } else if (w.includes('clear')) {
                 mysl = "Czyste niebo i piękna pogoda! Grzech siedzieć w domu – to idealny czas na spacer i naładowanie baterii na świeżym powietrzu. ☀️";
             } else if (w.includes('thunder')) {
                 mysl = "Rozpętała się burza! Najlepiej zostać w bezpiecznej bazie i obserwować żywioł przez okno. ⚡";
@@ -325,7 +347,8 @@
             btnInstalacji.style.display = 'block';
             btnInstalacji.innerText = '🍎 ZAINSTALUJ NA iOS';
         }
-                  btnInstalacji.addEventListener('click', async () => {
+
+        btnInstalacji.addEventListener('click', async () => {
             if (promptInstalacji) {
                 promptInstalacji.prompt();
                 const wynik = await promptInstalacji.userChoice;
