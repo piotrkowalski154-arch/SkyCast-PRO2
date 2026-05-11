@@ -48,7 +48,7 @@
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         
-        /* Pasek wyszukiwania (bez głośnika) */
+        /* Pasek wyszukiwania */
         .search-area { display: flex; gap: 8px; }
         .search-area input, .search-area button { height: 55px; }
         input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
@@ -61,7 +61,7 @@
         /* Główne karty */
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         
-        /* 🚨 ALERT BOX (Lakiernia Piotrka) */
+        /* 🚨 ALERT BOX */
         .alert-card { 
             background: rgba(239, 68, 68, 0.15); 
             border: 2px solid var(--red); 
@@ -78,7 +78,7 @@
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         .hero-icon { font-size: 5rem; }
         
-        /* Etykiety (Jakość powietrza i IMGW) */
+        /* Etykiety */
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
         .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; }
 
@@ -165,7 +165,7 @@
             let miastoInput = document.getElementById('cityIn').value.trim();
             if(!miastoInput) return;
 
-            // 🔥 EASTER EGG (Ukryta funkcja)
+            // 🔥 EASTER EGG
             if (miastoInput.toLowerCase() === 'pizza') {
                 odpalEasterEgg("🍕 Kodowanie zgłodniało? Pamiętaj, optymalna hydratacja ciasta to 70%! Ogień pod piecem, Piotrek!");
                 return;
@@ -177,39 +177,35 @@
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase()] || miastoInput;
             
-            // Ukryj alertBox przed nowym skanowaniem
             const alertBox = document.getElementById('alertBox');
             const alertMsg = document.getElementById('alertMsg');
             alertBox.style.display = 'none';
 
             try {
-                // Pobieranie pogody
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoDoAPI)}&appid=${API_KEY}&units=metric&lang=pl`);
                 const dataF = await resF.json();
                 
                 if(dataF.cod === "200") {
                     renderUI(dataF);
                     
-                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Alerty Piotrka - Patch 2.1)
+                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Patch 2.1)
                     try {
                         const wiatrKm = Math.round(dataF.list[0].wind.speed * 3.6);
-                        const stanPogody = dataF.list[0].weather[0].main.toLowerCase(); // zamieniamy na małe litery
+                        const stanPogody = dataF.list[0].weather[0].main.toLowerCase(); 
                         const opisPogody = dataF.list[0].weather[0].description.toLowerCase();
                         const nazwaMiasta = dataF.city.name.toUpperCase();
                         
-                        // BRAMKA 1: Wiatr powyżej 40 km/h LUB porywy (gust) wiatru
                         if (wiatrKm > 40 || (dataF.list[0].wind.gust && (dataF.list[0].wind.gust * 3.6) > 55)) {
                             alertBox.style.display = "block";
                             alertMsg.innerHTML = `<strong>UWAGA DLA REGIONU ${nazwaMiasta}:</strong> Wykryto potężne porywy wiatru. Zabezpiecz otoczenie!`;
                         } 
-                        // BRAMKA 2: Bardzo szerokie łapanie burz i ekstremów (burza, thunderstorm, tornado, ulewa, extreme)
                         else if (stanPogody.includes("thunderstorm") || stanPogody.includes("tornado") || stanPogody.includes("extreme") || opisPogody.includes("burz") || opisPogody.includes("ulew")) {
                             alertBox.style.display = "block";
                             alertMsg.innerHTML = `<strong>ZAGROŻENIE (${nazwaMiasta}):</strong> Wykryto gwałtowne zjawiska atmosferyczne (burza/wyładowania). Znajdź bezpieczne schronienie!`;
                         }
                     } catch(e) { console.log("Błąd modułu alertów."); }
 
-                    // POBIERANIE JAKOŚCI POWIETRZA (AQI)
+                    // POBIERANIE JAKOŚCI POWIETRZA
                     try {
                         const lat = dataF.city.coord.lat;
                         const lon = dataF.city.coord.lon;
@@ -225,7 +221,6 @@
             } catch (err) { console.log("Błąd silnika."); }
         }
 
-        // Funkcja obsługująca sekrety Piotrka
         function odpalEasterEgg(wiadomosc) {
             const widget = document.getElementById('thesisWidget');
             widget.classList.add('cyber-egg');
@@ -256,13 +251,11 @@
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
-            // Reset wyglądu "Myśli" (jeśli był włączony Easter Egg)
             const widget = document.getElementById('thesisWidget');
             widget.classList.remove('cyber-egg');
             document.getElementById('thesisTitle').innerText = "🧠 Myśl Piotrka";
             document.getElementById('thesisTitle').style.color = "var(--blue)";
 
-            // 🔥 LUDZKA MYŚL PIOTRKA (Dopracowana)
             widget.style.display = 'block';
             let mysl = "Pochmurno, ale stabilnie. Dobry dzień, żeby na spokojnie zająć się swoimi sprawami.";
             let w = teraz.weather[0].main.toLowerCase();
@@ -319,4 +312,11 @@
                     btnInstalacji.style.display = 'none';
                 }
             } else if (isIOS) {
-                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole e
+                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole ekranu.\n2. Wybierz opcję 'Do ekranu pocz.' (Add to Home Screen).");
+            } else {
+                alert("Zainstaluj ręcznie: Kliknij menu przeglądarki (trzy kropki) i wybierz 'Dodaj do ekranu głównego'.");
+            }
+        });
+    </script>
+</body>
+</html>
