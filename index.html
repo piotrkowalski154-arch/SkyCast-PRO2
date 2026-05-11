@@ -11,8 +11,28 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        .scan-btn { padding: 0 15px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 90px; }
-        ;
+        :root {
+            --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 1);
+            --text: #0f172a;
+            --main-title: #020617;
+            --blue: #2563eb;
+            --green: #16a34a;
+            --red: #ef4444;
+            --purple: #7e22ce;
+            --orange: #f59e0b;
+            --card-text: #1e293b;
+        }
+        body.night-mode {
+            --bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+            --glass: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #e2e8f0;
+            --main-title: #f8fafc;
+            --blue: #3b82f6;
+            --purple: #c084fc;
+            --card-text: #e2e8f0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
@@ -30,10 +50,13 @@
         
         /* POPRAWKI UI DLA WYSZUKIWARKI */
         .search-area { display: flex; gap: 8px; }
-        .search-area input, .search-area button { height: 55px; /* Równa wysokość */ }
-        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; }
-        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.5rem; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .search-area input, .search-area button { height: 55px; }
+        input { flex: 1; padding: 0 15px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
+        
+        /* ZABEZPIECZENIE PRZYCISKU SKANUJ PRZED UCIĘCIEM */
+        .scan-btn { padding: 0 15px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 95px; }
+        
+        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.5rem; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
         
         /* POPRAWKI UI DLA PRZYCISKU INSTALACJI */
         .install-btn { display: none; width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 5px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1.1rem; }
@@ -99,7 +122,7 @@
     </div>
 
     <script>
-        // 🔊 SILNIK AUDIO (Nowe, bezpieczne serwery)
+        // 🔊 SILNIK AUDIO (Z wymuszonym odblokowaniem Chrome)
         let skyAudio = new Audio();
         let dzwiekWlaczony = false;
 
@@ -108,11 +131,11 @@
             const btn = document.getElementById('audioToggle');
             if (dzwiekWlaczony) {
                 btn.innerText = '🔊';
-                // Wymuszone odblokowanie głośnika!
+                // Pusty strzał dźwiękowy ładujący silnik do pamięci RAM
                 skyAudio.src = 'data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
                 let playPromise = skyAudio.play();
                 if(playPromise !== undefined) {
-                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Bypass fail", e));
+                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Czekam na akcję..."));
                 }
             } else {
                 btn.innerText = '🔇';
@@ -127,21 +150,17 @@
             skyAudio.currentTime = 0;
             let w = warunki.toLowerCase();
             
-            // Używamy stabilnych linków!
             if (godzina >= 20 || godzina < 6) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/crickets-2.mp3'; // Noc
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/crickets-2.mp3'; 
             } else if (w.includes('rain') || w.includes('drizzle')) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/rain-01.mp3'; // Deszcz
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/rain-01.mp3'; 
             } else if (w.includes('thunder')) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/thunder-01.mp3'; // Burza
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/thunder-01.mp3'; 
             } else {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/birds-01.mp3'; // Dzień
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/birds-01.mp3'; 
             }
             
-            let playPromise = skyAudio.play();
-            if(playPromise !== undefined) {
-                playPromise.catch(e => console.log("Blokada przeglądarki. Kliknij przycisk dźwięku na 🔊"));
-            }
+            skyAudio.play().catch(e => console.log("Chrome znów blokuje."));
         }
     </script>
 
@@ -150,6 +169,15 @@
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
+            
+            // 🔥 TWARDE ODBLOKOWANIE CHROME (Podczas kliknięcia SKANUJ)
+            if(dzwiekWlaczony) {
+                let initPlay = skyAudio.play();
+                if(initPlay !== undefined) {
+                    initPlay.then(() => { skyAudio.pause(); }).catch(() => {});
+                }
+            }
+
             let miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
@@ -209,7 +237,7 @@
 
         window.onload = pobierzDane;
 
-        // 📱 MODUŁ INSTALACJI (PWA / Dodaj do ekranu)
+        // 📱 MODUŁ INSTALACJI (PWA)
         let promptInstalacji;
         const btnInstalacji = document.getElementById('installBtn');
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
