@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyCast PRO | Myśl Piotrka</title>
+    <title>SkyCast PRO | Architektura Piotrka</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -48,12 +48,11 @@
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         
-        /* Pasek wyszukiwania */
+        /* Pasek wyszukiwania (bez głośnika) */
         .search-area { display: flex; gap: 8px; }
         .search-area input, .search-area button { height: 55px; }
-        input { flex: 1; padding: 0 15px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        .scan-btn { padding: 0 15px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 95px; }
-        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.5rem; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
+        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 100px; }
         
         /* Instalacja */
         .install-btn { display: none; width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 5px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1.1rem; }
@@ -62,7 +61,7 @@
         /* Główne karty */
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         .main-hero { text-align: center; }
-        .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); }
+        .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         .hero-icon { font-size: 5rem; }
         
@@ -77,16 +76,18 @@
         .d-temp { font-size: 1.6rem; font-weight: 900; width: 80px; text-align: right; color: var(--blue); }
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; }
         .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        
+        /* Osobiste akcenty */
         .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
-        .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; }
+        .thesis-card p { font-size: 1.2rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--card-text); }
+        .cyber-egg { border-left: 6px solid var(--orange); background: rgba(245, 158, 11, 0.1); }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="search-area animate">
-            <button id="audioToggle" class="audio-btn" onclick="przelaczDzwiek()">🔇</button>
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
             <button class="scan-btn" onclick="pobierzDane()">SKANUJ</button>
         </div>
@@ -109,7 +110,7 @@
         </div>
 
         <div class="card thesis-card animate" id="thesisWidget" style="display: none;">
-            <h4>🧠 Myśl Piotrka</h4>
+            <h4 id="thesisTitle" style="font-size: 0.8rem; color: var(--blue); text-transform: uppercase; font-weight: 900; margin-bottom: 8px;">🧠 Myśl Piotrka</h4>
             <p id="thesisP">Przetwarzam dane...</p>
         </div>
 
@@ -130,61 +131,24 @@
     </div>
 
     <script>
-        // 🔊 SILNIK AUDIO
-        let skyAudio = new Audio();
-        let dzwiekWlaczony = false;
-
-        function przelaczDzwiek() {
-            dzwiekWlaczony = !dzwiekWlaczony;
-            const btn = document.getElementById('audioToggle');
-            if (dzwiekWlaczony) {
-                btn.innerText = '🔊';
-                skyAudio.src = 'data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
-                let playPromise = skyAudio.play();
-                if(playPromise !== undefined) {
-                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Czekam..."));
-                }
-            } else {
-                btn.innerText = '🔇';
-                skyAudio.pause();
-            }
-        }
-
-        function grajPogode(warunki, godzina) {
-            if (!dzwiekWlaczony) return;
-            skyAudio.pause();
-            skyAudio.currentTime = 0;
-            let w = warunki.toLowerCase();
-            
-            if (godzina >= 20 || godzina < 6) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/crickets-2.mp3'; 
-            } else if (w.includes('rain') || w.includes('drizzle')) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/rain-01.mp3'; 
-            } else if (w.includes('thunder')) {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/thunder-01.mp3'; 
-            } else {
-                skyAudio.src = 'https://www.soundjay.com/nature/sounds/birds-01.mp3'; 
-            }
-            skyAudio.play().catch(e => console.log("Audio zablokowane"));
-        }
-    </script>
-
-    <script>
         // 🧠 LOGIKA GŁÓWNA (APK)
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
-            if(dzwiekWlaczony) {
-                let initPlay = skyAudio.play();
-                if(initPlay !== undefined) {
-                    initPlay.then(() => { skyAudio.pause(); }).catch(() => {});
-                }
+            let miastoInput = document.getElementById('cityIn').value.trim();
+            if(!miastoInput) return;
+
+            // 🔥 EASTER EGG (Ukryta funkcja)
+            if (miastoInput.toLowerCase() === 'pizza') {
+                odpalEasterEgg("🍕 Kodowanie zgłodniało? Pamiętaj, optymalna hydratacja ciasta to 70%! Ogień pod piecem, Piotrek!");
+                return;
+            } else if (miastoInput.toLowerCase() === 'cyber') {
+                odpalEasterEgg("🛡️ Skanowanie zabezpieczeń udane. Jesteś na dobrej drodze do Cybersec. Nie poddawaj się!");
+                return;
             }
 
-            let miastoInput = document.getElementById('cityIn').value;
-            if(!miastoInput) return;
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
-            const miastoDoAPI = tlumacz[miastoInput.toLowerCase().trim()] || miastoInput;
+            const miastoDoAPI = tlumacz[miastoInput.toLowerCase()] || miastoInput;
 
             try {
                 // Pobieranie pogody
@@ -194,7 +158,7 @@
                 if(dataF.cod === "200") {
                     renderUI(dataF);
                     
-                    // 🔥 NOWOŚĆ: POBIERANIE JAKOŚCI POWIETRZA (AQI)
+                    // POBIERANIE JAKOŚCI POWIETRZA (AQI)
                     try {
                         const lat = dataF.city.coord.lat;
                         const lon = dataF.city.coord.lon;
@@ -208,6 +172,16 @@
                     } catch(e) { console.log("Błąd skanera powietrza."); }
                 }
             } catch (err) { console.log("Błąd silnika."); }
+        }
+
+        // Funkcja obsługująca sekrety Piotrka
+        function odpalEasterEgg(wiadomosc) {
+            const widget = document.getElementById('thesisWidget');
+            widget.classList.add('cyber-egg');
+            widget.style.display = 'block';
+            document.getElementById('thesisTitle').innerText = "🔥 TRYB TWÓRCY AKTYWNY";
+            document.getElementById('thesisTitle').style.color = "var(--orange)";
+            document.getElementById('thesisP').innerText = wiadomosc;
         }
 
         function getAnimatedIcon(weatherMain, hour) {
@@ -231,8 +205,14 @@
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
-            // 🔥 NOWOŚĆ: LUDZKA MYŚL PIOTRKA
-            document.getElementById('thesisWidget').style.display = 'block';
+            // Reset wyglądu "Myśli" (jeśli był włączony Easter Egg)
+            const widget = document.getElementById('thesisWidget');
+            widget.classList.remove('cyber-egg');
+            document.getElementById('thesisTitle').innerText = "🧠 Myśl Piotrka";
+            document.getElementById('thesisTitle').style.color = "var(--blue)";
+
+            // 🔥 LUDZKA MYŚL PIOTRKA (Dopracowana)
+            widget.style.display = 'block';
             let mysl = "Pochmurno, ale stabilnie. Dobry dzień, żeby na spokojnie zająć się swoimi sprawami.";
             let w = teraz.weather[0].main.toLowerCase();
             
@@ -260,8 +240,6 @@
                 const d = f.list[i]; const n = new Date(d.dt*1000).toLocaleDateString('pl-PL', {weekday:'long'});
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
-
-            grajPogode(teraz.weather[0].main, currentHour);
         }
 
         window.onload = pobierzDane;
@@ -298,3 +276,4 @@
     </script>
 </body>
 </html>
+
