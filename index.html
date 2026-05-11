@@ -11,28 +11,8 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
-            --glass: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 1);
-            --text: #0f172a;
-            --main-title: #020617;
-            --blue: #2563eb;
-            --green: #16a34a;
-            --red: #ef4444;
-            --purple: #7e22ce;
-            --orange: #f59e0b;
-            --card-text: #1e293b;
-        }
-        body.night-mode {
-            --bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
-            --glass: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text: #e2e8f0;
-            --main-title: #f8fafc;
-            --blue: #3b82f6;
-            --purple: #c084fc;
-            --card-text: #e2e8f0;
+        .scan-btn { padding: 0 15px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 90px; }
+        ;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
