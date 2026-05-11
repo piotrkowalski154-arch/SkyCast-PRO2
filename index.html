@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Myśl Piotrka</title>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><linearGradient id=%22g%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%233b82f6%22/><stop offset=%22100%25%22 style=%22stop-color:%237e22ce%22/></linearGradient><path d=%22M20,60 Q20,40 40,40 Q45,25 60,25 Q75,25 80,40 Q90,45 90,60 Q90,75 75,75 L35,75 Q20,75 20,60 Z%22 fill=%22url(%23g)%22/><path d=%22M50,45 L40,65 L55,65 L45,85%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230f172a%22/><path d=%22M20,60 Q20,40 40,40 Q45,25 60,25 Q75,25 80,40 Q90,45 90,60 Q90,75 75,75 L35,75 Q20,75 20,60 Z%22 fill=%22%233b82f6%22/><path d=%22M50,45 L40,65 L55,65 L45,85%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0f172a">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,7 +19,6 @@
             --orange: #f59e0b;
             --card-text: #1e293b;
         }
-
         body.night-mode {
             --bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
             --glass: rgba(15, 23, 42, 0.6);
@@ -38,179 +29,111 @@
             --purple: #c084fc;
             --card-text: #e2e8f0;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background: var(--bg); background-attachment: fixed; min-height: 100vh;
-            display: flex; justify-content: center; padding: 10px; color: var(--text);
-            overflow-x: hidden; transition: background 1s ease;
-        }
-
+        body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
-
-        /* ANIMACJE */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseSoft { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.01); } 100% { opacity: 0.8; } }
-
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
-        .think-pulse { animation: pulseSoft 3s ease-in-out infinite; }
-
         .search-area { display: flex; gap: 8px; }
-        input {
-            flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text);
-        }
+        input { flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
         button { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; }
-
-        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: 0.5s; }
-
-        .main-hero { text-align: center; padding: 10px 0; }
-        .cityName { font-size: 2.6rem; font-weight: 900; letter-spacing: -1px; color: var(--main-title); line-height: 1.1; }
-        .temp { font-size: 6.5rem; font-weight: 900; line-height: 1; letter-spacing: -5px; color: var(--main-title); }
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        .main-hero { text-align: center; }
+        .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); }
+        .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         .hero-icon { font-size: 5rem; }
-
-        .imgw-badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; margin-top: 10px; }
-
-        /* MYŚL PIOTRKA */
-        .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
-        .thesis-card h4 { font-size: 0.8rem; color: var(--blue); text-transform: uppercase; font-weight: 900; margin-bottom: 5px; }
-        .thesis-card p { font-size: 1.1rem; font-weight: 700; color: var(--card-text); line-height: 1.4; font-style: italic; }
-
-        /* PROGNOZA 5 DNI - POWIĘKSZONA */
         .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(150,150,150,0.1); }
         .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; }
         .d-icon { font-size: 2.2rem; width: 60px; text-align: center; }
         .d-temp { font-size: 1.6rem; font-weight: 900; width: 80px; text-align: right; color: var(--blue); }
-
-        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scroll-behavior: smooth; }
-        .h-scroll::-webkit-scrollbar { display: none; }
-        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
-
-        .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; text-align: left; }
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; }
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
+        .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <div class="search-area animate" style="animation-delay: 0.1s">
+        <div class="search-area animate">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button id="searchBtn" onclick="pobierzDane()">SKANUJ</button>
+            <button onclick="pobierzDane()">SKANUJ</button>
         </div>
 
-        <div class="card main-hero animate" style="animation-delay: 0.2s">
-            <div id="modeIndicator" style="font-size: 0.7rem; font-weight: 900; color: var(--purple); margin-bottom: 10px; text-transform: uppercase;">Inicjalizacja systemu...</div>
+        <div class="card main-hero animate">
+            <div id="modeIndicator" style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Inicjalizacja...</div>
             <div class="cityName" id="cityName">Kraków</div>
-            <div class="hero-temp-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                 <div class="temp" id="valT">--°</div>
                 <div class="hero-icon" id="mainIcon"></div>
             </div>
-            <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie satelity...</div>
+            <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie...</div>
             <div class="imgw-badge" id="imgwTag">📡 Silnik gotowy</div>
         </div>
 
-        <div class="card thesis-card animate think-pulse" id="thesisWidget" style="animation-delay: 0.3s; display: none;">
+        <div class="card thesis-card animate" id="thesisWidget" style="display: none;">
             <h4>🧠 Myśl Piotrka</h4>
             <p id="thesisP">Przetwarzam dane...</p>
         </div>
 
-        <div class="card animate" id="bioScan" style="animation-delay: 0.35s; display: none;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div style="text-align: center; padding: 10px; border-right: 1px solid var(--glass-border);">
-                    <div style="font-size: 0.65rem; font-weight: 800; opacity: 0.6;">CIŚNIENIE</div>
-                    <div id="valPress" style="font-size: 1.2rem; font-weight: 900; color: var(--blue);">-- hPa</div>
-                </div>
-                <div style="text-align: center; padding: 10px;">
-                    <div style="font-size: 0.65rem; font-weight: 800; opacity: 0.6;">BIOMETEO</div>
-                    <div id="valBio" style="font-size: 1.2rem; font-weight: 900;">--</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card animate" id="hourlyCard" style="animation-delay: 0.4s; display: none;">
-            <span class="label">Skan Godzinowy (8h)</span>
+        <div class="card animate" id="hourlyCard" style="display: none;">
+            <span class="label">Skan Godzinowy</span>
             <div class="h-scroll" id="hList"></div>
         </div>
 
-        <div class="card animate" id="dailyCard" style="animation-delay: 0.5s; display: none;">
-            <span class="label">Prognoza na 5 dni (Powiększona)</span>
+        <div class="card animate" id="dailyCard" style="display: none;">
+            <span class="label">Prognoza na 5 dni</span>
             <div id="dList"></div>
         </div>
 
-        <div class="card manifest animate" style="animation-delay: 0.6s">
-            <h2 style="font-size: 1.2rem; margin-bottom: 5px; font-weight: 900;">Piotrek | SkyCast PRO👷</h2>
-            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.5;">Za dnia pracuję w kuchni – od lat serwuję  pizzę.🍕🍕🍕 Po zmroku wchodzę do świata kodu. SkyCast PRO to moja Aplikacja Pogodowa 🌩️⛈️🚨🛡️.</p>
-            <div style="background: var(--orange); color: #000; padding: 4px 12px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; margin-top: 15px; display: inline-block;">🍕 PIZZA | 🛡️ CYBER | 🧠 AI</div>
+        <div class="card manifest animate">
+            <h2 style="font-size: 1.2rem; font-weight: 900;">Piotrek | SkyCast PRO👷</h2>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Fuzja pasji do pizzy, cyberbezpieczeństwa i kodu.</p>
         </div>
-
     </div>
 
     <script>
-  // Inicjalizacja odtwarzacza
-let skyAudio = new Audio();
+        let skyAudio = new Audio();
 
-function grajPogode(warunki, godzina) {
-    // 1. Zatrzymujemy dźwięk, jeśli już jakiś gra (żeby się nie nakładały)
-    skyAudio.pause();
-    skyAudio.currentTime = 0;
+        function grajPogode(warunki, godzina) {
+            skyAudio.pause();
+            skyAudio.currentTime = 0;
+            let w = warunki.toLowerCase();
+            
+            if (godzina >= 20 || godzina < 6) {
+                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-crickets-and-insects-in-the-wild-ambience-39.mp3';
+            } else if (w.includes('rain') || w.includes('drizzle')) {
+                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-rain-and-thunder-storm-2390.mp3';
+            } else if (w.includes('thunder')) {
+                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-thunder-rumble-2331.mp3';
+            } else {
+                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
+            }
+            skyAudio.play().catch(e => console.log("Czekam na skanowanie..."));
+        }
+    </script>
 
-    let w = warunki.toLowerCase();
-    
-    // 2. Wybieramy odpowiednią "płytę" na podstawie danych
-    if (godzina >= 20 || godzina < 6) {
-        // Dźwięk nocy (świerszcze)
-        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-crickets-and-insects-in-the-wild-ambience-39.mp3';
-    } else if (w.includes('rain') || w.includes('drizzle')) {
-        // Dźwięk deszczu i burzy
-        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-rain-and-thunder-storm-2390.mp3';
-    } else if (w.includes('thunder')) {
-        // Mocna burza
-        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-thunder-rumble-2331.mp3';
-    } else {
-        // Pogodny dzień (ptaki)
-        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
-    }
-
-    // 3. Odpalenie dźwięku (zabezpieczone, żeby nie wywaliło apki)
-    skyAudio.play().catch(e => console.log("System czeka na kliknięcie przycisku..."));
-}
-        
+    <script>
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
             let miastoInput = document.getElementById('cityIn').value;
-            if(!miastoInput) return; 
-            const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "paryż": "Paris", "londyn": "London", "wrocław": "Wroclaw", "kraków": "Kraków"  };
+            if(!miastoInput) return;
+            const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase().trim()] || miastoInput;
 
             try {
-                const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${miastoDoAPI}&appid=${API_KEY}&units=metric&lang=pl`);
+                const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoDoAPI)}&appid=${API_KEY}&units=metric&lang=pl`);
                 const dataF = await resF.json();
-                if(dataF.cod === "200") {
-                    renderUI(dataF);
-                    if(dataF.city.country === "PL") pobierzIMGW(miastoDoAPI);
-                }
-            } catch (err) { document.getElementById('cityName').innerText = "Błąd!"; }
-        }
-
-        async function pobierzIMGW(miasto) {
-            const mClean = miasto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l");
-            const tag = document.getElementById('imgwTag');
-            try {
-                const res = await fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${mClean}`);
-                if(res.ok) {
-                    const d = await res.json();
-                    tag.innerHTML = `✅ IMGW Live: <span style="color:var(--green)">${d.temperatura}°C</span> | ${d.cisnienie} hPa`;
-                }
-            } catch(e) { tag.innerHTML = "🌍 Silnik: Globalny"; }
+                if(dataF.cod === "200") renderUI(dataF);
+            } catch (err) { console.log("Błąd silnika."); }
         }
 
         function getAnimatedIcon(weatherMain, hour) {
@@ -219,69 +142,49 @@ function grajPogode(warunki, godzina) {
             if (w.includes('clear')) return isNight ? '<span class="anim-float">🌙</span>' : '<span class="anim-spin">☀️</span>';
             if (w.includes('cloud')) return isNight ? '<span class="anim-float">☁️</span>' : '<span class="anim-float">⛅</span>';
             if (w.includes('rain')) return '<span class="anim-bounce">🌧️</span>';
-            if (w.includes('thunder')) return '<span class="anim-bounce" style="color:var(--purple)">🌩️</span>';
             return '<span class="anim-float">🌤️</span>';
         }
 
         function renderUI(f) {
-        
-  
-    
-        const teraz = f.list[0];
+            const teraz = f.list[0];
             const currentHour = new Date().getHours();
-            const modeInd = document.getElementById('modeIndicator');
             
-            if (currentHour >= 20 || currentHour < 6) {
-                document.body.classList.add('night-mode');
-                modeInd.innerText = "Tryb Nocny Aktywny 🌙";
-            } else {
-                document.body.classList.remove('night-mode');
-                modeInd.innerText = "Tryb Dzienny Aktywny ☀️";
-            }
+            // Tryb Nocny/Dzienny
+            if (currentHour >= 20 || currentHour < 6) document.body.classList.add('night-mode');
+            else document.body.classList.remove('night-mode');
 
             document.getElementById('cityName').innerText = f.city.name;
             document.getElementById('valT').innerText = `${Math.round(teraz.main.temp)}°`;
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
-            {
-            ">...</div>`;
-} 
 
-
-        
-            
-            // MYŚL PIOTRKA
+            // Myśl Piotrka
             document.getElementById('thesisWidget').style.display = 'block';
-            let mysl = "Idealne warunki na spacer 🚶‍♀️🏃🌞. Czyste niebo!";
+            let mysl = "Idealne warunki na testy. Czyste niebo!";
             if(teraz.main.temp > 25) mysl = "Upał! Chłodź procesor i pij dużo wody. 🌊";
-            else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas, Na  Netflixa 📺 ☕";
-            else if(teraz.weather[0].main.toLowerCase().includes('thunder')) mysl = "Burza! Piotrek zaleca bezpieczne Miejsce. 🌩️🛡️⚡";
+            else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas na kodowanie. ☕";
             document.getElementById('thesisP').innerText = mysl;
 
-            // BIOSCAN
-            document.getElementById('bioScan').style.display = 'block';
-            const press = teraz.main.pressure;
-            document.getElementById('valPress').innerText = `${press} hPa`;
-            const bio = document.getElementById('valBio');
-            if(press > 1010 && press < 1025) { bio.innerText = "KORZYSTNE"; bio.style.color = "var(--green)"; }
-            else { bio.innerText = "SŁABE"; bio.style.color = "var(--red)"; }
-
-            // GODZINY
+            // Godziny
             document.getElementById('hourlyCard').style.display = 'block';
             const hL = document.getElementById('hList'); hL.innerHTML = '';
             for(let i=0; i<8; i++) {
                 const h = f.list[i]; const hHour = new Date(h.dt*1000).getHours();
-                hL.innerHTML += `<div class="h-box"><span style="font-size:0.7rem;opacity:0.7">${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong style="font-size:1.1rem">${Math.round(h.main.temp)}°</strong></div>`;
+                hL.innerHTML += `<div class="h-box"><span>${hHour}:00</span>${getAnimatedIcon(h.weather[0].main, hHour)}<strong>${Math.round(h.main.temp)}°</strong></div>`;
             }
 
-            // PROGNOZA 5 DNI
+            // Prognoza 5 dni
             document.getElementById('dailyCard').style.display = 'block';
             const dL = document.getElementById('dList'); dL.innerHTML = '';
             for(let i=7; i<f.list.length; i+=8) {
                 const d = f.list[i]; const n = new Date(d.dt*1000).toLocaleDateString('pl-PL', {weekday:'long'});
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
+
+            // 🔊 TUTAJ JEST KLUCZ: Wywołanie dźwięku POZA pętlami
+            grajPogode(teraz.weather[0].main, currentHour);
         }
+
         window.onload = pobierzDane;
     </script>
 </body>
