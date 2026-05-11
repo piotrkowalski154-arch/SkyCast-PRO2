@@ -37,21 +37,26 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
         .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
+        
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
         .anim-spin { display: inline-block; animation: spin 8s linear infinite; }
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
-        .search-area { display: flex; gap: 8px; }
-        input { flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        button { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; }
         
-        /* Styl dla guzików dodatkowych */
-        .install-btn { display: none; width: 100%; padding: 12px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1rem; }
-        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.2rem; padding: 0 15px; }
+        /* POPRAWKI UI DLA WYSZUKIWARKI */
+        .search-area { display: flex; gap: 8px; }
+        .search-area input, .search-area button { height: 55px; /* Równa wysokość */ }
+        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
+        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.5rem; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        
+        /* POPRAWKI UI DLA PRZYCISKU INSTALACJI */
+        .install-btn { display: none; width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 5px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1.1rem; }
         @keyframes pulseSoft { 0% { opacity: 0.9; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.9; } }
 
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
@@ -76,7 +81,7 @@
         <div class="search-area animate">
             <button id="audioToggle" class="audio-btn" onclick="przelaczDzwiek()">🔇</button>
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button onclick="pobierzDane()">SKANUJ</button>
+            <button class="scan-btn" onclick="pobierzDane()">SKANUJ</button>
         </div>
 
         <button id="installBtn" class="install-btn animate" style="animation-delay: 0.1s;">📲 ZAINSTALUJ APLIKACJĘ</button>
@@ -114,7 +119,7 @@
     </div>
 
     <script>
-        // 🔊 SILNIK AUDIO (Zabezpieczony)
+        // 🔊 SILNIK AUDIO (Nowe, bezpieczne serwery)
         let skyAudio = new Audio();
         let dzwiekWlaczony = false;
 
@@ -123,9 +128,12 @@
             const btn = document.getElementById('audioToggle');
             if (dzwiekWlaczony) {
                 btn.innerText = '🔊';
-                // Odblokowanie przeglądarki pustym strzałem
+                // Wymuszone odblokowanie głośnika!
                 skyAudio.src = 'data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
-                skyAudio.play().catch(e => console.log("Bypass"));
+                let playPromise = skyAudio.play();
+                if(playPromise !== undefined) {
+                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Bypass fail", e));
+                }
             } else {
                 btn.innerText = '🔇';
                 skyAudio.pause();
@@ -133,23 +141,27 @@
         }
 
         function grajPogode(warunki, godzina) {
-            if (!dzwiekWlaczony) return; // Jeśli wyciszone guzikiem - nie graj
+            if (!dzwiekWlaczony) return;
 
             skyAudio.pause();
             skyAudio.currentTime = 0;
             let w = warunki.toLowerCase();
             
+            // Używamy stabilnych linków!
             if (godzina >= 20 || godzina < 6) {
-                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-crickets-and-insects-in-the-wild-ambience-39.mp3';
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/crickets-2.mp3'; // Noc
             } else if (w.includes('rain') || w.includes('drizzle')) {
-                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-rain-and-thunder-storm-2390.mp3';
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/rain-01.mp3'; // Deszcz
             } else if (w.includes('thunder')) {
-                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-thunder-rumble-2331.mp3';
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/thunder-01.mp3'; // Burza
             } else {
-                skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
+                skyAudio.src = 'https://www.soundjay.com/nature/sounds/birds-01.mp3'; // Dzień
             }
             
-            skyAudio.play().catch(e => console.log("Przeglądarka zablokowała audio."));
+            let playPromise = skyAudio.play();
+            if(playPromise !== undefined) {
+                playPromise.catch(e => console.log("Blokada przeglądarki. Kliknij przycisk dźwięku na 🔊"));
+            }
         }
     </script>
 
@@ -211,7 +223,7 @@
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
 
-            // ODPALENIE DŹWIĘKU (Jeśli włączony guzikiem)
+            // ODPALENIE DŹWIĘKU
             grajPogode(teraz.weather[0].main, currentHour);
         }
 
