@@ -174,7 +174,7 @@
                         const resAqi = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
                         const dataAqi = await resAqi.json();
                         const aqi = dataAqi.list[0].main.aqi;
-                        const aqiLabels = ["", "Świetna 🟢", "Dobra 🟡", "Umiarkowana 🟠", "Zła 🔴", "Fatalna 🟣"];
+                        const aqiLabels = ["", "Świetne 🟢", "Dobre 🟡", "Umiarkowane 🟠", "Złe 🔴", "Fatalne 🟣"];
                         
                         document.getElementById('aqiBadge').innerHTML = `💨 Powietrze: <strong>${aqiLabels[aqi]}</strong>`;
                         document.getElementById('aqiBadge').style.display = 'inline-block';
@@ -228,7 +228,8 @@
             if (teraz.main.temp > 25) {
                 mysl = "Gorąco! Idealny czas na zimną lemoniadę, odpoczynek w cieniu i odrobinę luzu. Pamiętaj o nawodnieniu! 🌊";
             } else if (w.includes('rain') || w.includes('drizzle')) {
-                mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem lub w skupieniu popracować nad kodem. ☕";
+                mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem 💆‍♂️🛏️☕🍰";
+        
             } else if (w.includes('clear')) {
                 mysl = "Czyste niebo i piękna pogoda! Grzech siedzieć w domu – to idealny czas na spacer i naładowanie baterii na świeżym powietrzu. ☀️";
             } else if (w.includes('thunder')) {
