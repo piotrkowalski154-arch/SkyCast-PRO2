@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyCast PRO | Twoja aplikacja pogodowa 🌩️🚨</title>
+    <title>SkyCast PRO | Myśl Piotrka</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -48,25 +48,28 @@
         .anim-bounce { display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         
-        /* POPRAWKI UI DLA WYSZUKIWARKI */
+        /* Pasek wyszukiwania */
         .search-area { display: flex; gap: 8px; }
         .search-area input, .search-area button { height: 55px; }
         input { flex: 1; padding: 0 15px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        
-        /* ZABEZPIECZENIE PRZYCISKU SKANUJ PRZED UCIĘCIEM */
         .scan-btn { padding: 0 15px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 95px; }
-        
         .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.5rem; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
         
-        /* POPRAWKI UI DLA PRZYCISKU INSTALACJI */
+        /* Instalacja */
         .install-btn { display: none; width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 5px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1.1rem; }
         @keyframes pulseSoft { 0% { opacity: 0.9; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.9; } }
 
+        /* Główne karty */
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); }
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         .hero-icon { font-size: 5rem; }
+        
+        /* Etykiety (Jakość powietrza i IMGW) */
+        .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; }
+
         .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(150,150,150,0.1); }
         .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; }
@@ -76,6 +79,7 @@
         .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
         .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
+        .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; }
     </style>
 </head>
 <body>
@@ -97,7 +101,11 @@
                 <div class="hero-icon" id="mainIcon"></div>
             </div>
             <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie...</div>
-            <div class="imgw-badge" id="imgwTag">📡 Silnik gotowy</div>
+            
+            <div class="status-badges">
+                <div class="badge" id="imgwTag">📡 Silnik gotowy</div>
+                <div class="badge" id="aqiBadge" style="display: none;">💨 Powietrze: Ładowanie...</div>
+            </div>
         </div>
 
         <div class="card thesis-card animate" id="thesisWidget" style="display: none;">
@@ -122,7 +130,7 @@
     </div>
 
     <script>
-        // 🔊 SILNIK AUDIO (Z wymuszonym odblokowaniem Chrome)
+        // 🔊 SILNIK AUDIO
         let skyAudio = new Audio();
         let dzwiekWlaczony = false;
 
@@ -131,11 +139,10 @@
             const btn = document.getElementById('audioToggle');
             if (dzwiekWlaczony) {
                 btn.innerText = '🔊';
-                // Pusty strzał dźwiękowy ładujący silnik do pamięci RAM
                 skyAudio.src = 'data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
                 let playPromise = skyAudio.play();
                 if(playPromise !== undefined) {
-                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Czekam na akcję..."));
+                    playPromise.then(_ => { skyAudio.pause(); }).catch(e => console.log("Czekam..."));
                 }
             } else {
                 btn.innerText = '🔇';
@@ -145,7 +152,6 @@
 
         function grajPogode(warunki, godzina) {
             if (!dzwiekWlaczony) return;
-
             skyAudio.pause();
             skyAudio.currentTime = 0;
             let w = warunki.toLowerCase();
@@ -159,8 +165,7 @@
             } else {
                 skyAudio.src = 'https://www.soundjay.com/nature/sounds/birds-01.mp3'; 
             }
-            
-            skyAudio.play().catch(e => console.log("Chrome znów blokuje."));
+            skyAudio.play().catch(e => console.log("Audio zablokowane"));
         }
     </script>
 
@@ -169,8 +174,6 @@
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
-            
-            // 🔥 TWARDE ODBLOKOWANIE CHROME (Podczas kliknięcia SKANUJ)
             if(dzwiekWlaczony) {
                 let initPlay = skyAudio.play();
                 if(initPlay !== undefined) {
@@ -184,9 +187,26 @@
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase().trim()] || miastoInput;
 
             try {
+                // Pobieranie pogody
                 const resF = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoDoAPI)}&appid=${API_KEY}&units=metric&lang=pl`);
                 const dataF = await resF.json();
-                if(dataF.cod === "200") renderUI(dataF);
+                
+                if(dataF.cod === "200") {
+                    renderUI(dataF);
+                    
+                    // 🔥 NOWOŚĆ: POBIERANIE JAKOŚCI POWIETRZA (AQI)
+                    try {
+                        const lat = dataF.city.coord.lat;
+                        const lon = dataF.city.coord.lon;
+                        const resAqi = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
+                        const dataAqi = await resAqi.json();
+                        const aqi = dataAqi.list[0].main.aqi;
+                        const aqiLabels = ["", "Świetna 🟢", "Dobra 🟡", "Umiarkowana 🟠", "Zła 🔴", "Fatalna 🟣"];
+                        
+                        document.getElementById('aqiBadge').innerHTML = `💨 Powietrze: <strong>${aqiLabels[aqi]}</strong>`;
+                        document.getElementById('aqiBadge').style.display = 'inline-block';
+                    } catch(e) { console.log("Błąd skanera powietrza."); }
+                }
             } catch (err) { console.log("Błąd silnika."); }
         }
 
@@ -211,10 +231,20 @@
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
+            // 🔥 NOWOŚĆ: LUDZKA MYŚL PIOTRKA
             document.getElementById('thesisWidget').style.display = 'block';
-            let mysl = "Idealne warunki na testy. Czyste niebo!";
-            if(teraz.main.temp > 25) mysl = "Upał! Chłodź procesor i pij dużo wody. 🌊";
-            else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas na kodowanie. ☕";
+            let mysl = "Pochmurno, ale stabilnie. Dobry dzień, żeby na spokojnie zająć się swoimi sprawami.";
+            let w = teraz.weather[0].main.toLowerCase();
+            
+            if (teraz.main.temp > 25) {
+                mysl = "Gorąco! Idealny czas na zimną lemoniadę, odpoczynek w cieniu i odrobinę luzu. Pamiętaj o nawodnieniu! 🌊";
+            } else if (w.includes('rain') || w.includes('drizzle')) {
+                mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem lub w skupieniu popracować nad kodem. ☕";
+            } else if (w.includes('clear')) {
+                mysl = "Czyste niebo i piękna pogoda! Grzech siedzieć w domu – to idealny czas na spacer i naładowanie baterii na świeżym powietrzu. ☀️";
+            } else if (w.includes('thunder')) {
+                mysl = "Rozpętała się burza! Najlepiej zostać w bezpiecznej bazie i obserwować żywioł przez okno. ⚡";
+            }
             document.getElementById('thesisP').innerText = mysl;
 
             document.getElementById('hourlyCard').style.display = 'block';
@@ -231,7 +261,6 @@
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
 
-            // ODPALENIE DŹWIĘKU
             grajPogode(teraz.weather[0].main, currentHour);
         }
 
