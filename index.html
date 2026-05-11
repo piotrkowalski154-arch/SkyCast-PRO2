@@ -221,6 +221,23 @@
             } catch (err) { console.log("Błąd silnika."); }
         }
 
+        // 🧠 NOWY SILNIK: Open-Meteo (Tryb Testowy - Działa w Tle)
+        async function pobierzDaneOpenMeteo() {
+            const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m";
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                // Raport do ukrytej konsoli
+                console.log("🔥 RAPORT Z OPEN-METEO (Berlin):");
+                console.log("Temperatura teraz: " + data.current.temperature_2m + "°C");
+                console.log("Wilgotność o północy: " + data.hourly.relative_humidity_2m[0] + "%");
+            } catch (e) {
+                console.log("Błąd skanera Open-Meteo!");
+            }
+        }
+
         function odpalEasterEgg(wiadomosc) {
             const widget = document.getElementById('thesisWidget');
             widget.classList.add('cyber-egg');
@@ -286,7 +303,11 @@
             }
         }
 
-        window.onload = pobierzDane;
+        // Odpalamy oba silniki przy starcie aplikacji
+        window.onload = () => {
+            pobierzDane();              // Główny system (OpenWeatherMap)
+            pobierzDaneOpenMeteo();     // Testowy skaner w tle (Open-Meteo)
+        };
 
         // 📱 MODUŁ INSTALACJI (PWA)
         let promptInstalacji;
@@ -303,20 +324,4 @@
             btnInstalacji.style.display = 'block';
             btnInstalacji.innerText = '🍎 ZAINSTALUJ NA iOS';
         }
-
-        btnInstalacji.addEventListener('click', async () => {
-            if (promptInstalacji) {
-                promptInstalacji.prompt();
-                const wynik = await promptInstalacji.userChoice;
-                if (wynik.outcome === 'accepted') {
-                    btnInstalacji.style.display = 'none';
-                }
-            } else if (isIOS) {
-                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole ekranu.\n2. Wybierz opcję 'Do ekranu pocz.' (Add to Home Screen).");
-            } else {
-                alert("Zainstaluj ręcznie: Kliknij menu przeglądarki (trzy kropki) i wybierz 'Dodaj do ekranu głównego'.");
-            }
-        });
-    </script>
-</body>
-</html>
+        
