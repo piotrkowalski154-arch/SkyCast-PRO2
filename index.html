@@ -243,15 +243,15 @@ function grajPogode(warunki, godzina) {
             document.getElementById('valT').innerText = `${Math.round(teraz.main.temp)}°`;
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
-
+            {
             for(let i=7; i<f.list.length; i+=8) {
     const d = f.list[i]; 
     const n = new Date(d.dt*1000).toLocaleDateString('pl-PL', {weekday:'long'});
     dL.innerHTML += `<div class="d-row">...</div>`;
 } 
 
-// TUTAJ WKLEJ TĘ LINIJKĘ:
 grajPogode(teraz.weather[0].main, currentHour); 
+
 
 } // <--- To jest ostatni nawias całej funkcji renderUI
         
