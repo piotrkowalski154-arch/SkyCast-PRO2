@@ -154,6 +154,35 @@
     </div>
 
     <script>
+  // Inicjalizacja odtwarzacza
+let skyAudio = new Audio();
+
+function grajPogode(warunki, godzina) {
+    // 1. Zatrzymujemy dźwięk, jeśli już jakiś gra (żeby się nie nakładały)
+    skyAudio.pause();
+    skyAudio.currentTime = 0;
+
+    let w = warunki.toLowerCase();
+    
+    // 2. Wybieramy odpowiednią "płytę" na podstawie danych
+    if (godzina >= 20 || godzina < 6) {
+        // Dźwięk nocy (świerszcze)
+        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-crickets-and-insects-in-the-wild-ambience-39.mp3';
+    } else if (w.includes('rain') || w.includes('drizzle')) {
+        // Dźwięk deszczu i burzy
+        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-rain-and-thunder-storm-2390.mp3';
+    } else if (w.includes('thunder')) {
+        // Mocna burza
+        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-thunder-rumble-2331.mp3';
+    } else {
+        // Pogodny dzień (ptaki)
+        skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
+    }
+
+    // 3. Odpalenie dźwięku (zabezpieczone, żeby nie wywaliło apki)
+    skyAudio.play().catch(e => console.log("System czeka na kliknięcie przycisku..."));
+}
+        
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
