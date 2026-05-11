@@ -324,4 +324,19 @@
             btnInstalacji.style.display = 'block';
             btnInstalacji.innerText = '🍎 ZAINSTALUJ NA iOS';
         }
-        
+                  btnInstalacji.addEventListener('click', async () => {
+            if (promptInstalacji) {
+                promptInstalacji.prompt();
+                const wynik = await promptInstalacji.userChoice;
+                if (wynik.outcome === 'accepted') {
+                    btnInstalacji.style.display = 'none';
+                }
+            } else if (isIOS) {
+                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole ekranu.\n2. Wybierz opcję 'Do ekranu pocz.' (Add to Home Screen).");
+            } else {
+                alert("Zainstaluj ręcznie: Kliknij menu przeglądarki (trzy kropki) i wybierz 'Dodaj do ekranu głównego'.");
+            }
+        });
+    </script>
+</body>
+</html>
