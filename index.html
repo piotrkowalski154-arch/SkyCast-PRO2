@@ -158,8 +158,8 @@
 
         async function pobierzDane() {
             let miastoInput = document.getElementById('cityIn').value;
-            if(!miastoInput) return;
-            const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "paryż": "Paris", "londyn": "London" };
+            if(!miastoInput) return; 
+            const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "paryż": "Paris", "londyn": "London": "Wrocław": "wroclaw"  };
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase().trim()] || miastoInput;
 
             try {
