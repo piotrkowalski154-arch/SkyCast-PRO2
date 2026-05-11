@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Myśl Piotrka</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230f172a%22/><path d=%22M20,60 Q20,40 40,40 Q45,25 60,25 Q75,25 80,40 Q90,45 90,60 Q90,75 75,75 L35,75 Q20,75 20,60 Z%22 fill=%22%233b82f6%22/><path d=%22M50,45 L40,65 L55,65 L45,85%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -42,7 +47,13 @@
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         .search-area { display: flex; gap: 8px; }
         input { flex: 1; padding: 16px 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        button { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; }
+        button { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        
+        /* Styl dla guzików dodatkowych */
+        .install-btn { display: none; width: 100%; padding: 12px; border-radius: 15px; background: var(--green); color: white; font-weight: 900; text-align: center; border: none; cursor: pointer; animation: pulseSoft 2s infinite; font-size: 1rem; }
+        .audio-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-size: 1.2rem; padding: 0 15px; }
+        @keyframes pulseSoft { 0% { opacity: 0.9; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.9; } }
+
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); }
@@ -63,9 +74,12 @@
 
     <div class="container">
         <div class="search-area animate">
+            <button id="audioToggle" class="audio-btn" onclick="przelaczDzwiek()">🔇</button>
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
             <button onclick="pobierzDane()">SKANUJ</button>
         </div>
+
+        <button id="installBtn" class="install-btn animate" style="animation-delay: 0.1s;">📲 ZAINSTALUJ APLIKACJĘ</button>
 
         <div class="card main-hero animate">
             <div id="modeIndicator" style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Inicjalizacja...</div>
@@ -100,10 +114,27 @@
     </div>
 
     <script>
-        // 🔊 SILNIK AUDIO
+        // 🔊 SILNIK AUDIO (Zabezpieczony)
         let skyAudio = new Audio();
+        let dzwiekWlaczony = false;
+
+        function przelaczDzwiek() {
+            dzwiekWlaczony = !dzwiekWlaczony;
+            const btn = document.getElementById('audioToggle');
+            if (dzwiekWlaczony) {
+                btn.innerText = '🔊';
+                // Odblokowanie przeglądarki pustym strzałem
+                skyAudio.src = 'data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
+                skyAudio.play().catch(e => console.log("Bypass"));
+            } else {
+                btn.innerText = '🔇';
+                skyAudio.pause();
+            }
+        }
 
         function grajPogode(warunki, godzina) {
+            if (!dzwiekWlaczony) return; // Jeśli wyciszone guzikiem - nie graj
+
             skyAudio.pause();
             skyAudio.currentTime = 0;
             let w = warunki.toLowerCase();
@@ -117,7 +148,8 @@
             } else {
                 skyAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3';
             }
-            skyAudio.play().catch(e => console.log("Audio block bypass active."));
+            
+            skyAudio.play().catch(e => console.log("Przeglądarka zablokowała audio."));
         }
     </script>
 
@@ -126,12 +158,6 @@
         const API_KEY = '6def6302b0a9b722144968390f4b8522'; 
 
         async function pobierzDane() {
-            // 🔊 KOPNIAK DLA AUDIO (Odblokowanie głośnika)
-            skyAudio.play().then(() => {
-                skyAudio.pause();
-                skyAudio.currentTime = 0;
-            }).catch(e => console.log("Bypass prep."));
-
             let miastoInput = document.getElementById('cityIn').value;
             if(!miastoInput) return;
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
@@ -185,11 +211,41 @@
                 dL.innerHTML += `<div class="d-row"><strong class="d-day">${n}</strong><span class="d-icon">${getAnimatedIcon(d.weather[0].main, 12)}</span><span class="d-temp">${Math.round(d.main.temp)}°</span></div>`;
             }
 
-            // ODPALENIE DŹWIĘKU
+            // ODPALENIE DŹWIĘKU (Jeśli włączony guzikiem)
             grajPogode(teraz.weather[0].main, currentHour);
         }
 
         window.onload = pobierzDane;
+
+        // 📱 MODUŁ INSTALACJI (PWA / Dodaj do ekranu)
+        let promptInstalacji;
+        const btnInstalacji = document.getElementById('installBtn');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            promptInstalacji = e;
+            btnInstalacji.style.display = 'block';
+        });
+
+        if (isIOS) {
+            btnInstalacji.style.display = 'block';
+            btnInstalacji.innerText = '🍎 ZAINSTALUJ NA iOS';
+        }
+
+        btnInstalacji.addEventListener('click', async () => {
+            if (promptInstalacji) {
+                promptInstalacji.prompt();
+                const wynik = await promptInstalacji.userChoice;
+                if (wynik.outcome === 'accepted') {
+                    btnInstalacji.style.display = 'none';
+                }
+            } else if (isIOS) {
+                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole ekranu.\n2. Wybierz opcję 'Do ekranu pocz.' (Add to Home Screen).");
+            } else {
+                alert("Zainstaluj ręcznie: Kliknij menu przeglądarki (trzy kropki) i wybierz 'Dodaj do ekranu głównego'.");
+            }
+        });
     </script>
 </body>
 </html>
