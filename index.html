@@ -224,6 +224,9 @@ function grajPogode(warunki, godzina) {
         }
 
         function renderUI(f) {
+         grajPogode(teraz.weather[0].main, currentHour);
+  
+    
             const teraz = f.list[0];
             const currentHour = new Date().getHours();
             const modeInd = document.getElementById('modeIndicator');
@@ -243,10 +246,10 @@ function grajPogode(warunki, godzina) {
 
             // MYŚL PIOTRKA
             document.getElementById('thesisWidget').style.display = 'block';
-            let mysl = "Idealne warunki na testy systemu. Czyste niebo!";
+            let mysl = "Idealne warunki na spacer 🚶‍♀️🏃🌞. Czyste niebo!";
             if(teraz.main.temp > 25) mysl = "Upał! Chłodź procesor i pij dużo wody. 🌊";
-            else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas, 🛏️ i Netflixa 📺 ☕";
-            else if(teraz.weather[0].main.toLowerCase().includes('thunder')) mysl = "Burza! Piotrek zaleca bezpieczną bazę. ⚡";
+            else if(teraz.weather[0].main.toLowerCase().includes('rain')) mysl = "Pada... idealny czas, Na  Netflixa 📺 ☕";
+            else if(teraz.weather[0].main.toLowerCase().includes('thunder')) mysl = "Burza! Piotrek zaleca bezpieczne Miejsce. 🌩️🛡️⚡";
             document.getElementById('thesisP').innerText = mysl;
 
             // BIOSCAN
