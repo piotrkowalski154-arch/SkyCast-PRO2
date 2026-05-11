@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -191,16 +190,20 @@
                 if(dataF.cod === "200") {
                     renderUI(dataF);
                     
-                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Alerty Piotrka)
+                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Alerty Piotrka - Patch 2.1)
                     try {
                         const wiatrKm = Math.round(dataF.list[0].wind.speed * 3.6);
-                        const stanPogody = dataF.list[0].weather[0].main;
+                        const stanPogody = dataF.list[0].weather[0].main.toLowerCase(); // zamieniamy na małe litery
+                        const opisPogody = dataF.list[0].weather[0].description.toLowerCase();
                         const nazwaMiasta = dataF.city.name.toUpperCase();
                         
-                        if (wiatrKm > 40) {
+                        // BRAMKA 1: Wiatr powyżej 40 km/h LUB porywy (gust) wiatru
+                        if (wiatrKm > 40 || (dataF.list[0].wind.gust && (dataF.list[0].wind.gust * 3.6) > 55)) {
                             alertBox.style.display = "block";
-                            alertMsg.innerHTML = `<strong>UWAGA DLA REGIONU ${nazwaMiasta}:</strong> Wykryto potężne porywy wiatru (${wiatrKm} km/h). Zabezpiecz otoczenie!`;
-                        } else if (stanPogody === "Thunderstorm" || stanPogody === "Tornado") {
+                            alertMsg.innerHTML = `<strong>UWAGA DLA REGIONU ${nazwaMiasta}:</strong> Wykryto potężne porywy wiatru. Zabezpiecz otoczenie!`;
+                        } 
+                        // BRAMKA 2: Bardzo szerokie łapanie burz i ekstremów (burza, thunderstorm, tornado, ulewa, extreme)
+                        else if (stanPogody.includes("thunderstorm") || stanPogody.includes("tornado") || stanPogody.includes("extreme") || opisPogody.includes("burz") || opisPogody.includes("ulew")) {
                             alertBox.style.display = "block";
                             alertMsg.innerHTML = `<strong>ZAGROŻENIE (${nazwaMiasta}):</strong> Wykryto gwałtowne zjawiska atmosferyczne (burza/wyładowania). Znajdź bezpieczne schronienie!`;
                         }
@@ -316,12 +319,4 @@
                     btnInstalacji.style.display = 'none';
                 }
             } else if (isIOS) {
-                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole ekranu.\n2. Wybierz opcję 'Do ekranu pocz.' (Add to Home Screen).");
-            } else {
-                alert("Zainstaluj ręcznie: Kliknij menu przeglądarki (trzy kropki) i wybierz 'Dodaj do ekranu głównego'.");
-            }
-        });
-    </script>
-</body>
-</html>
-
+                alert("Aby zainstalować na iPhonie:\n1. Kliknij ikonę 'Udostępnij' na dole e
