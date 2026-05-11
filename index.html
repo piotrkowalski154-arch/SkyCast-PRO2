@@ -244,6 +244,8 @@ function grajPogode(warunki, godzina) {
             document.getElementById('mainIcon').innerHTML = getAnimatedIcon(teraz.weather[0].main, currentHour);
             document.getElementById('valD').innerText = teraz.weather[0].description;
 
+            grajPogode(teraz.weather[0].main, currentHour);
+            
             // MYŚL PIOTRKA
             document.getElementById('thesisWidget').style.display = 'block';
             let mysl = "Idealne warunki na spacer 🚶‍♀️🏃🌞. Czyste niebo!";
