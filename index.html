@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -60,6 +61,19 @@
 
         /* Główne karty */
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        
+        /* 🚨 ALERT BOX (Lakiernia Piotrka) */
+        .alert-card { 
+            background: rgba(239, 68, 68, 0.15); 
+            border: 2px solid var(--red); 
+            animation: pulseRed 2s infinite; 
+        }
+        @keyframes pulseRed { 
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } 
+        }
+
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
@@ -94,6 +108,11 @@
 
         <button id="installBtn" class="install-btn animate" style="animation-delay: 0.1s;">📲 ZAINSTALUJ APLIKACJĘ</button>
 
+        <div id="alertBox" class="card alert-card animate" style="display: none; animation-delay: 0.2s;">
+            <h4 style="color: var(--red); font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px;">🚨 Oficjalny Alert Zagrożenia</h4>
+            <p id="alertMsg" style="font-size: 0.95rem; font-weight: 600; line-height: 1.4; color: var(--card-text);"></p>
+        </div>
+
         <div class="card main-hero animate">
             <div id="modeIndicator" style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Inicjalizacja...</div>
             <div class="cityName" id="cityName">Kraków</div>
@@ -124,7 +143,7 @@
             <div id="dList"></div>
         </div>
 
-                <div class="card manifest animate" style="border-left: 4px solid var(--orange);">
+        <div class="card manifest animate" style="border-left: 4px solid var(--orange);">
             <h2 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👷</h2>
             <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.5; margin-bottom: 12px;">
                 Witam Was bardzo serdecznie! Przedstawiam Wam moją autorską aplikację – <strong>SkyCast PRO</strong>. 
@@ -136,8 +155,8 @@
             <div style="background: var(--orange); color: #000; padding: 6px 14px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; margin-top: 18px; display: inline-block; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
                 🌍 OSTRZEGANIE POGODOWE | 🛡️ CYBERSEC | 💻 KODOWANIE
             </div>
-                </div>
-        
+        </div>
+    </div>
 
     <script>
         // 🧠 LOGIKA GŁÓWNA (APK)
@@ -158,6 +177,11 @@
 
             const tlumacz = { "kijów": "Kyiv", "rzym": "Rome", "wrocław": "Wroclaw", "kraków": "Krakow" };
             const miastoDoAPI = tlumacz[miastoInput.toLowerCase()] || miastoInput;
+            
+            // Ukryj alertBox przed nowym skanowaniem
+            const alertBox = document.getElementById('alertBox');
+            const alertMsg = document.getElementById('alertMsg');
+            alertBox.style.display = 'none';
 
             try {
                 // Pobieranie pogody
@@ -167,6 +191,21 @@
                 if(dataF.cod === "200") {
                     renderUI(dataF);
                     
+                    // 🚨 MODUŁ BEZPIECZEŃSTWA (Alerty Piotrka)
+                    try {
+                        const wiatrKm = Math.round(dataF.list[0].wind.speed * 3.6);
+                        const stanPogody = dataF.list[0].weather[0].main;
+                        const nazwaMiasta = dataF.city.name.toUpperCase();
+                        
+                        if (wiatrKm > 40) {
+                            alertBox.style.display = "block";
+                            alertMsg.innerHTML = `<strong>UWAGA DLA REGIONU ${nazwaMiasta}:</strong> Wykryto potężne porywy wiatru (${wiatrKm} km/h). Zabezpiecz otoczenie!`;
+                        } else if (stanPogody === "Thunderstorm" || stanPogody === "Tornado") {
+                            alertBox.style.display = "block";
+                            alertMsg.innerHTML = `<strong>ZAGROŻENIE (${nazwaMiasta}):</strong> Wykryto gwałtowne zjawiska atmosferyczne (burza/wyładowania). Znajdź bezpieczne schronienie!`;
+                        }
+                    } catch(e) { console.log("Błąd modułu alertów."); }
+
                     // POBIERANIE JAKOŚCI POWIETRZA (AQI)
                     try {
                         const lat = dataF.city.coord.lat;
@@ -229,7 +268,6 @@
                 mysl = "Gorąco! Idealny czas na zimną lemoniadę, odpoczynek w cieniu i odrobinę luzu. Pamiętaj o nawodnieniu! 🌊";
             } else if (w.includes('rain') || w.includes('drizzle')) {
                 mysl = "Pada deszcz... Idealny moment, żeby usiąść z ciepłą herbatą pod kocem 💆‍♂️🛏️☕🍰";
-        
             } else if (w.includes('clear')) {
                 mysl = "Czyste niebo i piękna pogoda! Grzech siedzieć w domu – to idealny czas na spacer i naładowanie baterii na świeżym powietrzu. ☀️";
             } else if (w.includes('thunder')) {
