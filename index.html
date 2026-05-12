@@ -62,6 +62,13 @@
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
         .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; }
 
+        /* Skaner Atmosferyczny (Nowa Karta) */
+        .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
+        .atm-box { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
+        .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
+        .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
+        .atm-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-top: 3px; }
+
         .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
         .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(150,150,150,0.1); }
         .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; }
@@ -73,7 +80,6 @@
         .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
         .thesis-card p { font-size: 1.2rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--card-text); }
-        .cyber-egg { border-left: 6px solid var(--orange); background: rgba(245, 158, 11, 0.1); }
     </style>
 </head>
 <body>
@@ -103,6 +109,28 @@
             <p id="regAlertText" style="font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: var(--card-text);">Skanowanie zagrożeń...</p>
         </div>
 
+        <!-- NOWA KARTA: Skaner Atmosferyczny -->
+        <div class="card animate" id="atmCard" style="display: none;">
+            <span class="label">Szczegóły Atmosferyczne</span>
+            <div class="atm-grid">
+                <div class="atm-box">
+                    <div class="atm-icon">💨</div>
+                    <div class="atm-val" id="valWind">--</div>
+                    <div class="atm-label">Wiatr (km/h)</div>
+                </div>
+                <div class="atm-box">
+                    <div class="atm-icon">🧭</div>
+                    <div class="atm-val" id="valPress">--</div>
+                    <div class="atm-label">Ciśnienie (hPa)</div>
+                </div>
+                <div class="atm-box">
+                    <div class="atm-icon" id="aqiIcon">🍃</div>
+                    <div class="atm-val" id="valAqi">--</div>
+                    <div class="atm-label">Jakość Powietrza</div>
+                </div>
+            </div>
+        </div>
+
         <div class="card thesis-card animate" id="thesisWidget" style="display: none;">
             <h4 id="thesisTitle" style="font-size: 0.8rem; color: var(--blue); text-transform: uppercase; font-weight: 900; margin-bottom: 8px;">🧠 Myśl Piotrka</h4>
             <p id="thesisP">Przetwarzam dane...</p>
@@ -128,8 +156,6 @@
     </div>
 
     <script>
-        // 🧠 NOWY BEZPIECZNY SILNIK: Open-Meteo (Brak Klucza API)
-        
         // Tłumacz kodów pogodowych WMO na opisy i ikony
         function tlumaczPogode(code, isNight) {
             let desc = "Nieznana";
@@ -148,16 +174,25 @@
             return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
         }
 
+        // Tłumacz Europejskiego Indeksu Jakości Powietrza (AQI)
+        function ocenaPowietrza(aqi) {
+            if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
+            if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
+            if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
+            if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
+            return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
+        }
+
         async function pobierzDane() {
             let miastoInput = document.getElementById('cityIn').value.trim();
             if(!miastoInput) return;
 
-            // Ukrywamy biuletyn na czas ładowania
             document.getElementById('regionalAlertCard').style.display = 'none';
+            document.getElementById('atmCard').style.display = 'none';
             document.getElementById('valD').innerText = "Analiza... (Geokodowanie)";
 
             try {
-                // ETAP 1: Szukanie współrzędnych miasta
+                // ETAP 1: Namierzanie satelitarne (Współrzędne)
                 const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(miastoInput)}&count=1&language=pl&format=json`;
                 const geoRes = await fetch(geoUrl);
                 const geoData = await geoRes.json();
@@ -172,15 +207,25 @@
                 const lon = miasto.longitude;
                 const nazwaMiasta = miasto.name;
 
-                document.getElementById('valD').innerText = "Pobieranie Danych...";
+                document.getElementById('valD').innerText = "Pobieranie Danych Atmosferycznych...";
 
-                // ETAP 2: Pobieranie dokładnej prognozy
-                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+                // ETAP 2: Pobieranie dokładnej prognozy (DODANO CIŚNIENIE I WIATR)
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
                 const weatherRes = await fetch(weatherUrl);
                 const weatherData = await weatherRes.json();
 
-                // ETAP 3: Renderowanie Wyników na Ekranie
-                renderUI(weatherData, nazwaMiasta);
+                // ETAP 3: Pobieranie Jakości Powietrza (NOWY NIEZALEŻNY SATELITA)
+                let aqiData = null;
+                try {
+                    const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
+                    const aqiRes = await fetch(aqiUrl);
+                    aqiData = await aqiRes.json();
+                } catch(e) {
+                    console.log("Skaner jakości powietrza niedostępny.");
+                }
+
+                // ETAP 4: Przerzucenie wszystkiego na ekran
+                renderUI(weatherData, aqiData, nazwaMiasta);
 
             } catch (err) {
                 console.error("Błąd głównego silnika:", err);
@@ -188,14 +233,14 @@
             }
         }
 
-        function renderUI(data, nazwaMiasta) {
+        function renderUI(data, aqiData, nazwaMiasta) {
             const currentHour = new Date().getHours();
             const isNight = currentHour >= 20 || currentHour < 6;
             
             if (isNight) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
 
-            // Aktualne dane
+            // GŁÓWNE DANE
             const teraz = data.current;
             const pogodaTeraz = tlumaczPogode(teraz.weather_code, isNight);
             
@@ -204,7 +249,21 @@
             document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
             document.getElementById('valD').innerText = pogodaTeraz.desc;
 
-            // Biuletyn Ostrzegawczy (Zabezpieczenie przed wiatrem)
+            // SZCZEGÓŁY ATMOSFERYCZNE (WIATR, CIŚNIENIE, POWIETRZE)
+            document.getElementById('atmCard').style.display = 'block';
+            document.getElementById('valWind').innerText = Math.round(teraz.wind_speed_10m);
+            document.getElementById('valPress').innerText = Math.round(teraz.surface_pressure);
+            
+            if (aqiData && aqiData.current) {
+                const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
+                document.getElementById('valAqi').innerText = stanPowietrza.tekst;
+                document.getElementById('valAqi').style.color = stanPowietrza.kolor;
+                document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
+            } else {
+                document.getElementById('valAqi').innerText = "Brak danych";
+            }
+
+            // BIULETYN OSTRZEGAWCZY
             const wiatrKm = Math.round(teraz.wind_speed_10m);
             const regCard = document.getElementById('regionalAlertCard');
             const regTitle = document.getElementById('regAlertTitle');
@@ -225,7 +284,7 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            // Myśl Piotrka (Dynamiczna logika)
+            // MYŚL PIOTRKA
             const widget = document.getElementById('thesisWidget');
             widget.style.display = 'block';
             let mysl = "Pochmurno, ale stabilnie. Dobry dzień na kodowanie.";
@@ -238,11 +297,10 @@
             }
             document.getElementById('thesisP').innerText = mysl;
 
-            // Skan Godzinowy (Tylko kolejne 8 godzin)
+            // SKAN GODZINOWY
             document.getElementById('hourlyCard').style.display = 'block';
             const hL = document.getElementById('hList'); 
             hL.innerHTML = '';
-            // Szukamy odpowiedniego indeksu godziny
             const czasT = new Date().toISOString().slice(0, 14) + "00";
             let indexGodziny = data.hourly.time.findIndex(t => t >= czasT) || 0;
             if(indexGodziny === -1) indexGodziny = 0;
@@ -261,7 +319,7 @@
                 }
             }
 
-            // Skan Dzienny
+            // SKAN DZIENNY
             document.getElementById('dailyCard').style.display = 'block';
             const dL = document.getElementById('dList'); 
             dL.innerHTML = '';
