@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -149,10 +150,8 @@
         <div class="card manifest animate" style="border-left: 4px solid var(--orange);">
             <h2 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👷</h2>
             <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.5; margin-bottom: 12px;">
-             Przedstawiam Wam moją autorską aplikację – SkyCast PRO. To system zbudowany w oparciu o rygorystyczne standardy bezpieczeństwa (Cybersec) i precyzyjne algorytmy 🛡️🌩️💥.
-Stworzyłem go z jasną misją: szybkie i dokładne dane mogą kogoś ostrzec przed załamaniem pogody, a nawet uratować życie. Dajcie znać, jak działa w Waszym regionie!
-Jeśli widzisz wartość w tym projekcie, pomóż mi utrzymać maszyny przy życiu. Nawet symboliczne 2 zł na opłacenie serwerów to dla mnie potężne wsparcie w dalszym budowaniu.
-Zrzutka na serwery: 33291000062469800210321093📟🚨⛈️🌩️🛡️
+                Witam Was bardzo serdecznie! Przedstawiam Wam moją autorską aplikację – <strong>SkyCast PRO</strong>. 
+                Zbudowaną w oparciu o bezpieczne standardy i zaawansowane modele probabilistyczne.
             </p>
         </div>
     </div>
@@ -286,17 +285,23 @@ Zrzutka na serwery: 33291000062469800210321093📟🚨⛈️🌩️🛡️
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            // MYŚL PIOTRKA
+            // MYŚL PIOTRKA - Wersja z charakterem
             const widget = document.getElementById('thesisWidget');
             widget.style.display = 'block';
-            let mysl = "Pochmurno, ale stabilnie. Dobry dzień na kodowanie.";
+            
+            // Domyślna myśl (szaro, buro)
+            let mysl = "Pochmurno, stabilnie, bez szału. Pogoda idealna, żeby zniknąć w kodzie, odpalić protokół 'Otwarta Garda' i zamienić kawę w linijki. ☁️😎";
+            
             if (teraz.temperature_2m > 25) {
-                mysl = "Gorąco! Ogień pod piecem na maksa. Pamiętaj o nawodnieniu! 🌊";
+                mysl = "Gorąco jak przy piecu w sobotni wieczór! Pij wodę, bo stracisz hydratację szybciej niż źle wyrobiona biga! 🍕🔥";
+            } else if (teraz.temperature_2m < 5) {
+                mysl = "Zimno jak w chłodni z zapasami. Ubierz się grubo, albo napisz potężny skrypt, żeby procesor w komputerze dogrzał Ci kawalerkę! 🥶💻";
             } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
-                mysl = "Pada deszcz... Idealny moment, żeby usiąść do nauki Cybersec przy kawie ☕";
+                mysl = "Leje. Idealna wymówka, żeby nie wychodzić z bazy. Odpal techno na słuchawkach, zrób mocną kawę i klep Cybersec, aż klawiatura zacznie dymić! ☕🌧️";
             } else if (teraz.weather_code <= 2) {
-                mysl = "Czyste niebo! Wyjdź na zewnątrz i zrób sobie przerwę od ekranu. ☀️";
+                mysl = "Słońce razi w monitory! Wyjdź na zewnątrz, złap witaminę D i udawaj zwykłego człowieka, zanim znowu wpadniesz w matrix! ☀️😎";
             }
+            
             document.getElementById('thesisP').innerText = mysl;
 
             // SKAN GODZINOWY
@@ -333,13 +338,4 @@ Zrzutka na serwery: 33291000062469800210321093📟🚨⛈️🌩️🛡️
                 const minTemp = Math.round(data.daily.temperature_2m_min[i]);
                 const ikonaD = tlumaczPogode(dCode, false).icon;
                 
-                dL.innerHTML += `<div class="d-row"><strong class="d-day">${nazwaDnia}</strong><span class="d-icon">${ikonaD}</span><span class="d-temp">${maxTemp}°<span style="font-size:0.9rem; color:#94a3b8; margin-left:5px;">/${minTemp}°</span></span></div>`;
-            }
-        }
-
-        // Auto Start
-        window.onload = () => { pobierzDane(); };
-
-    </script>
-</body>
-</html>
+                dL.innerHTML += `<div class="d-row"><strong class="d-day">${nazwaDnia}</strong><span class="d-icon">${ikonaD}</span><span class="d-temp">${maxTemp}°<span style="f
