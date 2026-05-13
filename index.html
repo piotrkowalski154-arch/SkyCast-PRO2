@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Twoja Aplikacja</title>
     
+    <!-- 🛡️ ZAKODOWANA IKONA APLIKACJI (Zamiast domyślnego V) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
+    <meta name="theme-color" content="#0f172a">
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
@@ -62,7 +67,7 @@
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
         .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; }
 
-        /* Skaner Atmosferyczny (Nowa Karta) */
+        /* Skaner Atmosferyczny */
         .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
         .atm-box { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
         .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
@@ -109,7 +114,7 @@
             <p id="regAlertText" style="font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: var(--card-text);">Skanowanie zagrożeń...</p>
         </div>
 
-        <!-- NOWA KARTA: Skaner Atmosferyczny -->
+        <!-- Skaner Atmosferyczny -->
         <div class="card animate" id="atmCard" style="display: none;">
             <span class="label">Szczegóły Atmosferyczne</span>
             <div class="atm-grid">
@@ -226,12 +231,12 @@
 
                 document.getElementById('valD').innerText = "Pobieranie Danych Atmosferycznych...";
 
-                // ETAP 2: Pobieranie dokładnej prognozy (DODANO CIŚNIENIE I WIATR)
+                // ETAP 2: Pobieranie dokładnej prognozy
                 const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
                 const weatherRes = await fetch(weatherUrl);
                 const weatherData = await weatherRes.json();
 
-                // ETAP 3: Pobieranie Jakości Powietrza (NOWY NIEZALEŻNY SATELITA)
+                // ETAP 3: Pobieranie Jakości Powietrza
                 let aqiData = null;
                 try {
                     const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
@@ -241,7 +246,7 @@
                     console.log("Skaner jakości powietrza niedostępny.");
                 }
 
-                // ETAP 4: Przerzucenie wszystkiego na ekran
+                // ETAP 4: Renderowanie ekranu
                 renderUI(weatherData, aqiData, nazwaMiasta);
 
             } catch (err) {
@@ -266,7 +271,7 @@
             document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
             document.getElementById('valD').innerText = pogodaTeraz.desc;
 
-            // SZCZEGÓŁY ATMOSFERYCZNE (WIATR, CIŚNIENIE, POWIETRZE)
+            // SZCZEGÓŁY ATMOSFERYCZNE 
             document.getElementById('atmCard').style.display = 'block';
             document.getElementById('valWind').innerText = Math.round(teraz.wind_speed_10m);
             document.getElementById('valPress').innerText = Math.round(teraz.surface_pressure);
@@ -301,11 +306,10 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            // MYŚL PIOTRKA - Wersja z charakterem
+            // MYŚL PIOTRKA 
             const widget = document.getElementById('thesisWidget');
             widget.style.display = 'block';
             
-            // Domyślna myśl (szaro, buro)
             let mysl = "Pochmurno, stabilnie, bez szału. Pogoda idealna, żeby zniknąć w kodzie, odpalić protokół 'Otwarta Garda' i zamienić kawę w linijki. ☁️😎";
             
             if (teraz.temperature_2m > 25) {
@@ -320,7 +324,7 @@
             
             document.getElementById('thesisP').innerText = mysl;
 
-                // SKAN GODZINOWY
+  // SKAN GODZINOWY
             document.getElementById('hourlyCard').style.display = 'block';
             const hL = document.getElementById('hList'); 
             hL.innerHTML = '';
@@ -363,4 +367,6 @@
 
     </script>
 </body>
-</html
+</html>  
+            
+            
