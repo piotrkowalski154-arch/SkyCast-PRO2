@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO | Twoja Aplikacja</title>
     
-    <!-- 🛡️ ZAKODOWANA IKONA APLIKACJI (Zamiast domyślnego V) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
     <meta name="theme-color" content="#0f172a">
@@ -92,7 +91,7 @@
     <div class="container">
         <div class="search-area animate">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button class="scan-btn" onclick="pobierzDane()">SKANUJ</button>
+            <button class="scan-btn" type="button" onclick="pobierzDane()">SKANUJ</button>
         </div>
 
         <div class="card main-hero animate">
@@ -114,7 +113,6 @@
             <p id="regAlertText" style="font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: var(--card-text);">Skanowanie zagrożeń...</p>
         </div>
 
-        <!-- Skaner Atmosferyczny -->
         <div class="card animate" id="atmCard" style="display: none;">
             <span class="label">Szczegóły Atmosferyczne</span>
             <div class="atm-grid">
@@ -323,8 +321,7 @@
             }
             
             document.getElementById('thesisP').innerText = mysl;
-
-  // SKAN GODZINOWY
+        // SKAN GODZINOWY
             document.getElementById('hourlyCard').style.display = 'block';
             const hL = document.getElementById('hList'); 
             hL.innerHTML = '';
@@ -335,38 +332,57 @@
             for(let i=0; i<8; i++) {
                 const idx = indexGodziny + i;
                 if(idx < data.hourly.time.length) {
-                    const tempH = data.hourly.temperature_2m[idx];
-                    const codeH = data.hourly.weather_code[idx];
-                    const dataObj = new Date(data.hourly.time[idx]);
-                    const godzinaNum = dataObj.getHours();
-                    const nNight = godzinaNum >= 20 || godzinaNum < 6;
-                    const ikonaH = tlumaczPogode(codeH, nNight).icon;
+                    const czas = data.hourly.time[idx].slice(11, 16);
+                    const temp = Math.round(data.hourly.temperature_2m[idx]);
+                    const kod = data.hourly.weather_code[idx];
                     
-                    hL.innerHTML += `<div class="h-box"><span>${godzinaNum}:00</span>${ikonaH}<strong>${Math.round(tempH)}°</strong></div>`;
+                    // Sprawdzamy czy to noc dla ikonki
+                    const godzinaLiczba = parseInt(czas.substring(0, 2));
+                    const noc = godzinaLiczba >= 20 || godzinaLiczba < 6;
+                    const ikona = tlumaczPogode(kod, noc).icon;
+
+                    hL.innerHTML += `
+                        <div class="h-box">
+                            <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
+                            <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
+                            <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
+                        </div>
+                    `;
                 }
             }
 
-            // SKAN DZIENNY
+            // SKAN DZIENNY (Prognoza na 5 dni)
             document.getElementById('dailyCard').style.display = 'block';
-            const dL = document.getElementById('dList'); 
+            const dL = document.getElementById('dList');
             dL.innerHTML = '';
-            for(let i=1; i<data.daily.time.length && i<6; i++) {
-                const dDate = new Date(data.daily.time[i]);
-                const nazwaDnia = dDate.toLocaleDateString('pl-PL', {weekday:'long'});
-                const dCode = data.daily.weather_code[i];
-                const maxTemp = Math.round(data.daily.temperature_2m_max[i]);
-                const minTemp = Math.round(data.daily.temperature_2m_min[i]);
-                const ikonaD = tlumaczPogode(dCode, false).icon;
-                
-                dL.innerHTML += `<div class="d-row"><strong class="d-day">${nazwaDnia}</strong><span class="d-icon">${ikonaD}</span><span class="d-temp">${maxTemp}°<span style="font-size:0.9rem; color:#94a3b8; margin-left:5px;">/${minTemp}°</span></span></div>`;
-            }
-        }
+            
+            const dniTygodnia = ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
+            
+            for(let i=1; i<6; i++) { 
+                if(i < data.daily.time.length) {
+                    const dataDnia = new Date(data.daily.time[i]);
+                    const nazwaDnia = dniTygodnia[dataDnia.getDay()];
+                    const tMax = Math.round(data.daily.temperature_2m_max[i]);
+                    const tMin = Math.round(data.daily.temperature_2m_min[i]);
+                    const kod = data.daily.weather_code[i];
+                    const ikona = tlumaczPogode(kod, false).icon;
 
-        // Auto Start
-        window.onload = () => { pobierzDane(); };
+                    dL.innerHTML += `
+                        <div class="d-row">
+                            <div class="d-day">${nazwaDnia}</div>
+                            <div class="d-icon">${ikona}</div>
+                            <div class="d-temp">${tMax}° <span style="font-size: 0.9rem; color: #94a3b8; font-weight: 700;">${tMin}°</span></div>
+                        </div>
+                    `;
+                }
+            }
+        } // Koniec funkcji renderUI
+
+        // ZŁOTY BEZPIECZNIK: Odpalenie systemu automatycznie po wejściu na stronę
+        window.onload = () => {
+            pobierzDane();
+        };
 
     </script>
 </body>
-</html>  
-            
-            
+</html>
