@@ -319,7 +319,14 @@
             } else if (teraz.weather_code <= 2) {
                 mysl = "Słońce razi w monitory! Wyjdź na zewnątrz, złap witaminę D i udawaj zwykłego człowieka, zanim znowu wpadniesz w matrix! ☀️😎";
             }
-            
+                    } else if (teraz.weather_code <= 2 && isNight === true) {
+            // WARUNEK 1: Czyste niebo I jest noc
+            mysl = "Czyste niebo, księżyc w górze. To idealny moment na dobrą muzykę (jakiś gruby progressive house), jointa i nocny spacer, żeby przewietrzyć procesor. 🌙🎧💨";
+        } else if (teraz.weather_code <= 2 && isNight === false) {
+            // WARUNEK 2: Czyste niebo I jest dzień (brak nocy)
+            mysl = "Słońce razi w monitory! Wyjdź na zewnątrz, złap witaminę D i udawaj zwykłego człowieka, zanim znowu wpadniesz w matrix! ☀️😎";
+        }
+        
             document.getElementById('thesisP').innerText = mysl;
         // SKAN GODZINOWY
             document.getElementById('hourlyCard').style.display = 'block';
