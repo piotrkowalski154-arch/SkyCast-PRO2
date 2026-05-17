@@ -6,25 +6,30 @@
     <title>SkyCast PRO | Twoja Aplikacja</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#ffb199">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #f1f5f9 100%);
-            --glass: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 1);
+            /* NOWE, WESOŁE, KOLOROWE TŁO (Fiolet, Róż, Pomarańcz, Błękit) */
+            --bg: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 25%, #ffb199 60%, #8fd3f4 100%);
+            
+            /* MNIEJSZA JASNOŚĆ W PUDEŁKACH (Szkło jest teraz bardziej przezroczyste) */
+            --glass: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            
             --text: #0f172a;
             --main-title: #020617;
             --blue: #2563eb;
-            --green: #16a34a;
-            --red: #ef4444;
-            --purple: #7e22ce;
-            --orange: #f59e0b;
+            --green: #065f46;
+            --red: #dc2626;
+            --purple: #6b21a8;
+            --orange: #d97706;
             --card-text: #1e293b;
         }
         body.night-mode {
-            --bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
-            --glass: rgba(15, 23, 42, 0.6);
+            /* KOLOROWE, ALE CIEMNIEJSZE TŁO NA NOC */
+            --bg: linear-gradient(135deg, #1e1366 0%, #2a0845 40%, #0f172a 100%);
+            --glass: rgba(15, 23, 42, 0.5);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text: #e2e8f0;
             --main-title: #f8fafc;
@@ -43,39 +48,38 @@
         
         .search-area { display: flex; gap: 8px; }
         .search-area input, .search-area button { height: 55px; }
-        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: var(--blue); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 100px; }
+        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
+        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: rgba(0,0,0,0.8); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 100px; }
         
-        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         .hero-icon { font-size: 5rem; }
         
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; }
+        .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); }
 
         .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
-        .atm-box { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
+        .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
         .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
         .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
-        .atm-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-top: 3px; }
+        .atm-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #475569; margin-top: 3px; }
 
-        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(150,150,150,0.1); }
-        .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; }
+        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #475569; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; color: var(--main-title); }
         .d-icon { font-size: 2.2rem; width: 60px; text-align: center; }
-        .d-temp { font-size: 1.6rem; font-weight: 900; width: 80px; text-align: right; color: var(--blue); }
+        .d-temp { font-size: 1.6rem; font-weight: 900; width: 80px; text-align: right; color: var(--main-title); }
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; }
-        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
         
-        .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
-        .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
-        .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--card-text); }
+        .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
+        .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
+        .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="search-area animate">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
@@ -93,6 +97,17 @@
             
             <div class="status-badges">
                 <div class="badge" id="imgwTag">🛡️ Silnik PRO: Gotowy</div>
+            </div>
+        </div>
+
+        <div class="card animate" id="alert24hCard" style="display: none; border-left: 6px solid var(--red); background: rgba(255, 255, 255, 0.8);">
+            <h4 style="font-size: 0.8rem; color: var(--red); text-transform: uppercase; font-weight: 900; margin-bottom: 12px;">🚨 RADAR 24H: OSTRZEŻENIE METEO</h4>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div id="alert24hIcon" style="font-size: 2.8rem; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));">⚡</div>
+                <div>
+                    <div id="alert24hText" style="font-size: 1.1rem; font-weight: 900; color: var(--red); letter-spacing: 1px;">POTĘŻNA ULEWA</div>
+                    <div id="alert24hTime" style="font-size: 0.85rem; font-weight: 700; color: var(--main-title); opacity: 0.9; margin-top: 3px;">Spodziewane uderzenie: --:--</div>
+                </div>
             </div>
         </div>
 
@@ -158,8 +173,7 @@
             </div>
         </div>
     </div>
-
-    <script>
+        <script>
         function tlumaczPogode(code, isNight) {
             let desc = "Nieznana";
             let icon = "☁️";
@@ -189,6 +203,7 @@
 
             document.getElementById('regionalAlertCard').style.display = 'none';
             document.getElementById('atmCard').style.display = 'none';
+            document.getElementById('alert24hCard').style.display = 'none';
             document.getElementById('valD').innerText = "Analiza... (Geokodowanie)";
 
             try {
@@ -271,72 +286,136 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-// // --- TWOJA LOGIKA MYŚLI Z KSIĘŻYCEM ---
-            const widget = document.getElementById('thesisWidget');
-            widget.style.display = 'block';
-            
-            let mysl = "Pochmurno, stabilnie, bez szału. Idealna pogoda, żeby zaszyć się w kodzie, odpalić protokół 'Otwarta Garda' i zamieniać kawę w kolejne linijki. ☁️😎";
-            
-            if (teraz.temperature_2m > 25) {
-                mysl = "Gorąco jak przy piecu szamotowym w sobotni wieczór! Pij dużo wody, bo stracisz hydratację szybciej niż źle pilnowane ciasto! 🍕🔥";
-            } else if (teraz.temperature_2m < 5) {
-                mysl = "Zimno, że aż tnie. Ubierz się konkretnie albo napisz tak potężny skrypt, żeby rozgrzać procesor komputera do czerwoności! 🥶💻";
-            } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
-                mysl = "Leje od samego rana. Idealna wymówka, żeby nie wychodzić z bazy. Odpal dobre techno na słuchawkach, zrób sobie mocną kawę i jedziemy z tematem! ☕🌧️";
-            } else if (teraz.weather_code <= 2 && isNight) {
-                mysl = "Czyste niebo, księżyc w pełnej krasie. Idealny moment, żeby odpalić jakiś dobry progressive house, wyjść na nocny spacer i przewietrzyć procesor. 🌙🎧💨";
-            } else if (teraz.weather_code <= 2 && !isNight) {
-                mysl = "Słońce świeci na maksa! Oderwij na chwilę wzrok od monitora, złap trochę witaminę D i odetchnij świeżym powietrzem, zanim znowu wciągnie Cię matrix! ☀️😎";
-            }
-            
-            document.getElementById('thesisP').innerText = mysl;
-
-            document.getElementById('hourlyCard').style.display = 'block';
-            const hL = document.getElementById('hList'); 
-            hL.innerHTML = '';
-            const czasT = new Date().toISOString().slice(0, 14) + "00";
-            let indexGodziny = data.hourly.time.findIndex(t => t >= czasT) || 0;
-            if(indexGodziny === -1) indexGodziny = 0;
-
-            for(let i=0; i<8; i++) {
-                const idx = indexGodziny + i;
-                if(idx < data.hourly.time.length) {
-                    const czas = data.hourly.time[idx].slice(11, 16);
-                    const temp = Math.round(data.hourly.temperature_2m[idx]);
-                    const kod = data.hourly.weather_code[idx];
-                    const noc = parseInt(czas.substring(0, 2)) >= 20 || parseInt(czas.substring(0, 2)) < 6;
-                    const ikona = tlumaczPogode(kod, noc).icon;
-
-                    hL.innerHTML += `
-                        <div class="h-box">
-                            <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
-                            <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
-                            <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
-                        </div>`;
+            // BEZPIECZNY INDEKS GODZINY
+            let indexGodziny = 0;
+            try {
+                if (data.hourly && data.hourly.time) {
+                    const czasT = new Date().toISOString().slice(0, 14) + "00";
+                    let foundIndex = data.hourly.time.findIndex(t => t >= czasT);
+                    if (foundIndex !== -1) indexGodziny = foundIndex;
                 }
-            }
+            } catch(e) { console.error(e); }
 
-            document.getElementById('dailyCard').style.display = 'block';
-            const dL = document.getElementById('dList');
-            dL.innerHTML = '';
-            const dniTygodnia = ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
-            
-            for(let i=1; i<6; i++) { 
-                if(i < data.daily.time.length) {
-                    const dataDnia = new Date(data.daily.time[i]);
-                    const tMax = Math.round(data.daily.temperature_2m_max[i]);
-                    const tMin = Math.round(data.daily.temperature_2m_min[i]);
-                    const ikona = tlumaczPogode(data.daily.weather_code[i], false).icon;
+            // MODUŁ OCHRONNY 1: SYSTEMOWY RADAR ZAGROŻEŃ 24H (STYL IMGW)
+            try {
+                let wykrytoZagrozenie = false;
+                let ikonaZagrozenia = "";
+                let tekstZagrozenia = "";
+                let czasZagrozenia = "";
 
-                    dL.innerHTML += `
-                        <div class="d-row">
-                            <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
-                            <div class="d-icon">${ikona}</div>
-                            <div class="d-temp">${tMax}° <span style="color: #64748b; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
-                        </div>`;
+                if (data.hourly && data.hourly.time && data.hourly.weather_code) {
+                    for(let i = 0; i < 24; i++) {
+                        const idx = indexGodziny + i;
+                        if(idx < data.hourly.time.length) {
+                            const kodPrzyszly = data.hourly.weather_code[idx];
+                            
+                            if(kodPrzyszly >= 95) {
+                                wykrytoZagrozenie = true;
+                                ikonaZagrozenia = "⚡⛈️";
+                                tekstZagrozenia = "BURZA Z PIORUNAMI";
+                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
+                                break;
+                            } else if(kodPrzyszly === 65 || kodPrzyszly === 82) {
+                                wykrytoZagrozenie = true;
+                                ikonaZagrozenia = "🌧️🌊";
+                                tekstZagrozenia = "POTĘŻNA ULEWA";
+                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
+                            }
+                        }
+                    }
                 }
-            }
+
+                const tabliczka24h = document.getElementById('alert24hCard');
+                
+                if(wykrytoZagrozenie) {
+                    tabliczka24h.style.display = 'block';
+                    document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
+                    document.getElementById('alert24hText').innerText = tekstZagrozenia;
+                    document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
+                } else {
+                    tabliczka24h.style.display = 'none';
+                }
+
+                // ODBLOKOWANA MYŚL PIOTRKA (WERSJA LUDZKA - DLA LUDZI)
+                const widget = document.getElementById('thesisWidget');
+                widget.style.display = 'block';
+                
+                let mysl = "Pochmurno, stabilnie, bez szału. Idealny dzień na dobrą kawę, ulubioną muzykę i spokojne popołudnie. ☁️☕";
+                
+                if (teraz.temperature_2m > 25) {
+                    mysl = "Gorąco jak przy piecu szamotowym w sobotni wieczór! Pamiętajcie o piciu wody, żeby zachować energię i dobrze się nawodnić! 🍕🔥";
+                } else if (teraz.temperature_2m < 5) {
+                    mysl = "Zimno, że aż tnie! Ubierzcie się konkretnie, złapcie coś ciepłego do picia i dbajcie o zdrowie, żeby nie zmarznąć. 🥶☕";
+                } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
+                    mysl = "Leje od samego rana. Idealna wymówka, żeby zostać w domu, odpalić dobrą muzykę na słuchawkach, zrobić sobie mocną kawę i po prostu złapać luz! ☕🌧️";
+                } else if (teraz.weather_code <= 2 && isNight) {
+                    mysl = "Czyste niebo i piękny księżyc w pełnej krasie. Idealny moment na relaksujący wieczór, dobre melodyjne brzmienia i spacer, żeby przewietrzyć głowę. 🌙🎧✨";
+                } else if (teraz.weather_code <= 2 && !isNight) {
+                    mysl = "Słońce świeci na maksa! Piękna pogoda, więc uciekajcie na zewnątrz, złapcie trochę witaminy D i cieszcie się tym dniem na świeżym powietrzu! ☀️😎";
+                }
+                
+                document.getElementById('thesisP').innerText = mysl;
+
+            } catch (e) { console.error(e); }
+
+            // MODUŁ OCHRONNY 2: SCROLL GODZINOWY
+            try {
+                if (data.hourly && data.hourly.time) {
+                    document.getElementById('hourlyCard').style.display = 'block';
+                    const hL = document.getElementById('hList'); 
+                    hL.innerHTML = '';
+
+                    for(let i=0; i<8; i++) {
+                        const idx = indexGodziny + i;
+                        if(idx < data.hourly.time.length) {
+                            const czas = data.hourly.time[idx].slice(11, 16);
+                            const temp = Math.round(data.hourly.temperature_2m[idx]);
+                            const kod = data.hourly.weather_code[idx];
+                            const noc = parseInt(czas.substring(0, 2)) >= 20 || parseInt(czas.substring(0, 2)) < 6;
+                            const ikona = tlumaczPogode(kod, noc).icon;
+
+                            hL.innerHTML += `
+                                <div class="h-box">
+                                    <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
+                                    <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
+                                    <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
+                                </div>`;
+                        }
+                    }
+                }
+            } catch (e) { console.error(e); }
+
+            // MODUŁ OCHRONNY 3: PROGNOZA DNIOWA
+            try {
+                if (data.daily && data.daily.time) {
+                    document.getElementById('dailyCard').style.display = 'block';
+                    const dL = document.getElementById('dList');
+                    dL.innerHTML = '';
+                    const dniTygodnia = ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
+                    
+                    for(let i=1; i<6; i++) { 
+                        if(i < data.daily.time.length) {
+                            const dataDnia = new Date(data.daily.time[i]);
+                            const tMax = Math.round(data.daily.temperature_2m_max[i]);
+                            const tMin = Math.round(data.daily.temperature_2m_min[i]);
+                            const ikona = tlumaczPogode(data.daily.weather_code[i], false).icon;
+
+                            dL.innerHTML += `
+                                <div class="d-row">
+                                    <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
+                                    <div class="d-icon">${ikona}</div>
+                                    <div class="d-temp">${tMax}° <span style="color: #64748b; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+                                </div>`;
+                        }
+                    }
+                }
+            } catch (e) { console.error(e); }
         }
+
+        // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
+        window.onload = function() {
+            pobierzDane();
+        };
     </script>
 </body>
 </html>
