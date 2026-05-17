@@ -1,4 +1,4 @@
-www<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -71,7 +71,7 @@ www<!DOCTYPE html>
         
         .manifest { background: rgba(0,0,0,0.9); color: white; border-radius: 30px; padding: 25px; }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(37, 99, 235, 0.05); }
-        .thesis-card p { font-size: 1.2rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--card-text); }
+        .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--card-text); }
     </style>
 </head>
 <body>
@@ -271,22 +271,22 @@ www<!DOCTYPE html>
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-               // --- TWOJA LOGIKA MYŚLI Z KSIĘŻYCEM ---
+// // --- TWOJA LOGIKA MYŚLI Z KSIĘŻYCEM ---
             const widget = document.getElementById('thesisWidget');
             widget.style.display = 'block';
             
-            let mysl = "Pochmurno, stabilnie, bez szału. Pogoda idealna, żeby zniknąć w kodzie, odpalić protokół 'Otwarta Garda' i zamienić kawę w linijki. ☁️😎";
+            let mysl = "Pochmurno, stabilnie, bez szału. Idealna pogoda, żeby zaszyć się w kodzie, odpalić protokół 'Otwarta Garda' i zamieniać kawę w kolejne linijki. ☁️😎";
             
             if (teraz.temperature_2m > 25) {
-                mysl = "Gorąco jak przy piecu w sobotni wieczór! Pij wodę, bo stracisz hydratację szybciej niż źle wyrobiona biga! 🍕🔥";
+                mysl = "Gorąco jak przy piecu szamotowym w sobotni wieczór! Pij dużo wody, bo stracisz hydratację szybciej niż źle pilnowane ciasto! 🍕🔥";
             } else if (teraz.temperature_2m < 5) {
-                mysl = "Zimno jak w chłodni z zapasami. Ubierz się grubo, albo napisz potężny skrypt, żeby procesor w komputerze dogrzał Ci kawalerkę! 🥶💻";
+                mysl = "Zimno, że aż tnie. Ubierz się konkretnie albo napisz tak potężny skrypt, żeby rozgrzać procesor komputera do czerwoności! 🥶💻";
             } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
-                mysl = "Leje. Idealna wymówka, żeby nie wychodzić z bazy. Odpal techno na słuchawkach, zrób Sobie mocną kawę"  ☕🌧️";
+                mysl = "Leje od samego rana. Idealna wymówka, żeby nie wychodzić z bazy. Odpal dobre techno na słuchawkach, zrób sobie mocną kawę i jedziemy z tematem! ☕🌧️";
             } else if (teraz.weather_code <= 2 && isNight) {
-                mysl = "Czyste niebo, księżyc w górze. To idealny moment na dobrą muzykę (jakiś gruby progressive house), jointa i nocny spacer, żeby przewietrzyć procesor. 🌙🎧💨";
+                mysl = "Czyste niebo, księżyc w pełnej krasie. Idealny moment, żeby odpalić jakiś dobry progressive house, wyjść na nocny spacer i przewietrzyć procesor. 🌙🎧💨";
             } else if (teraz.weather_code <= 2 && !isNight) {
-                mysl = "Słońce razi w monitory! Wyjdź na zewnątrz, złap witaminę D i udawaj zwykłego człowieka, zanim znowu wpadniesz w matrix! ☀️😎";
+                mysl = "Słońce świeci na maksa! Oderwij na chwilę wzrok od monitora, złap trochę witaminę D i odetchnij świeżym powietrzem, zanim znowu wciągnie Cię matrix! ☀️😎";
             }
             
             document.getElementById('thesisP').innerText = mysl;
@@ -332,13 +332,11 @@ www<!DOCTYPE html>
                         <div class="d-row">
                             <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
                             <div class="d-icon">${ikona}</div>
-                            <div class="d-temp">${tMax}° <span style="font-size: 0.9rem; color: #94a3b8;">${tMin}°</span></div>
+                            <div class="d-temp">${tMax}° <span style="color: #64748b; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
                         </div>`;
                 }
             }
         }
-
-        window.onload = () => { pobierzDane(); };
     </script>
 </body>
 </html>
