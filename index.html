@@ -7,31 +7,31 @@
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌩️</text></svg>">
     <meta name="theme-color" content="#ffb199">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* NOWE, WESOŁE, KOLOROWE TŁO (Fiolet, Róż, Pomarańcz, Błękit) */
+            /* PŁYNNE PRZEJŚCIE KOLORÓW TŁA (Fiolet, Róż, Pomarańcz, Błękit) */
             --bg: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 25%, #ffb199 60%, #8fd3f4 100%);
             
-            /* MNIEJSZA JASNOŚĆ W PUDEŁKACH (Szkło jest teraz bardziej przezroczyste) */
+            /* SZKIEŁKO (Nasze przezroczyste pudełka) */
             --glass: rgba(255, 255, 255, 0.45);
             --glass-border: rgba(255, 255, 255, 0.7);
             
-            --text: #0f172a;
-            --main-title: #020617;
+            --text: #000000; /* ZARYGLOWANA CZERŃ W DZIEŃ */
+            --main-title: #000000;
             --blue: #2563eb;
             --green: #065f46;
             --red: #dc2626;
             --purple: #6b21a8;
             --orange: #d97706;
-            --card-text: #1e293b;
+            --card-text: #000000;
         }
         body.night-mode {
             /* KOLOROWE, ALE CIEMNIEJSZE TŁO NA NOC */
             --bg: linear-gradient(135deg, #1e1366 0%, #2a0845 40%, #0f172a 100%);
             --glass: rgba(15, 23, 42, 0.5);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --text: #e2e8f0;
+            --text: #e2e8f0; /* JASNY KOLOR W NOCY */
             --main-title: #f8fafc;
             --blue: #3b82f6;
             --purple: #c084fc;
@@ -54,25 +54,72 @@
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
         .main-hero { text-align: center; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
-        .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
+        
+        /* GŁÓWNA SEKCJA TEMPERATURY */
+        .temp { 
+            font-size: 6.5rem; 
+            font-weight: 900; 
+            letter-spacing: -5px; 
+            color: var(--main-title); 
+        }
+        body.night-mode .temp {
+            color: #ff9f43; 
+            text-shadow: 0 0 10px rgba(255, 159, 67, 0.5); 
+        }
         .hero-icon { font-size: 5rem; }
         
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
         .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); }
-
-        .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
+                .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
         .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
         .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
         .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
-        .atm-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #475569; margin-top: 3px; }
+        
+        /* MAŁE LITERKI: GRUBE I CZARNE W DZIEŃ */
+        .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; opacity: 1; margin-top: 3px; }
+        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; opacity: 1; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+        
+        /* PRZYWRÓCENIE CZYTELNOŚCI W NOCY */
+        body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
 
-        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #475569; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .d-day { font-size: 1.2rem; font-weight: 800; text-transform: capitalize; flex: 1; color: var(--main-title); }
+        /* WYPEŁNIENIE PROGNOZY DNIOWEJ — KAPSUŁKI SZKLANE */
+        .d-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 14px 18px; 
+            background: rgba(255, 255, 255, 0.4); 
+            border-radius: 20px; 
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        body.night-mode .d-row {
+            background: rgba(255, 255, 255, 0.06); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* NAZWY DNI: CZARNE I PANCERNIE GRUBE */
+        .d-day { font-size: 1.1rem; font-weight: 900; text-transform: capitalize; flex: 1; color: #000000; }
+        body.night-mode .d-day { color: #ffffff; }
+
         .d-icon { font-size: 2.2rem; width: 60px; text-align: center; }
-        .d-temp { font-size: 1.6rem; font-weight: 900; width: 80px; text-align: right; color: var(--main-title); }
+        
+        /* TEMPERATURY W LIŚCIE: MAKSYMALNIE GRUBE */
+        .d-temp { font-size: 1.5rem; font-weight: 900; width: 110px; text-align: right; color: #000000; }
+        
+        /* NIEBIESKIE NEONY ZOSTAJĄ W NOCY */
+        body.night-mode .d-temp { color: #00d2ff !important; }
+        
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; }
         .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        
+        /* NIEBIESKI NEON GODZINOWY W NOCY */
+        body.night-mode .h-box div:last-child {
+            color: #00d2ff !important; 
+            font-size: 1.3rem !important; 
+            font-weight: 900 !important;  
+        }
         
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
@@ -174,6 +221,7 @@
         </div>
     </div>
         <script>
+        // 1. TŁUMACZ KODÓW METEO
         function tlumaczPogode(code, isNight) {
             let desc = "Nieznana";
             let icon = "☁️";
@@ -189,6 +237,7 @@
             return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
         }
 
+        // 2. MONITOR JAKOŚCI POWIETRZA (AQI)
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
             if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
@@ -197,6 +246,7 @@
             return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
         }
 
+        // 3. SILNIK ASYNCHRONICZNY (SATELITA OPEN-METEO)
         async function pobierzDane() {
             let miastoInput = document.getElementById('cityIn').value.trim();
             if(!miastoInput) return;
@@ -240,6 +290,7 @@
             }
         }
 
+        // 4. GENERATOR INTERFEJSU (WLEWANIE PRĄDU)
         function renderUI(data, aqiData, nazwaMiasta) {
             const currentHour = new Date().getHours();
             const isNight = currentHour >= 20 || currentHour < 6;
@@ -286,7 +337,6 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            // BEZPIECZNY INDEKS GODZINY
             let indexGodziny = 0;
             try {
                 if (data.hourly && data.hourly.time) {
@@ -296,7 +346,6 @@
                 }
             } catch(e) { console.error(e); }
 
-            // MODUŁ OCHRONNY 1: SYSTEMOWY RADAR ZAGROŻEŃ 24H (STYL IMGW)
             try {
                 let wykrytoZagrozenie = false;
                 let ikonaZagrozenia = "";
@@ -326,7 +375,6 @@
                 }
 
                 const tabliczka24h = document.getElementById('alert24hCard');
-                
                 if(wykrytoZagrozenie) {
                     tabliczka24h.style.display = 'block';
                     document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
@@ -336,7 +384,6 @@
                     tabliczka24h.style.display = 'none';
                 }
 
-                // ODBLOKOWANA MYŚL PIOTRKA (WERSJA LUDZKA - DLA LUDZI)
                 const widget = document.getElementById('thesisWidget');
                 widget.style.display = 'block';
                 
@@ -358,7 +405,6 @@
 
             } catch (e) { console.error(e); }
 
-            // MODUŁ OCHRONNY 2: SCROLL GODZINOWY
             try {
                 if (data.hourly && data.hourly.time) {
                     document.getElementById('hourlyCard').style.display = 'block';
@@ -385,13 +431,14 @@
                 }
             } catch (e) { console.error(e); }
 
-            // MODUŁ OCHRONNY 3: PROGNOZA DNIOWA
             try {
                 if (data.daily && data.daily.time) {
                     document.getElementById('dailyCard').style.display = 'block';
                     const dL = document.getElementById('dList');
                     dL.innerHTML = '';
-                    const dniTygodnia = ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
+                    
+                    /* BAZA Z PEŁNYMI NAZWAMI DNI TYGODNIA */
+                    const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
                     
                     for(let i=1; i<6; i++) { 
                         if(i < data.daily.time.length) {
@@ -404,7 +451,7 @@
                                 <div class="d-row">
                                     <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
                                     <div class="d-icon">${ikona}</div>
-                                    <div class="d-temp">${tMax}° <span style="color: #64748b; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+                                    <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
                                 </div>`;
                         }
                     }
@@ -412,30 +459,13 @@
             } catch (e) { console.error(e); }
         }
 
-                // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
+        // 5. AUTOMATYCZNY STRZAŁ STARTOWY
         window.onload = function() {
             pobierzDane();
+            alert("✅ STATUS POGODOWY: BEZPIECZNIE\n\nFront burzowy minął! Brak aktywnych zagrożeń meteorologicznych nad Polską.\n\nMożna spokojnie działać na pełnej mocy. Dobrego dnia! ☀️🌍");
         };
-                // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
-        window.onload = function() {
-            pobierzDane();
-            
-            // OGÓLNOPOLSKI ALERT Z UWZGLĘDNIENIEM WOJEWÓDZTW:
-            alert("✅ STATUS POGODOWY: BEZPIECZNIE\n\nFront burzowy minął! Brak aktywnych zagrożeń meteorologicznych nad Polską.\n\nMożna spokojnie działać  na pełnej mocy. Dobrego dnia! ☀️🌍");
-            // AUTOMATYCZNY ZAPŁON I SZYBKIE CENTRUM OSTRZEŻEŃ KRAJOWYCH
-        window.onload = function() {
-            pobierzDane(); // Silnik asynchronicznie odpala radar dla miasta
-            
-            // =================================================================================
-            // PANEL SZYBKIEJ AKTUALIZACJI KOMUNIKATU (Zmieniasz tylko tekst poniżej)
-            // =================================================================================
-            
-            // =================================================================================
-        };
-        };
-
     </script>
-    
 </body>
 </html>
 
+    
