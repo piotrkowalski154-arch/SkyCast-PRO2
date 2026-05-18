@@ -412,11 +412,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
-        window.onload = function() {
-            pobierzDane();
-        };
-                    // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
+                // AUTOMATYCZNY ZAPŁON PRZY WEJŚCIU NA STRONĘ
         window.onload = function() {
             pobierzDane();
         };
@@ -425,8 +421,21 @@
             pobierzDane();
             
             // OGÓLNOPOLSKI ALERT Z UWZGLĘDNIENIEM WOJEWÓDZTW:
-            alert("🚨 OSTRZEŻENIE METEO: Nowa fala potężnych opadów nad Polską! Alerty ostrzegawcze obowiązują dla większości województw. Sprawdź status pogodowy swojego regionu  🌧️⚠️");
+            alert("✅ STATUS POGODOWY: BEZPIECZNIE\n\nFront burzowy minął! Brak aktywnych zagrożeń meteorologicznych nad Polską.\n\nMożna spokojnie działać  na pełnej mocy. Dobrego dnia! ☀️🌍");
+            // AUTOMATYCZNY ZAPŁON I SZYBKIE CENTRUM OSTRZEŻEŃ KRAJOWYCH
+        window.onload = function() {
+            pobierzDane(); // Silnik asynchronicznie odpala radar dla miasta
+            
+            // =================================================================================
+            // PANEL SZYBKIEJ AKTUALIZACJI KOMUNIKATU (Zmieniasz tylko tekst poniżej)
+            // =================================================================================
+            
+            // =================================================================================
         };
+        };
+
     </script>
+    
 </body>
 </html>
+
