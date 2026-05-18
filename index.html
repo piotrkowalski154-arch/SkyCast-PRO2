@@ -442,6 +442,222 @@
                                     <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
                                     <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
                                 </div>`;
+    <script>
+        // 1. TŁUMACZ KODÓW METEO
+        function tlumaczPogode(code, isNight) {
+            let desc = "Nieznana";
+            let icon = "☁️";
+            if (code === 0) { desc = "Czyste niebo"; icon = isNight ? "🌙" : "☀️"; }
+            else if (code === 1 || code === 2) { desc = "Częściowe zachmurzenie"; icon = isNight ? "☁️" : "⛅"; }
+            else if (code === 3) { desc = "Pochmurno"; icon = "☁️"; }
+            else if (code === 45 || code === 48) { desc = "Mgła"; icon = "🌫️"; }
+            else if (code >= 51 && code <= 55) { desc = "Mżawka"; icon = "🌧️"; }
+            else if (code >= 61 && code <= 65) { desc = "Deszcz"; icon = "🌧️"; }
+            else if (code >= 71 && code <= 77) { desc = "Śnieg"; icon = "❄️"; }
+            else if (code >= 80 && code <= 82) { desc = "Ulewa"; icon = "🌧️"; }
+            else if (code >= 95) { desc = "Burza"; icon = "⚡"; }
+            return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+        }
+
+        // 2. MONITOR JAKOŚCI POWIETRZA (AQI)
+        function ocenaPowietrza(aqi) {
+            if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
+            if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
+            if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
+            if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
+            return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
+        }
+
+        // 3. SILNIK ASYNCHRONICZNY (SATELITA OPEN-METEO)
+        async function pobierzDane() {
+            let miastoInput = document.getElementById('cityIn').value.trim();
+            if(!miastoInput) return;
+
+            document.getElementById('regionalAlertCard').style.display = 'none';
+            document.getElementById('atmCard').style.display = 'none';
+            document.getElementById('alert24hCard').style.display = 'none';
+            document.getElementById('valD').innerText = "Analiza... (Geokodowanie)";
+
+            try {
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(miastoInput)}&count=1&language=pl&format=json`;
+                const geoRes = await fetch(geoUrl);
+                const geoData = await geoRes.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
+                    document.getElementById('valD').innerText = "Błąd: Miasto nieodnalezione.";
+                    return;
+                }
+
+                const lat = geoData.results[0].latitude;
+                const lon = geoData.results[0].longitude;
+                const nazwaMiasta = geoData.results[0].name;
+
+                document.getElementById('valD').innerText = "Pobieranie Danych...";
+
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+                const weatherRes = await fetch(weatherUrl);
+                const weatherData = await weatherRes.json();
+
+                let aqiData = null;
+                try {
+                    const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
+                    const aqiRes = await fetch(aqiUrl);
+                    aqiData = await aqiRes.json();
+                } catch(e) { }
+
+                renderUI(weatherData, aqiData, nazwaMiasta);
+
+            } catch (err) {
+                document.getElementById('valD').innerText = "Błąd połączenia z satelitą.";
+            }
+        }
+
+        // 4. GENERATOR INTERFEJSU (WLEWANIE PRĄDU)
+        function renderUI(data, aqiData, nazwaMiasta) {
+            const currentHour = new Date().getHours();
+            const isNight = currentHour >= 20 || currentHour < 6;
+            
+            if (isNight) document.body.classList.add('night-mode');
+            else document.body.classList.remove('night-mode');
+
+            const teraz = data.current;
+            const pogodaTeraz = tlumaczPogode(teraz.weather_code, isNight);
+            
+            document.getElementById('cityName').innerText = nazwaMiasta;
+            document.getElementById('valT').innerText = `${Math.round(teraz.temperature_2m)}°`;
+            document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
+            document.getElementById('valD').innerText = pogodaTeraz.desc;
+
+            // >>> AKTUALIZACJA: LOGIKA AKTYWACJI PULSOWANIA DLA FALI GORĄCA <<<
+            const mainHeroCard = document.querySelector('.main-hero');
+            if (teraz.temperature_2m > 34) {
+                mainHeroCard.classList.add('heat-active');
+            } else {
+                mainHeroCard.classList.remove('heat-active');
+            }
+            // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+            document.getElementById('atmCard').style.display = 'block';
+            document.getElementById('valWind').innerText = Math.round(teraz.wind_speed_10m);
+            document.getElementById('valPress').innerText = Math.round(teraz.surface_pressure);
+            
+            if (aqiData && aqiData.current) {
+                const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
+                document.getElementById('valAqi').innerText = stanPowietrza.tekst;
+                document.getElementById('valAqi').style.color = stanPowietrza.kolor;
+                document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
+            }
+
+            const wiatrKm = Math.round(teraz.wind_speed_10m);
+            const regCard = document.getElementById('regionalAlertCard');
+            const regTitle = document.getElementById('regAlertTitle');
+            const regText = document.getElementById('regAlertText');
+            regCard.style.display = "block";
+
+            if (wiatrKm > 40 || teraz.weather_code >= 95) {
+                regCard.style.borderLeft = "6px solid var(--red)";
+                regCard.style.background = "rgba(239, 68, 68, 0.05)";
+                regTitle.style.color = "var(--red)";
+                regTitle.innerHTML = `⚠️ ALARM METEO: ${nazwaMiasta.toUpperCase()}`;
+                regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność.`;
+            } else {
+                regCard.style.borderLeft = "6px solid var(--green)";
+                regCard.style.background = "rgba(22, 163, 74, 0.05)";
+                regTitle.style.color = "var(--green)";
+                regTitle.innerHTML = `✅ STATUS: BEZPIECZNIE`;
+                regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
+            }
+
+            let indexGodziny = 0;
+            try {
+                if (data.hourly && data.hourly.time) {
+                    const czasT = new Date().toISOString().slice(0, 14) + "00";
+                    let foundIndex = data.hourly.time.findIndex(t => t >= czasT);
+                    if (foundIndex !== -1) indexGodziny = foundIndex;
+                }
+            } catch(e) { console.error(e); }
+
+            try {
+                let wykrytoZagrozenie = false;
+                let ikonaZagrozenia = "";
+                let tekstZagrozenia = "";
+                let czasZagrozenia = "";
+
+                if (data.hourly && data.hourly.time && data.hourly.weather_code) {
+                    for(let i = 0; i < 24; i++) {
+                        const idx = indexGodziny + i;
+                        if(idx < data.hourly.time.length) {
+                            const kodPrzyszly = data.hourly.weather_code[idx];
+                            
+                            if(kodPrzyszly >= 95) {
+                                wykrytoZagrozenie = true;
+                                ikonaZagrozenia = "⚡⛈️";
+                                tekstZagrozenia = "BURZA Z PIORUNAMI";
+                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
+                                break;
+                            } else if(kodPrzyszly === 65 || kodPrzyszly === 82) {
+                                wykrytoZagrozenie = true;
+                                ikonaZagrozenia = "🌧️🌊";
+                                tekstZagrozenia = "POTĘŻNA ULEWA";
+                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
+                            }
+                        }
+                    }
+                }
+
+                const tabliczka24h = document.getElementById('alert24hCard');
+                if(wykrytoZagrozenie) {
+                    tabliczka24h.style.display = 'block';
+                    document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
+                    document.getElementById('alert24hText').innerText = tekstZagrozenia;
+                    document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
+                } else {
+                    tabliczka24h.style.display = 'none';
+                }
+
+                // >>> AKTUALIZACJA: MYŚL PIOTRKA POD KONTEM FALI UPAŁÓW <<<
+                const widget = document.getElementById('thesisWidget');
+                widget.style.display = 'block';
+                
+                let mysl = "Pochmurno, stabilnie, bez szału. Idealny dzień na dobrą kawę, ulubioną muzykę i spokojne popołudnie. ☁️☕";
+                
+                if (teraz.temperature_2m > 34) {
+                    mysl = "Gorąco jak przy piecu szamotowym! Pamiętajcie o piciu mnóstwa wody, żeby zachować energię i dobrze się nawodnić! 💧🔥🍕";
+                } else if (teraz.temperature_2m > 25) {
+                    mysl = "Słońce świeci na maksa! Piękna pogoda, więc uciekajcie na zewnątrz, złapcie trochę witaminy D i cieszcie się tym dniem! ☀️😎";
+                } else if (teraz.temperature_2m < 5) {
+                    mysl = "Zimno, że aż tnie! Ubierzcie się konkretnie, złapcie coś ciepłego do picia i dbajcie o zdrowie, żeby nie zmarznąć. 🥶☕";
+                } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
+                    mysl = "Leje od samego rana. Idealna wymówka, żeby zostać w domu, odpalić dobrą muzykę na słuchawkach, zrobić sobie mocną kawę i po prostu złapać luz! ☕🌧️";
+                } else if (teraz.weather_code <= 2 && isNight) {
+                    mysl = "Czyste niebo i piękny księżyc w pełnej krasie. Idealny moment na relaksujący wieczór, dobre melodyjne brzmienia i spacer, żeby przewietrzyć głowę. 🌙🎧✨";
+                }
+                
+                document.getElementById('thesisP').innerText = mysl;
+
+            } catch (e) { console.error(e); }
+
+            try {
+                if (data.hourly && data.hourly.time) {
+                    document.getElementById('hourlyCard').style.display = 'block';
+                    const hL = document.getElementById('hList'); 
+                    hL.innerHTML = '';
+
+                    for(let i=0; i<8; i++) {
+                        const idx = indexGodziny + i;
+                        if(idx < data.hourly.time.length) {
+                            const czas = data.hourly.time[idx].slice(11, 16);
+                            const temp = Math.round(data.hourly.temperature_2m[idx]);
+                            const kod = data.hourly.weather_code[idx];
+                            const noc = parseInt(czas.substring(0, 2)) >= 20 || parseInt(czas.substring(0, 2)) < 6;
+                            const ikona = tlumaczPogode(kod, noc).icon;
+
+                            hL.innerHTML += `
+                                <div class="h-box">
+                                    <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
+                                    <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
+                                    <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
+                                </div>`;
                         }
                     }
                 }
@@ -475,16 +691,11 @@
             } catch (e) { console.error(e); }
         }
 
-                // 5. AUTOMATYCZNY STRZAŁ STARTOWY (window.onload)
+        // 5. AUTOMATYCZNY STRZAŁ STARTOWY (Z NOWYM ALERTEM FALI UPAŁÓW)
         window.onload = function() {
-            pobierzDane(); // Zostawiamy pobieranie danych przy starcie
-            
-            // NOWY KOMUNIKAT O EKSTREMALNYM UPALE!
+            pobierzDane();
             alert("⚠️ ALARM METEO: EKSTREMALNA FALA UPAŁÓW!\n\nSatelity Open-Meteo potwierdzają nadejście ekstremalnej fali upałów. Temperatury w Krakowie i okolicach skoczą do 38°C!\n\nDbajcie o nawodnienie, unikajcie słońca w południe i śledźcie radar zagrożeń SkyCast PRO.\n\nZaryglujcie okna i dbajcie o siebie! 💧☀️🛡️");
         };
-            
     </script>
 </body>
 </html>
-
-    
