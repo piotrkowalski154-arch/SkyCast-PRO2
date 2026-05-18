@@ -124,7 +124,23 @@
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
         .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
+         /* ------------ OPERACJA: FALA GORĄCA (HEAT HAZE PULSE) ------------ */
+        /* Specjalny, pulsacyjny blask wokół głównej karty upału */
+        .card.heat-active {
+            border-left: 6px solid var(--orange) !important; /* Mocny, oranżowy brzeg */
+            box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); /* Neonowy oranżowy glow wokół całej karty */
+            animation: heatHazePulsate 1.8s ease-in-out infinite; /* Pulsacja */
+        }
+
+        @keyframes heatHazePulsate {
+            0% { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(217, 119, 6, 0.6); } /* Zwiększony blask w środku cyklu */
+            100% { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
+        }
+        /* ----------------------------------------------------------------- */
+        
     </style>
+
 </head>
 <body>
     <div class="container">
@@ -459,11 +475,14 @@
             } catch (e) { console.error(e); }
         }
 
-        // 5. AUTOMATYCZNY STRZAŁ STARTOWY
+                // 5. AUTOMATYCZNY STRZAŁ STARTOWY (window.onload)
         window.onload = function() {
-            pobierzDane();
-            alert("✅ STATUS POGODOWY: BEZPIECZNIE\n\nFront burzowy minął! Brak aktywnych zagrożeń meteorologicznych nad Polską.\n\nMożna spokojnie działać na pełnej mocy. Dobrego dnia! ☀️🌍");
+            pobierzDane(); // Zostawiamy pobieranie danych przy starcie
+            
+            // NOWY KOMUNIKAT O EKSTREMALNYM UPALE!
+            alert("⚠️ ALARM METEO: EKSTREMALNA FALA UPAŁÓW!\n\nSatelity Open-Meteo potwierdzają nadejście ekstremalnej fali upałów. Temperatury w Krakowie i okolicach skoczą do 38°C!\n\nDbajcie o nawodnienie, unikajcie słońca w południe i śledźcie radar zagrożeń SkyCast PRO.\n\nZaryglujcie okna i dbajcie o siebie! 💧☀️🛡️");
         };
+            
     </script>
 </body>
 </html>
