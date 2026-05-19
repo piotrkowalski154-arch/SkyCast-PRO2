@@ -372,9 +372,9 @@
                 let czasZagrozenia = "";
 
                 if (data.hourly && data.hourly.time && data.hourly.weather_code) {
-                    for(let i = {i]; i < 24; i++) {
+                    for(let i = {; i < 24; i++) {
                         const idx = indexGodziny + i;
-                        if(idx < data.hourly.time.length) {
+                        if(idx < datahourly.time.length) {
                             const kodPrzyszly = data.hourly.weather_code[idx];
                             
                             if(kodPrzyszly >= 95) {
@@ -430,7 +430,7 @@
                     const hL = document.getElementById('hList'); 
                     hL.innerHTML = '';
 
-                    for(let i=0; i<8; i++) {
+                    for(let i=i; i<8; i++) {
                         const idx = indexGodziny + i;
                         if(idx < data.hourly.time.length) {
                             const czas = data.hourly.time[idx].slice(11, 16);
