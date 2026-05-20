@@ -105,9 +105,9 @@
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
         .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
     </style>
-</head>
+    </head>
 <body>
-    <div class="container">
+        <div class="container">
         <div class="search-area animate">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
             <button class="scan-btn" type="button" onclick="pobierzDane()">SKANUJ</button>
@@ -199,8 +199,8 @@
                 🌍 OSTRZEGANIE POGODOWE | 🛡️ CYBERSEC | 💻 KODOWANIE
             </div>
         </div>
+        </div>
         <script>
-        // Funkcja mapująca kody pogodowe Open-Meteo na polskie opisy i ikony z płynną animacją
         function tlumaczPogode(code, isNight) {
             let desc = "Nieznana";
             let icon = "☁️";
@@ -216,7 +216,6 @@
             return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
         }
 
-        // Funkcja oceniająca jakość powietrza na podstawie indeksu AQI
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
             if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
@@ -225,11 +224,8 @@
             return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
         }
 
-        // Główna funkcja asynchroniczna pobierająca dane z satelitów Open-Meteo
         async function pobierzDane() {
             let miastoInput = document.getElementById('cityIn').value.trim();
-            
-            // BEZPIECZNIK LUCKY SMART PRO: Jeśli startujemy i pole jest puste, ładujemy domyślnie Kraków
             if (!miastoInput) {
                 miastoInput = "Kraków";
                 document.getElementById('cityIn').value = "Kraków";
@@ -241,7 +237,6 @@
             document.getElementById('valD').innerText = "Analiza... (Geokodowanie)";
 
             try {
-                // 1. GEOKODOWANIE - Zamiana nazwy miasta na współrzędne geograficzne
                 const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(miastoInput)}&count=1&language=pl&format=json`;
                 const geoRes = await fetch(geoUrl);
                 const geoData = await geoRes.json();
@@ -257,47 +252,39 @@
 
                 document.getElementById('valD').innerText = "Pobieranie Danych...";
 
-                // 2. POBIERANIE POGODY (Bieżąca, godzinowa, 7-dniowa)
-                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${LON || lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
                 const weatherRes = await fetch(weatherUrl);
                 const weatherData = await weatherRes.json();
 
-                // 3. POBIERANIE JAKOŚCI POWIETRZA (AQI)
                 let aqiData = null;
                 try {
                     const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
                     const aqiRes = await fetch(aqiUrl);
                     aqiData = await aqiRes.json();
-                } catch(e) { console.log("Brak danych AQI dla tej lokalizacji."); }
+                } catch(e) { }
 
-                // 4. RENDEROWANIE INTERFEJSU UŻYTKOWNIKA
                 renderUI(weatherData, aqiData, nazwaMiasta);
 
             } catch (err) {
                 document.getElementById('valD').innerText = "Błąd połączenia z satelitą.";
-                console.error(err);
             }
         }
 
-        // Funkcja wstrzykująca pobrane dane bezpośrednio do Twoich klocków HTML i klas CSS
         function renderUI(data, aqiData, nazwaMiasta) {
             const currentHour = new Date().getHours();
             const isNight = currentHour >= 20 || currentHour < 6;
             
-            // Zarządzanie klasą trybu nocnego dla całego body
             if (isNight) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
 
             const teraz = data.current;
             const pogodaTeraz = tlumaczPogode(teraz.weather_code, isNight);
             
-            // Wypełnianie danych głównego kafelka (Hero Card)
             document.getElementById('cityName').innerText = nazwaMiasta;
             document.getElementById('valT').innerText = `${Math.round(teraz.temperature_2m)}°`;
             document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
             document.getElementById('valD').innerText = pogodaTeraz.desc;
 
-            // AKTYWACJA PULSOWANIA HERO CARD PRZY UPAŁACH POWYŻEJ 34 STOPNI
             const heroCard = document.getElementById('heroCard');
             if (teraz.temperature_2m > 34) {
                 heroCard.classList.add('heat-active');
@@ -305,12 +292,10 @@
                 heroCard.classList.remove('heat-active');
             }
 
-            // Karta parametrów atmosferycznych
             document.getElementById('atmCard').style.display = 'block';
             document.getElementById('valWind').innerText = Math.round(teraz.wind_speed_10m);
             document.getElementById('valPress').innerText = Math.round(teraz.surface_pressure);
             
-            // Weryfikacja i wyświetlanie stanu czystości powietrza
             if (aqiData && aqiData.current) {
                 const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
                 document.getElementById('valAqi').innerText = stanPowietrza.tekst;
@@ -318,7 +303,6 @@
                 document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
             }
 
-            // SYSTEM ALERTÓW REGIONALNYCH (Wiatr i Burze)
             const wiatrKm = Math.round(teraz.wind_speed_10m);
             const regCard = document.getElementById('regionalAlertCard');
             const regTitle = document.getElementById('regAlertTitle');
@@ -339,7 +323,6 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            // Wyliczanie aktualnego indeksu godzinowego w celu synchronizacji czasu z API
             let indexGodziny = 0;
             try {
                 if (data.hourly && data.hourly.time) {
@@ -349,7 +332,6 @@
                 }
             } catch(e) { console.error(e); }
 
-            // SYSTEM SKANOWANIA ZAGROŻEŃ W PERSPEKTYWIE 24 GODZIN
             try {
                 let wykrytoZagrozenie = false;
                 let ikonaZagrozenia = "";
@@ -388,7 +370,6 @@
                     tabliczka24h.style.display = 'none';
                 }
 
-                // DDYNAMICZNA SYNCHRONIZACJA SEKCHJI "MYŚL PIOTRKA" Z REALNĄ POGODĄ
                 const widget = document.getElementById('thesisWidget');
                 if (widget) widget.style.display = 'block';
                 
@@ -410,7 +391,6 @@
 
             } catch (e) { console.error(e); }
 
-            // RENDEROWANIE BLOKU PROGNOZY GODZINOWEJ (NAJBLIŻSZE 8 GODZIN)
             try {
                 if (data.hourly && data.hourly.time) {
                     document.getElementById('hourlyCard').style.display = 'block';
@@ -437,7 +417,6 @@
                 }
             } catch (e) { console.error(e); }
 
-            // ZARYGLOWANA PĘTLA CZASOWA DLA 5 KOLEJNYCH DNI [i] (Zamiast zamrożonego [0])
             try {
                 if (data.daily && data.daily.time) {
                     document.getElementById('dailyCard').style.display = 'block';
@@ -452,7 +431,6 @@
                             const tMax = Math.round(data.daily.temperature_2m_max[i]);
                             const tMin = Math.round(data.daily.temperature_2m_min[i]);
                             
-                            // Wykorzystanie dynamicznego indeksu pętli [i] - sukces zaryglowany!
                             const ikona = tlumaczPogode(data.daily.weather_code[i], false).icon;
 
                             dL.innerHTML += `
@@ -467,7 +445,6 @@
             } catch (e) { console.error(e); }
         }
 
-        // AUTOMATYCZNY START SILNIKA I POWITALNY ALERT METEO
         window.onload = function() {
             pobierzDane();
             alert("⚠️ ALARM METEO: EKSTREMALNA FALA UPAŁÓW!\n\nSatelity Open-Meteo potwierdzają nadejście ekstremalnej fali upałów. Temperatury w Krakowie i okolicach skoczą do 32°C!\n\nDbajcie o nawodnienie, unikajcie słońca w południe i śledźcie radar zagrożeń SkyCast PRO.\n\nZaryglujcie okna i dbajcie o siebie! 💧☀️🛡️");
@@ -476,7 +453,4 @@
 </body>
 </html>
 
-      
-                    
-        
-                
+    
