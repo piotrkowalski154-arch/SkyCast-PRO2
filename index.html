@@ -105,7 +105,7 @@
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
         .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
     </style>
-    </head>
+</head>
 <body>
         <div class="container">
         <div class="search-area animate">
@@ -123,7 +123,7 @@
             <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie satelitarne...</div>
             
             <div class="status-badges">
-                <div class="badge" id="imgwTag">🛡️ Silnik PRO: Gotowy</div>
+                <div class="badge" id="imgwTag">🛡️ Silnik OpenWeather PRO: Aktywny</div>
             </div>
         </div>
 
@@ -170,7 +170,7 @@
         </div>
 
         <div class="card animate" id="hourlyCard" style="display: none;">
-            <span class="label">Skan Godzinowy (Open-Meteo)</span>
+            <span class="label">Skan Godzinowy (OpenWeather)</span>
             <div class="h-scroll" id="hList"></div>
         </div>
 
@@ -201,18 +201,21 @@
         </div>
         </div>
         <script>
-        function tlumaczPogode(code, isNight) {
-            let desc = "Nieznana";
+        const API_KEY = "6def6302b0a9b722144968390f4b8522";
+
+        // NOWY TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
+        function tlumaczPogode(iconCode, description) {
+            let desc = description || "Zmienne warunki";
             let icon = "☁️";
-            if (code === 0) { desc = "Czyste niebo"; icon = isNight ? "🌙" : "☀️"; }
-            else if (code === 1 || code === 2) { desc = "Częściowe zachmurzenie"; icon = isNight ? "☁️" : "⛅"; }
-            else if (code === 3) { desc = "Pochmurno"; icon = "☁️"; }
-            else if (code === 45 || code === 48) { desc = "Mgła"; icon = "🌫️"; }
-            else if (code >= 51 && code <= 55) { desc = "Mżawka"; icon = "🌧️"; }
-            else if (code >= 61 && code <= 65) { desc = "Deszcz"; icon = "🌧️"; }
-            else if (code >= 71 && code <= 77) { desc = "Śnieg"; icon = "❄️"; }
-            else if (code >= 80 && code <= 82) { desc = "Ulewa"; icon = "🌧️"; }
-            else if (code >= 95) { desc = "Burza"; icon = "⚡"; }
+            
+            if (iconCode.startsWith("01")) icon = iconCode.endsWith("d") ? "☀️" : "🌙"; 
+            else if (iconCode.startsWith("02")) icon = iconCode.endsWith("d") ? "⛅" : "☁️"; 
+            else if (iconCode.startsWith("03") || iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("11")) icon = "⚡"; 
+            else if (iconCode.startsWith("13")) icon = "❄️"; 
+            else if (iconCode.startsWith("50")) icon = "🌫️"; 
+            
             return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
         }
 
@@ -234,27 +237,25 @@
             document.getElementById('regionalAlertCard').style.display = 'none';
             document.getElementById('atmCard').style.display = 'none';
             document.getElementById('alert24hCard').style.display = 'none';
-            document.getElementById('valD').innerText = "Analiza... (Geokodowanie)";
+            document.getElementById('valD').innerText = "Analiza... (Satelita OpenWeather)";
 
             try {
-                const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(miastoInput)}&count=1&language=pl&format=json`;
-                const geoRes = await fetch(geoUrl);
-                const geoData = await geoRes.json();
-
-                if (!geoData.results || geoData.results.length === 0) {
+                const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
+                const currentRes = await fetch(currentUrl);
+                
+                if (!currentRes.ok) {
                     document.getElementById('valD').innerText = "Błąd: Miasto nieodnalezione.";
                     return;
                 }
+                const currentData = await currentRes.json();
+                
+                const lat = currentData.coord.lat;
+                const lon = currentData.coord.lon;
+                const nazwaMiasta = currentData.name;
 
-                const lat = geoData.results[0].latitude;
-                const lon = geoData.results[0].longitude;
-                const nazwaMiasta = geoData.results[0].name;
-
-                document.getElementById('valD').innerText = "Pobieranie Danych...";
-
-                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,surface_pressure,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
-                const weatherRes = await fetch(weatherUrl);
-                const weatherData = await weatherRes.json();
+                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pl`;
+                const forecastRes = await fetch(forecastUrl);
+                const forecastData = await forecastRes.json();
 
                 let aqiData = null;
                 try {
@@ -263,38 +264,40 @@
                     aqiData = await aqiRes.json();
                 } catch(e) { }
 
-                renderUI(weatherData, aqiData, nazwaMiasta);
+                renderUI(currentData, forecastData, aqiData, nazwaMiasta);
 
             } catch (err) {
                 document.getElementById('valD').innerText = "Błąd połączenia z satelitą.";
+                console.error(err);
             }
         }
-
-        function renderUI(data, aqiData, nazwaMiasta) {
+                                                                                               function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
             const currentHour = new Date().getHours();
             const isNight = currentHour >= 20 || currentHour < 6;
             
             if (isNight) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
 
-            const teraz = data.current;
-            const pogodaTeraz = tlumaczPogode(teraz.weather_code, isNight);
+            const tempCaly = Math.round(currentData.main.temp);
+            const weatherObj = currentData.weather[0];
+            const pogodaTeraz = tlumaczPogode(weatherObj.icon, weatherObj.description);
             
             document.getElementById('cityName').innerText = nazwaMiasta;
-            document.getElementById('valT').innerText = `${Math.round(teraz.temperature_2m)}°`;
+            document.getElementById('valT').innerText = `${tempCaly}°`;
             document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
             document.getElementById('valD').innerText = pogodaTeraz.desc;
 
             const heroCard = document.getElementById('heroCard');
-            if (teraz.temperature_2m > 34) {
+            if (currentData.main.temp > 34) {
                 heroCard.classList.add('heat-active');
             } else {
                 heroCard.classList.remove('heat-active');
             }
 
+            const wiatrKm = Math.round(currentData.wind.speed * 3.6);
             document.getElementById('atmCard').style.display = 'block';
-            document.getElementById('valWind').innerText = Math.round(teraz.wind_speed_10m);
-            document.getElementById('valPress').innerText = Math.round(teraz.surface_pressure);
+            document.getElementById('valWind').innerText = wiatrKm;
+            document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
             
             if (aqiData && aqiData.current) {
                 const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
@@ -303,18 +306,17 @@
                 document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
             }
 
-            const wiatrKm = Math.round(teraz.wind_speed_10m);
             const regCard = document.getElementById('regionalAlertCard');
             const regTitle = document.getElementById('regAlertTitle');
             const regText = document.getElementById('regAlertText');
             regCard.style.display = "block";
 
-            if (wiatrKm > 40 || teraz.weather_code >= 95) {
+            if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
                 regCard.style.borderLeft = "6px solid var(--red)";
                 regCard.style.background = "rgba(239, 68, 68, 0.05)";
                 regTitle.style.color = "var(--red)";
                 regTitle.innerHTML = `⚠️ ALARM METEO: ${nazwaMiasta.toUpperCase()}`;
-                regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność.`;
+                regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność!`;
             } else {
                 regCard.style.borderLeft = "6px solid var(--green)";
                 regCard.style.background = "rgba(22, 163, 74, 0.05)";
@@ -323,134 +325,125 @@
                 regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
             }
 
-            let indexGodziny = 0;
-            try {
-                if (data.hourly && data.hourly.time) {
-                    const czasT = new Date().toISOString().slice(0, 14) + "00";
-                    let foundIndex = data.hourly.time.findIndex(t => t >= czasT);
-                    if (foundIndex !== -1) indexGodziny = foundIndex;
-                }
-            } catch(e) { console.error(e); }
+            let wykrytoZagrozenie = false;
+            let ikonaZagrozenia = "";
+            let tekstZagrozenia = "";
+            let czasZagrozenia = "";
 
-            try {
-                let wykrytoZagrozenie = false;
-                let ikonaZagrozenia = "";
-                let tekstZagrozenia = "";
-                let czasZagrozenia = "";
-
-                if (data.hourly && data.hourly.time && data.hourly.weather_code) {
-                    for(let i = 0; i < 24; i++) {
-                        const idx = indexGodziny + i;
-                        if(idx < data.hourly.time.length) {
-                            const kodPrzyszly = data.hourly.weather_code[idx];
-                            
-                            if(kodPrzyszly >= 95) {
-                                wykrytoZagrozenie = true;
-                                ikonaZagrozenia = "⚡⛈️";
-                                tekstZagrozenia = "BURZA Z PIORUNAMI";
-                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
-                                break;
-                            } else if(kodPrzyszly === 65 || kodPrzyszly === 82) {
-                                wykrytoZagrozenie = true;
-                                ikonaZagrozenia = "🌧️🌊";
-                                tekstZagrozenia = "POTĘŻNA ULEWA";
-                                czasZagrozenia = data.hourly.time[idx].slice(11, 16);
-                            }
-                        }
+            for (let i = 0; i < 8; i++) { 
+                const fItem = forecastData.list[i];
+                if (fItem) {
+                    const fId = fItem.weather[0].id;
+                    if (fId >= 200 && fId < 300) { 
+                        wykrytoZagrozenie = true;
+                        ikonaZagrozenia = "⚡⛈️";
+                        tekstZagrozenia = "BURZA Z PIORUNAMI";
+                        czasZagrozenia = fItem.dt_txt.slice(11, 16);
+                        break;
+                    } else if (fId === 502 || fId === 503 || fId === 504 || fId === 522) {
+                        wykrytoZagrozenie = true;
+                        ikonaZagrozenia = "🌧️🌊";
+                        tekstZagrozenia = "POTĘŻNA ULEWA";
+                        czasZagrozenia = fItem.dt_txt.slice(11, 16);
                     }
                 }
+            }
 
-                const tabliczka24h = document.getElementById('alert24hCard');
-                if(wykrytoZagrozenie) {
-                    tabliczka24h.style.display = 'block';
-                    document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
-                    document.getElementById('alert24hText').innerText = tekstZagrozenia;
-                    document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
-                } else {
-                    tabliczka24h.style.display = 'none';
+            const tabliczka24h = document.getElementById('alert24hCard');
+            if (wykrytoZagrozenie) {
+                tabliczka24h.style.display = 'block';
+                document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
+                document.getElementById('alert24hText').innerText = tekstZagrozenia;
+                document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
+            } else {
+                tabliczka24h.style.display = 'none';
+            }
+                        // PROSTE I HUMORYSTYCZNE MYŚLI PIOTRKA - DLA KAŻDEGO ODBIORCY
+            const widget = document.getElementById('thesisWidget');
+            if (widget) widget.style.display = 'block';
+            
+            let mysl = "Pogoda stabilna jak dobrze wyrośnięte ciasto. Idealny moment na dobrą kawę! ☁️☕";
+            
+            if (currentData.main.temp > 34) {
+                mysl = "Gorąco jak w samym środku pieca szamotowego! 🍕 Pizza piecze się sama na balkonie. Pijcie mnóstwo wody, żeby nie wyschnąć na wiór! 💧🔥";
+            } else if (currentData.main.temp > 25) {
+                mysl = "Słońce świeci na pełnej! Rzucajcie wszystko i uciekać na zewnątrz łapać promienie, piękny dzień przed nami! ☀️😎🚀";
+            } else if (currentData.main.temp < 5) {
+                mysl = "Zimno, że aż tnie! Palce sztywnieją na polu. Zakładać ciepłe kurtki i parzyć gorącą herbatę! 🥶☕🛡️";
+            } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+                mysl = "Z nieba leje jak z uszkodzonego hydrantu! Idealna wymówka, żeby zostać w domu, odpalić ulubioną muzykę na słuchawkach i po prostu złapać luz! 🌧️🎧";
+            } else if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+                mysl = "Grzmi i błyska na niebie! Pioruny robią darmowe oświetlenie imprezowe. Siedzimy bezpiecznie w ciepłym domu! ⚡⛈️🛡️";
+            } else if (weatherObj.id === 800 && isNight) {
+                mysl = "Księżyc świeci jak idealnie okrągła pizza! 🌙 Czas odpocząć po ciężkim dniu, włączyć dobre brzmienia i złapać czysty chill. ✨🎧";
+            }
+            document.getElementById('thesisP').innerText = mysl;
+
+            // RENDEROWANIE PROGNOZY GODZINOWEJ
+            document.getElementById('hourlyCard').style.display = 'block';
+            const hL = document.getElementById('hList'); 
+            hL.innerHTML = '';
+
+            for (let i = 0; i < 8; i++) {
+                const item = forecastData.list[i];
+                if (item) {
+                    const czas = item.dt_txt.slice(11, 16);
+                    const tempH = Math.round(item.main.temp);
+                    const wItem = item.weather[0];
+                    const ikonaH = tlumaczPogode(wItem.icon, wItem.description).icon;
+
+                    hL.innerHTML += `
+                        <div class="h-box">
+                            <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
+                            <div style="font-size: 1.8rem; margin: 5px 0;">${ikonaH}</div>
+                            <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${tempH}°</div>
+                        </div>`;
                 }
+            }
 
-                const widget = document.getElementById('thesisWidget');
-                if (widget) widget.style.display = 'block';
-                
-                let mysl = "Pochmurno, stabilnie, bez szału. Idealny dzień na dobrą kawę, ulubioną muzykę i spokojne popołudnie. ☁️☕";
-                
-                if (teraz.temperature_2m > 34) {
-                    mysl = "Gorąco jak przy piecu szamotowym! Pamiętajcie o piciu mnóstwa wody, żeby zachować energię i dobrze się nawodnić! 💧🔥🍕";
-                } else if (teraz.temperature_2m > 25) {
-                    mysl = "Słońce świeci na maksa! Piękna pogoda, więc uciekajcie na zewnątrz, złapcie trochę witaminy D i cieszcie się tym dniem! ☀️😎";
-                } else if (teraz.temperature_2m < 5) {
-                    mysl = "Zimno, że aż tnie! Ubierzcie się konkretnie, złapcie coś ciepłego do picia i dbajcie o zdrowie, żeby nie zmarznąć. 🥶☕";
-                } else if (teraz.weather_code >= 51 && teraz.weather_code <= 65) {
-                    mysl = "Leje od samego rana. Idealna wymówka, żeby zostać w domu, odpalić dobrą muzykę na słuchawkach, zrobić sobie mocną kawę i po prostu złapać luz! ☕🌧️";
-                } else if (teraz.weather_code <= 2 && isNight) {
-                    mysl = "Czyste niebo i piękny księżyc w pełnej krasie. Idealny moment na relaksujący wieczór, dobre melodyjne brzmienia i spacer, żeby przewietrzyć głowę. 🌙🎧✨";
-                }
-                
-                document.getElementById('thesisP').innerText = mysl;
+            // PROGNOZA NA NAJBLIŻSZE DNI
+            document.getElementById('dailyCard').style.display = 'block';
+            const dL = document.getElementById('dList');
+            dL.innerHTML = '';
+            
+            const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+            const uniqueDays = new Set();
+            let dniLicznik = 0;
 
-            } catch (e) { console.error(e); }
+            for (let i = 0; i < forecastData.list.length; i++) {
+                const item = forecastData.list[i];
+                const dataDnia = new Date(item.dt * 1000);
+                const kluczDnia = dataDnia.toDateString();
+                const dzisiejszaData = new Date().toDateString();
 
-            try {
-                if (data.hourly && data.hourly.time) {
-                    document.getElementById('hourlyCard').style.display = 'block';
-                    const hL = document.getElementById('hList'); 
-                    hL.innerHTML = '';
+                if (kluczDnia !== dzisiejszaData && (item.dt_txt.endsWith("12:00:00") || !uniqueDays.has(kluczDnia)) && dniLicznik < 5) {
+                    if (!uniqueDays.has(kluczDnia)) {
+                        uniqueDays.add(kluczDnia);
+                        dniLicznik++;
 
-                    for(let i=0; i<8; i++) {
-                        const idx = indexGodziny + i;
-                        if(idx < data.hourly.time.length) {
-                            const czas = data.hourly.time[idx].slice(11, 16);
-                            const temp = Math.round(data.hourly.temperature_2m[idx]);
-                            const kod = data.hourly.weather_code[idx];
-                            const noc = parseInt(czas.substring(0, 2)) >= 20 || parseInt(czas.substring(0, 2)) < 6;
-                            const ikona = tlumaczPogode(kod, noc).icon;
+                        const tMax = Math.round(item.main.temp_max);
+                        const tMin = Math.round(item.main.temp_min);
+                        const wDaily = item.weather[0];
+                        const ikonaD = tlumaczPogode(wDaily.icon, wDaily.description).icon;
 
-                            hL.innerHTML += `
-                                <div class="h-box">
-                                    <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
-                                    <div style="font-size: 1.8rem; margin: 5px 0;">${ikona}</div>
-                                    <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${temp}°</div>
-                                </div>`;
-                        }
+                        dL.innerHTML += `
+                            <div class="d-row">
+                                <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
+                                <div class="d-icon">${ikonaD}</div>
+                                <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+                            </div>`;
                     }
                 }
-            } catch (e) { console.error(e); }
-
-            try {
-                if (data.daily && data.daily.time) {
-                    document.getElementById('dailyCard').style.display = 'block';
-                    const dL = document.getElementById('dList');
-                    dL.innerHTML = '';
-                    
-                    const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-                    
-                    for(let i=1; i<6; i++) { 
-                        if(i < data.daily.time.length) {
-                            const dataDnia = new Date(data.daily.time[i]);
-                            const tMax = Math.round(data.daily.temperature_2m_max[i]);
-                            const tMin = Math.round(data.daily.temperature_2m_min[i]);
-                            
-                            const ikona = tlumaczPogode(data.daily.weather_code[i], false).icon;
-
-                            dL.innerHTML += `
-                                <div class="d-row">
-                                    <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
-                                    <div class="d-icon">${ikona}</div>
-                                    <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
-                                </div>`;
-                        }
-                    }
-                }
-            } catch (e) { console.error(e); }
+            }
         }
-
-        window.onload = function() {
+window.onload = function() {
             pobierzDane();
-            alert("⚠️ ALARM METEO: EKSTREMALNA FALA UPAŁÓW!\n\nSatelity Open-Meteo potwierdzają nadejście ekstremalnej fali upałów.Od Przyszlego tygodnia Temperatury w Krakowie i okolicach skoczą do 32°C!\n\nDbajcie o nawodnienie, unikajcie słońca w południe i śledźcie radar zagrożeń SkyCast PRO.\n\nZaryglujcie okna i dbajcie o siebie! 💧☀️🛡️");
-        };
+            alert("⚠️ ALARM METEO: EKSTREMALNA FALA UPAŁÓW!\n\nSatelity Open-Meteo potwierdzają nadejście ekstremalnej fali upałów. Temperatury w Krakowie i okolicach skoczą do 32°C!\n\nDbajcie o nawodnienie, unikajcie słońca w południe i śledźcie radar zagrożeń SkyCast PRO.\n\nZaryglujcie okna i dbajcie o siebie! 💧☀️🛡️");
+    
+        
     </script>
 </body>
 </html>
 
+    
     
