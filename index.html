@@ -358,7 +358,7 @@
             } else {
                 tabliczka24h.style.display = 'none';
             }
-                                          // PROSTE I HUMORYSTYCZNE MYŚLI PIOTRKA - DLA KAŻDEGO ODBIORCY
+                                                      // PROSTE I HUMORYSTYCZNE MYŚLI PIOTRKA - DLA KAŻDEGO ODBIORCY
             const widget = document.getElementById('thesisWidget');
             if (widget) widget.style.display = 'block';
             
@@ -401,49 +401,59 @@
                 }
             }
 
-            // PROGNOZA NA NAJBLIŻSZE DNI [i]
+            // PROGNOZA NA NAJBLIŻSZE DNI (ZARYGLOWANA NA TRYB DZIENNY - POŁUDNIE)
             document.getElementById('dailyCard').style.display = 'block';
             const dL = document.getElementById('dList');
             dL.innerHTML = '';
             
             const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-            const uniqueDays = new Set();
-            let dniLicznik = 0;
-
+            
+            // Inteligentna mapa, która automatycznie wyszukuje i nadpisuje dane godziną 12:00
+            const dniMap = {};
             for (let i = 0; i < forecastData.list.length; i++) {
                 const item = forecastData.list[i];
                 const dataDnia = new Date(item.dt * 1000);
                 const kluczDnia = dataDnia.toDateString();
                 const dzisiejszaData = new Date().toDateString();
 
-                if (kluczDnia !== dzisiejszaData && (item.dt_txt.endsWith("12:00:00") || !uniqueDays.has(kluczDnia)) && dniLicznik < 5) {
-                    if (!uniqueDays.has(kluczDnia)) {
-                        uniqueDays.add(kluczDnia);
-                        dniLicznik++;
+                if (kluczDnia === dzisiejszaData) continue;
 
-                        const tMax = Math.round(item.main.temp_max);
-                        const tMin = Math.round(item.main.temp_min);
-                        const wDaily = item.weather[0];
-                        const ikonaD = tlumaczPogode(wDaily.icon, wDaily.description).icon;
-
-                        dL.innerHTML += `
-                            <div class="d-row">
-                                <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
-                                <div class="d-icon">${ikonaD}</div>
-                                <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
-                            </div>`;
-                    }
+                // Jeśli nie ma jeszcze tego dnia w mapie, LUB znaleźliśmy punkt z godziny 12:00 UTC -> wybieramy środek dnia!
+                if (!dniMap[kluczDnia] || item.dt_txt.endsWith("12:00:00")) {
+                    dniMap[kluczDnia] = item;
                 }
+            }
+
+            // Wyciągamy poselekcjonowane dni z mapy i generujemy kafelki dziennej prognozy
+            const dniKlucze = Object.keys(dniMap).slice(0, 5);
+            for (let i = 0; i < dniKlucze.length; i++) {
+                const klucz = dniKlucze[i];
+                const item = dniMap[klucz];
+                const dataDnia = new Date(item.dt * 1000);
+                
+                const tMax = Math.round(item.main.temp_max);
+                const tMin = Math.round(item.main.temp_min);
+                const wDaily = item.weather[0];
+                const ikonaD = tlumaczPogode(wDaily.icon, wDaily.description).icon;
+
+                dL.innerHTML += `
+                    <div class="d-row">
+                        <div class="d-day">${dniTygodnia[dataDnia.getDay()]}</div>
+                        <div class="d-icon">${ikonaD}</div>
+                        <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+                    </div>`;
             }
         }
 
-                // AKTYWACJA STARTU SYSTEMU SKYCAST PRO Z ALERTEM O UPAŁACH
+        // AKTYWACJA STARTU SYSTEMU SKYCAST PRO Z ALERTEM O UPAŁACH
         window.onload = function() {
             pobierzDane();
             alert("⚠️ ALARM METEO: NADCHODZI FALA UPAŁÓW!\n\nOd niedzieli do wtorku synoptycy zapowiadają potężne uderzenie gorąca! Temperatury ostro skoczą w górę, będzie grzało jak w piecu szamotowym!\n\nDbajcie o nawodnienie, unikajcie pełnego słońca w południe i łapcie zimne napoje. Silnik SkyCast PRO trzyma rękę na pulsie! Ogień! 💧☀️🔥🚨");
         };
-                  
-         
+    </script>
+</body>
+</html>
+
         
     </script>
 </body>
