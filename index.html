@@ -211,19 +211,64 @@
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
-    // AKTYWACJA STARTU SYSTEMU - RADAR ALARMOWY (UPAŁY + AKTYWNA BURZA)
+     // --- ZARZĄDCA SYSTEMU ---
     window.onload = function() {
-        pobierzDane();
-alert(
-    "🚀 SKYCAST PRO: WIECZORNY RAPORT SYSTEMOWY (Stan na: 17:21)\n\n" +
-    "⏳ ALERT WAŻNY DO: Piątek, godz. 12:00\n\n" +
-    "🌙 PROGNOZA NOCNA I PORANNA:\n" +
-    "Front burzowy ostatecznie opuścił rejon Krakowa. Atmosfera ulega stabilizacji, noc zapowiada się spokojnie. Jutro od rana spodziewamy się powrotu wysokich temperatur – system ostrzega przed szybkim nagrzewaniem się powietrza.\n\n" +
-    "🛡️ STATUS OPERACYJNY:\n" +
-    "Moduł ☔⛅🛟 w trybie czuwania. Monitorujemy parametry brzegowe dla porannych godzin. Kolejna aktualizacja radaru przewidziana na 12:00.\n\n" +
-    "Bezpiecznej nocy! 🌤️🛡️🚀"
-);
-   };  
+        pokazAlertPowitalny(); // Twój alert
+        uruchomProtokolGPS();  // Nasza nowa logika GPS
+        pobierzDane();         // Główny skaner pogody
+    };
+
+    // --- MODUŁY (PUDEŁKA) ---
+
+    function pokazAlertPowitalny() {
+        alert(
+            "🚀 SKYCAST PRO: WIECZORNY RAPORT SYSTEMOWY (Stan na: 17:21)\n\n" +
+            "⏳ ALERT WAŻNY DO: Piątek, godz. 12:00\n\n" +
+            "🌙 PROGNOZA NOCNA I PORANNA:\n" +
+            "Front burzowy ostatecznie opuścił rejon Krakowa. Atmosfera ulega stabilizacji, noc zapowiada się spokojnie. Jutro od rana spodziewamy się powrotu wysokich temperatur – system ostrzega przed szybkim nagrzewaniem się powietrza.\n\n" +
+            "🛡️ STATUS OPERACYJNY:\n" +
+            "Moduł ☔⛅🛟 w trybie czuwania. Monitorujemy parametry brzegowe dla porannych godzin. Kolejna aktualizacja radaru przewidziana na 12:00.\n\n" +
+            "Bezpiecznej nocy! 🌤️🛡️🚀"
+        );
+    }
+
+    function uruchomProtokolGPS() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pozycja) {
+                console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
+            });
+        }
+    }
+
+    // --- LOGIKA POGODOWA I KAMELEON ---
+    function tlumaczPogode(iconCode, description) {
+        let desc = description || "Zmienne warunki";
+        let icon = "☁️";
+        if (iconCode.startsWith("01")) icon = iconCode.endsWith("d") ? "☀️" : "🌙"; 
+        else if (iconCode.startsWith("02")) icon = iconCode.endsWith("d") ? "⛅" : "☁️"; 
+        else if (iconCode.startsWith("03") || iconCode.startsWith("04")) icon = "☁️"; 
+        else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+        else if (iconCode.startsWith("11")) icon = "⚡"; 
+        else if (iconCode.startsWith("13")) icon = "❄️"; 
+        else if (iconCode.startsWith("50")) icon = "🌫️"; 
+        return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+    }
+
+    // --- GŁÓWNY SILNIK (POBIERANIE DANYCH) ---
+    async function pobierzDane() {
+        let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
+        try {
+            const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
+            const currentRes = await fetch(currentUrl);
+            const currentData = await currentRes.json();
+            
+            // Tutaj wywołujesz resztę renderowania...
+            renderUI(currentData, null, null, currentData.name);
+        } catch (err) {
+            console.error("Błąd satelity:", err);
+        }
+    }
+            
         
         
 
