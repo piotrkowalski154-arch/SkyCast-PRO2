@@ -206,20 +206,20 @@
             </div>
         </div>
     </div>
-        <script>
+         <script>
     // ===================================================
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
-     // --- ZARZĄDCA SYSTEMU ---
+    
+    // --- ZARZĄDCA SYSTEMU ---
     window.onload = function() {
-        pokazAlertPowitalny(); // Twój alert
-        uruchomProtokolGPS();  // Nasza nowa logika GPS
-        pobierzDane();         // Główny skaner pogody
+        pokazAlertPowitalny(); 
+        uruchomProtokolGPS();  
+        uruchomZlotySkaner(); // Silnik startuje automatycznie przy otwarciu apki
     };
 
     // --- MODUŁY (PUDEŁKA) ---
-
     function pokazAlertPowitalny() {
         alert(
             "🚀 SKYCAST PRO: WIECZORNY RAPORT SYSTEMOWY (Stan na: 17:21)\n\n" +
@@ -240,43 +240,7 @@
         }
     }
 
-    // --- LOGIKA POGODOWA I KAMELEON ---
-    function tlumaczPogode(iconCode, description) {
-        let desc = description || "Zmienne warunki";
-        let icon = "☁️";
-        if (iconCode.startsWith("01")) icon = iconCode.endsWith("d") ? "☀️" : "🌙"; 
-        else if (iconCode.startsWith("02")) icon = iconCode.endsWith("d") ? "⛅" : "☁️"; 
-        else if (iconCode.startsWith("03") || iconCode.startsWith("04")) icon = "☁️"; 
-        else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-        else if (iconCode.startsWith("11")) icon = "⚡"; 
-        else if (iconCode.startsWith("13")) icon = "❄️"; 
-        else if (iconCode.startsWith("50")) icon = "🌫️"; 
-        return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-    }
-
-    // --- GŁÓWNY SILNIK (POBIERANIE DANYCH) ---
-    async function pobierzDane() {
-        let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
-        try {
-            const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
-            const currentRes = await fetch(currentUrl);
-            const currentData = await currentRes.json();
-            
-            // Tutaj wywołujesz resztę renderowania...
-            renderUI(currentData, null, null, currentData.name);
-        } catch (err) {
-            console.error("Błąd satelity:", err);
-        }
-    }
-            
-        
-        
-
-            
-
-    
-
-    // NOWY TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
+    // TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
     function tlumaczPogode(iconCode, description) {
         let desc = description || "Zmienne warunki";
         let icon = "☁️";
@@ -301,25 +265,31 @@
         return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
     }
 
-    // POBIERANIE DANYCH Z SATELITY (LIVESTREAM)
-    async function pobierzDane() {
-        let miastoInput = document.getElementById('cityIn').value.trim();
+    // ===================================================
+    // GŁÓWNY SILNIK - URUCHAMIANY PRZYCISKIEM "SKANUJ"
+    // ===================================================
+    async function uruchomZlotySkaner() {
+        let miastoInput = document.getElementById('cityIn')?.value.trim();
         if (!miastoInput) {
             miastoInput = "Kraków";
-            document.getElementById('cityIn').value = "Kraków";
+            if(document.getElementById('cityIn')) document.getElementById('cityIn').value = "Kraków";
         }
 
-        document.getElementById('regionalAlertCard').style.display = 'none';
-        document.getElementById('atmCard').style.display = 'none';
-        document.getElementById('alert24hCard').style.display = 'none';
-        document.getElementById('valD').innerText = "Analiza... (Satelita OpenWeather)";
+        // Ukrywamy karty na czas skanowania (efekt przeładowania)
+        if(document.getElementById('regionalAlertCard')) document.getElementById('regionalAlertCard').style.display = 'none';
+        if(document.getElementById('atmCard')) document.getElementById('atmCard').style.display = 'none';
+        if(document.getElementById('alert24hCard')) document.getElementById('alert24hCard').style.display = 'none';
+        
+        let statusEl = document.getElementById('valD');
+        if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
 
         try {
+            // Skaner nr 1 - Aktualna pogoda
             const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
             const currentRes = await fetch(currentUrl);
             
             if (!currentRes.ok) {
-                document.getElementById('valD').innerText = "Błąd: Miasto nieodnalezione.";
+                if(statusEl) statusEl.innerText = "Błąd: Miasto nieodnalezione.";
                 return;
             }
             const currentData = await currentRes.json();
@@ -328,26 +298,33 @@
             const lon = currentData.coord.lon;
             const nazwaMiasta = currentData.name;
 
+            // Skaner nr 2 - Prognoza
             const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pl`;
             const forecastRes = await fetch(forecastUrl);
             const forecastData = await forecastRes.json();
 
+            // Skaner nr 3 - Jakość powietrza z Open-Meteo
             let aqiData = null;
             try {
                 const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
                 const aqiRes = await fetch(aqiUrl);
                 aqiData = await aqiRes.json();
-            } catch(e) { }
+            } catch(e) {
+                console.log("Moduł AQI poza zasięgiem");
+            }
 
+            // Przesyłamy wszystko do centrum dowodzenia
             renderUI(currentData, forecastData, aqiData, nazwaMiasta);
 
         } catch (err) {
-            document.getElementById('valD').innerText = "Błąd połączenia z satelitą.";
+            if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą.";
             console.error(err);
         }
     }
 
+    // ===================================================
     // GŁÓWNY PANEL RENDEROWANIA INTERFEJSU
+    // ===================================================
     function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
         const currentHour = new Date().getHours();
         const isNight = currentHour >= 20 || currentHour < 6;
@@ -366,9 +343,9 @@
 
         const heroCard = document.getElementById('heroCard');
         if (currentData.main.temp > 34) {
-            heroCard.classList.add('heat-active');
+            if(heroCard) heroCard.classList.add('heat-active');
         } else {
-            heroCard.classList.remove('heat-active');
+            if(heroCard) heroCard.classList.remove('heat-active');
         }
 
         const wiatrKm = Math.round(currentData.wind.speed * 3.6);
@@ -386,7 +363,7 @@
         const regCard = document.getElementById('regionalAlertCard');
         const regTitle = document.getElementById('regAlertTitle');
         const regText = document.getElementById('regAlertText');
-        regCard.style.display = "block";
+        if(regCard) regCard.style.display = "block";
 
         if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
             regCard.style.borderLeft = "6px solid var(--red)";
@@ -427,13 +404,15 @@
         }
 
         const tabliczka24h = document.getElementById('alert24hCard');
-        if (wykrytoZagrozenie) {
-            tabliczka24h.style.display = 'block';
-            document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
-            document.getElementById('alert24hText').innerText = tekstZagrozenia;
-            document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
-        } else {
-            tabliczka24h.style.display = 'none';
+        if(tabliczka24h) {
+            if (wykrytoZagrozenie) {
+                tabliczka24h.style.display = 'block';
+                document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
+                document.getElementById('alert24hText').innerText = tekstZagrozenia;
+                document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
+            } else {
+                tabliczka24h.style.display = 'none';
+            }
         }
 
         // PROSTE I HUMORYSTYCZNE MYŚLI PIOTRKA - DLA KAŻDEGO ODBIORCY
@@ -455,101 +434,97 @@
         } else if (weatherObj.id === 800 && isNight) {
             mysl = "Księżyc świeci jak idealnie okrągła pizza! 🌙 Czas odpocząć po ciężkim dniu, włączyć dobre brzmienia i złapać czysty chill. ✨🎧";
         }
-        document.getElementById('thesisP').innerText = mysl;
+        
+        if(document.getElementById('thesisP')) document.getElementById('thesisP').innerText = mysl;
 
         // RENDEROWANIE PROGNOZY GODZINOWEJ
-        document.getElementById('hourlyCard').style.display = 'block';
+        const hourlyCard = document.getElementById('hourlyCard');
+        if(hourlyCard) hourlyCard.style.display = 'block';
+        
         const hL = document.getElementById('hList'); 
-        hL.innerHTML = '';
+        if(hL) {
+            hL.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const item = forecastData.list[i];
+                if (item) {
+                    const czas = item.dt_txt.slice(11, 16);
+                    const tempH = Math.round(item.main.temp);
+                    const wItem = item.weather[0];
+                    const ikonaH = tlumaczPogode(wItem.icon, wItem.description).icon;
 
-        for (let i = 0; i < 8; i++) {
-            const item = forecastData.list[i];
-            if (item) {
-                const czas = item.dt_txt.slice(11, 16);
-                const tempH = Math.round(item.main.temp);
-                const wItem = item.weather[0];
-                const ikonaH = tlumaczPogode(wItem.icon, wItem.description).icon;
-
-                hL.innerHTML += `
-                    <div class="h-box">
-                        <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
-                        <div style="font-size: 1.8rem; margin: 5px 0;">${ikonaH}</div>
-                        <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${tempH}°</div>
-                    </div>`;
-            }
-        }
-
-        // ===================================================
-        // 🛠️ FIX NOCNY: NAPRAWA KLONOWANIA DNI (MIN/MAX Z DOBY) + ANTI-MOON
-        // ===================================================
-        document.getElementById('dailyCard').style.display = 'block';
-        const dL = document.getElementById('dList');
-        dL.innerHTML = '';
-        
-        const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-        
-        // Dynamiczna mapa, która zbiera min/max z całego dnia
-        const dniMap = {};
-        for (let i = 0; i < forecastData.list.length; i++) {
-            const item = forecastData.list[i];
-            const dataDnia = new Date(item.dt * 1000);
-            const kluczDnia = dataDnia.toDateString();
-            const dzisiejszaData = new Date().toDateString();
-
-            if (kluczDnia === dzisiejszaData) continue;
-
-            // Inicjalizacja nowego dnia w mapie
-            if (!dniMap[kluczDnia]) {
-                dniMap[kluczDnia] = {
-                    minTemp: item.main.temp_min,
-                    maxTemp: item.main.temp_max,
-                    wpisIkony: item // Bazowy wpis dla ikony
-                };
-            } else {
-                // Skaner dobowy szuka rzeczywistych ekstremów
-                if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
-                if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
-                
-                // Nadpisujemy wpis ikony jeśli trafimy na idealny środek dnia (12:00 UTC)
-                if (item.dt_txt.endsWith("12:00:00")) {
-                    dniMap[kluczDnia].wpisIkony = item;
+                    hL.innerHTML += `
+                        <div class="h-box">
+                            <div style="font-size: 0.8rem; font-weight: 700;">${czas}</div>
+                            <div style="font-size: 1.8rem; margin: 5px 0;">${ikonaH}</div>
+                            <div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${tempH}°</div>
+                        </div>`;
                 }
             }
         }
 
-        // Renderowanie kafelków z unikalnymi danymi dla 5 kolejnych dni
-        const dniKlucze = Object.keys(dniMap).slice(0, 5);
-        for (let i = 0; i < dniKlucze.length; i++) {
-            const klucz = dniKlucze[i];
-            const daneDnia = dniMap[klucz];
-            const dataObiekt = new Date(daneDnia.wpisIkony.dt * 1000);
+        // 🛠️ FIX NOCNY: NAPRAWA KLONOWANIA DNI (MIN/MAX Z DOBY) + ANTI-MOON
+        const dailyCard = document.getElementById('dailyCard');
+        if(dailyCard) dailyCard.style.display = 'block';
+        
+        const dL = document.getElementById('dList');
+        if(dL) {
+            dL.innerHTML = '';
+            const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
             
-            const tMax = Math.round(daneDnia.maxTemp);
-            const tMin = Math.round(daneDnia.minTemp);
-            
-            // 🔥 OSTATECZNY FIX: WYMUSZAMY IKONĘ DZIENNĄ DLA PROGNOZY DŁUGOTERMINOWEJ (Anti-Moon Filter)
-            const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
-            const wOpis = daneDnia.wpisIkony.weather[0].description;
-            
-            const ikonaD = tlumaczPogode(czystaIkonaDzienna, wOpis).icon;
+            const dniMap = {};
+            for (let i = 0; i < forecastData.list.length; i++) {
+                const item = forecastData.list[i];
+                const dataDnia = new Date(item.dt * 1000);
+                const kluczDnia = dataDnia.toDateString();
+                const dzisiejszaData = new Date().toDateString();
 
-            dL.innerHTML += `
-                <div class="d-row">
-                    <div class="d-day">${dniTygodnia[dataObiekt.getDay()]}</div>
-                    <div class="d-icon">${ikonaD}</div>
-                    <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
-                </div>`;
+                if (kluczDnia === dzisiejszaData) continue;
+
+                if (!dniMap[kluczDnia]) {
+                    dniMap[kluczDnia] = {
+                        minTemp: item.main.temp_min,
+                        maxTemp: item.main.temp_max,
+                        wpisIkony: item 
+                    };
+                } else {
+                    if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
+                    if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
+                    
+                    if (item.dt_txt.endsWith("12:00:00")) {
+                        dniMap[kluczDnia].wpisIkony = item;
+                    }
+                }
+            }
+
+            const dniKlucze = Object.keys(dniMap).slice(0, 5);
+            for (let i = 0; i < dniKlucze.length; i++) {
+                const klucz = dniKlucze[i];
+                const daneDnia = dniMap[klucz];
+                const dataObiekt = new Date(daneDnia.wpisIkony.dt * 1000);
+                
+                const tMax = Math.round(daneDnia.maxTemp);
+                const tMin = Math.round(daneDnia.minTemp);
+                
+                const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
+                const wOpis = daneDnia.wpisIkony.weather[0].description;
+                const ikonaD = tlumaczPogode(czystaIkonaDzienna, wOpis).icon;
+
+                dL.innerHTML += `
+                    <div class="d-row">
+                        <div class="d-day">${dniTygodnia[dataObiekt.getDay()]}</div>
+                        <div class="d-icon">${ikonaD}</div>
+                        <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+                    </div>`;
+            }
         }
     }
+
     // ===================================================
-    // MODUŁ INSTALACJI NA SMARTFONIE (INSTRUKCJA MANUALNA)
+    // MODUŁ INSTALACJI NA SMARTFONIE
     // ===================================================
     function zainstalujAplikacje() {
         alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
     }
-            
-    
-    
 </script>
 </body>
 </html>
