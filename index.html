@@ -107,7 +107,7 @@
     </style>
 </head>
 <body>
-        <div class="container">
+    <div class="container">
         <div class="search-area animate">
             <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
             <button class="scan-btn" type="button" onclick="pobierzDane()">SKANUJ</button>
@@ -179,6 +179,12 @@
             <div id="dList"></div>
         </div>
 
+        <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;" class="animate">
+            <button onclick="zainstalujAplikacje()" style="background: linear-gradient(135deg, #38bdf8, #2563eb); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1.1rem; font-weight: 900; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+                📲 Zainstaluj Aplikację
+            </button>
+        </div>
+
         <div class="card manifest animate" style="border-left: 4px solid var(--orange);">
             <h2 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👷</h2>
             <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.5; margin-bottom: 12px;">
@@ -199,8 +205,8 @@
                 🌍 OSTRZEGANIE POGODOWE | 🛡️ CYBERSEC | 💻 KODOWANIE
             </div>
         </div>
-        </div>
-    <script>
+    </div>
+        <script>
     // ===================================================
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
@@ -478,11 +484,16 @@
                 </div>`;
         }
     }
+
+    // ===================================================
+    // MODUŁ INSTALACJI NA SMARTFONIE (PWA)
+    // ===================================================
+    function zainstalujAplikacje() {
+        // Na razie wyświetlamy alert testowy.
+        // Jak będziesz miał komputer, podepniemy tu prawdziwy moduł (tzw. Service Worker),
+        // który fizycznie wrzuci ikonkę SkyCast PRO na ekran telefonu użytkownika!
+        alert("🔥 Silnik Lucky Smart 2.0 PRO:\n\nModuł instalacji jest w przygotowaniu! W pełnej wersji kliknięcie tego przycisku automatycznie pobierze aplikację na Twój ekran główny. Ogień! 🚀");
+    }
 </script>
 </body>
 </html>
-
-        
-    
-
-    
