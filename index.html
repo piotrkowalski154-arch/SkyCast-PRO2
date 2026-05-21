@@ -211,13 +211,15 @@
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
-
-    // AKTYWACJA STARTU SYSTEMU - REKLAMA NOWEGO SILNIKA I ALERT METEO
+    // AKTYWACJA STARTU SYSTEMU - RADAR ALARMOWY (UPAŁY + AKTYWNA BURZA)
     window.onload = function() {
         pobierzDane();
         
-        alert("🚀 SKYCAST PRO: NOWY SILNIK METEO v2.0 AKTYWNY!\n\nWdrożyliśmy nową technologię! Wasz radar jest teraz precyzyjny jak nigdy dotąd.\n\n⚠️ REGIONALNY ALARM METEO: PIERWSZA FALA UPAŁÓW!\nNasz system wykrył, że od 24 do 26 maja nad Polskę nadciągnie iście letnia fala ciepła, osiągając w okolicy 31°C! 🔥✨\n\n🚨 STREFA NAJWYŻSZYCH TEMPERATUR:\n• Dolnośląskie, Opolskie, Śląskie, Małopolskie\n• Lubuskie oraz Wielkopolskie\n\nDbajcie o nawodnienie! SkyCast PRO trzyma rękę na pulsie. Ogień! 💧☀️🌡️🚨");
+        alert("🚀 SKYCAST PRO: SILNIK METEO v2.0 AKTYWNY!\n\n🚨 PILNY ALARM SYSTEMOWY: REJON KRAKOWA W KLESZCZACH BURZOWYCH!\n\n⚡ FRONT ELEKTRYCZNY (DANE Z RADARU):\nDetektory radiowe wykryły potężne, nabite energią komórki burzowe bezpośrednio wokół Krakowa! Rdzeń nawałnicy i najsilniejsze wyładowania przechodzą aktualnie przez rejony: WIELICZKA, BOCHNIA oraz SKAWINA. Sytuacja jest skrajnie dynamiczna.\n\n🔥 FALA UPAŁÓW:\nRównocześnie nad region napływa gorące powietrze, dając potężny rozstrzał temperatur od chłodniejszych 12°C w nocy do aż 31°C w ciągu dnia. Taka mieszanka termiczna potęguje siłę burzy!\n\nZabezpieczcie otwarte okna i odłączcie ważny sprzęt od zasilania! SkyCast PRO monitoruje sytuację. Ogień! ⛈️🛡️⚡🌡️🚨");
     };
+            
+
+    
 
     // NOWY TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
     function tlumaczPogode(iconCode, description) {
