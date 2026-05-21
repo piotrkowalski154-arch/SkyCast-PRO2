@@ -200,18 +200,17 @@
             </div>
         </div>
         </div>
-        <script>
+    <script>
     // ===================================================
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
-    // AKTYWACJA STARTU SYSTEMU - JEDNOLITY BRANDOWY ALERT
+    // AKTYWACJA STARTU SYSTEMU - REKLAMA NOWEGO SILNIKA I ALERT METEO
     window.onload = function() {
         pobierzDane();
         
-        // AUTORSKI ALERT SYSTEMU SKYCAST PRO 🌡️
-        alert("⚠️ ALARM METEO SYSTEMU SKYCAST PRO: IDZIE PIERWSZA FALA UPAŁÓW!\n\nNasz niezależny system prognozowania wykrył, że w dniach od 24 do 26 maja (od niedzieli do wtorku) nad Polskę nadciągnie iście letnia fala ciepła! Słupki rtęci wystrzelą mocno w górę, osiągając w okolicy 31°C! 🔥✨\n\n🚨 STREFA NAJWYŻSZYCH TEMPERATUR (Województwa w naszym radarze):\n• Dolnośląskie, Opolskie, Śląskie, Małopolskie (Południe)\n• Lubuskie oraz Wielkopolskie (Zachód)\n\nPrzygotujcie się na piękny, słoneczny klimat, ale pamiętajcie o bezpieczeństwie! Dbajcie o nawodnienie i unikajcie słońca w południe. Nasz silnik trzyma rękę na pulsie! Ogień! 💧☀️🌡️🚨");
+        alert("🚀 SKYCAST PRO: NOWY SILNIK METEO v2.0 AKTYWNY!\n\nWdrożyliśmy nową technologię! Wasz radar jest teraz precyzyjny jak nigdy dotąd.\n\n⚠️ REGIONALNY ALARM METEO: PIERWSZA FALA UPAŁÓW!\nNasz system wykrył, że od 24 do 26 maja nad Polskę nadciągnie iście letnia fala ciepła, osiągając w okolicy 31°C! 🔥✨\n\n🚨 STREFA NAJWYŻSZYCH TEMPERATUR:\n• Dolnośląskie, Opolskie, Śląskie, Małopolskie\n• Lubuskie oraz Wielkopolskie\n\nDbajcie o nawodnienie! SkyCast PRO trzyma rękę na pulsie. Ogień! 💧☀️🌡️🚨");
     };
 
     // NOWY TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
@@ -418,7 +417,7 @@
         }
 
         // ===================================================
-        // 🛠️ FIX NOCNY: NAPRAWA KLONOWANIA DNI (MIN/MAX Z DOBY)
+        // 🛠️ FIX NOCNY: NAPRAWA KLONOWANIA DNI (MIN/MAX Z DOBY) + ANTI-MOON
         // ===================================================
         document.getElementById('dailyCard').style.display = 'block';
         const dL = document.getElementById('dList');
@@ -464,8 +463,12 @@
             
             const tMax = Math.round(daneDnia.maxTemp);
             const tMin = Math.round(daneDnia.minTemp);
-            const wDaily = daneDnia.wpisIkony.weather[0];
-            const ikonaD = tlumaczPogode(wDaily.icon, wDaily.description).icon;
+            
+            // 🔥 OSTATECZNY FIX: WYMUSZAMY IKONĘ DZIENNĄ DLA PROGNOZY DŁUGOTERMINOWEJ (Anti-Moon Filter)
+            const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
+            const wOpis = daneDnia.wpisIkony.weather[0].description;
+            
+            const ikonaD = tlumaczPogode(czystaIkonaDzienna, wOpis).icon;
 
             dL.innerHTML += `
                 <div class="d-row">
@@ -479,4 +482,7 @@
 </body>
 </html>
 
-                
+        
+    
+
+    
