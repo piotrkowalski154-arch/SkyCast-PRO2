@@ -358,16 +358,30 @@
                     console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
                 });
             }
-        }
-
-        function tlumaczPogode(iconCode, description) {
-            let desc = description || "Zmienne warunki";
-            let icon = "☁️";
             
-    if (iconCode.startsWith("01")) icon = iconCode.endsWith("d") ? "☀️" : "🌙";
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = iconCode.endsWith("d") ? "⛅" : "☁️";
-    else if (iconCode.startsWith("04")) icon = "☁️";
-    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
+        function tlumaczPogode(iconCode) {
+    // 1. Wklejasz to tutaj, na samą górę funkcji:
+    const isNight = (new Date().getHours() >= 22 || new Date().getHours() < 5);
+    let icon = "☁️"; // ustawiasz domyślną wartość
+
+    // 2. A dalej masz swoje warunki:
+    if (isNight) {
+        icon = "🌙";
+    } else if (iconCode.startsWith("01")) {
+        icon = "☀️";
+    } else if (iconCode.startsWith("02") || iconCode.startsWith("03")) {
+        icon = "⛅";
+    } else if (iconCode.startsWith("04")) {
+        icon = "☁️";
+    } else if (iconCode.startsWith("09") || iconCode.startsWith("10")) {
+        icon = "🌧️";
+    }
+    
+    return icon; // Na samym końcu funkcji zwracasz ikonę
+        }
+            
+
+        
         
             
 
