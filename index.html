@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyCast PRO - Twoja Aplikacja ⛅🚨☔</title>
     <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
-
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     
     <style>
         :root {
@@ -39,7 +38,78 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
-        .container { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
+  /* GŁÓWNY GORSET */
+.app-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* UKŁAD WYSZUKIWANIA */
+.search-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%; /* Wymusza szerokość */
+    overflow: hidden; /* Nie pozwoli niczemu wystawać */
+}
+
+.search-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+    box-sizing: border-box; /* Kluczowe! */
+}
+
+input {
+    flex: 1;
+    min-width: 0; /* To sprawia, że input ustąpi miejsca przyciskowi */
+    height: 55px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.scan-btn {
+    flex-shrink: 0; /* Zabetonowanie przycisku */
+    height: 55px;
+    padding: 0 24px;
+    border-radius: 20px;
+    background: #ffffff;
+    color: var(--blue);
+    border: 2px solid var(--blue);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+
+/* Przycisk Radio ZET */
+.music-btn {
+    width: 100%;
+    height: 55px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    margin-bottom: 15px; /* Odstęp od reszty */
+    display: block; /* To wymusza, żeby przycisk był widoczny */
+}
+
+
+
+
         
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
@@ -54,10 +124,45 @@
         }
         .heat-active { animation: heatPulse 2s infinite !important; background: rgba(255, 68, 0, 0.1) !important; }
 
-        .search-area { display: flex; gap: 8px; }
-        .search-area input, .search-area button { height: 55px; }
-        input { flex: 1; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); font-size: 1rem; font-weight: 700; outline: none; color: var(--text); }
-        .scan-btn { padding: 0 20px; border-radius: 20px; border: none; background: rgba(0,0,0,0.8); color: white; font-weight: 900; cursor: pointer; transition: 0.3s; flex-shrink: 0; min-width: 100px; }
+        .search-area { 
+    display: flex; 
+    gap: 8px; 
+    width: 100%; 
+}
+
+.search-area input, .search-area button { 
+    height: 56px; 
+}
+
+input { 
+    flex: 1; 
+    padding: 0 20px; 
+    border-radius: 20px; 
+    border: 1px solid var(--glass-border); 
+    background: white );
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    outline: none; 
+    color: white ); 
+}
+.scan-btn { 
+    background: #ffffff;          /* Czysta biel */
+    color: var(--blue);           /* Tekst w kolorze błękitu, żeby był kontrast */
+    border: 2px solid var(--blue); /* Subtelna ramka, żeby przycisk nie zniknął */
+    padding: 0 24px; 
+    border-radius: 20px; 
+    font-weight: 900; 
+    font-size: 0.9rem; 
+    flex-shrink: 0; 
+    letter-spacing: 1px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    cursor: pointer;
+    transition: all 0.3s ease;    /* Płynna zmiana przy kliknięciu */
+}
+
+
         
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
         .main-hero { text-align: center; transition: all 0.5s ease; }
@@ -108,14 +213,34 @@
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
         .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
-    </style>
-</head>
+               </style>
+               <head>
 <body>
-    <div class="container">
+    <div class="app-container">
         <div class="search-area animate">
-            <input type="text" id="cityIn" placeholder="Skanuj miasto..." value="Kraków">
-            <button class="scan-btn" type="button" onclick="pobierzDane()">SKANUJ</button>
-        </div>
+            <button class="music-btn" onclick="wlaczMuzyke()">
+    <img src="https://gfx.radiozet.pl/extension/radiozet/design/standard/images/favicon/apple-touch-icon.png" 
+         style="width: 25px; height: 25px; object-fit: contain; vertical-align: middle; margin-right: 10px;">
+    RADIO ZET
+    
+
+
+</button>
+
+            <audio id="muzykaPlayer" src=" http://zet-net-01.cdn.eurozet.pl:8400/
+            " style="display: none;">
+            
+            
+          </audio>
+
+        <div class="search-row">
+    <input type="text" id="cityIn" value="Kraków">
+    <button class="scan-btn" onclick="uruchomZlotySkaner()">SKANUJ</button>
+
+</div>
+
+
+        
 
         <div class="card main-hero animate" id="heroCard">
             <div id="modeIndicator" style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Wyszukiwanie bezpieczne aktywne</div>
@@ -210,8 +335,8 @@
             </div>
         </div>
     </div>
-         <script>
-    // ===================================================
+<script>
+        // ===================================================
     // OFICJALNY I ZABEZPIECZONY SILNIK LOGICZNY SKYCAST PRO v2.0
     // ===================================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
@@ -223,7 +348,17 @@
         uruchomZlotySkaner(); // Silnik startuje automatycznie przy otwarciu apki
     };
 
-        // --- MODUŁY (PUDEŁKA) ---
+    // --- MODUŁ RADIA ---
+    function wlaczMuzyke() {
+        var player = document.getElementById("muzykaPlayer");
+        if (player.paused) {
+            player.play();
+        } else {
+            player.pause();
+        }
+    }
+
+    // --- MODUŁY (PUDEŁKA) ---
     function pokazAlertPowitalny() {
         alert(
             "🌤️ PROGNOZA SKYCAST PRO - 22 MAJA 🌤️\n\n" +
@@ -237,7 +372,6 @@
             "Dobrego i spokojnego dnia! 🌞☕"
         );
     }
-             
 
     function uruchomProtokolGPS() {
         if (navigator.geolocation) {
@@ -247,7 +381,6 @@
         }
     }
 
-    // TŁUMACZ IKON I OPISÓW DLA OPENWEATHERMAP
     function tlumaczPogode(iconCode, description) {
         let desc = description || "Zmienne warunki";
         let icon = "☁️";
@@ -263,7 +396,6 @@
         return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
     }
 
-    // SYSTEMOWY FILTR OCENY JAKOŚCI POWIETRZA
     function ocenaPowietrza(aqi) {
         if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
         if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
@@ -281,8 +413,7 @@
             miastoInput = "Kraków";
             if(document.getElementById('cityIn')) document.getElementById('cityIn').value = "Kraków";
         }
-
-        // Ukrywamy karty na czas skanowania (efekt przeładowania)
+        
         if(document.getElementById('regionalAlertCard')) document.getElementById('regionalAlertCard').style.display = 'none';
         if(document.getElementById('atmCard')) document.getElementById('atmCard').style.display = 'none';
         if(document.getElementById('alert24hCard')) document.getElementById('alert24hCard').style.display = 'none';
@@ -290,27 +421,32 @@
         let statusEl = document.getElementById('valD');
         if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
 
-        try {
-            // Skaner nr 1 - Aktualna pogoda
+        try { 
+            // 1. POGODA AKTUALNA
             const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
             const currentRes = await fetch(currentUrl);
-            
+
             if (!currentRes.ok) {
                 if(statusEl) statusEl.innerText = "Błąd: Miasto nieodnalezione.";
                 return;
             }
             const currentData = await currentRes.json();
-            
+
             const lat = currentData.coord.lat;
             const lon = currentData.coord.lon;
             const nazwaMiasta = currentData.name;
 
-            // Skaner nr 2 - Prognoza
+            // 2. PROGNOZA GODZINOWA (BEZ DUPLIKATÓW)
             const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pl`;
             const forecastRes = await fetch(forecastUrl);
+
+            if (!forecastRes.ok) {
+                alert("Błąd serwera przy prognozie: " + forecastRes.status);
+            }
+
             const forecastData = await forecastRes.json();
 
-            // Skaner nr 3 - Jakość powietrza z Open-Meteo
+            // 3. JAKOŚĆ POWIETRZA (AQI) - POPRAWIONE "let"
             let aqiData = null;
             try {
                 const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
@@ -320,12 +456,13 @@
                 console.log("Moduł AQI poza zasięgiem");
             }
 
-            // Przesyłamy wszystko do centrum dowodzenia
+            // 4. WYSYŁKA DANYCH DO INTERFEJSU
             renderUI(currentData, forecastData, aqiData, nazwaMiasta);
 
-        } catch (err) {
-            if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą.";
-            console.error(err);
+        } catch (error) {
+            // BEZPIECZNIK
+            if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą..."; 
+            alert("System raportuje awarię: " + error.message);
         }
     }
 
@@ -343,10 +480,10 @@
         const weatherObj = currentData.weather[0];
         const pogodaTeraz = tlumaczPogode(weatherObj.icon, weatherObj.description);
         
-        document.getElementById('cityName').innerText = nazwaMiasta;
-        document.getElementById('valT').innerText = `${tempCaly}°`;
-        document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
-        document.getElementById('valD').innerText = pogodaTeraz.desc;
+        if (document.getElementById('cityName')) document.getElementById('cityName').innerText = nazwaMiasta;
+        if (document.getElementById('valT')) document.getElementById('valT').innerText = `${tempCaly}°`;
+        if (document.getElementById('mainIcon')) document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
+        if (document.getElementById('valD')) document.getElementById('valD').innerText = pogodaTeraz.desc;
 
         const heroCard = document.getElementById('heroCard');
         if (currentData.main.temp > 34) {
@@ -422,7 +559,6 @@
             }
         }
 
-        // PROSTE I HUMORYSTYCZNE MYŚLI PIOTRKA - DLA KAŻDEGO ODBIORCY
         const widget = document.getElementById('thesisWidget');
         if (widget) widget.style.display = 'block';
         
@@ -444,7 +580,6 @@
         
         if(document.getElementById('thesisP')) document.getElementById('thesisP').innerText = mysl;
 
-        // RENDEROWANIE PROGNOZY GODZINOWEJ
         const hourlyCard = document.getElementById('hourlyCard');
         if(hourlyCard) hourlyCard.style.display = 'block';
         
@@ -469,7 +604,6 @@
             }
         }
 
-        // 🛠️ FIX NOCNY: NAPRAWA KLONOWANIA DNI (MIN/MAX Z DOBY) + ANTI-MOON
         const dailyCard = document.getElementById('dailyCard');
         if(dailyCard) dailyCard.style.display = 'block';
         
@@ -532,6 +666,12 @@
     function zainstalujAplikacje() {
         alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
     }
+        // AUTOMATYCZNY ZŁOTY SKANER (odświeżanie co 2 godziny)
+    setInterval(() => {
+        uruchomZlotySkaner();
+    }, 2 * 60 * 60 * 1000);
+
 </script>
 </body>
 </html>
+                   
