@@ -39,7 +39,24 @@
         .search-area { display: flex; flex-direction: column; gap: 8px; width: 100%; overflow: hidden; }
         .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; margin-bottom: 15px; }
         input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: #ffffff; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; color: #000000; outline: none; }
-        .scan-btn { flex-shrink: 0; height: 55px; padding: 0 24px; border-radius: 20px; background: #3b82f6; color: #ffffff; border: 2px solid #3b82f6; font-weight: 900; font-size: 0.9rem;
+    
+             .scan-btn { 
+            flex-shrink: 0; 
+            height: 55px; 
+            padding: 0 24px; 
+            border-radius: 20px; 
+            /* Tu jest magia - ustawiamy niebieskie tło */
+            background: var(--blue); 
+            /* A tu biały tekst dla kontrastu */
+            color: #ffffff;          
+            border: 2px solid var(--blue); 
+            font-weight: 900; 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+             }
         
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
                 .radio-box { background: rgba(255, 204, 0, 0.85); border-radius: 25px; padding: 15px; text-align: center; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
