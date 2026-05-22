@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="SkyCast PRO - Aplikacja pogodowa z radarami ostrzeżeń i prognozami. Bezpieczne standardy cybersec.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SkyCast PRO">
+    
     <title>SkyCast PRO - Twoja Aplikacja ⛅🚨☔</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     
@@ -32,13 +39,14 @@
             --card-text: #e2e8f0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
+        body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 0.5s ease; }
         
         .app-container { max-width: 400px; width: 100%; margin: 0 auto; padding: 15px; box-sizing: border-box; }
         
         .search-area { display: flex; flex-direction: column; gap: 8px; width: 100%; overflow: hidden; }
         .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; margin-bottom: 15px; }
-        input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: #ffffff; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; color: #000000; outline: none; }
+        input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: #ffffff; backdrop-filter: blur(15px); color: #000; font-weight: 600; font-size: 1rem; }
+        input::placeholder { color: #999; }
     
              .scan-btn { 
             flex-shrink: 0; 
@@ -59,7 +67,7 @@
              }
         
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
-                .radio-box { background: rgba(255, 204, 0, 0.85); border-radius: 25px; padding: 15px; text-align: center; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+                .radio-box { background: rgba(255, 204, 0, 0.85); border-radius: 25px; padding: 15px; text-align: center; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); }
         body.night-mode .radio-box { background: rgba(255, 204, 0, 0.7); }
 
         
@@ -76,17 +84,17 @@
         body.night-mode .temp { color: #ff9f43; text-shadow: 0 0 10px rgba(255, 159, 67, 0.5); }
         .hero-icon { font-size: 5rem; }
         .status-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); }
+        .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--card-text); }
         
         .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
         .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
         .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
         .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
         .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; opacity: 1; margin-top: 3px; }
-        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; opacity: 1; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; opacity: 1; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
         body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
 
-        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: rgba(255, 255, 255, 0.4); border-radius: 20px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .d-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: rgba(255, 255, 255, 0.4); border-radius: 20px; margin-bottom: 10px; border: 1px solid var(--glass-border); }
         body.night-mode .d-row { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); }
         .d-day { font-size: 1.1rem; font-weight: 900; text-transform: capitalize; flex: 1; color: #000000; }
         body.night-mode .d-day { color: #ffffff; }
@@ -95,7 +103,7 @@
         body.night-mode .d-temp { color: #00d2ff !important; }
         
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; }
-        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 20px; }
         body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
         
         .manifest { background: #000000; color: white; border-radius: 30px; padding: 25px; }
@@ -104,14 +112,69 @@
         
         .thesis-card { border-left: 6px solid var(--blue); background: rgba(255, 255, 255, 0.6); transition: all 0.5s ease; }
         .thesis-card p { font-size: 1.1rem; line-height: 1.5; font-style: italic; font-weight: 600; color: var(--main-title); }
+
+        .pwa-install-banner {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 360px;
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            color: white;
+            border-radius: 20px;
+            padding: 15px 20px;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+            z-index: 9999;
+            animation: slideUp 0.5s ease-out;
+        }
+        .pwa-install-banner.show {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pwa-install-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .pwa-install-btn {
+            background: white;
+            color: #2563eb;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .pwa-install-btn:hover {
+            transform: scale(1.05);
+        }
+        .pwa-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 5px;
+        }
     </style>
 </head>
 <body>
+    <div class="pwa-install-banner" id="pwaInstallBanner">
+        <div class="pwa-install-text">📲 Zainstaluj SkyCast PRO</div>
+        <button class="pwa-install-btn" onclick="installPWA()">Zainstaluj</button>
+        <button class="pwa-close" onclick="closePWABanner()">✕</button>
+    </div>
+
     <div class="app-container">
         
         <div class="radio-box">
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                <img src="https://www.rmf.fm/assets/images/favicon/apple-icon-120x120.png?3" alt="RMF FM Logo" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+                <img src="https://www.rmf.fm/assets/images/favicon/apple-icon-120x120.png?3" alt="RMF FM Logo" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
                 <div style="font-weight: 900; font-size: 1.2rem; color: var(--main-title); letter-spacing: 0.5px;">RMF FM</div>
             </div>
             <audio id="audioStrumien" style="width: 100%; height: 40px;" controls>
@@ -120,7 +183,7 @@
         </div>
 
         <div class="search-row">
-            <input type="text" id="cityIn" value="Kraków">
+            <input type="text" id="cityIn" value="Kraków" placeholder="Wpisz miasto...">
             <button class="scan-btn" onclick="uruchomZlotySkaner()">SKANUJ</button>
         </div>
 
@@ -190,7 +253,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;" class="animate">
-            <button onclick="zainstalujAplikacje()" style="background: linear-gradient(135deg, #38bdf8, #2563eb); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1.1rem; font-weight: 900; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+            <button onclick="zainstalujAplikacje()" style="background: linear-gradient(135deg, #38bdf8, #2563eb); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transition: all 0.3s ease;">
                 📲 Zainstaluj Aplikację
             </button>
         </div>
@@ -221,8 +284,70 @@
             </div>
         </div>
     </div>
-        <script>
+
+    <script>
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
+        let deferredPrompt = null;
+        
+        // PWA Install Handler
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showPWAInstallBanner();
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('SkyCast PRO zainstalowana!');
+            closePWABanner();
+        });
+
+        function showPWAInstallBanner() {
+            const banner = document.getElementById('pwaInstallBanner');
+            if (banner) {
+                banner.classList.add('show');
+            }
+        }
+
+        function closePWABanner() {
+            const banner = document.getElementById('pwaInstallBanner');
+            if (banner) {
+                banner.classList.remove('show');
+            }
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Użytkownik zaakceptował instalację PWA');
+                    }
+                    deferredPrompt = null;
+                    closePWABanner();
+                });
+            }
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker zaregistrowany:', registration);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('Nowa wersja aplikacji dostępna!');
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => console.log('Service Worker błąd:', error));
+            });
+        }
         
         window.onload = function() {
             pokazAlertPowitalny(); 
@@ -231,7 +356,7 @@
         };
 
         function pokazAlertPowitalny() {
-            alert("🌤️ PROGNOZA SKYCAST PRO - 22 MAJA 🌤️\n\nDzień dobry! Przed nami bardzo spokojny i suchy dzień w całej Polsce.\n\n🌡️ TEMPERATURY:\n• Rano może być chłodno (w Krakowie ok. 9°C), więc przyda się bluza lub sweter.\n• W południe zrobi się bardzo przyjemnie! Od 19°C na północnym wschodzie do nawet 23°C we Wrocławiu. W Krakowie i Warszawie około 22°C.\n\n☂️ OPADY I WIATR:\n• Parasole zostawiamy w domu! W całym kraju nie będzie dziś padać (0% szans na deszcz).\n• Wiatr będzie bardzo słaby. Nie grożą nam żadne burze ani wichury, choć w ciągu dnia na niebie pojawi się trochę chmur.\n\nDobrego i spokojnego dnia! 🌞☕");
+            alert("🌤️ PROGNOZA SKYCAST PRO - 22 MAJA 🌤️\n\nDzień dobry! Przed nami bardzo spokojny i suchy dzień w całej Polsce.\n\n🌡️ TEMPERATURY:\n• Rano może być chłodno, od 8°C do 12°C\n• W dzień słonecznie i ciepło, do 22°C\n\n💨 WIATR: Słaby, do 10 km/h\n☔ OPADY: Brak\n\n🛡️ Aplikacja pracuje z pełnym bezpieczeństwem!\nZapisz ją na ekranie głównym 📱");
         }
 
         function uruchomProtokolGPS() {
@@ -247,15 +372,15 @@
             let icon = "☁️";
             
                    if (iconCode.startsWith("01")) icon = iconCode.endsWith("d") ? "☀️" : "🌙"; 
-        else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = iconCode.endsWith("d") ? "⛅" : "☁️"; 
-        else if (iconCode.startsWith("04")) icon = "☁️"; 
-        else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = iconCode.endsWith("d") ? "⛅" : "☁️"; 
+            else if (iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
 
-            else if (iconCode.startsWith("11")) icon = "⚡"; 
-            else if (iconCode.startsWith("13")) icon = "❄️"; 
-            else if (iconCode.startsWith("50")) icon = "🌫️"; 
-            
-            return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+                else if (iconCode.startsWith("11")) icon = "⚡"; 
+                else if (iconCode.startsWith("13")) icon = "❄️"; 
+                else if (iconCode.startsWith("50")) icon = "🌫️"; 
+                
+                return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
         }
 
         function ocenaPowietrza(aqi) {
@@ -505,7 +630,7 @@
         }
 
         function zainstalujAplikacje() {
-            alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
+            alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę menu [...] w prawym górnym rogu\n2. Wybierz 'Zainstaluj aplikację'\n3. Potwierdź\n\n🟡 iOS (Safari):\n1. Kliknij ikonę udostępniania\n2. Wybierz 'Add to Home Screen'\n3. Potwierdź nazwę\n\n✅ GOTOWE! Aplikacja będzie działać offline!\n\n🛡️ Dane bezpieczne, bez śledzenia!");
         }
 
         setInterval(() => {
