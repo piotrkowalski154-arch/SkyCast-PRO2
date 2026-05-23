@@ -361,11 +361,11 @@
         }
 
             function tlumaczPogode(iconCode) {
-    const hour = new Date().getHours();
-    const isNight = (hour >= 22 || hour < 5);
-
+    const isNight = (new Date().getHours() >= 22 || new Date().getHours() < 5);
+    
     if (isNight) return "🌙";
-    if (iconCode.startsWith("01")) return "☀️";
+    
+    if (iconCode.startsWith("01")) return iconCode.endsWith("d") ? "☀️" : "🌙";
     if (iconCode.startsWith("02") || iconCode.startsWith("03")) return "⛅";
     if (iconCode.startsWith("04")) return "☁️";
     if (iconCode.startsWith("09") || iconCode.startsWith("10")) return "🌧️";
@@ -373,9 +373,10 @@
     if (iconCode.startsWith("13")) return "❄️";
     if (iconCode.startsWith("50")) return "🌫️";
     
-                return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+    return "☁️";
             }
             
+        
             
         
         
@@ -414,7 +415,7 @@
                  
                 
                 
-        }
+        
 
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
