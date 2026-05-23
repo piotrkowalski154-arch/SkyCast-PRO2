@@ -94,28 +94,26 @@
 </head>
 <body>
 <div class="app-container">
+    
+    <div class="card animate" style="margin-bottom: 20px; text-align: center; padding: 15px;">
+        <span class="label" style="margin-bottom: 10px;">🎵 DETEKTOR AUDIO</span>
         
-        <div class="radio-box">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-
-        
-                <div class="card animate" style="margin-bottom: 20px; text-align: center; padding: 15px;">
-            <span class="label" style="margin-bottom: 10px;">🎵 DETEKTOR AUDIO</span>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+            <img src="https://www.rmf.fm/img/rmf-fm-logo.png" alt="RMF FM" style="height: 45px; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));" onclick="pokazRMF()">
             
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
-                <img src="https://www.rmf.fm/img/rmf-fm-logo.png" alt="RMF FM" style="height: 45px; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));" onclick="pokazRMF()">
-                
-                    
-                
-                <button onclick="pokazRMF()" style="background: #ff007f; color: white; border: none; padding: 12px 20px; border-radius: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 0, 127, 0.3);">
-                    ODPAL RADIO
-                </button>
-            </div>
+            <button onclick="pokazRMF()" style="background: #ff007f; color: white; border: none; padding: 12px 20px; border-radius: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 0, 127, 0.3);">
+                ODPAL RADIO
+            </button>
+        </div>
 
-            <div id="pasekRMF" style="display: none; width: 100%; margin-top: 15px;">
-               <iframe src="https://www.rmfon.pl/play,rmf-fm" style="width: 100%; height: 80px; border: none; border-radius: 10px;" allow="autoplay"></iframe>
-            </div>
-                </div>
+        <div id="pasekRMF" style="display: none; width: 100%; margin-top: 15px;">
+           <iframe src="https://www.rmfon.pl/play,rmf-fm" style="width: 100%; height: 80px; border: none; border-radius: 10px;" allow="autoplay"></iframe>
+        </div>
+    </div>
+
+    ```
+
+Wklejasz to na samej górze ciała aplikacji (zaraz po otwarciu `app-container`), zapisujesz i gotowe. Masz jedną, elegancką kartę bez zbędnych, starych `divów`, które robiły zamieszanie. Ogień, działamy! 👊🚀☕🍕
     
 
         <div class="search-row">
