@@ -218,20 +218,23 @@
             const pasek = document.getElementById('pasekRMF');
             pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
         }
-
-        function pokazAlertPowitalny() {
-            alert(
-                "🌤️ PROGNOZA SKYCAST PRO - 22 MAJA 🌤️\n\n" +
-                "Dzień dobry! Przed nami bardzo spokojny i suchy dzień w całej Polsce.\n\n" +
-                "🌡️ TEMPERATURY:\n" +
-                "• Rano może być chłodno (w Krakowie ok. 9°C), więc przyda się bluza lub sweter.\n" +
-                "• W południe zrobi się bardzo przyjemnie! Od 19°C na północnym wschodzie do nawet 23°C we Wrocławiu. W Krakowie i Warszawie około 22°C.\n\n" +
-                "☂️ OPADY I WIATR:\n" +
-                "• Parasole zostawiamy w domu! W całym kraju nie będzie dziś padać (0% szans na deszcz).\n" +
-                "• Wiatr będzie bardzo słaby. Nie grożą nam żadne burze ani wichury, choć w ciągu dnia na niebie pojawi się trochę chmur.\n\n" +
-                "Dobrego i spokojnego dnia! 🌞☕"
-            );
+ function pokazAlertPowitalny() {
+    alert(
+        "🌈 OTWARTY KANAŁ SKYCAST PRO 🌈\n\n" +
+        "Dzień dobry Państwu, wita Was sobota, 23 maja! ☀️ Złoty Skaner przeanalizował najświeższe dane i nadaje oficjalny komunikat meteo (prognoza ważna do niedzieli, 24 maja, godz. 12:00). Zapinamy pasy i startujemy! 🚀\n\n" +
+        "🐉 KRAKÓW (Główne Centrum Dowodzenia):\n" +
+        "• Dziś w dzień słońce będzie przyjemnie przebijać się przez chmury ⛅. Będzie naprawdę ciepło – termometry poszybują nawet do 27°C!\n" +
+        "• Wieczór i poranek: Spokojniej, temperatura w granicach 14°C, z lekkim wiatrem (ok. 10 km/h) z północnego zachodu. Warunki idealne i stabilne. 🌙\n\n" +
+        "🇵🇱 SYTUACJA W CAŁEJ POLSCE:\n" +
+        "• Północ: Rześkie, czyste powietrze znad Bałtyku i przyjemne 18-20°C. 🌊\n" +
+        "• Centrum i reszta Południa: Przeważnie słonecznie, bezchmurnie i bardzo ciepło (22-25°C). ☀️\n" +
+        "• Bezpieczeństwo: Kraj czysty! Radary nie wykazują żadnych potężnych ulew ani gwałtownych burz do jutrzejszego południa. 🛡️\n\n" +
+        "🎵 RADIO TRANSMISJA DETEKTOR:\n" +
+        "• Przypominamy, że w naszej aplikacji na samej górze czeka na Was wbudowany odtwarzacz! Kliknij przycisk, włącz RMF FM i sprawdź prognozę przy najlepszych dźwiękach! 📻🎶\n\n" +
+        "Niech to będzie doskonały, spokojny dzień. Ogień, robimy swoje! 🔥"
+    );
         }
+            
 
         function uruchomProtokolGPS() {
             if (navigator.geolocation) {
