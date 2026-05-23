@@ -372,8 +372,9 @@
     if (iconCode.startsWith("13")) return "❄️";
     if (iconCode.startsWith("50")) return "🌫️";
     
-    return "☁️";
+                return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
             }
+            
             
         
         
