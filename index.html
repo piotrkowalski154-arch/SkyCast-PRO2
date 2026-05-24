@@ -247,13 +247,8 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
         }, 500);
     };
     
-    // ... reszta Twoich funkcji (pokazRMF, pokazAlertPowitalny itp. zostaje bez zmian)
-
-
-    // ==========================================
-
-
-       function pokazRMF() {
+    
+    function pokazRMF() {
         const pasek = document.getElementById('pasekRMF');
         pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
     }
@@ -267,11 +262,15 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
         "• Zagrożenia: BRAK. System odnotował pełne bezpieczeństwo – zero burz i ulew.\n\n" +
         "🇵🇱 SYTUACJA W POLSCE:\n" +
         "• Kraj pod wpływem silnego wyżu. Od Warszawy po Wrocław: dużo słońca, temperatury letnie (nawet do 28°C na zachodzie), brak opadów.\n\n" +
-        "System SkyCast PRO działa poprawnie. Wszystkie moduły w gotowości. Ogień, robimy swoje! 🔥"
+        "System SkyCast PRO działa poprawnie. Wszystkie moduły w gotowości☔⛅👷😁🌞🍕"
     );
-}
+    
 
 
+    // ==========================================
+
+
+       
     function uruchomProtokolGPS() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(pozycja) {
