@@ -264,20 +264,17 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
         "• Kraj pod wpływem silnego wyżu. Od Warszawy po Wrocław: dużo słońca, temperatury letnie (nawet do 28°C na zachodzie), brak opadów.\n\n" +
         "System SkyCast PRO działa poprawnie. Wszystkie moduły w gotowości☔⛅👷😁🌞🍕"
     );
-    
+}
 
 
-    // ==========================================
-
-
-       
     function uruchomProtokolGPS() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(pozycja) {
                 console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
             });
         }
-    } 
+    }
+    
     
 
     function tlumaczPogodeTeraz(iconCode, description) {
