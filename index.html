@@ -253,12 +253,12 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
     // ==========================================
 
 
-    function pokazRMF() {
+       function pokazRMF() {
         const pasek = document.getElementById('pasekRMF');
         pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
     }
-im   function pokazAlertPowitalny() {
-        
+
+    function pokazAlertPowitalny() {
     alert(
         "🌤️ SKYCAST PRO - RAPORT METEO (23.05 12:00 - 24.05 12:00) 🚨\n\n" +
         "Witaj w systemie! Oto podsumowanie warunków dla Twojej lokalizacji i kraju:\n\n" +
@@ -267,10 +267,9 @@ im   function pokazAlertPowitalny() {
         "• Zagrożenia: BRAK. System odnotował pełne bezpieczeństwo – zero burz i ulew.\n\n" +
         "🇵🇱 SYTUACJA W POLSCE:\n" +
         "• Kraj pod wpływem silnego wyżu. Od Warszawy po Wrocław: dużo słońca, temperatury letnie (nawet do 28°C na zachodzie), brak opadów.\n\n" +
-        "System SkyCast PRO działa poprawnie. Wszystkie moduły w gotowości. Pamiętacie o wiadomosciach"):
- 
-        
-    }
+        "System SkyCast PRO działa poprawnie. Wszystkie moduły w gotowości. Ogień, robimy swoje! 🔥"
+    );
+}
 
 
     function uruchomProtokolGPS() {
@@ -279,7 +278,8 @@ im   function pokazAlertPowitalny() {
                 console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
             });
         }
-    }
+    } 
+    
 
     function tlumaczPogodeTeraz(iconCode, description) {
         let desc = description || "Zmienne warunki";
