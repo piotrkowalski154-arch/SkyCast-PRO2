@@ -487,37 +487,66 @@ Wciśnij "OK", aby załadować pełne radary i wejść do mojego centrum dowodze
 
         const hourlyCard = document.getElementById('hourlyCard');
         if(hourlyCard) hourlyCard.style.display = 'block';
-        
         const hL = document.getElementById('hList');
-        if(hL) {
-            hL.innerHTML = '';
-            for (let i = 0; i < 8; i++) {
-                const item = forecastData.list[i];
-                if (item) {
-                    const czas = item.dt_txt.slice(11, 16); 
-                    const tempH = Math.round(item.main.temp);
-                    const wItem = item.weather[0];
-                    
-                    let czystaIkona = "☁️";
-                    const isNightAPI = wItem.icon.endsWith("n"); 
-                    
-                    if (wItem.icon.startsWith("01")) czystaIkona = isNightAPI ? "🌙" : "☀️";
-                    else if (wItem.icon.startsWith("02") || wItem.icon.startsWith("03")) czystaIkona = isNightAPI ? "☁️" : "⛅";
-                    else if (wItem.icon.startsWith("04")) czystaIkona = "☁️";
-                    else if (wItem.icon.startsWith("09") || wItem.icon.startsWith("10")) czystaIkona = "🌧️";
-                    else if (wItem.icon.startsWith("11")) czystaIkona = "⚡";
-                    else if (wItem.icon.startsWith("13")) czystaIkona = "❄️";
-                    else if (wItem.icon.startsWith("50")) czystaIkona = "🌫️";
-                    
-                     hL.innerHTML += `
-                        <div class="h-box" style="display: inline-block; text-align: center; margin-right: 15px; min-width: 55px;">
-                            <div style="font-size: 0.85rem; font-weight: 700; opacity: 0.8;">${czas}</div>
-                            <div style="font-size: 2.2rem; margin: 8px 0; text-shadow: 0 2px 5px rgba(0,0,0,0.2);">${czystaIkona}</div>
-                            <div style="font-size: 1.2rem; font-weight: 900;">${tempH}°</div>
-                        </div>`;
+if (hL) {
+    hL.innerHTML = ''; // Czyszczenie starych kafelków z ekranu
+
+    // ZABEZPIECZENIE: Sprawdzamy, czy dane z API w ogóle dopłynęły
+    if (forecastData && forecastData.list) {
+        
+        // Taśmociąg rusza - generujemy 8 kafelków
+        for (let i = 0; i < 8; i++) {
+            const item = forecastData.list[i];
+            
+            if (item) {
+                // 1. WYCIĄGAMY SUROWCE Z BIBLIOTEKI API (URATOWANE LINIJKI!)
+                const czas = item.dt_txt.slice(11, 16); // Wycina np. "03:00"
+                const godzinaPunktu = parseInt(item.dt_txt.slice(11, 13)); // Zamienia na czystą liczbę, np. 3
+                const tempH = Math.round(item.main.temp); // <-- TA LINIA CI UCIEKŁA!
+                const wItem = item.weather ? item.weather[0] : null; // <-- TA LINIA TEŻ UCIEKŁA!
+
+                // Bezpiecznik: Jeśli z jakiegoś powodu API nie zwróciło ikony, pomiń ten krok
+                if (!wItem || !wItem.icon) continue;
+
+                // 2. TWOJA AUTORSKA LOGIKA WERYFIKACJI NOCY
+                let czyJestNoc = wItem.icon.endsWith("n"); // Czytamy domyślne info z serwera
+
+                // TWÓJ POTĘŻNY BEZPIECZNIK CZASOWY:
+                // Jeśli godzina mieści się w przedziale 2:00 - 5:00 rano, nadpisujemy system i WYMUSZAMY NOC!
+                if (godzinaPunktu >= 2 && godzinaPunktu <= 5) {
+                    czyJestNoc = true;
                 }
+
+                // 3. TWOJA AUTORSKA LOGIKA EMOJI (Teraz w pełni zsynchronizowana!)
+                let czystaIkona = "☁️"; 
+
+                if (wItem.icon.startsWith("01")) {
+                    czystaIkona = czyJestNoc ? "🌙" : "☀️"; // O 03:00 wpadnie upragniony księżyc!
+                } else if (wItem.icon.startsWith("02") || wItem.icon.startsWith("03")) {
+                    czystaIkona = czyJestNoc ? "☁️" : "⛅"; 
+                } else if (wItem.icon.startsWith("04")) {
+                    czystaIkona = "☁️";
+                } else if (wItem.icon.startsWith("09") || wItem.icon.startsWith("10")) {
+                    czystaIkona = "🌧️";
+                } else if (wItem.icon.startsWith("11")) {
+                    czystaIkona = "⚡";
+                } else if (wItem.icon.startsWith("13")) {
+                    czystaIkona = "❄️";
+                } else if (wItem.icon.startsWith("50")) {
+                    czystaIkona = "🌫️";
+                }
+
+                // 4. WSTRZYKIWANIE ELEMENTU DO DRZEWA DOM (Czysty wygląd premium)
+                hL.innerHTML += `
+                    <div class="h-box" style="display: inline-block; text-align: center; margin-right: 15px; min-width: 55px;">
+                        <div style="font-size: 0.85rem; font-weight: 700; opacity: 0.8;">${czas}</div>
+                        <div style="font-size: 2.2rem; margin: 8px 0; text-shadow: 0 2px 5px rgba(0,0,0,0.2);">${czystaIkona}</div>
+                        <div style="font-size: 1.2rem; font-weight: 900;">${tempH}°</div>
+                    </div>`;
             }
-        }
+        } // Tu się bezpiecznie kończy pętla for
+    }
+}
 
         const dailyCard = document.getElementById('dailyCard');
         if(dailyCard) dailyCard.style.display = 'block';
