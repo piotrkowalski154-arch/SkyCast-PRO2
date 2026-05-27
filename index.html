@@ -231,39 +231,36 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
     </div>
 </div>
 <script>
- // ========================================================
-// 🔑 KLUCZ API
-// ========================================================
-const API_KEY = "6def6302b0a9b722144968390f4b8522";
+    // ==========================================
+    // CZĘŚĆ 1: ROZRUSZNIK (ZOPTYMALIZOWANY)
+    // ==========================================
+    const API_KEY = "6def6302b0a9b722144968390f4b8522";
+    
+    window.onload = function() {
+        pokazAlertPowitalny(); 
+        uruchomProtokolGPS();  
+        // Dajemy systemowi 0.5 sekundy na "odetchnięcie" i narysowanie interfejsu
+        setTimeout(() => {
+            uruchomZlotySkaner(); 
+            pobierzWiadomosci();
+            skanujZagrozenia();
+        }, 500);
+    };
+    
+    // ... reszta Twoich funkcji (pokazRMF, pokazAlertPowitalny itp. zostaje bez zmian)
+
+
+
 
 // ========================================================
-// 📻 FUNKCJA RMF (POKAŻ/UKRYJ PASEK)
+// 📻 1. FUNKCJA RMF (NAPRAWIONA)
 // ========================================================
-function pokazRMF() {
+function pokazRMF() { // Zmienione z wielkiego "Function" na małe "function" — kluczowa poprawka!
     const pasek = document.getElementById('pasekRMF');
-    if (pasek) {
+    if (pasek) { // Pancerne zabezpieczenie: jeśli pasek istnieje w HTML, to nim steruj
         pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
     }
 }
-
-// ========================================================
-// 🛰️ FUNKCJA GPS
-// ========================================================
-function uruchomProtokolGPS() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pozycja) {
-            console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
-        }, function(blad) {
-            console.log("GPS: Nie udało się namierzyć pozycji.");
-        });
-    } else {
-        console.log("GPS: Geolokalizacja nie jest wspierana przez tę przeglądarkę.");
-    }
-}
-
-// ========================================================
-// 📢 ALERT POWITALNY SKYCAST PRO
-// ========================================================
 function pokazAlertPowitalny() {
     // ========== DANE RAPORTU ==========
     const tytul = "📢 SKYCAST PRO – SYSTEM MONITORINGU METEOROLOGICZNEGO";
@@ -295,7 +292,7 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
 ➡️ Zachowaj ostrożność, śledź komunikaty i nie ryzykuj.
     `;
 
-    // ========== TREŚĆ RAPORTU ==========
+    // ========== TREŚĆ RAPORTU (z wklejonym alertem) ==========
     const pelnyRaport = tytul + "\n" +
         "==================================================\n\n" +
         "Szanowny Użytkowniku,\n" +
@@ -341,7 +338,7 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
         "   * LLS: 10-12 m/s | SRH 0-3km: do ok. 200 m²/s².\n" +
         "   * Poziom LCL: dość niski (sprzyja kondensacji).\n\n" +
         "⏱️ Burze szybko opuszczą Polskę po godz. 17:00 czasu lokalnego.\n\n" +
-        alertLowcyBurz + "\n\n" +
+        alertLowcyBurz + "\n\n" +   // <-- NOWY ALERT WCISNIĘTY TUTAJ
         "--------------------------------------------------\n" +
         "☕ WIRTUALNA KAWA – WSPARCIE PROJEKTU\n" +
         "--------------------------------------------------\n" +
@@ -365,7 +362,7 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
         background: rgba(0,0,0,0.8); z-index: 9999;
         display: flex; justify-content: center; align-items: center;
     `;
-
+    
     const okno = document.createElement('div');
     okno.style.cssText = `
         background: linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%);
@@ -388,7 +385,7 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
     const trescDiv = document.createElement('div');
     trescDiv.style.whiteSpace = 'pre-wrap';
     trescDiv.textContent = pelnyRaport;
-
+    
     // ========== PALETA KOLORÓW ==========
     const paleta = document.createElement('div');
     paleta.style.cssText = `
@@ -400,13 +397,14 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
         border-bottom: 2px solid #4a9eff;
         flex-wrap: wrap;
     `;
+    
+const kolory = [
+    { nazwa: "🌙 Ciemny", gradient: "linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%)", kolorTekstu: "#e0e0e0" },
+    { nazwa: "🔵 Niebieski", gradient: "linear-gradient(135deg, #b3e5fc 0%, #81d4fa 100%)", kolorTekstu: "#01579b" },
+    { nazwa: "🎉 IMPREZOWY", gradient: "linear-gradient(135deg, #ff007f, #ff7a00, #ffff00)", kolorTekstu: "#ffffff" }
+];
 
-    const kolory = [
-        { nazwa: "🌙 Ciemny", gradient: "linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%)", kolorTekstu: "#e0e0e0" },
-        { nazwa: "🔵 Niebieski", gradient: "linear-gradient(135deg, #b3e5fc 0%, #81d4fa 100%)", kolorTekstu: "#01579b" },
-        { nazwa: "🎉 IMPREZOWY", gradient: "linear-gradient(135deg, #ff007f, #ff7a00, #ffff00)", kolorTekstu: "#ffffff" }
-    ];
-
+    
     kolory.forEach(kolor => {
         const btn = document.createElement('button');
         btn.textContent = kolor.nazwa;
@@ -429,7 +427,7 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
         };
         paleta.appendChild(btn);
     });
-
+    
     // ========== PRZYCISK ZAMYKANIA ==========
     const przycisk = document.createElement('button');
     przycisk.textContent = '✖ ZAMKNIJ RAPORT';
@@ -441,39 +439,37 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
     `;
     przycisk.onmouseover = () => przycisk.style.background = '#c0392b';
     przycisk.onmouseout = () => przycisk.style.background = '#e74c3c';
-
+    
     // ========== SKŁADANIE MODALA ==========
     okno.appendChild(paleta);
     okno.appendChild(trescDiv);
     okno.appendChild(przycisk);
     modal.appendChild(okno);
     document.body.appendChild(modal);
-
+    
     // Zamknięcie
     przycisk.onclick = () => modal.remove();
     modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 }
 
-// ========================================================
-// 🚀 ROZRUSZNIK (ZOPTYMALIZOWANY) – URUCHOMIENIE PRZY STACIE
-// ========================================================
-window.onload = function() {
-    pokazAlertPowitalny();
-    uruchomProtokolGPS();
-    // System dostaje 0.5 sekundy na oddech
-    setTimeout(() => {
-        uruchomZlotySkaner();
-        pobierzWiadomosci();
-        skanujZagrozenia();
-    }, 500);
-};
+
+
+  
+
+
+
+    function uruchomProtokolGPS() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pozycja) {
+                console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
+            });
+        }
     }
-    
+  
+
     
 
     
-    
-
     function tlumaczPogodeTeraz(iconCode, description) {
         let desc = description || "Zmienne warunki";
         let icon = "☁️";
