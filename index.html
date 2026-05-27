@@ -369,61 +369,132 @@ Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
         border-bottom: 2px solid #4a9eff;
         flex-wrap: wrap;
     `
-    
-    // Definicja kolorów (nazwa + gradient)
-    const kolory = [
-    { nazwa: "🌙 Ciemny", gradient: "linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%)", kolorTekstu: "#e0e0e0" },
-    { nazwa: "🔵 Niebieski", gradient: "linear-gradient(135deg, #b3e5fc 0%, #81d4fa 100%)", kolorTekstu: "#01579b" },
-    { nazwa: "🎉 IMPREZOWY", gradient: "linear-gradient(135deg, #ff007f, #ff7a00, #ffff00)", kolorTekstu: "#ffffff" }
-];
-    
-    kolory.forEach(kolor => {
-        const btn = document.createElement('button');
-        btn.textContent = kolor.nazwa;
-        btn.style.cssText = `
-            padding: 8px 16px;
-            background: rgba(74,158,255,0.2);
-            border: 2px solid #4a9eff;
-            border-radius: 30px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            transition: 0.2s;
-        `;
-        btn.onmouseover = () => btn.style.background = "#4a9eff";
-        btn.onmouseout = () => btn.style.background = "rgba(74,158,255,0.2)";
-        btn.onclick = () => {
-            okno.style.background = kolor.gradient;
-            okno.style.color = kolor.kolorTekstu;
-        };
-        paleta.appendChild(btn);
-    });
-    
-    // ========== PRZYCISK ZAMYKANIA ==========
-    const przycisk = document.createElement('button');
-    przycisk.textContent = '✖ ZAMKNIJ RAPORT';
-    przycisk.style.cssText = `
-        display: block; margin: 20px auto 0; padding: 12px 30px;
-        background: #e74c3c; color: white; border: none;
-        border-radius: 30px; cursor: pointer; font-weight: bold;
-        font-size: 14px; transition: 0.2s;
-    `;
-    przycisk.onmouseover = () => przycisk.style.background = '#c0392b';
-    przycisk.onmouseout = () => przycisk.style.background = '#e74c3c';
-    
-    // ========== SKŁADANIE MODALA ==========
-    okno.appendChild(paleta);
-    okno.appendChild(trescDiv);
-    okno.appendChild(przycisk);
-    modal.appendChild(okno);
-    document.body.appendChild(modal);
-    
-    // Zamknięcie
-    przycisk.onclick = () => modal.remove();
-    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
-   }
+==============
+function pokazRMF() { // Zmienione z wielkiego "Function" na małe "function" — kluczowa poprawka!
+    const pasek = document.getElementById('pasekRMF');
+    if (pasek) { // Pancerne zabezpieczenie: jeśli pasek istnieje w HTML, to nim steruj
+        pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
+    }
+}
+function pokazAlertPowitalny() {
+    // ========== DANE RAPORTU ==========
+    const tytul = "📢 SKYCAST PRO – SYSTEM MONITORINGU METEOROLOGICZNEGO";
+    const lokalizacja = "📍 Region: Kraków (Małopolska)";
+    const data = "📅 Data: Środa, 27 maja 2026 r.";
+    const pogodaDzis = "⛈️ Aura: Wzrost zachmurzenia, burze z gradem (23°C - 25°C)";
+    const parametry = "💨 Wiatr: w porywach do 90 km/h | 📈 Ciśnienie: 1030 hPa (spadki przedfrontowe)";
+    const statusSystemu = "🟢 Status: System operacyjny, baza danych zaktualizowana poprawnie.";
 
+    // ========== NOWY ALERT (ŁOWCY BURZ) ==========
+    const alertLowcyBurz = `
+--------------------------------------------------
+🕵️‍♂️⚠️ AKTUALNY ALERT BURZOWY (ŁOWCY BURZ) ⚠️🕵️‍♂️
+--------------------------------------------------
+🔴🔴 SILNE BURZE SUPERKOMÓRKOWE W KARPATACH! 🔴🔴
+
+📅 Kiedy: środa (27.05) od ok. 11:00 do czwartku rana (28.05, godz. 8:00).
+📍 Gdzie: głównie Karpaty, południowy wschód Polski (Małopolska, Podkarpacie).
+
+⚠️ CO GROZI?
+• Grad wielkości 3-4 cm (jak piłeczka pingpongowa!)
+• Wiatr w porywach do 90 km/h, miejscami nawet 100 km/h
+• Ulewne deszcze – możliwe podtopienia i zalania
+• RZADKIE, ALE MOŻLIWE: silna trąba powietrzna
+
+🏔️ UWAGA! W GÓRACH JEST NIEBEZPIECZNIE.
+Jeśli planowałeś wycieczkę – ODWOŁAJ JĄ. Lepiej zostań w domu.
+
+➡️ Zachowaj ostrożność, śledź komunikaty i nie ryzykuj.
+    `;
+
+    // ========== TREŚĆ RAPORTU (z wklejonym alertem) ==========
+    const pelnyRaport = tytul + "\n" +
+        "==================================================\n\n" +
+        "Szanowny Użytkowniku,\n" +
+        "Witam w panelu startowym systemu SkyCast PRO.\n" +
+        "Prezentuję aktualny, ogólnokrajowy raport synoptyczny.\n\n" +
+        lokalizacja + "\n" +
+        data + "\n\n" +
+        "--------------------------------------------------\n" +
+        "📊 AKTUALNE PARAMETRY ATMOSFERYCZNE\n" +
+        "--------------------------------------------------\n" +
+        pogodaDzis + "\n" +
+        parametry + "\n\n" +
+        "--------------------------------------------------\n" +
+        "🚨 AKTUALNE ALERTY IMGW NA DZIŚ (27 MAJA)\n" +
+        "--------------------------------------------------\n" +
+        "🔴 STREFA BURZOWA (Centrum, Wschód, Południe):\n" +
+        "   * ALERT 1. I 2. STOPNIA przed gwałtownymi burzami z gradem!\n" +
+        "   * Porywy wiatru w czasie wyładowań lokalnie do 60-65 km/h.\n" +
+        "   * Intensywne opady deszczu grożące lokalnymi podtopieniami.\n\n" +
+        "🟡 STREFA UPAŁÓW (Pas Zachodni kraju):\n" +
+        "   * ALERT 1. STOPNIA przed wysokimi temperaturami.\n" +
+        "   * Termometry w cieniu mogą wskazać lokalnie do 30°C.\n" +
+        "   * Województwa objęte: Lubuskie, Dolnośląskie, zachodnia Wielkopolska.\n\n" +
+        "💨 ALERT WIATROWY (Wybrzeże oraz rejony górskie):\n" +
+        "   * Prognozowane silne porywy wiatru od 55 do 70 km/h.\n\n" +
+        "🟢 REGION MAŁOPOLSKA (W tym Kraków):\n" +
+        "   * Możliwe gwałtowne burze po południu. Zachowaj ostrożność.\n\n" +
+        "--------------------------------------------------\n" +
+        "🌪️ SZCZEGÓŁOWA PROGNOZA KONWEKCYJNA NA DZIŚ\n" +
+        "--------------------------------------------------\n" +
+        "⚠️ 1. STOPIEŃ ZAGROŻENIA dla płd. i płd.-wsch. części Polski.\n\n" +
+        "🔹 GŁÓWNE ZAGROŻENIA:\n" +
+        "   * Silne i bardzo silne porywy wiatru (do 75-90 km/h).\n" +
+        "   * Duży grad o średnicy do ok. 3-4 cm.\n" +
+        "   * Ulewne opady deszczu (10-20 mm/h).\n\n" +
+        "🔹 SZCZEGÓŁY DLA REGIONU (Małopolska/Podkarpacie):\n" +
+        "   * Największa aktywność: południe i wczesne popołudnie.\n" +
+        "   * Tworzenie superkomórek z ryzykiem gradobicia.\n" +
+        "   * Możliwy układ wielokomórkowy z linią szkwału (Podkarpacie).\n" +
+        "   * Niewykluczona izolowana, słaba trąba powietrzna.\n\n" +
+        "🔹 PARAMETRY ATMOSFERYCZNE (dla chętnych):\n" +
+        "   * CAPE: 800-1500 J/kg | DLS: 20-25 m/s.\n" +
+        "   * LLS: 10-12 m/s | SRH 0-3km: do ok. 200 m²/s².\n" +
+        "   * Poziom LCL: dość niski (sprzyja kondensacji).\n\n" +
+        "⏱️ Burze szybko opuszczą Polskę po godz. 17:00 czasu lokalnego.\n\n" +
+        alertLowcyBurz + "\n\n" +   // <-- NOWY ALERT WCISNIĘTY TUTAJ
+        "--------------------------------------------------\n" +
+        "☕ WIRTUALNA KAWA – WSPARCIE PROJEKTU\n" +
+        "--------------------------------------------------\n" +
+        "Jeśli podoba Ci się moja aplikacja i doceniasz moją pracę,\n" +
+        "możesz postawić mi wirtualną kawkę! ☕\n" +
+        "Twoje wsparcie daje mi nowe możliwości rozwoju SkyCast PRO\n" +
+        "oraz wdrażania kolejnych potężnych funkcji do systemu.\n\n" +
+        "--------------------------------------------------\n" +
+        "⚙️ KOMUNIKAT TECHNICZNY\n" +
+        "--------------------------------------------------\n" +
+        statusSystemu + "\n\n" +
+        "Dziękuję za korzystanie z mojej aplikacji.\n" +
+        "Proszę o zachowanie ostrożności w regionach objętych alertami.\n\n" +
+        "==================================================\n" +
+        "SYSTEM AKTYWNY • ŻYCZĘ BEZPIECZNEGO DNIA • SKYCAST PRO";
+
+
+    // ========== TWORZENIE MODALA ==========
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 9999;
+        display: flex; justify-content: center; align-items: center;
+    `;
+    
+    const okno = document.createElement('div');
+    okno.style.cssText = `
+        background: linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%);
+        color: #e0e0e0;
+        padding: 25px;
+        border-radius: 20px;
+        max-width: 550px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        border: 2px solid #4a9eff;
+        transition: all 0.3s ease;
 function uruchomProtokolGPS() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(pozycja) {
