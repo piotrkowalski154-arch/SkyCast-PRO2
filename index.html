@@ -254,7 +254,7 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
     }
 
    function pokazAlertPowitalny() {
-    // 1. Zmienne z danymi w systemie (Stan na dzień: 27 maja 2026 r.)
+    // ========== DANE RAPORTU (bez zmian) ==========
     const tytul = "📢 SKYCAST PRO – SYSTEM MONITORINGU METEOROLOGICZNEGO";
     const lokalizacja = "📍 Region: Kraków (Małopolska)";
     const data = "📅 Data: Środa, 27 maja 2026 r.";
@@ -262,7 +262,6 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
     const parametry = "💨 Wiatr: w porywach do 90 km/h | 📈 Ciśnienie: 1030 hPa (spadki przedfrontowe)";
     const statusSystemu = "🟢 Status: System operacyjny, baza danych zaktualizowana poprawnie.";
 
-    // 2. Budowanie komunikatu (Czysty tekst \n — personalizacja oraz sekcja wsparcia)
     const pelnyRaport = tytul + "\n" +
         "==================================================\n\n" +
         "Szanowny Użytkowniku,\n" +
@@ -324,9 +323,104 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
         "==================================================\n" +
         "SYSTEM AKTYWNY • ŻYCZĘ BEZPIECZNEGO DNIA • SKYCAST PRO";
 
-    // 3. Wyświetlenie alertu
-    alert(pelnyRaport);
-}
+    // ========== BUDOWA MODALA Z PALETĄ KOLORÓW ==========
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 9999;
+        display: flex; justify-content: center; align-items: center;
+    `;
+    
+    const okno = document.createElement('div');
+    okno.style.cssText = `
+        background: linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%);
+        color: #e0e0e0;
+        padding: 25px;
+        border-radius: 20px;
+        max-width: 550px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        border: 2px solid #4a9eff;
+        transition: all 0.3s ease;
+    `;
+    
+    // ========== TREŚĆ RAPORTU ==========
+    const trescDiv = document.createElement('div');
+    trescDiv.style.whiteSpace = 'pre-wrap';
+    trescDiv.textContent = pelnyRaport;
+    
+    // ========== PALETA KOLORÓW (dla znajomych) ==========
+    const paleta = document.createElement('div');
+    paleta.style.cssText = `
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #4a9eff;
+        flex-wrap: wrap;
+    `;
+    
+    // Definicja kolorów (nazwa + gradient)
+    const kolory = [
+        { nazwa: "🌙 Ciemny", gradient: "linear-gradient(135deg, #1a2a4a 0%, #0a1628 100%)", kolorTekstu: "#e0e0e0" },
+        { nazwa: "🌿 Wiosenny", gradient: "linear-gradient(135deg, #e8f5e9 0%, #fff9c4 100%)", kolorTekstu: "#2e5a2e" },
+        { nazwa: "🔵 Niebieski", gradient: "linear-gradient(135deg, #b3e5fc 0%, #81d4fa 100%)", kolorTekstu: "#01579b" },
+        { nazwa: "💙 Granat", gradient: "#1a2a4a", kolorTekstu: "#e0e0e0" },
+        { nazwa: "☀️ Jasny", gradient: "#f5f5f0", kolorTekstu: "#1e2a3a" }
+    ];
+    
+    kolory.forEach(kolor => {
+        const btn = document.createElement('button');
+        btn.textContent = kolor.nazwa;
+        btn.style.cssText = `
+            padding: 8px 16px;
+            background: rgba(74,158,255,0.2);
+            border: 2px solid #4a9eff;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: 0.2s;
+        `;
+        btn.onmouseover = () => btn.style.background = "#4a9eff";
+        btn.onmouseout = () => btn.style.background = "rgba(74,158,255,0.2)";
+        btn.onclick = () => {
+            okno.style.background = kolor.gradient;
+            okno.style.color = kolor.kolorTekstu;
+        };
+        paleta.appendChild(btn);
+    });
+    
+    // ========== PRZYCISK ZAMYKANIA ==========
+    const przycisk = document.createElement('button');
+    przycisk.textContent = '✖ ZAMKNIJ RAPORT';
+    przycisk.style.cssText = `
+        display: block; margin: 20px auto 0; padding: 12px 30px;
+        background: #e74c3c; color: white; border: none;
+        border-radius: 30px; cursor: pointer; font-weight: bold;
+        font-size: 14px; transition: 0.2s;
+    `;
+    przycisk.onmouseover = () => przycisk.style.background = '#c0392b';
+    przycisk.onmouseout = () => przycisk.style.background = '#e74c3c';
+    
+    // ========== SKŁADANIE MODALA ==========
+    okno.appendChild(paleta);
+    okno.appendChild(trescDiv);
+    okno.appendChild(przycisk);
+    modal.appendChild(okno);
+    document.body.appendChild(modal);
+    
+    // Zamknięcie
+    przycisk.onclick = () => modal.remove();
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+   }
 
 function uruchomProtokolGPS() {
     if (navigator.geolocation) {
