@@ -631,7 +631,7 @@ function uruchomProtokolGPS() {
         
         let mysl = "Pogoda stabilna jak dobrze wyrośnięte ciasto. Idealny moment na dobrą kawę! ☁️☕";
         
-        if (currentData.main.temp > 34) mysl = "Gorąco jak w samym środku pieca szamotowego! 🍕 Pijcie mnóstwo wody! 💧🔥";
+        if (currentData.main.temp > 25) mysl = "Gorąco jak w samym środku pieca szamotowego! 🍕 Pijcie mnóstwo wody! 💧🔥";
         else if (currentData.main.temp > 25) mysl = "Słońce świeci na pełnej! Rzucajcie wszystko i uciekać na zewnątrz! ☀️😎🚀";
         else if (currentData.main.temp < 5) mysl = "Zimno, że aż tnie! Zakładać ciepłe kurtki i parzyć herbatę! 🥶☕";
         else if (weatherObj.id >= 500 && weatherObj.id <= 531) mysl = "Z nieba leje jak z uszkodzonego hydrantu! 🌧️🎧";
