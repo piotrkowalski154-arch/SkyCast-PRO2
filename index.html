@@ -254,22 +254,67 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
     }
 
     function pokazAlertPowitalny() {
-    alert(`🚨 SKYCAST PRO: MÓJ AUTORSKI RAPORT METEO 🚨
+    // 1. Zmienne z danymi w systemie (Stan na dzień: 27 maja 2026 r.)
+    const tytul = "📢 SKYCAST PRO – SYSTEM MONITORINGU METEOROLOGICZNEGO";
+    const lokalizacja = "📍 Region: Kraków (Małopolska)";
+    const data = "📅 Data: Środa, 27 maja 2026 r.";
+    const pogodaDzis = "☀️ Aura: Słonecznie, 23°C - 25°C (Brak opadów)";
+    const parametry = "💨 Wiatr: do 17 km/h | 📈 Ciśnienie: 1030 hPa";
+    const prognozaJutro = "🔮 Prognoza: Przejściowe ochłodzenie, wieczorem możliwe lokalne burze";
+    const statusSystemu = "🟢 Status: System operacyjny, baza danych zaktualizowana poprawnie.";
 
-Cześć! Z tej strony Piotrek, twórca SkyCast PRO. Zanim ruszycie w teren, łapcie najnowsze zrzuty z moich radarów. Zbliża się gwałtowne zderzenie dwóch potężnych frontów nad Polską!
+    // 2. Budowanie komunikatu (Czysty tekst \n — personalizacja oraz sekcja wsparcia)
+    const pelnyRaport = tytul + "\n" +
+        "==================================================\n\n" +
+        "Szanowny Użytkowniku,\n" +
+        "Witam w panelu startowym systemu SkyCast PRO.\n" +
+        "Prezentuję aktualny, ogólnokrajowy raport synoptyczny.\n\n" +
+        lokalizacja + "\n" +
+        data + "\n\n" +
+        "--------------------------------------------------\n" +
+        "📊 AKTUALNE PARAMETRY ATMOSFERYCZNE\n" +
+        "--------------------------------------------------\n" +
+        pogodaDzis + "\n" +
+        parametry + "\n\n" +
+        "--------------------------------------------------\n" +
+        "🚨 AKTUALNE ALERTY IMGW DLA CAŁEJ POLSKI (27 MAJA)\n" +
+        "--------------------------------------------------\n" +
+        "🔴 STREFA BURZOWA (Centrum, Wschód, Południe):\n" +
+        "   * ALERT 1. I 2. STOPNIA przed gwałtownymi burzami z gradem!\n" +
+        "   * Porywy wiatru w czasie wyładowań lokalnie do 60-65 km/h.\n" +
+        "   * Intensywne opady deszczu grożące lokalnymi podtopieniami.\n\n" +
+        "🟡 STREFA UPAŁÓW (Pas Zachodni kraju):\n" +
+        "   * ALERT 1. STOPNIA przed wysokimi temperaturami.\n" +
+        "   * Termometry w cieniu mogą wskazać lokalnie do 30°C.\n" +
+        "   * Województwa objęte: Lubuskie, Dolnośląskie, zachodnia Wielkopolska.\n\n" +
+        "💨 ALERT WIATROWY (Wybrzeże oraz rejony górskie):\n" +
+        "   * Prognozowane silne porywy wiatru od 55 do 70 km/h.\n\n" +
+        "🟢 REGION MAŁOPOLSKA (W tym Kraków):\n" +
+        "   * Brak aktywnych zagrożeń. Pogoda stabilna pod wpływem wyżu.\n\n" +
+        "--------------------------------------------------\n" +
+        "🔮 PROGNOZA KRÓTKOTERMINOWA NA KOLEJNĄ DOBĘ\n" +
+        "--------------------------------------------------\n" +
+        prognozaJutro + "\n" +
+        "⚠️ UWAGA: Kolejna noc przyniesie drastyczne spadki temperatur w kraju.\n\n" +
+        "--------------------------------------------------\n" +
+        "☕ WIRTUALNA KAWA – WSPARCIE PROJEKTU\n" +
+        "--------------------------------------------------\n" +
+        "Jeśli podoba Ci się moja aplikacja i doceniasz moją pracę,\n" +
+        "możesz postawić mi wirtualną kawkę! ☕\n" +
+        "Twoje wsparcie daje mi nowe możliwości rozwoju SkyCast PRO\n" +
+        "oraz wdrażania kolejnych potężnych funkcji do systemu.\n\n" +
+        "--------------------------------------------------\n" +
+        "⚙️ KOMUNIKAT TECHNICZNY\n" +
+        "--------------------------------------------------\n" +
+        statusSystemu + "\n\n" +
+        "Dziękuję za korzystanie z mojej aplikacji.\n" +
+        "Proszę o zachowanie ostrożności w regionach objętych alertami.\n\n" +
+        "==================================================\n" +
+        "SYSTEM AKTYWNY • ŻYCZĘ BEZPIECZNEGO DNIA • SKYCAST PRO";
 
-☀️ WTOREK (26 MAJA) - UDERZENIE GORĄCA
-Kraj dzieli się na gorące południe i centrum. W naszym Krakowie, a także w Warszawie czy Wrocławiu, termometry poszybują do 25°C - 29°C! 🥵 Czyste niebo i ostre słońce. Pamiętajcie o nawodnieniu! 💧
-
-📉 ŚRODA (27 MAJA) - GWAŁTOWNE OCHŁODZENIE
-Uwaga na drastyczną zmianę pogody! Z północy wkracza potężny front. Termometry w całej Polsce zaliczą ostry spadek do 15°C - 20°C. 🥶
-🌊 Północ (Bałtyk/Pomorze): Bardzo silny wiatr do 80-100 km/h! Wydano ostrzeżenia przed sztormem!
-🌧️ Południe i Wschód: Przelotne deszcze, a w nocy spadek temperatury nawet do 7°C. Szykujcie cieplejsze ubrania! 🧥🌬️
-
-Wciśnij "OK", aby załadować pełne radary i wejść do mojego centrum dowodzenia! 🚀`);
-    
-    
-}
+    // 3. Wywołanie bezpiecznego okienka systemowego
+    alert(pelnyRaport);
+    }}
 
 
     function uruchomProtokolGPS() {
