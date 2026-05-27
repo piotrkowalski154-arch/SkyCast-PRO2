@@ -630,13 +630,46 @@ function uruchomProtokolGPS() {
         if (widget) widget.style.display = 'block';
         
         let mysl = "Pogoda stabilna jak dobrze wyrośnięte ciasto. Idealny moment na dobrą kawę! ☁️☕";
+
+// BURZE I DESZCZE (najważniejsze – pierwsze w kolejności)
+if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+    mysl = "⚡🌪️ Błyskawice jak flesze paparazzi! Zostań w domu i zamknij okna – pogoda szaleje.";
+} else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+    mysl = "🌧️💦 Deszcz, deszcz – nie pada na nas? Pada. Na lepszy nastrój polecamy donut i serial.";
+}
+// EKSTREMY TERMICZNE
+else if (currentData.main.temp > 30) {
+    mysl = "Gorąco jak w samym środku pieca szamotowego! 🍕 Pijcie mnóstwo wody! 💧🔥";
+} else if (currentData.main.temp > 25) {
+    mysl = "🥵 Termometry wariują! Wkładamy okulary, pijemy litry i chowamy się przed słońcem.";
+} else if (currentData.main.temp > 20 && currentData.main.temp <= 25 && weatherObj.id === 800) {
+    mysl = "☀️🌡️ Dwadzieścia parę stopni, czyste niebo – pizza za rogiem, uśmiech na twarzy. Życie jest dobre! 🍕😎";
+} else if (currentData.main.temp < 0) {
+    mysl = "❄️🚨 ZIMNO JAK W LODÓWCE! Zakładamy wszystko co ciepłe i pijemy herbatę z miodem.";
+} else if (currentData.main.temp < 5) {
+    mysl = "Zimno, że aż tnie! Zakładać ciepłe kurtki i parzyć herbatę! 🥶☕";
+}
+// PRZYJEMNA POGODA (10–20°C)
+else if (currentData.main.temp >= 10 && currentData.main.temp <= 20) {
+    mysl = "🌿💨 Wietrzymy chatę, pachnie świeżością. Idealny dzień na rower lub kawę na ławce.";
+}
+// NOCNE NIEBO
+else if (weatherObj.id === 800 && isNight) {
+    mysl = "🌙✨ Niebo czyste jak łza, księżyc w pełni. Wietrzymy głowę i śpimy jak bambino.";
+}
+// SŁOŃCE (dla id 800 i dzień)
+else if (weatherObj.id === 800 && !isNight) {
+    mysl = "☀️ Słońce świeci na pełnej! Rzucajcie wszystko i uciekajcie na zewnątrz! 🚀😎";
+}
+
+// Wyświetlenie
+if (document.getElementById('thesisP')) {
+    document.getElementById('thesisP').innerText = mysl;
+}
+
+
         
-        if (currentData.main.temp > 25) mysl = "Gorąco jak w samym środku pieca szamotowego! 🍕 Pijcie mnóstwo wody! 💧🔥";
-        else if (currentData.main.temp > 25) mysl = "Słońce świeci na pełnej! Rzucajcie wszystko i uciekać na zewnątrz! ☀️😎🚀";
-        else if (currentData.main.temp < 5) mysl = "Zimno, że aż tnie! Zakładać ciepłe kurtki i parzyć herbatę! 🥶☕";
-        else if (weatherObj.id >= 500 && weatherObj.id <= 531) mysl = "Z nieba leje jak z uszkodzonego hydrantu! 🌧️🎧";
-        else if (weatherObj.id >= 200 && weatherObj.id <= 232) mysl = "Grzmi i błyska! Siedzimy bezpiecznie w ciepłym domu! ⚡⛈️";
-        else if (weatherObj.id === 800 && isNight) mysl = "Księżyc świeci jak idealnie okrągła pizza! 🌙 Czas na chill. ✨🎧";
+        
         
         if(document.getElementById('thesisP')) document.getElementById('thesisP').innerText = mysl;
 
