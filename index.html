@@ -645,39 +645,55 @@ if (hL) {
     }
 </script>
 <script>
+    
     // ==========================================
-    // CZĘŚĆ 3: RADARY TVN24, ZAGROŻENIA I AUTOMATYKA
+    // CZĘŚĆ 3: RADARY WIADOMOŚCI, ZAGROŻENIA I AUTOMATYKA
     // ==========================================
     function pobierzWiadomosci() {
         const kontener = document.getElementById('radar-wiadomosci');
         if (!kontener) return; 
-        const rssUrl = 'https://www.polsatnews.pl/rss/wszystkie.xml';
         
-
+        // Twój nowy, potężny i stabilny link Polsat News
+        const rssUrl = 'https://www.polsatnews.pl/rss/wszystkie.xml';
         const znacznikCzasu = new Date().getTime();
-        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&t=${znacznikCzasu}`;
+        
+        // Dodany bezpiecznik encodeURIComponent, żeby serwer się nie gubił
+        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${znacznikCzasu}`;
 
         fetch(proxyUrl)
             .then(response => response.json())
             .then(dane => {
-                let html = '<h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 WIADOMOŚCI⚠️</h3><ul style="list-style: none; padding: 0; margin: 0; text-align: left;">';
-                
-                for(let i = 0; i < 3; i++) {
-                    let wiadomosc = dane.items[i];
-                    html += `
-                        <li style="margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
-                            <span style="color: #b45309; font-size: 0.75rem; font-weight: bold;">PILNE 🚨</span><br>
-                            <a href="${wiadomosc.link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold;">
-                                ${wiadomosc.title}
-                            </a>
-                        </li>
-                    `;
+                // Sprawdzamy czy API nas wpuściło i czy są dane
+                if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
+                    let html = '<h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 WIADOMOŚCI⚠️</h3><ul style="list-style: none; padding: 0; margin: 0; text-align: left;">';
+                    
+                    const limit = Math.min(dane.items.length, 3);
+                    for(let i = 0; i < limit; i++) {
+                        let wiadomosc = dane.items[i];
+                        html += `
+                            <li style="margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                <span style="color: #b45309; font-size: 0.75rem; font-weight: bold;">PILNE 🚨</span><br>
+                                <a href="${wiadomosc.link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold;">
+                                    ${wiadomosc.title}
+                                </a>
+                            </li>
+                        `;
+                    }
+                    html += '</ul>';
+                    kontener.innerHTML = html;
+                } else {
+                    throw new Error("Blokada API lub brak danych");
                 }
-                html += '</ul>';
-                kontener.innerHTML = html;
             })
             .catch(blad => {
-                kontener.innerHTML = '<span style="color: red; font-weight: bold;">⚠️ Błąd radaru. Brak łączności.</span>';
+                // 🔥 PANCERNY TRYB AWARYJNY ZAMIAST CZERWONEGO BŁĘDU
+                kontener.innerHTML = `
+                    <h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 WIADOMOŚCI⚠️</h3>
+                    <div style="text-align: center; padding: 10px;">
+                        <span style="color: #d97706; font-weight: bold; font-size: 1rem;">🟡 TRYB OFFLINE</span><br>
+                        <span style="color: #475569; font-size: 0.85rem;">Oczekuję na wznowienie sygnału z Polsat News...</span>
+                    </div>
+                `;
             });
     }
 
@@ -695,7 +711,7 @@ if (hL) {
                 let czySaAlerty = false;
                 let trescAlertu = "";
 
-                if (dane.items && dane.items.length > 0) {
+                if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
                     let najnowszy = dane.items[0];
                     let tytul = najnowszy.title.toLowerCase();
                     
@@ -730,18 +746,18 @@ if (hL) {
                 }
             })
             .catch(blad => {
-                console.log("Złoty Skaner: Awaria łączności z serwerem radarowym.");
+                console.log("Złoty Skaner: Przełączono na lokalny tryb awaryjny.");
             });
     }
 
-    // Pętle odświeżania
+    // 🔥 PANCERNE PĘTLE ODŚWIEŻANIA (Bez banów od serwera)
     setInterval(uruchomZlotySkaner, 2 * 60 * 60 * 1000); 
-    setInterval(pobierzWiadomosci, 30000);             
-    setInterval(skanujZagrozenia, 600000);               
-
-</script>
+    setInterval(pobierzWiadomosci, 300000); // 300 000 ms to dokładnie 5 minut. Zero blokad!
+    setInterval(skanujZagrozenia, 600000);  // 600 000 ms to 10 minut.
+    </script>
 </body>
 </html>
+
 
                     
 
