@@ -14,7 +14,7 @@
             --glass-border: rgba(255, 255, 255, 0.7);
             
             --text: #000000;
-            --main-title: #000000;
+            --main-title: #000000; oo
             --blue: #2563eb;
             --green: #065f46;
             --red: #dc2626;
@@ -646,34 +646,35 @@ if (hL) {
 </script>
 <script>
     
-    // ==========================================
-    // CZĘŚĆ 3: RADARY WIADOMOŚCI, ZAGROŻENIA I AUTOMATYKA
+       // ==========================================
+    // CZĘŚĆ 3: RADARY WIADOMOŚCI (RMF24 NA ŻYWO)
     // ==========================================
     function pobierzWiadomosci() {
         const kontener = document.getElementById('radar-wiadomosci');
         if (!kontener) return; 
         
-        // Twój nowy, potężny i stabilny link Polsat News
-        const rssUrl = 'https://www.polsatnews.pl/rss/wszystkie.xml';
+        // 🔥 OFICJALNY, CZYSTY LINK DO RMF FM (RMF24)
+        const rssUrl = 'https://www.rmf24.pl/feed';
         const znacznikCzasu = new Date().getTime();
         
-        // Dodany bezpiecznik encodeURIComponent, żeby serwer się nie gubił
+        // Bezpieczne kodowanie dla API (żeby nas nie zablokowali)
         const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${znacznikCzasu}`;
 
         fetch(proxyUrl)
             .then(response => response.json())
             .then(dane => {
-                // Sprawdzamy czy API nas wpuściło i czy są dane
+                // Sprawdzamy czy RMF FM nas wpuścił
                 if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
-                    let html = '<h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 WIADOMOŚCI⚠️</h3><ul style="list-style: none; padding: 0; margin: 0; text-align: left;">';
+                    // Nagłówek dopasowany do RMF
+                    let html = '<h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 RMF24 NA ŻYWO 🟡</h3><ul style="list-style: none; padding: 0; margin: 0; text-align: left;">';
                     
                     const limit = Math.min(dane.items.length, 3);
                     for(let i = 0; i < limit; i++) {
                         let wiadomosc = dane.items[i];
                         html += `
                             <li style="margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
-                                <span style="color: #b45309; font-size: 0.75rem; font-weight: bold;">PILNE 🚨</span><br>
-                                <a href="${wiadomosc.link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold;">
+                                <span style="color: #eab308; font-size: 0.75rem; font-weight: bold; background-color: #1e293b; padding: 2px 6px; border-radius: 4px;">FAKTY RMF 🚨</span><br>
+                                <a href="${wiadomosc.link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-top: 4px;">
                                     ${wiadomosc.title}
                                 </a>
                             </li>
@@ -682,20 +683,21 @@ if (hL) {
                     html += '</ul>';
                     kontener.innerHTML = html;
                 } else {
-                    throw new Error("Blokada API lub brak danych");
+                    throw new Error("Blokada API lub brak danych z RMF");
                 }
             })
             .catch(blad => {
-                // 🔥 PANCERNY TRYB AWARYJNY ZAMIAST CZERWONEGO BŁĘDU
+                // 🔥 NASZ ZŁOTY TRYB AWARYJNY OFFLINE
                 kontener.innerHTML = `
-                    <h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 WIADOMOŚCI⚠️</h3>
+                    <h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 RMF24 NA ŻYWO 🟡</h3>
                     <div style="text-align: center; padding: 10px;">
                         <span style="color: #d97706; font-weight: bold; font-size: 1rem;">🟡 TRYB OFFLINE</span><br>
-                        <span style="color: #475569; font-size: 0.85rem;">Oczekuję na wznowienie sygnału z Polsat News...</span>
+                        <span style="color: #475569; font-size: 0.85rem;">Oczekuję na wznowienie sygnału z centrali RMF FM...</span>
                     </div>
                 `;
             });
     }
+    
 
     function skanujZagrozenia() {
         const szafeczka = document.getElementById('regionalAlertCard');
