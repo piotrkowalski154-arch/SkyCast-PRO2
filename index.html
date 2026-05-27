@@ -326,15 +326,19 @@ Każda "wirtualna kawa" pomaga mi utrzymać serwery i kodować nowe funkcje. Dzi
 
     // 3. Wyświetlenie alertu
     alert(pelnyRaport);
-        }
+}
 
-    function uruchomProtokolGPS() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(pozycja) {
-                console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
-            });
-        }
+function uruchomProtokolGPS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pozycja) {
+            console.log("GPS: Namierzono pozycję - Gotowy do pracy.");
+        }, function(blad) {
+            console.log("GPS: Nie udało się namierzyć pozycji.");
+        });
+    } else {
+        console.log("GPS: Geolokalizacja nie jest wspierana przez tę przeglądarkę.");
     }
+}
     
     
 
