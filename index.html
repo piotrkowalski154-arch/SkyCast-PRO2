@@ -488,7 +488,7 @@
                         let czyJestNoc = wItem.icon.endsWith("n"); 
                         if (godzinaPunktu >= 2 && godzinaPunktu <= 5) czyJestNoc = true;
 
-                        let czystaIkona = "☁️"; 
+                        let czystaIkona = "🌙";
                         if (wItem.icon.startsWith("01")) czystaIkona = czyJestNoc ? "🌙" : "☀️"; 
                         else if (wItem.icon.startsWith("02") || wItem.icon.startsWith("03")) czystaIkona = czyJestNoc ? "☁️" : "⛅"; 
                         else if (wItem.icon.startsWith("04")) czystaIkona = "☁️";
@@ -644,6 +644,22 @@
         setInterval(uruchomZlotySkaner, 2 * 60 * 60 * 1000); 
         setInterval(pobierzWiadomosci, 300000); 
         setInterval(skanujZagrozenia, 600000); 
+            function pobierzMyslPiotrka() {
+    // 1. Pobieramy aktualną godzinę z systemu
+    const godzina = new Date().getHours();
+    
+    // 2. Logika sprawdzania pory dnia
+    if (godzina >= 22 || godzina < 6) {
+        return "🌙 Noc: Czas na twardy reset i regenerację. Ładuję baterie.";
+    } else if (godzina >= 6 && godzina < 12) {
+        return "☕ Poranek: Kawa paruje, procesor czysty. Odpalamy ogień!";
+    } else if (godzina >= 12 && godzina < 18) {
+        return "☀️ Popołudnie: SkyCast PRO w pełnej gotowości. Kodujemy.";
+    } else {
+        return "🌅 Wieczór: Podsumowanie dnia. System zwalnia obroty.";
+    }
+            }
+            
     </script>
 </body>
 </html>
