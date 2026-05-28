@@ -649,16 +649,7 @@
     // 1. Pobieramy aktualną godzinę z systemu
     const godzina = new Date().getHours();
     
-    // 2. Logika sprawdzania pory dnia
-    if (godzina >= 22 || godzina < 6) {
-        return "🌙 Noc: Czas na twardy reset i regenerację. Ładuję baterie.";
-    } else if (godzina >= 6 && godzina < 12) {
-        return "☕ Poranek: Kawa paruje, procesor czysty. Odpalamy ogień!";
-    } else if (godzina >= 12 && godzina < 18) {
-        return "☀️ Popołudnie: SkyCast PRO w pełnej gotowości. Kodujemy.";
-    } else {
-        return "🌅 Wieczór: Podsumowanie dnia. System zwalnia obroty.";
-    }
+
             }
             function wybierzIkonePory(godzina) {
     // Jeśli godzina to 22, 23, 0, 1, 2, 3, 4 lub 5
