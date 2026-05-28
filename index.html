@@ -215,34 +215,33 @@
         </div>
     </div> 
     <script>
-    const API_KEY = "6def6302b0a9b722144968390f4b8522";
+                   
+const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
 // ========================================================
-// START SYSTEMU - ODPLENIE RADARU I POWITANIA
+// PANCERNY START SYSTEMU (BEZPIECZNIK DOM)
 // ========================================================
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("System gotowy, odpalam silniki...");
+    
+    // Odpalamy Twój piękny alert na Dzień Dobry (29 maja):
     pokazAlertPowitalny(); 
+    
+    // Uruchamiamy resztę silników:
     uruchomProtokolGPS();  
     uruchomZlotySkaner(); 
-};
+    
+    // ODPALAMY RADARY RSS PIOTRKA!
+    pobierzWiadomosci();
+    skanujZagrozenia();
+});
 
+// ========================================================
+// POMOCNICZE FUNKCJE SYSTEMOWE
+// ========================================================
 function pokazRMF() {
     const pasek = document.getElementById('pasekRMF');
-    pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
-}
-
-function pokazAlertPowitalny() {
-    const trescAlertu = "Dzień dobry! Przed nami bardzo spokojny i suchy dzień w całej Polsce.\n\n" +
-        "🌡️ TEMPERATURY:\n" +
-        "• Rano może być chłodno (w Krakowie ok. 9°C), więc przyda się bluza lub sweter.\n" +
-        "• W południe zrobi się bardzo przyjemnie! Od 19°C na północnym wschodzie do nawet 23°C we Wrocławiu. W Krakowie i Warszawie około 22°C.\n\n" +
-        "☂️ OPADY I WIATR:\n" +
-        "• Parasole zostawiamy w domu! W całym kraju nie będzie dziś padać (0% szans na deszcz).\n" +
-        "• Wiatr będzie bardzo słaby. Nie grożą nam żadne burze ani wichury, choć w ciągu dnia na niebie pojawi się trochę chmur.\n\n" +
-        "Dobrego i spokojnego dnia! 🌞☕";
-    
-    // Wstrzyknięcie uniwersalnego szablonu alertu na dzień dzisiejszy
-    pokazGłownyAlert("🌤️ PROGNOZA SKYCAST PRO - 29 MAJA 🌤️", trescAlertu);
+    if(pasek) pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
 }
 
 function uruchomProtokolGPS() {
@@ -276,7 +275,6 @@ function tlumaczPogodeTeraz(iconCode, description) {
     } else if (iconCode.startsWith("50")) {
         icon = "🌫️";
     }
-
     return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
 }
 
@@ -284,7 +282,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
     let desc = description || "Zmienne warunki";
     let icon = "☁️";
     if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-
     const isNightAPI = iconCode.endsWith("n");
     if (iconCode.startsWith("01")) {
         icon = isNightAPI ? "🌙" : "☀️";
@@ -301,7 +298,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
     } else if (iconCode.startsWith("50")) {
         icon = "🌫️";
     }
-
     return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
 }
 
@@ -311,6 +307,10 @@ function ocenaPowietrza(aqi) {
     if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
     if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
     return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
+}
+
+function zainstalujAplikacje() {
+    alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
 }
         // ========================================================
 // SILNIK ANALITYCZNY RADARU (ZŁOTY SKANER)
@@ -393,33 +393,38 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     }
 
     const wiatrKm = Math.round(currentData.wind.speed * 3.6);
-    document.getElementById('atmCard').style.display = 'block';
-    document.getElementById('valWind').innerText = wiatrKm;
-    document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
+    const atmCard = document.getElementById('atmCard');
+    if(atmCard) atmCard.style.display = 'block';
+    if(document.getElementById('valWind')) document.getElementById('valWind').innerText = wiatrKm;
+    if(document.getElementById('valPress')) document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
     
     if (aqiData && aqiData.current) {
         const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
-        document.getElementById('valAqi').innerText = stanPowietrza.tekst;
-        document.getElementById('valAqi').style.color = stanPowietrza.kolor;
-        document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
+        if(document.getElementById('valAqi')) {
+            document.getElementById('valAqi').innerText = stanPowietrza.tekst;
+            document.getElementById('valAqi').style.color = stanPowietrza.kolor;
+        }
+        if(document.getElementById('aqiIcon')) document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
     }
 
     const regCard = document.getElementById('regionalAlertCard');
     const regTitle = document.getElementById('regAlertTitle');
     const regText = document.getElementById('regAlertText');
-    if(regCard) regCard.style.display = "block";
-    if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
-        regCard.style.borderLeft = "6px solid var(--red)";
-        regCard.style.background = "rgba(239, 68, 68, 0.05)";
-        regTitle.style.color = "var(--red)";
-        regTitle.innerHTML = `⚠️ ALARM METEO: ${nazwaMiasta.toUpperCase()}`;
-        regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność!`;
-    } else {
-        regCard.style.borderLeft = "6px solid var(--green)";
-        regCard.style.background = "rgba(22, 163, 74, 0.05)";
-        regTitle.style.color = "var(--green)";
-        regTitle.innerHTML = `✅ STATUS: BEZPIECZNIE`;
-        regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
+    if(regCard && regTitle && regText) {
+        regCard.style.display = "block";
+        if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
+            regCard.style.borderLeft = "6px solid var(--red)";
+            regCard.style.background = "rgba(239, 68, 68, 0.05)";
+            regTitle.style.color = "var(--red)";
+            regTitle.innerHTML = `⚠️ ALARM METEO: ${nazwaMiasta.toUpperCase()}`;
+            regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność!`;
+        } else {
+            regCard.style.borderLeft = "6px solid var(--green)";
+            regCard.style.background = "rgba(22, 163, 74, 0.05)";
+            regTitle.style.color = "var(--green)";
+            regTitle.innerHTML = `✅ STATUS: BEZPIECZNIE`;
+            regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
+        }
     }
 
     let wykrytoZagrozenie = false;
@@ -497,7 +502,6 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     const dL = document.getElementById('dList');
     if(dL) {
         dL.innerHTML = '';
-        // INTEGRACJA: Pełne nazwy dni tygodnia na życzenie
         const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
         
         const dniMap = {};
@@ -543,29 +547,9 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
                     <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
                 </div>`;
         }
-    }function zainstalujAplikacje() {
-    alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
+    }
 }
-
-// ========================================================
-// PANCERNY START SYSTEMU (BEZPIECZNIK DOM)
-// ========================================================
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("System gotowy, odpalam silniki...");
-    
-    // Odpalamy Twój piękny alert na Dzień Dobry:
-    pokazAlertPowitalny(); 
-    
-    // Uruchamiamy resztę silników:
-    uruchomProtokolGPS();  
-    uruchomZlotySkaner(); 
-    
-    // ODPALAMY TWOJE RADARY RSS!
-    pobierzWiadomosci();
-    skanujZagrozenia();
-});
-
-// ========================================================
+        // ========================================================
 // RADAR HYBRYDOWY RSS Z TVN I GNEWS (MODUŁ PIOTRKA)
 // ========================================================
 function pobierzWiadomosci() {
@@ -658,6 +642,9 @@ function skanujZagrozenia() {
         .catch(blad => console.log("Złoty Skaner: Przełączono na lokalny tryb awaryjny."));
 }
 
+// ========================================================
+// AUTORSKIE MODUŁY PIOTRKA - LOGIKA CZASOWA I MODAL DOM
+// ========================================================
 function pokazAlertPowitalny() {
     const tytul = "📢 SKYCAST PRO – RAPORT PORANNY";
     const lokalizacja = "📍 Kraków (Małopolska) | 📅 Piątek, 29 maja 2026";
@@ -695,10 +682,6 @@ function pokazAlertPowitalny() {
 
     pokazGłownyAlert("🛡️ SYSTEM MONITORINGU", pelnyRaport);
 }
-
-// ========================================================
-// AUTORSKIE MODUŁY PIOTRKA - LOGIKA CZASOWA I MODAL DOM
-// ========================================================
 
 function wybierzIkonePory(godzina, APIicon) {
     if (godzina >= 22 || godzina <= 5) return "🌙"; 
@@ -767,11 +750,8 @@ function pokazGłownyAlert(tytul, tresc) {
 setInterval(() => {
     uruchomZlotySkaner();
 }, 2 * 60 * 60 * 1000);
-        
-</script>
+    </script>
 </body>
 </html>
 
-        
-        
-                                        
+    
