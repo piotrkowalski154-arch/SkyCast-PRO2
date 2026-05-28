@@ -512,7 +512,8 @@
             const dL = document.getElementById('dList');
             if(dL) {
                 dL.innerHTML = '';
-                const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+                const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+                
                 const dniMap = {};
                 for (let i = 0; i < forecastData.list.length; i++) {
                     const item = forecastData.list[i];
@@ -657,6 +658,14 @@
         return "☀️ Popołudnie: SkyCast PRO w pełnej gotowości. Kodujemy.";
     } else {
         return "🌅 Wieczór: Podsumowanie dnia. System zwalnia obroty.";
+    }
+            }
+            function wybierzIkonePory(godzina) {
+    // Jeśli godzina to 22, 23, 0, 1, 2, 3, 4 lub 5
+    if (godzina >= 22 || godzina <= 5) {
+        return "🌙"; 
+    } else {
+        return "☀️"; 
     }
             }
             
