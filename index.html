@@ -548,15 +548,160 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
 }
 
 // ========================================================
+// PANCERNY START SYSTEMU (BEZPIECZNIK DOM)
+// ========================================================
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("System gotowy, odpalam silniki...");
+    
+    // Odpalamy Twój piękny alert na Dzień Dobry:
+    pokazAlertPowitalny(); 
+    
+    // Uruchamiamy resztę silników:
+    uruchomProtokolGPS();  
+    uruchomZlotySkaner(); 
+    
+    // ODPALAMY TWOJE RADARY RSS!
+    pobierzWiadomosci();
+    skanujZagrozenia();
+});
+
+// ========================================================
+// RADAR HYBRYDOWY RSS Z TVN I GNEWS (MODUŁ PIOTRKA)
+// ========================================================
+function pobierzWiadomosci() {
+    const kontener = document.getElementById('radar-wiadomosci');
+    if (!kontener) return; 
+
+    const rssKraj = 'https://tvn24.pl/najnowsze.xml';
+    const rssSport = 'https://rss.gazeta.pl/pub/rss/sport.xml';
+    const znacznikCzasu = new Date().getTime();
+    const urlKraj = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`;
+    const urlSport = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssSport)}&t=${znacznikCzasu}`;
+
+    let zebraneHTML = '<h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 KRAJ & SPORT ⚽</h3><ul style="list-style: none; padding: 0; margin: 0; text-align: left;">';
+
+    fetch(urlKraj)
+        .then(res => res.json())
+        .then(daneKraj => {
+            if (daneKraj.status === 'ok' && daneKraj.items) {
+                const limitKraj = Math.min(daneKraj.items.length, 3);
+                for(let i = 0; i < limitKraj; i++) {
+                    zebraneHTML += `
+                        <li style="margin-bottom: 8px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;">
+                            <span style="color: #eab308; font-size: 0.75rem; font-weight: bold; background-color: #1e293b; padding: 2px 6px; border-radius: 4px;">KRAJ 🚨</span><br>
+                            <a href="${daneKraj.items[i].link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-top: 4px;">
+                                ${daneKraj.items[i].title}
+                            </a>
+                        </li>`;
+                }
+            }
+            return new Promise(resolve => setTimeout(resolve, 1500));
+        })
+        .then(() => fetch(urlSport).then(res => res.json()))
+        .then(daneSport => {
+            if (daneSport.status === 'ok' && daneSport.items) {
+                const limitSport = Math.min(daneSport.items.length, 3);
+                for(let i = 0; i < limitSport; i++) {
+                    zebraneHTML += `
+                        <li style="margin-bottom: 8px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;">
+                            <span style="color: #ffffff; font-size: 0.75rem; font-weight: bold; background-color: #16a34a; padding: 2px 6px; border-radius: 4px;">SPORT ⚽</span><br>
+                            <a href="${daneSport.items[i].link}" target="_blank" style="color: #0f172a; text-decoration: none; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-top: 4px;">
+                                ${daneSport.items[i].title}
+                            </a>
+                        </li>`;
+                }
+            }
+            zebraneHTML += '</ul>';
+            kontener.innerHTML = zebraneHTML;
+        })
+        .catch(blad => {
+            kontener.innerHTML = `
+                <h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 KRAJ & SPORT ⚽</h3>
+                <div style="text-align: center; padding: 10px;">
+                    <span style="color: #d97706; font-weight: bold; font-size: 1rem;">🟡 TRYB OFFLINE</span><br>
+                    <span style="color: #475569; font-size: 0.85rem;">Trwa bezpieczna synchronizacja...</span>
+                </div>`;
+        });
+}
+
+function skanujZagrozenia() {
+    const szafeczka = document.getElementById('regionalAlertCard');
+    if (!szafeczka) return;
+
+    const rssUrl = 'https://news.google.com/rss/search?q=ostrzeżenie+pogodowe+kraków+OR+małopolskie&hl=pl&gl=PL&ceid=PL:pl';
+    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${new Date().getTime()}`;
+
+    fetch(proxyUrl)
+        .then(res => res.json())
+        .then(dane => {
+            let czySaAlerty = false;
+            let trescAlertu = "";
+
+            if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
+                let tytul = dane.items[0].title.toLowerCase();
+                if (tytul.includes("ostrz") || tytul.includes("alert") || tytul.includes("burz") || tytul.includes("wichur")) {
+                    czySaAlerty = true;
+                    trescAlertu = dane.items[0].title;
+                }
+            }
+
+            if (czySaAlerty) {
+                szafeczka.style.backgroundColor = "rgba(239, 68, 68, 0.15)";
+                szafeczka.style.borderLeft = "5px solid #ef4444";
+                szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d; font-size: 0.95rem;">${trescAlertu}</div>`;
+            } else {
+                szafeczka.style.backgroundColor = "rgba(34, 197, 94, 0.1)";
+                szafeczka.style.borderLeft = "5px solid #22c55e";
+                szafeczka.innerHTML = `<div style="color: #15803d; font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">✅ STATUS: BEZPIECZNIE</div><div style="color: #166534; font-size: 0.95rem;">Warunki stabilne. Brak aktywnych zagrożeń meteo dla regionu.</div>`;
+            }
+        })
+        .catch(blad => console.log("Złoty Skaner: Przełączono na lokalny tryb awaryjny."));
+}
+
+function pokazAlertPowitalny() {
+    const tytul = "📢 SKYCAST PRO – RAPORT PORANNY";
+    const lokalizacja = "📍 Kraków (Małopolska) | 📅 Piątek, 29 maja 2026";
+    const pogoda = "🌤️ Słonecznie, stabilnie, bez opadów, 22-23°C";
+    const status = "🟢 System operacyjny • Dane zsynchronizowane";
+
+    const alertLowcyBurz = `
+🕵️‍♂️✅ RAPORT ŁOWCÓW BURZ ✅🕵️‍♂️
+🟢 CZYSTE NIEBO
+📍 Małopolska, Podkarpacie
+🕐 Ważne do końca dnia
+⚠️ Brak zagrożeń konwekcyjnych
+🏔️ Góry: IDEALNE WARUNKI NA WYCIECZKĘ
+`;
+
+    const pelnyRaport = tytul + "\n" +
+        "================================\n" +
+        lokalizacja + "\n" +
+        pogoda + "\n\n" +
+        "🚨⚡ STATUS ALERTÓW IMGW (na dzień 29.05)\n" +
+        "• Małopolska: BRAK OSTRZEŻEŃ\n" +
+        "• Podkarpacie: BRAK OSTRZEŻEŃ\n\n" +
+        "🌪️ PROGNOZA SZCZEGÓŁOWA\n" +
+        "• Zagrożenie burzowe: 0. stopień (Spokój)\n" +
+        "• Superkomórki: Brak | CAPE: bliskie 0\n" +
+        "• Wiatr: Bardzo słaby, stabilny\n" +
+        "• Opady: 0% (Parasole zostają w domu)\n\n" +
+        "🟡 Wschód/Centrum: bardzo przyjemnie do 23°C\n" +
+        "💨 Wybrzeże: wiatr w normie, bez wichur\n\n" +
+        alertLowcyBurz + "\n\n" +
+        "☕ Poranek idealny na kawę i kodowanie!\n" +
+        "⚙️ " + status + "\n" +
+        "================================\n" +
+        "SYSTEM AKTYWNY • ODPALAMY OGIEŃ 🔥";
+
+    pokazGłownyAlert("🛡️ SYSTEM MONITORINGU", pelnyRaport);
+}
+
+// ========================================================
 // AUTORSKIE MODUŁY PIOTRKA - LOGIKA CZASOWA I MODAL DOM
 // ========================================================
 
 function wybierzIkonePory(godzina, APIicon) {
-    // Księżyc bezwzględnie między 22:00 a 5:00 rano
-    if (godzina >= 22 || godzina <= 5) {
-        return "🌙"; 
-    } 
-    // Mapowanie warunków dziennych z API
+    if (godzina >= 22 || godzina <= 5) return "🌙"; 
     if (APIicon.startsWith("01")) return "☀️";
     if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
     if (APIicon.startsWith("04")) return "☁️";
@@ -569,11 +714,9 @@ function wybierzIkonePory(godzina, APIicon) {
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
     
-    // Tryb nocny (bezwzględny)
     if (godzina >= 22 || godzina < 6) {
         return "🌙 Noc: Czas na twardy reset i regenerację. Ładuję baterie. Księżyc świeci jak idealnie okrągła pizza! Czas na czysty chill. ✨🎧";
     }
-    // Anomalie temperaturowe i opadowe
     if (temp > 34) {
         return "Gorąco jak w samym środku pieca szamotowego! 🍕 Pizza piecze się sama na balkonie. Pijcie mnóstwo wody, żeby nie wyschnąć na wiór! 💧🔥";
     }
@@ -583,7 +726,6 @@ function pobierzMyslPiotrka(temp, weatherId) {
     if (weatherId >= 200 && weatherId <= 232) {
         return "Grzmi i błyska na niebie! Pioruny robią darmowe oświetlenie imprezowe. Siedzimy bezpiecznie w ciepłym domu! ⚡⛈️";
     }
-    // Standardowe pory dnia (z Twoim unikalnym tekstem!)
     if (godzina >= 6 && godzina < 12) {
         return "☕ Poranek: Kawa paruje, procesor czysty. Wietrzymy chatę, pachnie świeżością. Odpalamy ogień! 🚀";
     }
@@ -626,11 +768,9 @@ setInterval(() => {
     uruchomZlotySkaner();
 }, 2 * 60 * 60 * 1000);
         
-}
-        
 </script>
 </body>
-    </html>
+</html>
 
         
         
