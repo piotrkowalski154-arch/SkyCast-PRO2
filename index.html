@@ -497,55 +497,56 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     }
 
     const dailyCard = document.getElementById('dailyCard');
-    if(dailyCard) dailyCard.style.display = 'block';
+if (dailyCard) dailyCard.style.display = 'block';
     
-    const dL = document.getElementById('dList');
-    if(dL) {
-        dL.innerHTML = '';
-        const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+const dL = document.getElementById('dList');
+if (dL && forecastData && forecastData.list) {
+    dL.innerHTML = '';
+    const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+    
+    // Optymalizacja: Pobieramy dzisiejszą datę RAZ przed uruchomieniem pętli
+    const dzisiejszaData = new Date().toDateString();
+    const dniMap = {};
+    
+    for (let i = 0; i < forecastData.list.length; i++) {
+        const item = forecastData.list[i];
+        const dataDnia = new Date(item.dt * 1000);
+        const kluczDnia = dataDnia.toDateString();
         
-        const dniMap = {};
-        for (let i = 0; i < forecastData.list.length; i++) {
-            const item = forecastData.list[i];
-            const dataDnia = new Date(item.dt * 1000);
-            const kluczDnia = dataDnia.toDateString();
-            const dzisiejszaData = new Date().toDateString();
-            if (kluczDnia === dzisiejszaData) continue;
+        if (kluczDnia === dzisiejszaData) continue; // Pomiń dzisiejszy dzień
 
-            if (!dniMap[kluczDnia]) {
-                dniMap[kluczDnia] = {
-                    minTemp: item.main.temp_min,
-                    maxTemp: item.main.temp_max,
-                    wpisIkony: item 
-                };
-            } else {
-                if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
-                if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
-                
-                if (item.dt_txt.endsWith("12:00:00")) {
-                    dniMap[kluczDnia].wpisIkony = item;
-                }
-            }
+        if (!dniMap[kluczDnia]) {
+            dniMap[kluczDnia] = { minTemp: item.main.temp_min, maxTemp: item.main.temp_max, wpisIkony: item };
+        } else {
+            if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
+            if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
+            if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
         }
+    }
 
-        const dniKlucze = Object.keys(dniMap).slice(0, 5);
-        for (let i = 0; i < dniKlucze.length; i++) {
-            const klucz = dniKlucze[i];
-            const daneDnia = dniMap[klucz];
-            const dataObiekt = new Date(daneDnia.wpisIkony.dt * 1000);
-            
-            const tMax = Math.round(daneDnia.maxTemp);
-            const tMin = Math.round(daneDnia.minTemp);
-            const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
-            const wOpis = daneDnia.wpisIkony.weather[0].description;
-            
-            const ikonaD = tlumaczPogodePrognoza(czystaIkonaDzienna, wOpis).icon;
-            dL.innerHTML += `
-                <div class="d-row">
-                    <div class="d-day">${dniTygodnia[dataObiekt.getDay()]}</div>
-                    <div class="d-icon">${ikonaD}</div>
-                    <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
-                </div>`;
+    const dniKlucze = Object.keys(dniMap).slice(0, 5);
+    for (let i = 0; i < dniKlucze.length; i++) {
+        const klucz = dniKlucze[i];
+        const daneDnia = dniMap[klucz];
+        const dataObiekt = new Date(daneDnia.wpisIkony.dt * 1000);
+        
+        const tMax = Math.round(daneDnia.maxTemp);
+        const tMin = Math.round(daneDnia.minTemp);
+        const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
+        const wOpis = daneDnia.wpisIkony.weather[0].description;
+        
+        const ikonaD = tlumaczPogodePrognoza(czystaIkonaDzienna, wOpis).icon;
+        
+        dL.innerHTML += `
+            <div class="d-row">
+                <div class="d-day">${dniTygodnia[dataObiekt.getDay()]}</div>
+                <div class="d-icon">${ikonaD}</div>
+                <div class="d-temp">${tMax}° <span style="color: var(--text); opacity: 0.5; font-size: 1rem; font-weight: 400;">/ ${tMin}°</span></div>
+            </div>`;
+    } // Koniec pętli renderującej
+} // Koniec warunku if (dL...)
+</script>
+    
         }
     }
 }
