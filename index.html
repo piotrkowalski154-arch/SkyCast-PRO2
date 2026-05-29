@@ -496,13 +496,15 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
         }
     }
 
-    const dailyCard = document.getElementById('dailyCard');
+    const dailyCard = document.getElementById('dailyCard'); // Łatka: małe 'const' na starcie!
 if (dailyCard) dailyCard.style.display = 'block';
     
 const dL = document.getElementById('dList');
 if (dL && forecastData && forecastData.list) {
     dL.innerHTML = '';
-    const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+    
+    // Klasa Premium: Pełne nazwy dni tygodnia z zachowaniem Niedzieli na indeksie 0
+    const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
     
     // Optymalizacja: Pobieramy dzisiejszą datę RAZ przed uruchomieniem pętli
     const dzisiejszaData = new Date().toDateString();
@@ -546,6 +548,7 @@ if (dL && forecastData && forecastData.list) {
     } // Koniec pętli renderującej
 } // Koniec warunku if (dL...)
 </script>
+    
     
         }
     }
