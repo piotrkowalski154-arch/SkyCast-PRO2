@@ -599,12 +599,7 @@ function pobierzWiadomosci() {
             kontener.innerHTML = zebraneHTML;
         })
         .catch(blad => {
-            kontener.innerHTML = `
-                <h3 style="color: #000000; text-align: center; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📻 KRAJ & SPORT ⚽</h3>
-                <div style="text-align: center; padding: 10px;">
-                    <span style="color: #d97706; font-weight: bold; font-size: 1rem;">🟡 TRYB OFFLINE</span><br>
-                    <span style="color: #475569; font-size: 0.85rem;">Trwa bezpieczna synchronizacja...</span>
-                </div>`;
+            
         });
 }
 
@@ -678,7 +673,7 @@ function pokazAlertPowitalny() {
         "☕ Poranek idealny na kawę i kodowanie!\n" +
         "⚙️ " + status + "\n" +
         "================================\n" +
-        "SYSTEM AKTYWNY • ODPALAMY OGIEŃ 🔥";
+        "SYSTEM AKTYWNY • ⚡☔🔥😁";
 
     pokazGłownyAlert("🛡️ SYSTEM MONITORINGU", pelnyRaport);
 }
