@@ -463,7 +463,6 @@ function skanujZagrozenia() {
             szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
         }
     });
-}
 function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
@@ -481,11 +480,13 @@ function pokazAlertPowitalny() {
         "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. ☔💻🍕\n\n" +
         "Obserwujcie niebo, uważajcie na siebie i trzymajcie się sucho!\n" +
         "================================\n" +
-        "Spokojnego weekendu! •  SkyCast PRO 🌤️";
+        "Spokojnego weekendu! • Zespół SkyCast PRO 🌤️";
 
     pokazGlownyAlert("🛡️ ALERT POGODOWY SKYCAST PRO", raport);
-
 }
+    
+
+
 function wybierzIkonePory(godzina, APIicon) {
     if (godzina >= 22 || godzina <= 5) return "🌙"; 
     if (APIicon.startsWith("01")) return "☀️";
