@@ -463,23 +463,24 @@ function skanujZagrozenia() {
         }
     });
 <script>
+    
+<script>
 function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
-        "📍 Kraków | Sobota, 30 maja 2026 | AKTUALIZACJA ⚡\n\n" +
-        "Słuchajcie, sytuacja w Krakowie jest dynamiczna! Rano było super – cieplutko i strasznie duszno, termometry pokazały 23 stopnie, a wilgotność jest potężna. Idealny moment na poranną kawę na balkonie, o ile jeszcze nie pada. ☕💧\n\n" +
-        "Ale uwaga, pogoda zdejmuje rękawiczki szybciej niż myśleliśmy. Zderzają się dwa fronty i idzie na nas konkretna burza. Niebo na razie jasne, ale to cisza przed uderzeniem. ⛈️🚨\n\n" +
-        "Co to oznacza w praktyce w najbliższych godzinach?\n" +
-        "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
-        "• Postraszy nas drobnym gradem do 3 cm.\n" +
-        "• Mocno zawieje (porywy wiatru w strefie burzy do 65-70 km/h).\n\n" +
-        "Moja krótka rada: bezwzględnie zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu. Jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów i lakieru! 🚗🌳📉\n\n" +
-        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto na pizzę 🍕, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. ☔💻\n\n" +
-        "Uważajcie na siebie, monitorujcie niebo i trzymajcie się sucho!\n" +
+        "📍 Kraków i Południe | Sobota, 30 maja 2026 | RAPORT NOCNY 🌙⚡\n\n" +
+        "Słuchajcie, mamy godziny wieczorne i sytuacja staje się bardzo poważna. Front, który po południu wygenerował niszczycielskie trąby powietrzne w woj. opolskim (Balcarzowice), sunie prosto przez południe Polski. ⛈️🚨\n\n" +
+        "Co to oznacza dla nas na tę noc?\n" +
+        "• Gwałtowne wyładowania atmosferyczne i ściana deszczu.\n" +
+        "• Bardzo silne porywy wiatru mogące łamać gałęzie.\n" +
+        "• Alerty IMGW dla Małopolski pozostają w pełni aktywne.\n\n" +
+        "Moja krótka rada: absolutnie nie wychodźcie z domów, jeśli nie musicie. Upewnijcie się, że okna są szczelnie zamknięte, a auta nie stoją pod starymi drzewami. Żywioł w nocy jest podwójnie niebezpieczny! 🚗🌳📉\n\n" +
+        "Ja odpalam nocną zmianę. Ciasto na pizzę 🍕 spokojnie rośnie, a ja mam otwarte radary na drugim monitorze i pilnuję systemów, żeby SkyCast PRO ostrzegał Was na czas. ☔💻\n\n" +
+        "Uważajcie na siebie i spokojnej, bezpiecznej nocy!\n" +
         "================================\n" +
         "SYSTEM AKTYWNY • Monitoruję sytuację! 🔥⚡";
 
-    pokazGłownyAlert("🛡️ PILNY RAPORT OD PIOTRKA", raport);
+    pokazGłownyAlert("🛡️ NOCNY RAPORT OD PIOTRKA", raport);
 }
 
 function wybierzIkonePory(godzina, APIicon) {
@@ -538,12 +539,9 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
 
-// Upewnij się, że funkcja uruchomZlotySkaner() jest zdefiniowana w innym miejscu kodu.
+// Bezpieczna pętla skanera
 setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
-
-     </script>
-</body>
-</html>
-
+</script>
+    
     
 
