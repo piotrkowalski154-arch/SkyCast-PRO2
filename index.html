@@ -407,7 +407,7 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
             
         }
     } 
-}function pobierzWiadomosci() {
+function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
     const rssKraj = 'https://www.rmf24.pl/feed';
@@ -458,7 +458,7 @@ function skanujZagrozenia() {
                 czyAlert = true; tresc = dane.items[0].title;
             }
         }
-        // ZMIANA: małe 'if' zamiast dużego 'If' - to naprawia błąd krytyczny!
+    }  // ZMIANA: małe 'if' zamiast dużego 'If' - to naprawia błąd krytyczny!
 if (czyAlert) {
     szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; 
     szafeczka.style.borderLeft = "5px solid #ef4444";
