@@ -173,6 +173,25 @@ document.addEventListener("DOMContentLoaded", function() {
     pobierzWiadomosci();
     skanujZagrozenia();
 });
+        function pokazAlertPowitalny() {
+    const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
+        "================================\n" +
+        "📍 Kraków | Sobota, 30 maja 2026\n\n" +
+        "Słuchajcie, zapowiada się zwariowana sobota! Rano jest super – cieplutko i strasznie duszno, termometry u nas w Krakowie pokażą nawet 25 stopni. Idealny moment na poranną kawę na balkonie. ☕\n\n" +
+        "Ale uwaga, po południu pogoda zdejmuje rękawiczki. Zderzają się dwa fronty i idzie na nas konkretna burza. ⛈️\n\n" +
+        "Co to oznacza w praktyce?\n" +
+        "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
+        "• Postraszy nas drobnym gradem.\n" +
+        "• Mocno zawieje (porywy do 65 km/h).\n\n" +
+        "Moja krótka rada: zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu, a jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów! 🚗🌳\n\n" +
+        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. ☔💻🍕\n\n" +
+        "Uważajcie na siebie i trzymajcie się sucho!\n" +
+        "================================\n" +
+        "SYSTEM AKTYWNY • ☔⛅💦😀🔥";
+
+    pokazGłownyAlert("🛡️ WIADOMOŚĆ OD Piotra", raport);
+        }
+        
 
 function pokazRMF() {
     const pasek = document.getElementById('pasekRMF');
@@ -514,26 +533,7 @@ function pokazGłownyAlert(tytul, tresc) {
     modal.onclick = e => { if(e.target===modal) modal.remove(); };
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
-        function pokazAlertPowitalny() {
-    const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
-        "================================\n" +
-        "📍 Kraków | Sobota, 30 maja 2026\n\n" +
-        "Słuchajcie, zapowiada się zwariowana sobota! Rano jest super – cieplutko i strasznie duszno, termometry u nas w Krakowie pokażą nawet 25 stopni. Idealny moment na poranną kawę na balkonie. ☕\n\n" +
-        "Ale uwaga, po południu pogoda zdejmuje rękawiczki. Zderzają się dwa fronty i idzie na nas konkretna burza. ⛈️\n\n" +
-        "Co to oznacza w praktyce?\n" +
-        "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
-        "• Postraszy nas drobnym gradem.\n" +
-        "• Mocno zawieje (porywy do 65 km/h).\n\n" +
-        "Moja krótka rada: zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu, a jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów! 🚗🌳\n\n" +
-        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. Trzymajcie się sucho! ☔💻🍕\n" +
-        "================================\n" +
-        "SYSTEM AKTYWNY • 🌂💦⛅☔🔥";
-
-       
-                       pokazGłownyAlert("⚠️ WAŻNY KOMUNIKAT", raport);
-            
-                
-        }
+        
 
 setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </script>
