@@ -407,8 +407,8 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
             
         }
     } 
-}
 
+        }
  function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
@@ -563,9 +563,11 @@ function pokazGłownyAlert(tytul, tresc) {
 }
 
 // KRZYKNIĘCIE NA KUCHNIĘ - Wydajemy alert na salę!
-setTimeout(() => {
-    pokazAlertPowitalny();
-}, 1000); 
+setInterval(() => {
+            uruchomZlotySkaner();
+        }, 2 * 60 * 60 * 1000);
+        
+
         
 </script>
 </body>
