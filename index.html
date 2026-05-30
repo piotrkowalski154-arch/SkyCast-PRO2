@@ -459,13 +459,16 @@ function skanujZagrozenia() {
             }
         }
         if (czyAlert) {
-            szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; szafeczka.style.borderLeft = "5px solid #ef4444";
-            szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
-        }
-        
-    }
-                                            
+    szafeczka.style.background = "rgba(239, 68, 68, 0.15)";
+    szafeczka.style.borderLeft = "5px solid #ef4444";
+    szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
 }
+
+// Tutaj była usunięta extra klamra.
+
+// -----------------------------------------------------------------------------------------
+// Twoja główna funkcja alertu powitalnego (teraz wyczyszczona i gotowa)
+
 function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
@@ -487,8 +490,7 @@ function pokazAlertPowitalny() {
 
     pokazGlownyAlert("🛡️ ALERT POGODOWY SKYCAST PRO", raport);
 }
-    
-
+        
 
 function wybierzIkonePory(godzina, APIicon) {
     if (godzina >= 22 || godzina <= 5) return "🌙"; 
