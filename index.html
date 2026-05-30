@@ -463,21 +463,35 @@ function skanujZagrozenia() {
 }
 
 function pokazAlertPowitalny() {
-const raport = "🌤️ SkyCast PRO | Raport Poranny | Niedziela, 31 maja 2026\n" +
-        "================================\n" +
-        "📍 KRAKÓW I OKOLICE | STATUS: STABILNIE 🛡️\n\n" +
-        "Szanowni Państwo,\n" +
-        "Nasze systemy wskazują, że po nocnych zjawiskach burzowych sytuacja w regionie jest w pełni opanowana. Według naszych analiz, czeka nas dziś spokojny i umiarkowanie ciepły dzień.\n\n" +
-        "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
-        "• Temperatura: Przewidujemy maksymalnie 22°C w godzinach popołudniowych.\n" +
-        "• Zjawiska: Zmienne zachmurzenie. W godzinach 12:00 – 14:00 nasze modele wyliczają niewielkie ryzyko (ok. 25%) wystąpienia bardzo przelotnego deszczu.\n" +
-        "• Parametry: Ciśnienie stabilne (ok. 1010 hPa), wiatr słaby (do 18 km/h), wskaźnik UV: 6.\n\n" +
-        "🗺️ SYTUACJA W KRAJU:\n" +
-        "Monitorujemy również sytuację dla reszty Polski. Widzimy wyraźny podział: najwięcej słońca i ciepła (do 26°C) odnotowujemy na południowym zachodzie. Na północnym wschodzie (Mazury, Podlasie) ostrzegamy przed lokalnymi, przelotnymi burzami.\n\n" +
-        "================================\n" +
-        "STATUS SYSTEMOWY: OPERACYJNY • Całym naszym zespołem życzymy spokojnej niedzieli! 🛡️📡";
+    function pokazAlertPowitalny() {
+    const raport = "🌤️ SkyCast PRO | Raport Poranny | Niedziela, 31 maja 2026\n" +
+            "================================\n" +
+            "📍 KRAKÓW I OKOLICE | STATUS: STABILNIE 🛡️\n\n" +
+            "Szanowni Państwo,\n" +
+            "Nasze systemy wskazują, że po nocnych zjawiskach burzowych sytuacja w regionie jest w pełni opanowana. Według naszych analiz, czeka nas dziś spokojny i umiarkowanie ciepły dzień.\n\n" +
+            "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
+            "• Temperatura: Przewidujemy maksymalnie 22°C w godzinach popołudniowych.\n" +
+            "• Zjawiska: Zmienne zachmurzenie. W godzinach 12:00 – 14:00 nasze modele wyliczają niewielkie ryzyko (ok. 25%) wystąpienia bardzo przelotnego deszczu.\n" +
+            "• Parametry: Ciśnienie stabilne (ok. 1010 hPa), wiatr słaby (do 18 km/h), wskaźnik UV: 6.\n\n" +
+            "🗺️ SYTUACJA W KRAJU:\n" +
+            "Monitorujemy również sytuację dla reszty Polski. Widzimy wyraźny podział: najwięcej słońca i ciepła (do 26°C) odnotowujemy na południowym zachodzie. Na północnym wschodzie (Mazury, Podlasie) ostrzegamy przed lokalnymi, przelotnymi burzami.\n\n" +
+            "================================\n" +
+            "STATUS SYSTEMOWY: OPERACYJNY • Całym naszym zespołem życzymy spokojnej niedzieli! 🛡️📡";
 
-// Wywołanie alertu z nowym, spokojnym tytułem
+    // Wywołanie alertu z nowym, spokojnym tytułem
+    pokazGlownyAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
+    }
+    
+
+
+
+
+
+
+
+
+
+    
 
     
     
@@ -491,7 +505,7 @@ const raport = "🌤️ SkyCast PRO | Raport Poranny | Niedziela, 31 maja 2026\n
         
     
     
-}
+
 
 function wybierzIkonePory(godzina, APIicon) {
     if (godzina >= 22 || godzina <= 5) return "🌙"; 
