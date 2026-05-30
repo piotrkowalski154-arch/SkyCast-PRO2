@@ -155,6 +155,7 @@
             </p>
         </div>
     </div> 
+    
     <script>
 const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
@@ -246,16 +247,17 @@ function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1
         const lon = currentData.coord.lon;
         const nazwaMiasta = currentData.name;
         
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pl`;
-        const forecastRes = await fetch(forecastUrl);
-        const forecastData = await forecastRes.json();
-        
         let aqiData = null;
         try {
             const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
             const aqiRes = await fetch(aqiUrl);
             aqiData = await aqiRes.json();
         } catch(e) { console.log("Moduł AQI poza zasięgiem"); }
+
+        // POBIERANIE PROGNOZY
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
+        const forecastRes = await fetch(forecastUrl);
+        const forecastData = await forecastRes.json();
 
         renderUI(currentData, forecastData, aqiData, nazwaMiasta);
     } catch (error) {
@@ -365,7 +367,7 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     const dL = document.getElementById('dList');
     if (dL && forecastData && forecastData.list) {
         dL.innerHTML = '';
-        const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+        const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
         const dzisiejszaData = new Date().toDateString();
         const dniMap = {};
         for (let i = 0; i < forecastData.list.length; i++) {
@@ -387,11 +389,9 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
             const dataOb = new Date(dane.wpisIkony.dt * 1000);
             const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon.replace('n', 'd'), dane.wpisIkony.weather[0].description).icon;
             
-            // Styl "Premium Neon" dla 5 dni
             let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
-            const tMinColor = "#0ea5e9";
             
-                        dL.innerHTML += `
+            dL.innerHTML += `
             <div class="d-row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255,255,255,0.6); margin-bottom: 14px; padding: 12px 25px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                 <div style="flex: 1; font-weight: 900; font-size: 1.05rem; color: var(--main-title); text-transform: uppercase;">
                     ${dniTygodnia[dataOb.getDay()]}
@@ -403,11 +403,9 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
                     <span style="background: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 20px;">${Math.round(dane.maxTemp)}°</span>
                 </div>
             </div>`;
-            
         }
     } 
-}
-        function pobierzWiadomosci() {
+    }function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
     const rssKraj = 'https://tvn24.pl/najnowsze.xml';
@@ -462,25 +460,25 @@ function skanujZagrozenia() {
             szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
         }
     });
-<script>
-    
-<script>
+}
+
 function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
-        "📍 Kraków i Południe | Sobota, 30 maja 2026 | RAPORT NOCNY 🌙⚡\n\n" +
-        "Słuchajcie, mamy godziny wieczorne i sytuacja staje się bardzo poważna. Front, który po południu wygenerował niszczycielskie trąby powietrzne w woj. opolskim (Balcarzowice), sunie prosto przez południe Polski. ⛈️🚨\n\n" +
-        "Co to oznacza dla nas na tę noc?\n" +
-        "• Gwałtowne wyładowania atmosferyczne i ściana deszczu.\n" +
-        "• Bardzo silne porywy wiatru mogące łamać gałęzie.\n" +
-        "• Alerty IMGW dla Małopolski pozostają w pełni aktywne.\n\n" +
-        "Moja krótka rada: absolutnie nie wychodźcie z domów, jeśli nie musicie. Upewnijcie się, że okna są szczelnie zamknięte, a auta nie stoją pod starymi drzewami. Żywioł w nocy jest podwójnie niebezpieczny! 🚗🌳📉\n\n" +
-        "Ja odpalam nocną zmianę. Ciasto na pizzę 🍕 spokojnie rośnie, a ja mam otwarte radary na drugim monitorze i pilnuję systemów, żeby SkyCast PRO ostrzegał Was na czas. ☔💻\n\n" +
-        "Uważajcie na siebie i spokojnej, bezpiecznej nocy!\n" +
+        "📍 Raport Nocny | Sobota, 30 maja 2026 | AKTUALIZACJA ⚡\n\n" +
+        "Słuchajcie, sytuacja w Krakowie i na południu kraju jest ekstremalnie dynamiczna. Mamy godziny nocne, a front, który zderzył się po południu, pokazuje swoją potęgę. ⛈️🚨\n\n" +
+        "⚠️ UWAGA: Po południu (ok. 17:15) przez Balcarzowice w powiecie strzeleckim (woj. opolskie) przeszła potężna trąba powietrzna (wstępnie IF2). Wiatr dochodził do 200 km/h. Na szczęście nikt nie zginął.\n\n" +
+        "Co to oznacza w praktyce dla nas na najbliższe godziny?\n" +
+        "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
+        "• Wyładowania atmosferyczne rozświetlające niebo.\n" +
+        "• Bardzo silne porywy wiatru w strefie burzy.\n\n" +
+        "Moja krótka rada: bezwzględnie zostańcie w domach! Zamknijcie szczelnie okna. Żywioł w nocy jest podwójnie niebezpieczny, bo nic nie widać. 🚗🌳📉\n\n" +
+        "Ja odpalam nocną wartę. Ciasto na pizzę spokojnie rośnie, a ja mam otwarte radary na drugim monitorze i pilnuję systemów. ☔💻\n\n" +
+        "Uważajcie na siebie i bezpiecznej nocy!\n" +
         "================================\n" +
-        "SYSTEM AKTYWNY • Monitoruję sytuację! 🔥⚡";
+        "SYSTEM AKTYWNY • Ogień! 🔥⚡";
 
-    pokazGłownyAlert("🛡️ NOCNY RAPORT OD PIOTRKA", raport);
+    pokazGłownyAlert("🛡️ NOCNY RAPORT KRYTYCZNY", raport);
 }
 
 function wybierzIkonePory(godzina, APIicon) {
@@ -496,23 +494,12 @@ function wybierzIkonePory(godzina, APIicon) {
 
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
-    
-    // NOWA LOGIKA DLA AKTUALNYCH WARUNKÓW (Duszno/Czyste niebo przed burzą)
-    if (temp > 22 && weatherId === 800) return "Duszno jak w pizzerii w piątek wieczór! 🍕 Powietrze stoi przy 23°C. Niebo czyste, ale to cisza przed uderzeniem frontu. Pijcie wodę! 💧🔥⏳";
-    
-    // Noc
-    if (godzina >= 22 || godzina < 6) return "🌙 Noc: Czas na twardy reset. Księżyc, cisza i czysty chill po burzliwym dniu. ✨🎧";
-    
-    // Burza (id 2xx i 5xx)
-    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! 🌧️ Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy w bezpiecznym porcie! 🎧💻🚨";
+    if (godzina >= 22 || godzina < 6) return "🌙 Nocna Warta: Radar aktywny. Front nad nami, siedzimy w bezpiecznym porcie i nasłuchujemy wiatru. ✨🎧";
+    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! 🌧️ Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy! 🎧💻🚨";
     if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska! Pioruny robią darmowe oświetlenie ⚡, a wiatr targa do 70 km/h. Siedzimy w domu, radar włączony! ⛈️💻🍕";
-    
-    // Pory dnia standardowe
-    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem (póki jest!), bo po południu idzie ostry front. Ogień z kodem! 🚀💻";
-    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w trybie alertu. 🚨 Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na siedzenie nad kodem! 💻🔥📈";
-    
-    // Wieczór
-    return "🌅 Wieczór: Po burzy przychodzi spokój. System zwalnia obroty. Czas odpocząć, włączyć dobre brzmienia. ✨🎧🍕";
+    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem, bo po południu front. Ogień z kodem! 🚀💻";
+    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast w trybie alertu. 🚨 Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na kod! 💻🔥📈";
+    return "🌅 Wieczór: Front atakuje. Zostańcie w domach. System na najwyższych obrotach. ✨🎧🍕";
 }
 
 function pokazGłownyAlert(tytul, tresc) {
@@ -523,7 +510,7 @@ function pokazGłownyAlert(tytul, tresc) {
     
     const naglowek = document.createElement('h3');
     naglowek.textContent = tytul;
-    naglowek.style.cssText = `color:#4a9eff;margin:0 0 15px 0;font-size:16px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid #4a9eff33;padding-bottom:10px;`;
+    naglowek.style.cssText = `color:#e74c3c;margin:0 0 15px 0;font-size:16px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(231,76,60,0.3);padding-bottom:10px;`;
     okno.appendChild(naglowek);
 
     const zawartosc = document.createElement('div');
@@ -531,7 +518,7 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zawartosc);
 
     const zamknij = document.createElement('button');
-    zamknij.textContent = '✖ ZAMKNIJ RAPORT';
+    zamknij.textContent = '✖ ZROZUMIAŁEM, ZAMKNIJ RAPORT';
     zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
     
     zamknij.onclick = () => modal.remove();
@@ -539,9 +526,11 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
 
-// Bezpieczna pętla skanera
 setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </script>
     
-    
+</body>
+</html>
 
+        
+                            
