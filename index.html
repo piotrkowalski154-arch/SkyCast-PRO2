@@ -393,9 +393,10 @@ function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1
             dL.innerHTML += `<div class="d-row"><div class="d-day">${dniTygodnia[dataOb.getDay()]}</div><div class="d-icon">${ikonaD}</div><div class="d-temp">${Math.round(dane.maxTemp)}° <span style="opacity: 0.5; font-size: 1rem;">/ ${Math.round(dane.minTemp)}°</span></div></div>`;
         }
     } 
-    /
+    
 
-// =
+
+        
         // ========================================================
 // RADAR HYBRYDOWY RSS Z TVN I GNEWS (MODUŁ PIOTRKA)
 // ========================================================
@@ -447,7 +448,7 @@ function pobierzWiadomosci() {
             // Serwujemy gotową tacę na salę!
             kontener.innerHTML = zebraneHTML;
         }).catch(e => console.log("RSS w trybie uśpienia."));
-}
+
         
 
         
