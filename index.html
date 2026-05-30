@@ -393,18 +393,21 @@ function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1
             dL.innerHTML += `<div class="d-row"><div class="d-day">${dniTygodnia[dataOb.getDay()]}</div><div class="d-icon">${ikonaD}</div><div class="d-temp">${Math.round(dane.maxTemp)}° <span style="opacity: 0.5; font-size: 1rem;">/ ${Math.round(dane.minTemp)}°</span></div></div>`;
         }
     } 
-    // ========================================================
+    /
+
+// =
+        // ========================================================
 // RADAR HYBRYDOWY RSS Z TVN I GNEWS (MODUŁ PIOTRKA)
 // ========================================================
 function pobierzWiadomosci() {
-    const kontener = document.getElementById('radar-wiadomosci'); // Łatka: małe 'const'!
+    const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
     
     const rssKraj = 'https://tvn24.pl/najnowsze.xml';
     const rssSport = 'https://rss.gazeta.pl/pub/rss/sport.xml';
     const znacznikCzasu = new Date().getTime();
     
-    // Zmieniamy nagłówek i usuwamy stare <ul>, bo przechodzimy na nowoczesne kafelki <div>
+    // Taca na wiadomości (z małej litery!)
     let zebraneHTML = '<h3 style="color: #000000; text-align: center; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold;">📻 KRAJ & SPORT ⚽</h3>';
 
     fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
@@ -412,7 +415,7 @@ function pobierzWiadomosci() {
         .then(dane => {
             if (dane.status === 'ok' && dane.items) {
                 for(let i = 0; i < Math.min(dane.items.length, 3); i++) {
-                    // KAFELEK KRAJ (Czerwony styl telewizyjny)
+                    // KAFELEK KRAJ (Czerwony styl telewizyjny - ładujemy na tacę z małego 'z')
                     zebraneHTML += `
                     <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15); transition: transform 0.2s;">
                         <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">
@@ -429,7 +432,7 @@ function pobierzWiadomosci() {
         .then(daneSport => {
             if (daneSport.status === 'ok' && daneSport.items) {
                 for(let i = 0; i < Math.min(daneSport.items.length, 3); i++) {
-                    // KAFELEK SPORT (Zielony styl boiskowy)
+                    // KAFELEK SPORT (Zielony styl boiskowy - znowu małe 'z'!)
                     zebraneHTML += `
                     <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15); transition: transform 0.2s;">
                         <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">
@@ -441,8 +444,11 @@ function pobierzWiadomosci() {
                     </div>`;
                 }
             }
+            // Serwujemy gotową tacę na salę!
             kontener.innerHTML = zebraneHTML;
         }).catch(e => console.log("RSS w trybie uśpienia."));
+}
+        
 
         
       
