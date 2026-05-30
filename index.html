@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast PRO - Aktualizacja 30 Maj ⛅🚨</title>
+    <title>SkyCast PRO - Alert Burzowy ⚡☔</title>
     <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     
@@ -78,7 +78,7 @@
 </head>
 <body>
     <div class="app-container">
-              <div id="radar-wiadomosci" class="wiadomosci">
+                <div id="radar-wiadomosci" class="wiadomosci">
             <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych TVN24...</p>
         </div>
 
@@ -162,7 +162,7 @@
             </p>
         </div>
     </div> 
-  <script>
+    <script>
 const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -225,7 +225,7 @@ function ocenaPowietrza(aqi) {
 }
 
 function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1. Kliknij 3 kropki\n2. Dodaj do ekranu głównego!"); }
-    async function uruchomZlotySkaner() {
+        async function uruchomZlotySkaner() {
     let miastoInput = document.getElementById('cityIn')?.value.trim();
     if (!miastoInput) {
         miastoInput = "Kraków";
@@ -268,8 +268,9 @@ function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1
         if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
         console.error("Awaria radaru:", error.message);
     }
-    }
-    function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
+}
+
+function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     const currentHour = new Date().getHours();
     const isNight = currentHour >= 22 || currentHour < 5;
     
@@ -385,30 +386,36 @@ function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1
                 if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
             }
         }
+        
         const dniKlucze = Object.keys(dniMap).slice(0, 5);
         for (let i = 0; i < dniKlucze.length; i++) {
             const dane = dniMap[dniKlucze[i]];
             const dataOb = new Date(dane.wpisIkony.dt * 1000);
             const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon.replace('n', 'd'), dane.wpisIkony.weather[0].description).icon;
-            dL.innerHTML += `<div class="d-row"><div class="d-day">${dniTygodnia[dataOb.getDay()]}</div><div class="d-icon">${ikonaD}</div><div class="d-temp">${Math.round(dane.maxTemp)}° <span style="opacity: 0.5; font-size: 1rem;">/ ${Math.round(dane.minTemp)}°</span></div></div>`;
+            
+            // Styl "Premium Neon" dla 5 dni
+            let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
+            const tMinColor = "#0ea5e9";
+            
+            dL.innerHTML += `
+            <div class="d-row" style="background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%); border-left: 5px solid ${tMaxColor}; box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin-bottom: 12px; transition: transform 0.2s;">
+                <div class="d-day" style="font-weight: 900; font-size: 1.15rem; letter-spacing: 0.5px; text-transform: uppercase;">${dniTygodnia[dataOb.getDay()]}</div>
+                <div class="d-icon" style="font-size: 2.6rem; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.3));">${ikonaD}</div>
+                <div class="d-temp" style="font-size: 1.6rem; font-weight: 900; color: ${tMaxColor};">${Math.round(dane.maxTemp)}° 
+                    <span style="color: ${tMinColor}; opacity: 0.9; font-size: 1.1rem; font-weight: 800;">/ ${Math.round(dane.minTemp)}°</span>
+                </div>
+            </div>`;
         }
     } 
-    
-
-
+                }
         
-        // ========================================================
-// RADAR HYBRYDOWY RSS Z TVN I GNEWS (MODUŁ PIOTRKA)
-// ========================================================
-function pobierzWiadomosci() {
+        function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
-    
     const rssKraj = 'https://tvn24.pl/najnowsze.xml';
     const rssSport = 'https://rss.gazeta.pl/pub/rss/sport.xml';
     const znacznikCzasu = new Date().getTime();
     
-    // Taca na wiadomości (z małej litery!)
     let zebraneHTML = '<h3 style="color: #000000; text-align: center; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold;">📻 KRAJ & SPORT ⚽</h3>';
 
     fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
@@ -416,15 +423,10 @@ function pobierzWiadomosci() {
         .then(dane => {
             if (dane.status === 'ok' && dane.items) {
                 for(let i = 0; i < Math.min(dane.items.length, 3); i++) {
-                    // KAFELEK KRAJ (Czerwony styl telewizyjny - ładujemy na tacę z małego 'z')
                     zebraneHTML += `
-                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15); transition: transform 0.2s;">
-                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">
-                            📢 PILNE: KRAJ
-                        </div>
-                        <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">
-                            ${dane.items[i].title}
-                        </a>
+                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15);">
+                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">📢 PILNE: KRAJ</div>
+                        <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${dane.items[i].title}</a>
                     </div>`;
                 }
             }
@@ -433,27 +435,16 @@ function pobierzWiadomosci() {
         .then(daneSport => {
             if (daneSport.status === 'ok' && daneSport.items) {
                 for(let i = 0; i < Math.min(daneSport.items.length, 3); i++) {
-                    // KAFELEK SPORT (Zielony styl boiskowy - znowu małe 'z'!)
                     zebraneHTML += `
-                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15); transition: transform 0.2s;">
-                        <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">
-                            🚨 SPORT ⚽🎾🏀
-                        </div>
-                        <a href="${daneSport.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">
-                            ${daneSport.items[i].title}
-                        </a>
+                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15);">
+                        <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🚨 SPORT ⚽🎾🏀</div>
+                        <a href="${daneSport.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${daneSport.items[i].title}</a>
                     </div>`;
                 }
             }
-            // Serwujemy gotową tacę na salę!
             kontener.innerHTML = zebraneHTML;
         }).catch(e => console.log("RSS w trybie uśpienia."));
-
-        
-
-        
-      
-
+}
 
 function skanujZagrozenia() {
     const szafeczka = document.getElementById('regionalAlertCard');
@@ -476,8 +467,22 @@ function skanujZagrozenia() {
 }
 
 function pokazAlertPowitalny() {
-    // 📅 ZAKTUALIZOWANA DATA - 30 MAJA
-    const raport = "📢 SKYCAST PRO – RAPORT PORANNY\n================================\n📍 Kraków (Małopolska) | 📅 Sobota, 30 maja 2026\n🌤️ Słonecznie, stabilnie, bez opadów, 22-23°C\n\n🚨⚡ STATUS ALERTÓW IMGW\n• Małopolska: BRAK OSTRZEŻEŃ\n\n🌪️ PROGNOZA SZCZEGÓŁOWA\n• Zagrożenie burzowe: 0. stopień (Spokój)\n• Wiatr: Bardzo słaby, stabilny\n• Opady: 0% (Parasole zostają w domu)\n\n☕ Poranek idealny na kawę i kodowanie!\n⚙️ System operacyjny • Dane zsynchronizowane\n================================\nSYSTEM AKTYWNY • ⚡☔🔥😁";
+    // 🚨 ZAKTUALIZOWANA DATA I RAPORT BURZOWY Z TWOICH DANYCH!
+    const raport = "📢 SKYCAST PRO – RAPORT POGODOWY (AKTUALIZACJA)\n" +
+        "================================\n" +
+        "📍 Kraków (Małopolska) | 📅 Sobota, 30 maja 2026\n" +
+        "🌤️ Rano duszno i gorąco (do 24-25°C). Popołudniu ZAŁAMANIE POGODY!\n\n" +
+        "🚨⚡ STATUS ALERTÓW IMGW\n" +
+        "• Małopolska: OSTRZEŻENIE 1. STOPNIA (Burze z gradem)\n\n" +
+        "🌪️ PROGNOZA SZCZEGÓŁOWA\n" +
+        "• Zagrożenie burzowe: WYSOKIE (Zderzenie frontów)\n" +
+        "• Zjawiska: Ulewy, grad (1-3 cm), silny wiatr\n" +
+        "• Porywy wiatru: do 65 km/h w czasie trwania komórki burzowej\n\n" +
+        "⚠️ UWAGA: Zabezpiecz luźne rzeczy na balkonie! Front uderzy w godzinach popołudniowych i wieczornych.\n" +
+        "☕ Kawa z rana, a potem śledzimy radary i odpalamy kodowanie z bazy!\n" +
+        "⚙️ System operacyjny • Dane zsynchronizowane\n" +
+        "================================\n" +
+        "SYSTEM AKTYWNY • ⚡☔🔥😁";
     pokazGłownyAlert("🛡️ SYSTEM MONITORINGU", raport);
 }
 
@@ -494,13 +499,13 @@ function wybierzIkonePory(godzina, APIicon) {
 
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
-    if (godzina >= 22 || godzina < 6) return "🌙 Noc: Czas na twardy reset i regenerację. Ładuję baterie. Księżyc świeci jak idealnie okrągła pizza! Czas na czysty chill. ✨🎧";
-    if (temp > 34) return "Gorąco jak w samym środku pieca szamotowego! 🍕 Pijcie mnóstwo wody, żeby nie wyschnąć na wiór! 💧🔥";
-    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! Odpalamy ulubioną muzykę na słuchawkach i łapiemy luz! 🌧️🎧";
-    if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska na niebie! Pioruny robią darmowe oświetlenie imprezowe. ⚡⛈️";
-    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje, procesor czysty. Wietrzymy chatę, pachnie świeżością. Odpalamy ogień! 🚀";
-    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w pełnej gotowości. Idealny dzień na rower lub kawę na ławce. Kodujemy! 💻🔥";
-    return "🌅 Wieczór: Podsumowanie dnia. System zwalnia obroty. Czas odpocząć po ciężkim dniu, włączyć dobre brzmienia i złapać czysty chill. ✨🎧";
+    if (godzina >= 22 || godzina < 6) return "🌙 Noc: Czas na twardy reset. Księżyc, cisza i czysty chill po burzliwym dniu. ✨🎧";
+    if (temp > 23 && godzina < 15) return "Duszno jak przed otwarciem pieca szamotowego! 🍕 Pijcie wodę, bo powietrze stoi, ale uwaga – zderzenie frontów wisi w powietrzu! 💧🔥";
+    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy w bezpiecznym porcie! 🌧️🎧";
+    if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska! Pioruny robią darmowe oświetlenie, a wiatr targa do 65 km/h. Siedzimy w domu, radar włączony! ⚡⛈️";
+    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem, bo po południu idzie ostry front. Ogień z kodem! 🚀";
+    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w trybie alertu. Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na siedzenie nad kodem! 💻🔥";
+    return "🌅 Wieczór: Po burzy przychodzi spokój. System zwalnia obroty. Czas odpocząć, włączyć dobre brzmienia. ✨🎧";
 }
 
 function pokazGłownyAlert(tytul, tresc) {
@@ -531,3 +536,6 @@ setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </script>
 </body>
 </html>
+
+    
+        
