@@ -463,24 +463,24 @@ function skanujZagrozenia() {
         }
     });
 }
-
-function pokazAlertPowitalny() {
+<script>
+Function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
-        "📍 Kraków | Sobota, 30 maja 2026\n\n" +
-        "Słuchajcie, zapowiada się zwariowana sobota! Rano jest super – cieplutko i strasznie duszno, termometry u nas w Krakowie pokażą nawet 25 stopni. Idealny moment na poranną kawę na balkonie. ☕\n\n" +
-        "Ale uwaga, po południu pogoda zdejmuje rękawiczki. Zderzają się dwa fronty i idzie na nas konkretna burza. ⛈️\n\n" +
-        "Co to oznacza w praktyce?\n" +
+        "📍 Kraków | Sobota, 30 maja 2026 | AKTUALIZACJA ⚡\n\n" +
+        "Słuchajcie, sytuacja w Krakowie jest dynamiczna! Rano było super – cieplutko i strasznie duszno, termometry pokazały 23 stopnie, a wilgotność jest potężna. Idealny moment na poranną kawę na balkonie, o ile jeszcze nie pada. ☕💧\n\n" +
+        "Ale uwaga, pogoda zdejmuje rękawiczki szybciej niż myśleliśmy. Zderzają się dwa fronty i idzie na nas konkretna burza. Niebo na razie jasne, ale to cisza przed uderzeniem. ⛈️🚨\n\n" +
+        "Co to oznacza w praktyce w najbliższych godzinach?\n" +
         "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
-        "• Postraszy nas drobnym gradem.\n" +
-        "• Mocno zawieje (porywy do 65 km/h).\n\n" +
-        "Moja krótka rada: zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu, a jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów! 🚗🌳\n\n" +
-        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. ☔💻🍕\n\n" +
-        "Uważajcie na siebie i trzymajcie się sucho!\n" +
+        "• Postraszy nas drobnym gradem do 3 cm.\n" +
+        "• Mocno zawieje (porywy wiatru w strefie burzy do 65-70 km/h).\n\n" +
+        "Moja krótka rada: bezwzględnie zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu. Jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów i lakieru! 🚗🌳📉\n\n" +
+        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto na pizzę 🍕, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. ☔💻\n\n" +
+        "Uważajcie na siebie, monitorujcie niebo i trzymajcie się sucho!\n" +
         "================================\n" +
-        "SYSTEM AKTYWNY • Ogień! 🔥";
+        "SYSTEM AKTYWNY • Monitoruję sytuację! 🔥⚡";
 
-    pokazGłownyAlert("🛡️ RAPORT OD PIOTRKA", raport);
+    pokazGłownyAlert("🛡️ PILNY RAPORT OD PIOTRKA", raport);
 }
 
 function wybierzIkonePory(godzina, APIicon) {
@@ -496,13 +496,25 @@ function wybierzIkonePory(godzina, APIicon) {
 
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
+    // NOWA LOGIKA DLA AKTUALNYCH WARUNKÓW (Duszno/Czyste niebo przed burzą)
+    if (temp > 22 && weatherId === 800) return "Duszno jak w pizzerii w piątek wieczór! 🍕 Powietrze stoi przy 23°C. Niebo czyste, ale to cisza przed uderzeniem frontu. Pijcie wodę! 💧🔥⏳";
+    
+    // Noc
     if (godzina >= 22 || godzina < 6) return "🌙 Noc: Czas na twardy reset. Księżyc, cisza i czysty chill po burzliwym dniu. ✨🎧";
-    if (temp > 23 && godzina < 15) return "Duszno jak przed otwarciem pieca szamotowego! 🍕 Pijcie wodę, bo powietrze stoi, ale uwaga – zderzenie frontów wisi w powietrzu! 💧🔥";
-    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy w bezpiecznym porcie! 🌧️🎧";
-    if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska! Pioruny robią darmowe oświetlenie, a wiatr targa do 65 km/h. Siedzimy w domu, radar włączony! ⚡⛈️";
-    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem, bo po południu idzie ostry front. Ogień z kodem! 🚀";
-    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w trybie alertu. Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na siedzenie nad kodem! 💻🔥";
-    return "🌅 Wieczór: Po burzy przychodzi spokój. System zwalnia obroty. Czas odpocząć, włączyć dobre brzmienia. ✨🎧";
+    
+    // Duszno (id 800 oznacza czyste niebo, ale temp wysoka) - Stara logika, nadpisana powyżej dla precyzji
+    // if (temp > 23 && godzina < 15) return "Duszno jak przed otwarciem pieca szamotowego! 🍕 Pijcie wodę, bo powietrze stoi, ale uwaga – zderzenie frontów wisi w powietrzu! 💧🔥";
+    
+    // Burza (id 2xx i 5xx)
+    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! 🌧️ Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy w bezpiecznym porcie! 🎧💻🚨";
+    if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska! Pioruny robią darmowe oświetlenie ⚡, a wiatr targa do 70 km/h. Siedzimy w domu, radar włączony! ⛈️💻🍕";
+    
+    // Pory dnia standardowe (nadpisane powyżej)
+    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem (póki jest!), bo po południu idzie ostry front. Ogień z kodem! 🚀💻";
+    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w trybie alertu. 🚨 Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na siedzenie nad kodem! 💻🔥📈";
+    
+    // Wieczór
+    return "🌅 Wieczór: Po burzy przychodzi spokój. System zwalnia obroty. Czas odpocząć, włączyć dobre brzmienia. ✨🎧🍕";
 }
 
 function pokazGłownyAlert(tytul, tresc) {
@@ -521,7 +533,7 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zawartosc);
 
     const zamknij = document.createElement('button');
-    zamknij.textContent = '✖ ZAMKNIJ';
+    zamknij.textContent = '✖ ZAMKNIJ RAPORT';
     zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
     
     zamknij.onclick = () => modal.remove();
@@ -529,7 +541,9 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
 
+// Upewnij się, że funkcja uruchomZlotySkaner() jest zdefiniowana w innym miejscu kodu.
 setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </script>
 </body>
 </html>
+
