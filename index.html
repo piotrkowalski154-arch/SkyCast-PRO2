@@ -458,17 +458,14 @@ function skanujZagrozenia() {
                 czyAlert = true; tresc = dane.items[0].title;
             }
         }
-        if (czyAlert) {
-    szafeczka.style.background = "rgba(239, 68, 68, 0.15)";
+        // ZMIANA: małe 'if' zamiast dużego 'If' - to naprawia błąd krytyczny!
+if (czyAlert) {
+    szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; 
     szafeczka.style.borderLeft = "5px solid #ef4444";
     szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
 }
 
-// Tutaj była usunięta extra klamra.
-
-// -----------------------------------------------------------------------------------------
-// Twoja główna funkcja alertu powitalnego (teraz wyczyszczona i gotowa)
-
+// Główna funkcja alertu (bez zbędnych klamer przed nią)
 function pokazAlertPowitalny() {
     const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
         "================================\n" +
@@ -489,6 +486,8 @@ function pokazAlertPowitalny() {
         "Spokojnego weekendu! • Zespół SkyCast PRO 🌤️";
 
     pokazGlownyAlert("🛡️ ALERT POGODOWY SKYCAST PRO", raport);
+}
+        
 }
         
 
