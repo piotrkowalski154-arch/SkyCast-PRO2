@@ -465,25 +465,8 @@ function skanujZagrozenia() {
         }
     });
 }
+mi
 
-function pokazAlertPowitalny() {
-    // 🚨 ZAKTUALIZOWANA DATA I RAPORT BURZOWY Z TWOICH DANYCH!
-    const raport = "📢 SKYCAST PRO – RAPORT POGODOWY (AKTUALIZACJA)\n" +
-        "================================\n" +
-        "📍 Kraków (Małopolska) | 📅 Sobota, 30 maja 2026\n" +
-        "🌤️ Rano duszno i gorąco (do 24-25°C). Popołudniu ZAŁAMANIE POGODY!\n\n" +
-        "🚨⚡ STATUS ALERTÓW IMGW\n" +
-        "• Małopolska: OSTRZEŻENIE 1. STOPNIA (Burze z gradem)\n\n" +
-        "🌪️ PROGNOZA SZCZEGÓŁOWA\n" +
-        "• Zagrożenie burzowe: WYSOKIE (Zderzenie frontów)\n" +
-        "• Zjawiska: Ulewy, grad (1-3 cm), silny wiatr\n" +
-        "• Porywy wiatru: do 65 km/h w czasie trwania komórki burzowej\n\n" +
-        "⚠️ UWAGA: Zabezpiecz luźne rzeczy na balkonie! Front uderzy w godzinach popołudniowych i wieczornych.\n" +
-        "☕ Kawa z rana, a potem śledzimy radary i odpalamy kodowanie z bazy!\n" +
-        "⚙️ System operacyjny • Dane zsynchronizowane\n" +
-        "================================\n" +
-        "SYSTEM AKTYWNY • ⚡☔🔥😁";
-    pokazGłownyAlert("🛡️ SYSTEM MONITORINGU", raport);
 }
 
 function wybierzIkonePory(godzina, APIicon) {
@@ -531,6 +514,26 @@ function pokazGłownyAlert(tytul, tresc) {
     modal.onclick = e => { if(e.target===modal) modal.remove(); };
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
+        function pokazAlertPowitalny() {
+    const raport = "👋 Cześć! Tu Piotrek i Twój SkyCast PRO\n" +
+        "================================\n" +
+        "📍 Kraków | Sobota, 30 maja 2026\n\n" +
+        "Słuchajcie, zapowiada się zwariowana sobota! Rano jest super – cieplutko i strasznie duszno, termometry u nas w Krakowie pokażą nawet 25 stopni. Idealny moment na poranną kawę na balkonie. ☕\n\n" +
+        "Ale uwaga, po południu pogoda zdejmuje rękawiczki. Zderzają się dwa fronty i idzie na nas konkretna burza. ⛈️\n\n" +
+        "Co to oznacza w praktyce?\n" +
+        "• Z nieba może lunąć jak z cebra (nawet 30 litrów wody na metr).\n" +
+        "• Postraszy nas drobnym gradem.\n" +
+        "• Mocno zawieje (porywy do 65 km/h).\n\n" +
+        "Moja krótka rada: zdejmijcie suszarkę z praniem i luźne rzeczy z balkonu, a jak macie opcję, przeparkujcie auto spod starych drzew. Szkoda nerwów! 🚗🌳\n\n" +
+        "Ja dzisiaj odpuszczam wyjścia. Zostaję w chacie, zagniatam ciasto, odpalam radar na drugim monitorze i bezpiecznie koduję, słuchając jak deszcz wali w parapet. Trzymajcie się sucho! ☔💻🍕\n" +
+        "================================\n" +
+        "SYSTEM AKTYWNY • 🌂💦⛅☔🔥";
+
+       
+                       pokazGłownyAlert("⚠️ WAŻNY KOMUNIKAT", raport);
+            
+                
+        }
 
 setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </script>
