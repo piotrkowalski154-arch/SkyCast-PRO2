@@ -562,7 +562,11 @@ function pokazGłownyAlert(tytul, tresc) {
     okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
 }
 
-setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
+// KRZYKNIĘCIE NA KUCHNIĘ - Wydajemy alert na salę!
+setTimeout(() => {
+    pokazAlertPowitalny();
+}, 1000); 
+        
 </script>
 </body>
 </html>
