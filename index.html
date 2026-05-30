@@ -389,18 +389,20 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
             let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
             const tMinColor = "#0ea5e9";
             
-                                    dL.innerHTML += `
-            <div class="d-row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255,255,255,0.6); margin-bottom: 14px; padding: 12px 25px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                <div style="flex: 1; font-weight: 900; font-size: 1.05rem; color: var(--main-title); text-transform: uppercase;">
+                                                dL.innerHTML += `
+            <div class="d-row" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; margin-bottom: 12px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="flex: 1; font-weight: 800; font-size: 1.1rem; color: var(--main-title); text-transform: capitalize;">
                     ${dniTygodnia[dataOb.getDay()]}
                 </div>
-                <div style="font-size: 2.3rem; margin: 0 10px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));">
+                <div style="font-size: 2.2rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">
                     ${ikonaD}
                 </div>
-                <div style="flex: 1; text-align: right; font-size: 1.5rem; font-weight: 900; color: ${tMaxColor};">
-                    <span style="background: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 20px;">${Math.round(dane.maxTemp)}°</span>
+                <div style="flex: 1; text-align: right; font-size: 1.4rem; font-weight: 900; color: ${tMaxColor};">
+                    ${Math.round(dane.maxTemp)}° 
+                    <span style="color: var(--text); opacity: 0.6; font-size: 1rem; font-weight: 600;">/ ${Math.round(dane.minTemp)}°</span>
                 </div>
             </div>`;
+            
             
             
         }
