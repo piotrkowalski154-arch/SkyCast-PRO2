@@ -497,14 +497,29 @@ function wybierzIkonePory(godzina, APIicon) {
 
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
-    if (godzina >= 22 || godzina < 6) return "🌙 Noc: Czas na twardy reset. Księżyc, cisza i czysty chill po burzliwym dniu. ✨🎧";
-    if (temp > 23 && godzina < 15) return "Duszno jak przed otwarciem pieca szamotowego! 🍕 Pijcie wodę, bo powietrze stoi, ale uwaga – zderzenie frontów wisi w powietrzu! 💧🔥";
-    if (weatherId >= 500 && weatherId <= 531) return "Z nieba leje jak z uszkodzonego hydrantu! Zabezpieczcie balkony. Odpalamy muzykę na słuchawkach i kodujemy w bezpiecznym porcie! 🌧️🎧";
-    if (weatherId >= 200 && weatherId <= 232) return "Grzmi i błyska! Pioruny robią darmowe oświetlenie, a wiatr targa do 65 km/h. Siedzimy w domu, radar włączony! ⚡⛈️";
-    if (godzina >= 6 && godzina < 12) return "☕ Poranek: Kawa paruje. Cieszmy się słońcem, bo po południu idzie ostry front. Ogień z kodem! 🚀";
-    if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast PRO w trybie alertu. Miejcie oko na niebo, grad do 3 cm w drodze. Idealny czas na siedzenie nad kodem! 💻🔥";
-    return "🌅 Wieczór: Po burzy przychodzi spokój. System zwalnia obroty. Czas odpocząć, włączyć dobre brzmienia. ✨🎧";
+    
+    if (godzina >= 22 || godzina < 6) {
+        return "🌙 Nocna cisza. Miasto śpi, a kto nie śpi, ten pewnie scrolluje telefon. Odłóżcie to i idźcie spać, jutro też jest dzień! ✨🎧";
+    }
+    if (temp > 23 && godzina < 15) {
+        return "🥵 Duszno jak przy otwartym piecu szamotowym! Powietrze stoi w miejscu. Pijcie dużo wody i szukajcie cienia, bo można się roztopić. 🍕💧";
+    }
+    if (weatherId >= 500 && weatherId <= 531) {
+        return "🌧️ Z nieba leje jak z zepsutego kranu! Zgarniajcie pranie z balkonu, róbcie herbatę i kanapę. Z domu dziś wychodzą tylko kurierzy! ☕📺";
+    }
+    if (weatherId >= 200 && weatherId <= 232) {
+        return "⚡⛈️ Grzmi i błyska! Matka natura robi darmową dyskotekę. Wyciągnijcie wtyczki z kontaktów i podziwiajcie przez szybę. Żadnych spacerów, to nie film! 🫣";
+    }
+    if (godzina >= 6 && godzina < 12) {
+        return "☕ Poranek! Kawa to dzisiaj nie opcja, to absolutny fundament. Łapiemy dzień, dużo energii i żeby wam dzisiaj wszystko wyrosło jak dobra biga! 🚀";
+    }
+    if (godzina >= 12 && godzina < 18) {
+        return "☀️ Popołudnie w pełni. Baterie pewnie już trochę siadają, ale trzymamy się ramy! Zjedzcie dobry obiad, bo na pustym żołądku to nawet słońce wkurza. 🍝😁";
+    }
+    
+    return "🌅 Wieczór. Nareszcie można wrzucić na luz. Wygodna kanapa, dobra muza, może jakaś picka i pełen relaks. Należy Wam się po całym dniu! 🛋️🍕";
 }
+        
 
 function pokazGłownyAlert(tytul, tresc) {
     const modal = document.createElement('div');
