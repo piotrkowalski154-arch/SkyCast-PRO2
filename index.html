@@ -666,32 +666,34 @@ function wybierzIkonePory(godzina, APIicon) {
     if (APIicon.startsWith("13")) return "❄️";
     return "☁️";
 }
-
 function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
 
-    // 1. NAJPIERW SPRAWDZAMY ZJAWISKA EKSTREMALNE (Niezależnie od godziny)
+    // 1. ZJAWISKA EKSTREMALNE
     if (weatherId >= 200 && weatherId <= 232) {
-        return "⚡ Uwaga, burza w regionie! Zabezpieczcie rzeczy na balkonach. Siedzimy bezpiecznie, radar włączony, a na słuchawkach leci dobry bit! ⛈️💻🎧";
+        return "⚡ Uwaga, burza w regionie! Bezpieczeństwo przede wszystkim – monitoruję sytuację. Dziękuję za wirtualne kawy, dzięki nim system pracuje bez zarzutu! ⛈️💻";
     }
     if (weatherId >= 500 && weatherId <= 531) {
-        return "🌧️ Pada deszcz! Idealny czas na kubek czegoś ciepłego, dobrą muzykę i śledzenie radaru. Uważajcie na drogach! 🎧💻";
+        return "🌧️ Opady w zasięgu radarów. System pracuje w trybie monitoringu. Dzięki za wsparcie aplikacji – każda wirtualna kawa to krok do przodu! 🎧💻";
     }
 
-    // 2. JEŚLI NIE MA BURZY ANI DESZCZU, LECIMY WEDŁUG PORY DNIA
+    // 2. PORA DNIA
     if (godzina >= 22 || godzina < 6) {
-        return "🌙 Nocna Warta: System SkyCast w trybie czuwania. Miasto śpi, a my pilnujemy danych. Spokojnej nocy! ✨🎧";
+        return "🌙 Nocna Warta: SkyCast w trybie czuwania. Dziękuję, że jesteście z aplikacją – Wasze wsparcie pozwala mi rozwijać to narzędzie. Spokojnej nocy! ✨";
     }
     if (godzina >= 6 && godzina < 12) {
-        return "☕ Poranny skan: Kawa paruje, systemy zaktualizowane. Pogoda pod kontrolą. Gotowi na nowy dzień? Ogień! 🚀💻";
+        return "☕ Poranny skan: Systemy zaktualizowane, dane spływają. Ogromne dzięki za każdą wirtualną kawę – to dzięki Wam SkyCast PRO działa stabilnie! Ogień! 🚀";
     }
     if (godzina >= 12 && godzina < 18) {
-        return "☀️ Popołudnie: SkyCast operacyjny. Skanujemy niebo i ciśniemy z naszymi projektami. Trzymajcie się ciepło! 💻🔥🍕";
+        return "☀️ Popołudnie: SkyCast operacyjny. Niebo pod stałym nadzorem. Dzięki za wszystkie wiadomości i wirtualne kawy – analizujemy dalej! 💻🔥";
     }
     
-    // Domyślnie dla wieczoru (18-22)
-    return "🌅 Wieczorny chill: Analizujemy dane z całego dnia. Dobry moment na odpoczynek, pizzę i podsumowania. System czuwa. ✨🎧🍕";
-}
+    // Wieczór (18-22)
+    return "🌅 Wieczorny chill: Analiza danych zakończona. Dziękuję, że korzystacie z SkyCast PRO i wspieracie ten projekt wirtualną kawą. Spokojnego wieczoru! ✨🎧";
+        }
+        
+
+
 
 function pokazGłownyAlert(tytul, tresc) {
     const modal = document.createElement('div');
