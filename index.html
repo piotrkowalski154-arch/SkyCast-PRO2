@@ -489,7 +489,7 @@ function skanujZagrozenia() {
 
         
 
-    // NASZE BRAKUJĄCE NARZĘDZIE DO WYŚWIETLANIA ALERTÓW
+    // NASZE BRAKUJĄCE NARZĘDZIE DO WYŚWIETLANIA ALERTÓW - WERSJA SKY BLUE 🌤️
 function wyswietlAlert(tytul, tresc) {
     // 1. Tworzymy fizyczne okienko
     const okienko = document.createElement('div');
@@ -502,20 +502,20 @@ function wyswietlAlert(tytul, tresc) {
     okienko.style.padding = '20px';
     okienko.style.borderRadius = '15px';
     okienko.style.zIndex = '9999'; // Gwarancja, że będzie ZAWSZE na wierzchu!
-    okienko.style.border = '2px solid #ef4444'; // Czerwona ramka ostrzegawcza
-    okienko.style.boxShadow = '0 10px 25px rgba(0,0,0,0.8)';
+    okienko.style.border = '2px solid #38bdf8'; // Nowa, niebieska ramka SkyCast PRO
+    okienko.style.boxShadow = '0 10px 25px rgba(56, 189, 248, 0.2)'; // Delikatna niebieska poświata
     okienko.style.width = '85%';
     okienko.style.textAlign = 'center';
     
-    // 🛡️ NOWE ZABEZPIECZENIA EKRANU (Mobilne)
+    // Zabezpieczenia ekranu (Mobilne)
     okienko.style.maxHeight = '80vh'; // Maksymalnie 80% wysokości widocznego ekranu
     okienko.style.overflowY = 'auto'; // Umożliwia przewijanie tekstu wewnątrz okienka
 
     // 2. Wstrzykujemy nasz tekst (Tytuł i Raport)
     okienko.innerHTML = `
-        <h2 style="color: #ef4444; margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
+        <h2 style="color: #38bdf8; margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
         <p style="white-space: pre-line; font-size: 0.9rem; text-align: left; line-height: 1.4;">${tresc}</p>
-        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #ef4444; color: white; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
+        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
     `;
 
     // 3. Dodajemy okienko do naszej strony
