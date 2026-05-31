@@ -482,7 +482,44 @@ function pokazAlertPowitalny() {
 }
         
 
+    // NASZE BRAKUJĄCE NARZĘDZIE DO WYŚWIETLANIA ALERTÓW
+function wyswietlAlert(tytul, tresc) {
+    // 1. Tworzymy fizyczne okienko
+    const okienko = document.createElement('div');
+    okienko.style.position = 'fixed';
+    okienko.style.top = '50%';
+    okienko.style.left = '50%';
+    okienko.style.transform = 'translate(-50%, -50%)';
+    okienko.style.backgroundColor = 'rgba(15, 23, 42, 0.95)'; // Ciemne, eleganckie tło
+    okienko.style.color = '#f8fafc';
+    okienko.style.padding = '20px';
+    okienko.style.borderRadius = '15px';
+    okienko.style.zIndex = '9999'; // Gwarancja, że będzie ZAWSZE na wierzchu!
+    okienko.style.border = '2px solid #ef4444'; // Czerwona ramka ostrzegawcza
+    okienko.style.boxShadow = '0 10px 25px rgba(0,0,0,0.8)';
+    okienko.style.width = '85%';
+    okienko.style.textAlign = 'center';
     
+    // 🛡️ NOWE ZABEZPIECZENIA EKRANU (Mobilne)
+    okienko.style.maxHeight = '80vh'; // Maksymalnie 80% wysokości widocznego ekranu
+    okienko.style.overflowY = 'auto'; // Umożliwia przewijanie tekstu wewnątrz okienka
+
+    // 2. Wstrzykujemy nasz tekst (Tytuł i Raport)
+    okienko.innerHTML = `
+        <h2 style="color: #ef4444; margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
+        <p style="white-space: pre-line; font-size: 0.9rem; text-align: left; line-height: 1.4;">${tresc}</p>
+        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #ef4444; color: white; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
+    `;
+
+    // 3. Dodajemy okienko do naszej strony
+    document.body.appendChild(okienko);
+
+    // 4. Mechanizm zamykania po kliknięciu przycisku
+    document.getElementById('przyciskZamknijAlert').addEventListener('click', function() {
+        okienko.remove(); // Niszczy okienko po przeczytaniu
+    });
+}
+        
     
 
         
