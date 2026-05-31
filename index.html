@@ -69,6 +69,7 @@
       </style>
 </head>
 <body>
+
 <div class="app-container">
     
     <div id="radar-wiadomosci" class="wiadomosci">
@@ -94,22 +95,13 @@
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px;">
-                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;">
-                    <source src="" type="audio/mpeg">
-                </audio>
+                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;"></audio>
                 <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
             </div>
         </div>
     </div>
 
 </div>
-    
-
-    
-
-
-        
-    
 
 <script>
 function cyberZmiana() {
@@ -119,7 +111,6 @@ function cyberZmiana() {
     const placeholder = document.getElementById("audioPlaceholder");
     const val = select.value;
 
-    // Kiedy użytkownik zresetuje wybór
     if (val === "") {
         ekran.innerText = "WYBIERZ STACJĘ";
         audio.style.display = "none";
@@ -128,16 +119,15 @@ function cyberZmiana() {
         return;
     }
 
-    // Aktualizacja nazwy stacji na ekranie
     const nazwaStacji = select.options[select.selectedIndex].text;
     ekran.innerText = nazwaStacji;
     
-    // Ukrywamy placeholder, pokazujemy czysty odtwarzacz i gramy!
-    placeholder.style.display = "none";
+    // Ustawienie źródła bezpośrednio na audio
     audio.src = val;
+    placeholder.style.display = "none";
     audio.style.display = "block";
     audio.load();
-    audio.play().catch(e => console.log("Przeglądarka zablokowała autostart."));
+    audio.play().catch(e => console.log("Przeglądarka blokuje autoodtwarzanie - kliknij Play ręcznie."));
 }
 </script>
         
