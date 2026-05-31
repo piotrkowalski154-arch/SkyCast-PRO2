@@ -477,10 +477,11 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
         }
         
         const dniKlucze = Object.keys(dniMap).slice(0, 5);
-        for (let i = 0; i < dniKlucze.length; i++) {
-            const dane = dniMap[dniKlucze[i]];
-            const dataOb = new Date(dane.wpisIkony.dt * 1000);
-            const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon.replace('n', 'd'), dane.wpisIkony.weather[0].description).icon;
+for (let i = 0; i < dniKlucze.length; i++) {
+    const dane = dniMap[dniKlucze[i]];
+    const dataOb = new Date(dane.wpisIkony.dt * 1000);
+    // USUNIĘTO .replace('n', 'd') - teraz system obsłuży zarówno dzień, jak i noc!
+    const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon, dane.wpisIkony.weather[0].description).icon;
             
             let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
             
