@@ -69,39 +69,44 @@
       </style>
 </head>
 <body>
-
-<div class="app-container">
-    
-    <div id="radar-wiadomosci" class="wiadomosci">
-        <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
-    </div>
-
-    <div style="width: 100%; max-width: 380px; margin: 0 auto 35px auto; padding: 0; background: #001233; border: 2px solid #FFD600; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; text-align: center;">
-
-        <div style="background: #FFD600; padding: 15px; color: #001233;">
-            <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio</h3>
+    <div class="app-container">
+        
+        <div id="radar-wiadomosci" class="wiadomosci">
+            <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
         </div>
 
-        <div style="padding: 20px;">
-            <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; display: block; margin-bottom: 15px;">Wybierz stację...</span>
+        <div style="width: 100%; max-width: 380px; margin: 0 auto 35px auto; padding: 0; background: #001233; border: 2px solid #FFD600; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; text-align: center;">
 
-            <div style="margin-bottom: 20px;">
-                <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background-color: rgba(0, 35, 92, 0.8); color: #FFD600; font-weight: bold; border: 1px dashed #FFD600; padding: 12px; border-radius: 10px; font-size: 1rem; cursor: pointer; outline: none; text-align: center;">
-                    <option value="">-- Wybierz Radio --</option>
-                    <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX</option>
-                    <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA</option>
-                    <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET</option>
-                </select>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px;">
-                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;"></audio>
-                <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
-            </div>
-        </div>
+    <div style="background: #FFD600; padding: 15px; color: #001233;">
+        <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio</h3>
     </div>
 
+    <div style="padding: 20px;">
+        <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; display: block; margin-bottom: 15px;">Wybierz stację...</span>
+
+        <div style="margin-bottom: 20px;">
+            <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background-color: rgba(0, 35, 92, 0.8); color: #FFD600; font-weight: bold; border: 1px dashed #FFD600; padding: 12px; border-radius: 10px; font-size: 1rem; cursor: pointer; outline: none; text-align: center;">
+                <option value="">-- Wybierz Radio --</option>
+                <option value="http://217.74.72.11/rmf_fm">RMF FM</option>
+                <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX</option>
+                <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA</option>
+                <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET</option>
+            </select>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px;">
+            <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;">
+                <source src="" type="audio/mpeg">
+            </audio>
+            <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
+        </div>
+    </div>
 </div>
+
+
+
+        
+    
 
 <script>
 function cyberZmiana() {
@@ -111,55 +116,29 @@ function cyberZmiana() {
     const placeholder = document.getElementById("audioPlaceholder");
     const val = select.value;
 
-    // Zatrzymaj poprzednie odtwarzanie i ukryj kontrolki
-    audio.pause();
-    audio.style.display = "none";
-    placeholder.style.display = "block";
-    placeholder.innerText = "Ładowanie strumienia...";
-
+    // Kiedy użytkownik zresetuje wybór
     if (val === "") {
         ekran.innerText = "WYBIERZ STACJĘ";
-        placeholder.innerText = "Oczekuję na sygnał...";
-        audio.removeAttribute("src"); // wyczyść źródło
+        audio.style.display = "none";
+        placeholder.style.display = "block";
+        audio.pause();
         return;
     }
 
+    // Aktualizacja nazwy stacji na ekranie
     const nazwaStacji = select.options[select.selectedIndex].text;
     ekran.innerText = nazwaStacji;
     
-    // Przypisz źródło i spróbuj odtworzyć
+    // Ukrywamy placeholder, pokazujemy czysty odtwarzacz i gramy!
+    placeholder.style.display = "none";
     audio.src = val;
-    
+    audio.style.display = "block";
     audio.load();
-    
-    // Gdy strumień jest gotowy do odtwarzania (przynajmniej częściowo)
-    audio.addEventListener('canplay', function onCanPlay() {
-        audio.removeEventListener('canplay', onCanPlay);
-        audio.style.display = "block";
-        placeholder.style.display = "none";
-        
-        // Próbuj autoodtwarzania
-        audio.play().then(() => {
-            // Odtwarzanie ruszyło – wszystko OK
-            ekran.innerText = nazwaStacji + " ▶";
-        }).catch(err => {
-            // Blokada autoodtwarzania – pokaż komunikat, ale kontrolki są widoczne
-            console.log("Autoodtwarzanie zablokowane – kliknij Play");
-            placeholder.style.display = "block";
-            placeholder.innerText = "Kliknij ▶ aby uruchomić";
-        });
-    });
-
-    // Obsługa błędu ładowania strumienia
-    audio.addEventListener('error', function onError() {
-        audio.removeEventListener('error', onError);
-        audio.style.display = "none";
-        placeholder.style.display = "block";
-        placeholder.innerText = "Błąd strumienia – spróbuj ponownie";
-        ekran.innerText = nazwaStacji + " (błąd)";
-    });
+    audio.play().catch(e => console.log("Przeglądarka zablokowała autostart."));
 }
-</script>
+</script
+
+
 
         
         
