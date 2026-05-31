@@ -424,7 +424,8 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
                 for(let i = 0; i < Math.min(dane.items.length, 4); i++) {
                     zebraneHTML += `
                     <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15);">
-                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">📢 PILNE: KRAJ</div>
+                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div>
+                        
                         <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${dane.items[i].title}</a>
                     </div>`;
                 }
