@@ -111,25 +111,56 @@ function cyberZmiana() {
     const placeholder = document.getElementById("audioPlaceholder");
     const val = select.value;
 
+    // Zatrzymaj poprzednie odtwarzanie i ukryj kontrolki
+    audio.pause();
+    audio.style.display = "none";
+    placeholder.style.display = "block";
+    placeholder.innerText = "Ładowanie strumienia...";
+
     if (val === "") {
         ekran.innerText = "WYBIERZ STACJĘ";
-        audio.style.display = "none";
-        placeholder.style.display = "block";
-        audio.pause();
+        placeholder.innerText = "Oczekuję na sygnał...";
+        audio.removeAttribute("src"); // wyczyść źródło
         return;
     }
 
     const nazwaStacji = select.options[select.selectedIndex].text;
     ekran.innerText = nazwaStacji;
     
-    // Ustawienie źródła bezpośrednio na audio
+    // Przypisz źródło i spróbuj odtworzyć
     audio.src = val;
-    placeholder.style.display = "none";
-    audio.style.display = "block";
+    
     audio.load();
-    audio.play().catch(e => console.log("Przeglądarka blokuje autoodtwarzanie - kliknij Play ręcznie."));
+    
+    // Gdy strumień jest gotowy do odtwarzania (przynajmniej częściowo)
+    audio.addEventListener('canplay', function onCanPlay() {
+        audio.removeEventListener('canplay', onCanPlay);
+        audio.style.display = "block";
+        placeholder.style.display = "none";
+        
+        // Próbuj autoodtwarzania
+        audio.play().then(() => {
+            // Odtwarzanie ruszyło – wszystko OK
+            ekran.innerText = nazwaStacji + " ▶";
+        }).catch(err => {
+            // Blokada autoodtwarzania – pokaż komunikat, ale kontrolki są widoczne
+            console.log("Autoodtwarzanie zablokowane – kliknij Play");
+            placeholder.style.display = "block";
+            placeholder.innerText = "Kliknij ▶ aby uruchomić";
+        });
+    });
+
+    // Obsługa błędu ładowania strumienia
+    audio.addEventListener('error', function onError() {
+        audio.removeEventListener('error', onError);
+        audio.style.display = "none";
+        placeholder.style.display = "block";
+        placeholder.innerText = "Błąd strumienia – spróbuj ponownie";
+        ekran.innerText = nazwaStacji + " (błąd)";
+    });
 }
 </script>
+
         
         
 
