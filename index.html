@@ -454,21 +454,27 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
 
 
 function pokazAlertPowitalny() {
-    const raport = "🌤️ SkyCast PRO | Raport Poranny | Niedziela, 31 maja 2026\n" +
-            "================================\n" +
-            "📍 KRAKÓW I OKOLICE | STATUS: STABILNIE 🛡️\n\n" +
-            "Szanowni Państwo,\n" +
-            "Nasze systemy wskazują, że po nocnych zjawiskach burzowych sytuacja w regionie jest w pełni opanowana. Według naszych analiz, czeka nas dziś spokojny i umiarkowanie ciepły dzień.\n\n" +
-            "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
-            "• Temperatura: Przewidujemy maksymalnie 22°C w godzinach popołudniowych.\n" +
-            "• Zjawiska: Zmienne zachmurzenie. W godzinach 12:00 – 14:00 nasze modele wyliczają niewielkie ryzyko (ok. 25%) wystąpienia bardzo przelotnego deszczu.\n" +
-            "• Parametry: Ciśnienie stabilne (ok. 1010 hPa), wiatr słaby (do 18 km/h), wskaźnik UV: 6.\n\n" +
-            "🗺️ SYTUACJA W KRAJU:\n" +
-            "Monitorujemy również sytuację dla reszty Polski. Widzimy wyraźny podział: najwięcej słońca i ciepła (do 26°C) odnotowujemy na południowym zachodzie. Na północnym wschodzie (Mazury, Podlasie) ostrzegamy przed lokalnymi, przelotnymi burzami.\n\n" +
-            "================================\n" +
-            "STATUS SYSTEMOWY: OPERACYJNY • Całym naszym zespołem życzymy spokojnej niedzieli! 🛡️📡";
+    const raport = 
+        "🌤️ SkyCast PRO | Raport Poranny\n" +
+        "📅 Niedziela, 31 maja 2026\n" +
+        "================================\n" +
+        "📍 KRAKÓW I OKOLICE\n" +
+        "🛡️ STATUS: STABILNIE (Brak opadów)\n\n" +
+        "👋 Szanowni Państwo,\n" +
+        "Dzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️. Co najważniejsze – nie spodziewamy się dziś ani kropli deszczu! 🚫🌧️\n\n" +
+        "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
+        "🔹 Poranek (09:00): Ok. 15.6°C, umiarkowane zachmurzenie ⛅.\n" +
+        "🔹 Południe (13:00 - 15:00): 20 - 21.4°C. Częściowo słonecznie 🌤️, wiatr umiarkowany z północnego zachodu (do 20 km/h) 💨.\n" +
+        "🔹 Popołudnie (17:00): Bardzo słonecznie ☀️ z temperaturą maksymalną ok. 22.3°C.\n\n" +
+        "🗺️ SYTUACJA W KRAJU:\n" +
+        "Dzisiejszy dzień w Polsce będzie bardzo różnorodny:\n" +
+        "🔥 Zachód (Wrocław): Najcieplej na mapie! Słonecznie, sucho, po południu do 24.6°C (odczuwalna 26°C).\n" +
+        "⛅ Centrum (Warszawa): Rano pochmurno z przelotnym deszczem 🌧️ (15.9°C). Po południu poprawa pogody, słońce ☀️ i 21.4°C.\n" +
+        "💨 Północ (Gdańsk): Odczuwalnie chłodniej i wietrznie. Rano słonecznie (18.3°C), po południu przelotny deszcz 🌧️ i spadek do 17.4°C. Silny wiatr w porywach >20 km/h.\n\n" +
+        "================================\n" +
+        "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
+        "Całym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
 
-    // Zmieniamy nazwę na tę, której maszyna faktycznie potrafi użyć!
     wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
 }
         
