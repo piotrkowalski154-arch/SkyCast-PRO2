@@ -607,9 +607,11 @@ function pokazGłownyAlert(tytul, tresc) {
     zawartosc.textContent = tresc;
     okno.appendChild(zawartosc);
 
-    const zamknij = document.createElement('button');
-    zamknij.textContent = '✖ ZROZUMIAŁEM, ZAMKNIJ RAPORT';
-    zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
+   const zamknij = document.createElement('button');
+zamknij.textContent = '✖ ZROZUMIAŁEM, ZAMKNIJ RAPORT';
+zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
+    
+    
     
     zamknij.onclick = () => modal.remove();
     modal.onclick = e => { if(e.target===modal) modal.remove(); };
