@@ -275,33 +275,41 @@ function uruchomProtokolGPS() {
 function tlumaczPogodeTeraz(iconCode, description) {
     let desc = description || "Zmienne warunki";
     let icon = "☁️";
+    
     if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-    const hour = new Date().getHours();
-    if (hour >= 22 || hour < 5) return { desc: desc, icon: `<span class="anim-float">🌙</span>` };
-    if (iconCode.startsWith("01")) icon = "☀️";
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = "⛅";
+    
+    const isNight = iconCode.endsWith("n");
+    
+    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️";
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅";
     else if (iconCode.startsWith("04")) icon = "☁️";
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
     else if (iconCode.startsWith("11")) icon = "⚡";
     else if (iconCode.startsWith("13")) icon = "❄️";
     else if (iconCode.startsWith("50")) icon = "🌫️";
+    
     return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
 }
 
 function tlumaczPogodePrognoza(iconCode, description) {
     let desc = description || "Zmienne warunki";
     let icon = "☁️";
+    
     if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+    
     const isNightAPI = iconCode.endsWith("n");
+    
     if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️";
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️🌙" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️";
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
     else if (iconCode.startsWith("11")) icon = "⚡";
     else if (iconCode.startsWith("13")) icon = "❄️";
     else if (iconCode.startsWith("50")) icon = "🌫️";
+    
     return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
 }
+        
 
 function ocenaPowietrza(aqi) {
     if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
