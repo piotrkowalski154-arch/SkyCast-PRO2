@@ -319,7 +319,9 @@ function ocenaPowietrza(aqi) {
     return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
 }
 
-function zainstalujAplikacje() { alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO...\n1. Kliknij 3 kropki w przeglądarce\n2. Dodaj do ekranu głównego!"); }
+function zainstalujAplikacje() {
+            alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
+}
         
     async function uruchomZlotySkaner() {
     let miastoInput = document.getElementById('cityIn')?.value.trim();
