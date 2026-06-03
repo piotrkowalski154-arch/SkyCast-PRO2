@@ -69,7 +69,7 @@
         .karta-krakow { overflow: hidden; }
     </style>
 </head>
-    <body>
+<body>
     <div class="app-container">
         
         <div id="radar-wiadomosci" class="wiadomosci">
@@ -164,7 +164,8 @@
                 <strong style="color: #fff; font-size: 1rem; display: inline-block; margin-top: 5px;">33 2910 0006 2469 8002 1032</strong>
             </div>
         </div>
-    </div>    <script>
+    </div>
+        <script>
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -253,72 +254,6 @@
         const raport = "🌤️ SkyCast PRO | Raport Poranny\n📅 Niedziela, 31 maja 2026\n================================\n📍 KRAKÓW I OKOLICE\n🛡️ STATUS: STABILNIE (Brak opadów)\n\n👋 Szanowni Państwo,\nDzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️.\n\n✅ STATUS SYSTEMOWY: OPERACYJNY 📡\nCałym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
         wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
     }
-                            const godz = parseInt(czas.split(':')[0]);
-                const ikonaH = wybierzIkonePory(godz, item.weather[0].icon);
-                hL.innerHTML += `<div class="h-box"><div style="font-size: 0.8rem; font-weight: 700;">${czas}</div><div style="font-size: 1.8rem; margin: 5px 0;"><span class="anim-float">${ikonaH}</span></div><div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${Math.round(item.main.temp)}°</div></div>`;
-            }
-        }
-
-        if (document.getElementById('dailyCard')) document.getElementById('dailyCard').style.display = 'block';
-        const dL = document.getElementById('dList');
-        if (dL) {
-            dL.innerHTML = '';
-            const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-            const dzisiejszaData = new Date().toDateString();
-            const dniMap = {};
-            
-            forecastData.list.forEach(item => {
-                const kluczDnia = new Date(item.dt * 1000).toDateString();
-                if (kluczDnia !== dzisiejszaData) {
-                    if (!dniMap[kluczDnia]) dniMap[kluczDnia] = { minTemp: item.main.temp_min, maxTemp: item.main.temp_max, wpisIkony: item };
-                    else {
-                        if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
-                        if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
-                        if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
-                    }
-                }
-            });
-
-            Object.keys(dniMap).slice(0, 5).forEach(klucz => {
-                const dane = dniMap[klucz];
-                const dataOb = new Date(dane.wpisIkony.dt * 1000);
-                const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon, dane.wpisIkony.weather[0].description).icon;
-                let tMaxColor = dane.maxTemp > 24 ? "#ef4444" : (dane.maxTemp < 5 ? "#3b82f6" : "#f97316");
-                
-                dL.innerHTML += `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.4); border:2px solid rgba(255,255,255,0.6); margin-bottom:14px; padding:12px 25px; border-radius:50px; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
-                    <div style="flex:1; font-weight:900; font-size:1.05rem; color:var(--main-title); text-transform:uppercase;">${dniTygodnia[dataOb.getDay()]}</div>
-                    <div style="font-size:2.3rem; margin:0 10px; filter:drop-shadow(0 3px 5px rgba(0,0,0,0.2));">${ikonaD}</div>
-                    <div style="flex:1; text-align:right; font-size:1.5rem; font-weight:900; color:${tMaxColor};">
-                        <span style="background:rgba(255,255,255,0.7); padding:4px 10px; border-radius:20px;">${Math.round(dane.maxTemp)}°</span>
-                    </div></div>`;
-            });
-        }
-    }
-
-    function pobierzWiadomosci() {
-        const kontener = document.getElementById('radar-wiadomosci');
-        if (!kontener) return; 
-        const znacznikCzasu = new Date().getTime();
-        let zebraneHTML = '<h3 style="color:#f8fafc; text-align:center; margin-bottom:20px; font-size:1.1rem; font-weight:900; text-transform:uppercase; letter-spacing:3px; border-bottom:1px solid rgba(56,189,248,0.3); padding-bottom:10px; text-shadow:0 0 15px rgba(56,189,248,0.5);">🇵🇱 KRAJ_Świat🌏_SPORT ⚽</h3>';
-
-        fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.polsatnews.pl/rss/wszystkie.xml&t=${znacznikCzasu}`)
-            .then(res => res.json())
-            .then(dane => {
-                if (dane.status === 'ok') {
-                    dane.items.slice(0, 4).forEach(item => {
-                        zebraneHTML += `<div style="background:rgba(15,23,42,0.7); border:1px solid rgba(239,68,68,0.3); border-left:6px solid #ef4444; border-radius:12px; padding:12px; margin-bottom:12px; box-shadow:0 4px 15px rgba(239,68,68,0.15);"><div style="font-size:0.75rem; color:#ef4444; font-weight:900; letter-spacing:2px; margin-bottom:5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div><a href="${item.link}" target="_blank" style="color:#f8fafc; text-decoration:none; font-size:0.95rem; font-weight:700; display:block;">${item.title}</a></div>`;
-                    });
-                }
-                return fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://rss.gazeta.pl/pub/rss/sport.xml&t=${znacznikCzasu}`).then(r => r.json());
-            })
-            .then(daneSport => {
-                if (daneSport.status === 'ok') {
-                    daneSport.items.slice(0, 4).forEach(item => {
-                        zebraneHTML += `<div style="background:rgba(15,23,42,0.7); border:1px solid rgba(34,197,94,0.3); border-left:6px solid #22c55e; border-radius:12px; padding:12px; margin-bottom:12px; box-shadow:0 4px 15px rgba(34,197,94,0.15);"><div style="font-size:0.75rem; color:#22c55e; font-weight:900; letter-spacing:2px; margin-bottom:5px;">🚨 SPORT ⚽</div><a href="${item.link}" target="_blank" style="color:#f8fafc; text-decoration:none; font-size:0.95rem; font-weight:700; display:block;">${item.title}</a></div>`;
-                    });
-                }
-                kontener.innerHTML = zebraneHTML;
-            }).
                 async function uruchomZlotySkaner() {
         let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
         if(document.getElementById('cityIn')) document.getElementById('cityIn').value = miastoInput;
