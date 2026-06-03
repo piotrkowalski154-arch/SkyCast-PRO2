@@ -547,24 +547,37 @@ function skanujZagrozenia() {
     }
 
     function pobierzMyslPiotrka(temp, weatherId) {
-        const godzina = new Date().getHours();
-        if (weatherId >= 200 && weatherId <= 232) {
-            return "⚡ Uwaga, burza w regionie! Zabezpieczcie rzeczy na balkonach. Siedzimy bezpiecznie, radar włączony, a na słuchawkach leci dobry bit! ⛈️💻🎧";
-        }
-        if (weatherId >= 500 && weatherId <= 531) {
-            return "🌧️ Pada deszcz! Idealny czas na kubek czegoś ciepłego, dobrą muzykę i śledzenie radaru. Uważajcie na drogach! 🎧💻";
-        }
-        if (godzina >= 22 || godzina < 6) {
-            return "🌙 Nocna Warta: System SkyCast w trybie czuwania. Miasto śpi, a my pilnujemy danych. Spokojnej nocy! ✨🎧";
-        }
-        if (godzina >= 6 && godzina < 12) {
-            return "☕ Poranny skan: Kawa paruje, systemy zaktualizowane. Pogoda pod kontrolą. Gotowi na nowy dzień? Ogień! 🚀💻";
-        }
-        if (godzina >= 12 && godzina < 18) {
-            return "☀️ Popołudnie: SkyCast operacyjny. Skanujemy niebo i ciśniemy z naszymi projektami. Trzymajcie się ciepło! 💻🔥🍕";
-        }
-        return "🌅 Wieczorny chill: Analizujemy dane z całego dnia. Dobry moment na odpoczynek, pizzę i podsumowania. System czuwa. ✨🎧🍕";
+    const godzina = new Date().getHours();
+
+    // 1. PRIORYTET: Alarmy pogodowe (skanowanie od góry - wersja weekendowa)
+    if (weatherId >= 200 && weatherId <= 232) {
+        return "⚡ Alert: Burza w regionie! Długi weekend z przygodami. Zabezpieczcie grille i balkony. Zostańcie w domu, odpalcie nasze radio w SkyCast i przeczekajcie bezpiecznie! ⛈️💻🎧";
     }
+    if (weatherId >= 500 && weatherId <= 531) {
+        return "🌧️ Pada! Jeśli pogoda trochę psuje plany plenerowe, to idealny moment na kawę, dobrą pizzę i odpalenie ulubionych stacji radiowych u nas. ☕📻";
+    }
+    if (weatherId >= 600 && weatherId <= 622) {
+        return "❄️ Śnieg na radarze?! Pogoda zwariowała na ten weekend! Nasze serwery grzeją, a gorąca pizza z pieca zawsze poprawi humor! 🍕💻☃️";
+    }
+    if (weatherId === 800 && temp >= 25) {
+        return "🔥 Czyste niebo i upał! Idealna pogoda na długi weekend. Pamiętajcie o wodzie, opalajcie się bezpiecznie i niech gra muzyka z naszej aplikacji! ☀️📻";
+    }
+
+    // 2. CYKL DOBOWY: (jeśli pogoda jest spokojna - wersja weekendowa)
+    if (godzina >= 22 || godzina < 6) {
+        return "🌙 Nocna Warta: Długi weekend trwa, miasto imprezuje lub śpi, a Architekt koduje nocą. Algorytmy na posterunku. Bawcie się dobrze! 🦉💻✨";
+    }
+    if (godzina >= 6 && godzina < 12) {
+        return "☕ Poranny skan: Długi weekend odpalony! Kawa paruje, a SkyCast pilnuje pogody na Wasze wyjazdy. Muzyka gra, lecimy z tym dniem! 🚀📻";
+    }
+    if (godzina >= 12 && godzina < 18) {
+        return "☀️ Popołudnie: Długi weekend w pełni! Skanujemy niebo, żeby Wasze grille wypaliły. Odpalcie ulubione bity i łapcie zasłużony chill! 🏕️🔥🍕";
+    }
+    
+    // Zostaje nam wieczór (od 18:00 do 21:59)
+    return "🌅 Wieczorny chill: Czas na konkretny weekendowy reset. Odpalamy dobre bity, zamawiamy pizzę i ładujemy baterie. SkyCast czuwa nad Wami! ✨🎧🍕";
+    }
+                
 
     setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
     </script>
