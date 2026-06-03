@@ -341,7 +341,7 @@
 
     function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
         const currentHour = new Date().getHours();
-        const isNight = currentHour >=21 || currentHour < 5;
+        const isNight = currentHour >=20 || currentHour < 5;
         
         if (isNight) document.body.classList.add('night-mode');
         else document.body.classList.remove('night-mode');
