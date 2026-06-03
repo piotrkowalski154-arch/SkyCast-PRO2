@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +66,12 @@
         
         .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #d3d3d3 !important; }
-      </style>
+        .karta-krakow {
+    overflow: hidden; /* Blokada systemowa: nic nie ucieka poza granice! */
+}
+
+    </style>
+    
 </head>
 <body>
     <div class="app-container">
@@ -74,6 +79,7 @@
     <div id="radar-wiadomosci" class="wiadomosci">
         <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
     </div>
+
 
 <div style="width: 100%; max-width: 380px; margin: 0 auto 35px auto; padding: 0; background: #001233; border: 2px solid #FFD600; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; text-align: center;">
 
@@ -130,8 +136,7 @@ function cyberZmiana() {
     audio.load();
     audio.play().catch(e => console.log("Autostart zablokowany"));
 }
-</script>        
-        
+</script>
 
 
 
@@ -167,11 +172,6 @@ function cyberZmiana() {
     audio.play().catch(e => console.log("Przeglądarka zablokowała autostart."));
 }
 </script>
-
-
-
-        
-        
 
         <div class="search-row">
             <input type="text" id="cityIn" value="Kraków">
@@ -252,6 +252,7 @@ function cyberZmiana() {
     <script>
 const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log("System gotowy, odpalam silniki...");
     pokazAlertPowitalny(); 
@@ -309,7 +310,7 @@ function tlumaczPogodePrognoza(iconCode, description) {
     
     return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
 }
-        
+
 
 function ocenaPowietrza(aqi) {
     if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
@@ -318,18 +319,16 @@ function ocenaPowietrza(aqi) {
     if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
     return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
 }
-
-function zainstalujAplikacje() {
+ function zainstalujAplikacje() {
             alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
-}
-        
+
+      }  
     async function uruchomZlotySkaner() {
     let miastoInput = document.getElementById('cityIn')?.value.trim();
     if (!miastoInput) {
         miastoInput = "Kraków";
         if(document.getElementById('cityIn')) document.getElementById('cityIn').value = "Kraków";
     }
-    
     if(document.getElementById('regionalAlertCard')) document.getElementById('regionalAlertCard').style.display = 'none';
     if(document.getElementById('atmCard')) document.getElementById('atmCard').style.display = 'none';
     if(document.getElementById('alert24hCard')) document.getElementById('alert24hCard').style.display = 'none';
@@ -371,7 +370,7 @@ function zainstalujAplikacje() {
 
 function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
     const currentHour = new Date().getHours();
-    const isNight = currentHour >= 20 || currentHour < 5;
+    const isNight = currentHour >= 21 || currentHour < 5;
     
     if (isNight) document.body.classList.add('night-mode');
     else document.body.classList.remove('night-mode');
@@ -485,13 +484,13 @@ function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
                 if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
             }
         }
-        
         const dniKlucze = Object.keys(dniMap).slice(0, 5);
 for (let i = 0; i < dniKlucze.length; i++) {
     const dane = dniMap[dniKlucze[i]];
     const dataOb = new Date(dane.wpisIkony.dt * 1000);
     // USUNIĘTO .replace('n', 'd') - teraz system obsłuży zarówno dzień, jak i noc!
     const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon, dane.wpisIkony.weather[0].description).icon;
+
             
             let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
             
@@ -500,7 +499,8 @@ for (let i = 0; i < dniKlucze.length; i++) {
                 <div style="flex: 1; font-weight: 900; font-size: 1.05rem; color: var(--main-title); text-transform: uppercase;">
                     ${dniTygodnia[dataOb.getDay()]}
                 </div>
-                <div style="font-size: 2.3rem; margin: 0 10px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));">
+                
+    div style="font-size: 2.3rem; margin: 0 10px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));">
                     ${ikonaD}
                 </div>
                 <div style="flex: 1; text-align: right; font-size: 1.5rem; font-weight: 900; color: ${tMaxColor};">
@@ -514,11 +514,11 @@ for (let i = 0; i < dniKlucze.length; i++) {
         function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return; 
-    const rssKraj = 'https://fakty.interia.pl/feed';
+    const rssKraj = 'https://www.polsatnews.pl/rss/wszystkie.xml';
     const rssSport = 'https://rss.gazeta.pl/pub/rss/sport.xml';
     const znacznikCzasu = new Date().getTime();
-    
     let zebraneHTML = '<h3 style="color: #f8fafc; text-align: center; margin-bottom: 20px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 10px; text-shadow: 0 0 15px rgba(56,189,248,0.5);"> 🇵🇱  KRAJ_Świat🌏_SPORT ⚽</h3>';
+
             
 
     fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
@@ -553,50 +553,31 @@ for (let i = 0; i < dniKlucze.length; i++) {
 
 function pokazAlertPowitalny() {
     const raport = 
-    "🌤️ SkyCast PRO | Raport Operacyjny\n" +
-    "📅 Środa, 3 czerwca 2026\n" +
-    "================================\n" +
-    "📍 KRAKÓW I MAŁOPOLSKA\n" +
-    "⚠️ STATUS: DYNAMICZNY (Ciepło i przelotne deszcze)\n\n" +
-    "👋 Cześć! Witam w środę☔⚡😁!\n" +
-    "Aura nie odpuszcza i serwuje nam klasyczny, polski czerwiec. Dzisiaj słupki rtęci pną się w górę, co przy zwiększonej wilgotności oznacza jedno: będzie parno! Słońce stoczy walkę z chmurami, a w drugiej połowie dnia radary SkyCast PRO przewidują lokalne, szybkie ulewy 🌦️. Parasol to dzisiaj Twój taktyczny sojusznik na mieście!\n\n" +
-    "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
-    "🔹 W ciągu dnia: Robi się cieplej, uderzymy w 24°C. Poczujemy wyraźną duchotę. Uwaga na popołudniowy rozwój chmur i możliwe nagłe zrzuty wody 💧.\n" +
-    "🔹 Wieczór i Noc: Zdecydowanie cieplejsza noc niż wczoraj, około 14°C. Miejscami utrzyma się grubsze zachmurzenie ☁️.\n\n" +
-    "🔮 PROGNOZA TYGODNIOWA DLA KRAKOWA:\n" +
-    "• Czwartek (04.06): Po dzisiejszym cieple, jutro czeka nas wyraźne ochłodzenie do 20°C i dominacja chmur ☁️.\n" +
-    "• Piątek (05.06): Powrót wilgotnego frontu, bardzo duża szansa na opady (60%) przy temperaturze 23°C 🌧️.\n" +
-    "• Sobota (06.06): Utrzymanie niżowej aury, chłodniej (20°C) i mocne zachmurzenie.\n" +
-    "• Niedziela (07.06): Walka o słońce, pojawia się szansa na rozpogodzenia na koniec weekendu 🌤️.\n\n" +
-    "🗺️ SYTUACJA W KRAJU:\n" +
-    "IMGW wciąż bije na alarm w sprawie nadchodzącej suszy hydrologicznej, dlatego każdy dzisiejszy deszcz jest na wagę złota 🌱. Północ kraju pozostaje chłodniejsza (17-19°C), podczas gdy centrum i wschód będą się mierzyć z temperaturami powyżej 23°C i punktowymi burzami termicznymi.\n\n" +
-    "================================\n" +
-    "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
-    "Trzymajcie rękę na pulsie radarów i nie dajcie się zaskoczyć pogodzie! Mocnej, bezpiecznej środy! 😉☕🔥";
+        "🌤️ SkyCast PRO | Raport Poranny\n" +
+        "📅 Niedziela, 31 maja 2026\n" +
+        "================================\n" +
+        "📍 KRAKÓW I OKOLICE\n" +
+        "🛡️ STATUS: STABILNIE (Brak opadów)\n\n" +
+        "👋 Szanowni Państwo,\n" +
+        "Dzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️. Co najważniejsze – nie spodziewamy się dziś ani kropli deszczu! 🚫🌧️\n\n" +
+        "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
+        "🔹 Poranek (09:00): Ok. 15.6°C, umiarkowane zachmurzenie ⛅.\n" +
+        "🔹 Południe (13:00 - 15:00): 20 - 21.4°C. Częściowo słonecznie 🌤️, wiatr umiarkowany z północnego zachodu (do 20 km/h) 💨.\n" +
+        "🔹 Popołudnie (17:00): Bardzo słonecznie ☀️ z temperaturą maksymalną ok. 22.3°C.\n\n" +
+        "🗺️ SYTUACJA W KRAJU:\n" +
+        "Dzisiejszy dzień w Polsce będzie bardzo różnorodny:\n" +
+        "🔥 Zachód (Wrocław): Najcieplej na mapie! Słonecznie, sucho, po południu do 24.6°C (odczuwalna 26°C).\n" +
+        "⛅ Centrum (Warszawa): Rano pochmurno z przelotnym deszczem 🌧️ (15.9°C). Po południu poprawa pogody, słońce ☀️ i 21.4°C.\n" +
+        "💨 Północ (Gdańsk): Odczuwalnie chłodniej i wietrznie. Rano słonecznie (18.3°C), po południu przelotny deszcz 🌧️ i spadek do 17.4°C. Silny wiatr w porywach >20 km/h.\n\n" +
+        "================================\n" +
+        "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
+        "Całym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
 
-    wyswietlAlert("💦☔NOWY RAPORT OPERACYJNY🌂⚡", raport);
-    
+    wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
 }
         
     
 
-    // 2. Wstrzykujemy nasz tekst (Tytuł i Raport)
-    okienko.innerHTML = `
-        <h2 style="color: #38bdf8; margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
-        <p style="white-space: pre-line; font-size: 0.9rem; text-align: left; line-height: 1.4;">${tresc}</p>
-        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
-    `;
-
-    // 3. Dodajemy okienko do naszej strony
-    document.body.appendChild(okienko);
-
-    // 4. Mechanizm zamykania po kliknięciu przycisku
-    document.getElementById('przyciskZamknijAlert').addEventListener('click', function() {
-        okienko.remove(); // Niszczy okienko po przeczytaniu
-    });
-}
-        
-    
 function skanujZagrozenia() {
     const szafeczka = document.getElementById('regionalAlertCard');
     if (!szafeczka) return;
@@ -764,6 +745,8 @@ setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
 </body>
 </html>
 
+        
+                            
         
                             
         
