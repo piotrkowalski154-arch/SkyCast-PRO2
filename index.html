@@ -691,7 +691,8 @@ function pobierzMyslPiotrka(temp, weatherId) {
     }
 
     // 2. PORA DNIA
-    if (godzina >= 22 || godzina < 6) {
+    if (godzina >= 2
+        19 || godzina < 6) {
         return "🌙 Nocna Warta: SkyCast w trybie czuwania. Dziękuję, że jesteście z aplikacją – Wasze wsparcie pozwala mi rozwijać to narzędzie. Spokojnej nocy! ✨";
     }
     if (godzina >= 6 && godzina < 12) {
