@@ -390,6 +390,12 @@
                     }
                 }
             });
+             if (document.getElementById('dailyCard')) document.getElementById('dailyCard').style.display = 'block';
+const dL = document.getElementById('dList');
+if (dL) {
+    // Tutaj aplikacja generuje dni...
+}
+            
 
             Object.keys(dniMap).slice(0, 5).forEach(klucz => {
                 const dane = dniMap[klucz];
