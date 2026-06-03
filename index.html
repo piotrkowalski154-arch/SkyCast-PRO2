@@ -670,7 +670,7 @@ function wyswietlAlert(tytul, tresc) {
 
 
 function wybierzIkonePory(godzina, APIicon) {
-    if (godzina >= 22 || godzina <= 5) return "🌙"; 
+    if (godzina >= 19 || godzina <= 5) return "🌙"; 
     if (APIicon.startsWith("01")) return "☀️";
     if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
     if (APIicon.startsWith("04")) return "☁️";
@@ -704,6 +704,15 @@ function pobierzMyslPiotrka(temp, weatherId) {
     // Wieczór (18-22)
     return "🌅 Wieczorny chill: Analiza danych zakończona. Dziękuję, że korzystacie z SkyCast PRO i wspieracie ten projekt wirtualną kawą. Spokojnego wieczoru! ✨🎧";
         }
+        // Załóżmy, że "iconCode" to zmienna z danymi, które dostałeś z API
+let weatherEmoji = "☀️☁️";
+
+// Metoda .includes() sprawdza, czy w tekście z API znajduje się literka "n"
+if (iconCode.includes("n")) {
+    weatherEmoji = "🌙☁️"; // API twierdzi, że jest noc
+} else {
+    weatherEmoji = "☀️☁️"; // API twierdzi, że jest dzień
+}
         
 
 
