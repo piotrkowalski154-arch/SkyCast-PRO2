@@ -272,8 +272,28 @@
     }
 
     function pokazAlertPowitalny() {
-        const raport = "🌤️ SkyCast PRO | Raport Poranny\n📅 Niedziela, 31 maja 2026\n================================\n📍 KRAKÓW I OKOLICE\n🛡️ STATUS: STABILNIE (Brak opadów)\n\n👋 Szanowni Państwo,\nDzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️. Co najważniejsze – nie spodziewamy się dziś ani kropli deszczu! 🚫🌧️\n\n🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n🔹 Poranek (09:00): Ok. 15.6°C, umiarkowane zachmurzenie ⛅.\n🔹 Południe (13:00 - 15:00): 20 - 21.4°C. Częściowo słonecznie 🌤️, wiatr umiarkowany z północnego zachodu (do 20 km/h) 💨.\n🔹 Popołudnie (17:00): Bardzo słonecznie ☀️ z temperaturą maksymalną ok. 22.3°C.\n\n🗺️ SYTUACJA W KRAJU:\nDzisiejszy dzień w Polsce będzie bardzo różnorodny:\n🔥 Zachód (Wrocław): Najcieplej na mapie! Słonecznie, sucho, po południu do 24.6°C (odczuwalna 26°C).\n⛅ Centrum (Warszawa): Rano pochmurno z przelotnym deszczem 🌧️ (15.9°C). Po południu poprawa pogody, słońce ☀️ i 21.4°C.\n💨 Północ (Gdańsk): Odczuwalnie chłodniej i wietrznie. Rano słonecznie (18.3°C), po południu przelotny deszcz 🌧️ i spadek do 17.4°C. Silny wiatr w porywach >20 km/h.\n\n================================\n✅ STATUS SYSTEMOWY: OPERACYJNY 📡\nCałym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
-        wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
+          const raport = "🌤️ SkyCast PRO | Raport Świąteczny\n" +
+    "📅 Czwartek, 4 czerwca 2026 (Boże Ciało)\n" +
+    "================================\n" +
+    "📍 KRAKÓW I OKOLICE\n" +
+    "🛡️ STATUS: ALERT BURZOWY ⚡☔\n\n" +
+    "👋 Szanowni Państwo,\n" +
+    "Dziś Boże Ciało, czyli początek długiego weekendu! Poranek w Krakowie przywita nas słońcem przebijającym się przez chmury ⛅, ale uwaga – po południu atmosfera zrobi się bardzo dynamiczna. Spodziewamy się przelotnych opadów i lokalnych burz ⚡☔. Zabierzcie parasole na procesje i spacery! 🌂\n\n" +
+    "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
+    "🔹 Poranek (09:00): Ok. 18°C, umiarkowane zachmurzenie, robi się parno ⛅.\n" +
+    "🔹 Południe (13:00 - 15:00): Gorąco, ok. 24°C. Wypiętrzające się chmury i pierwsze sygnały burzowe na radarach ⛈️.\n" +
+    "🔹 Popołudnie (17:00): 21°C, duże prawdopodobieństwo gwałtownych opadów deszczu i burz ⚡☔. Zalecamy ostrożność!\n\n" +
+    "🗺️ SYTUACJA W KRAJU:\n" +
+    "Polska dziś podzielona frontem burzowym:\n" +
+    "🔥 Zachód (Wrocław): Bardzo ciepło (25°C), ale duszno. Gwałtowne burze po południu ⚡.\n" +
+    "⛅ Centrum (Warszawa): 22°C, więcej chmur i przelotne opady deszczu 🌂.\n" +
+    "💨 Północ (Gdańsk): Chłodniej, ok. 18°C, wietrznie z przelotnym deszczem 🌧️.\n\n" +
+    "================================\n" +
+    "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
+    "Mimo kapryśnej aury, życzymy bezpiecznego i spokojnego świętowania! Uważajcie na siebie. 🙌";
+    
+    wyswietlAlert("🌤️ ŚWIĄTECZNY RAPORT OPERACYJNY", raport);
+        
     }
            async function uruchomZlotySkaner() {
         let miastoInput = document.getElementById('cityIn')?.value.trim();
