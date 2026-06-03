@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -66,112 +66,36 @@ l<!DOCTYPE html>
         
         .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #d3d3d3 !important; }
-        .karta-krakow {
-    overflow: hidden; /* Blokada systemowa: nic nie ucieka poza granice! */
-}
-
+        .karta-krakow { overflow: hidden; }
     </style>
-    
 </head>
-<body>
+    <body>
     <div class="app-container">
         
-    <div id="radar-wiadomosci" class="wiadomosci">
-        <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
-    </div>
-
-
-<div style="width: 100%; max-width: 380px; margin: 0 auto 35px auto; padding: 0; background: #001233; border: 2px solid #FFD600; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; text-align: center;">
-
-    <div onclick="toggleRadio()" style="background: #FFD600; padding: 15px; color: #001233; cursor: pointer;">
-        <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">
-            📻 SkyCast PRO Radio ▾
-        </h3>
-    </div>
-
-    <div id="radioContent" style="display: none; padding: 20px;">
-        <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; display: block; margin-bottom: 15px;">Wybierz stację...</span>
-
-        <div style="margin-bottom: 20px;">
-            <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background-color: rgba(0, 35, 92, 0.8); color: #FFD600; font-weight: bold; border: 1px dashed #FFD600; padding: 12px; border-radius: 10px; font-size: 1rem; cursor: pointer; outline: none; text-align: center;">
-                <option value="">-- Wybierz Radio --</option>
-                <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX</option>
-                <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA</option>
-                <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET</option>
-            </select>
+        <div id="radar-wiadomosci" class="wiadomosci">
+            <p style="text-align: center; color: gray; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px;">
-            <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;"></audio>
-            <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
+        <div style="width: 100%; max-width: 380px; margin: 0 auto 35px auto; padding: 0; background: #001233; border: 2px solid #FFD600; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; text-align: center;">
+            <div onclick="toggleRadio()" style="background: #FFD600; padding: 15px; color: #001233; cursor: pointer;">
+                <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio ▾</h3>
+            </div>
+            <div id="radioContent" style="display: none; padding: 20px;">
+                <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; display: block; margin-bottom: 15px;">Wybierz stację...</span>
+                <div style="margin-bottom: 20px;">
+                    <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background-color: rgba(0, 35, 92, 0.8); color: #FFD600; font-weight: bold; border: 1px dashed #FFD600; padding: 12px; border-radius: 10px; font-size: 1rem; cursor: pointer; outline: none; text-align: center;">
+                        <option value="">-- Wybierz Radio --</option>
+                        <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX</option>
+                        <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA</option>
+                        <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET</option>
+                    </select>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px;">
+                    <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg) contrast(1.2); border-radius: 8px; outline: none;"></audio>
+                    <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<script>
-// Funkcja do otwierania/zamykania szufladki
-function toggleRadio() {
-    const content = document.getElementById("radioContent");
-    if (content.style.display === "none") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
-
-// Twoja funkcja wyboru stacji
-function cyberZmiana() {
-    const select = document.getElementById("selectCyber");
-    const audio = document.getElementById("cyberAudio");
-    const ekran = document.getElementById("statusEkranu");
-    const placeholder = document.getElementById("audioPlaceholder");
-    const val = select.value;
-
-    if (val === "") return;
-
-    ekran.innerText = select.options[select.selectedIndex].text;
-    placeholder.style.display = "none";
-    audio.src = val;
-    audio.style.display = "block";
-    audio.load();
-    audio.play().catch(e => console.log("Autostart zablokowany"));
-}
-</script>
-
-
-
-        
-    
-
-<script>
-function cyberZmiana() {
-    const select = document.getElementById("selectCyber");
-    const audio = document.getElementById("cyberAudio");
-    const ekran = document.getElementById("statusEkranu");
-    const placeholder = document.getElementById("audioPlaceholder");
-    const val = select.value;
-
-    // Kiedy użytkownik zresetuje wybór
-    if (val === "") {
-        ekran.innerText = "WYBIERZ STACJĘ";
-        audio.style.display = "none";
-        placeholder.style.display = "block";
-        audio.pause();
-        return;
-    }
-
-    // Aktualizacja nazwy stacji na ekranie
-    const nazwaStacji = select.options[select.selectedIndex].text;
-    ekran.innerText = nazwaStacji;
-    
-    // Ukrywamy placeholder, pokazujemy czysty odtwarzacz i gramy!
-    placeholder.style.display = "none";
-    audio.src = val;
-    audio.style.display = "block";
-    audio.load();
-    audio.play().catch(e => console.log("Przeglądarka zablokowała autostart."));
-}
-</script>
 
         <div class="search-row">
             <input type="text" id="cityIn" value="Kraków">
@@ -232,547 +156,316 @@ function cyberZmiana() {
         </div>
 
         <div class="card manifest animate" style="border-left: 4px solid var(--orange); background: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-    <h2 style="font-size: 1.4rem; font-weight: bold; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👋</h2>
-    
-    <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
-        Przez 10 lat stałem przy gorącym piecu jako pizzaiolo. Znam smak ciężkiej pracy i wiem, co to znaczy działać na pełnych obrotach. Ale w życiu każdego faceta przychodzi taki moment, że trzeba coś zmienić i pójść za tym, co zawsze siedziało w głowie.
-    </p>
-    
-    <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
-        Dlatego postawiłem wszystko na jedną kartę. Zamieniłem piec na klawiaturę i wkręciłem się w IT. Uczę się cyberbezpieczeństwa, testuję sztuczną inteligencję i buduję własne systemy (jak mój projekt pogodowy SkyCast PRO). Małymi krokami, ale cały czas do przodu. 
-    </p>
-    
-    <div style="background: rgba(255,255,255,0.05); border-radius: 6px; padding: 12px; font-size: 0.85rem; color: #aaa; border-left: 2px solid var(--orange);">
-        ☕ Jeśli podoba Ci się to, co robię, albo po prostu chcesz zbić piątkę za wytrwałość, możesz postawić mi wirtualną kawę:<br>
-        <strong style="color: #fff; font-size: 1rem; display: inline-block; margin-top: 5px;">33 2910 0006 2469 8002 1032</strong>
-    </div>
+            <h2 style="font-size: 1.4rem; font-weight: bold; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👋</h2>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">Przez 10 lat stałem przy gorącym piecu jako pizzaiolo. Znam smak ciężkiej pracy i wiem, co to znaczy działać na pełnych obrotach. Ale w życiu każdego faceta przychodzi taki moment, że trzeba coś zmienić i pójść za tym, co zawsze siedziało w głowie.</p>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">Dlatego postawiłem wszystko na jedną kartę. Zamieniłem piec na klawiaturę i wkręciłem się w IT. Uczę się cyberbezpieczeństwa, testuję sztuczną inteligencję i buduję własne systemy (jak mój projekt pogodowy SkyCast PRO). Małymi krokami, ale cały czas do przodu.</p>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 6px; padding: 12px; font-size: 0.85rem; color: #aaa; border-left: 2px solid var(--orange);">
+                ☕ Jeśli podoba Ci się to, co robię, albo po prostu chcesz zbić piątkę za wytrwałość, możesz postawić mi wirtualną kawę:<br>
+                <strong style="color: #fff; font-size: 1rem; display: inline-block; margin-top: 5px;">33 2910 0006 2469 8002 1032</strong>
+            </div>
         </div>
-        
-    
-    <script>
-const API_KEY = "6def6302b0a9b722144968390f4b8522";
+    </div>    <script>
+    const API_KEY = "6def6302b0a9b722144968390f4b8522";
 
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("System gotowy, odpalam silniki...");
+        pokazAlertPowitalny(); 
+        uruchomProtokolGPS();  
+        uruchomZlotySkaner(); 
+        pobierzWiadomosci();
+        skanujZagrozenia();
+    });
 
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("System gotowy, odpalam silniki...");
-    pokazAlertPowitalny(); 
-    uruchomProtokolGPS();  
-    uruchomZlotySkaner(); 
-    pobierzWiadomosci();
-    skanujZagrozenia();
-});
-
-function pokazRMF() {
-    const pasek = document.getElementById('pasekRMF');
-    if(pasek) pasek.style.display = (pasek.style.display === 'none') ? 'block' : 'none';
-}
-
-function uruchomProtokolGPS() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pozycja) { console.log("GPS: Gotowy"); });
+    function toggleRadio() {
+        const content = document.getElementById("radioContent");
+        content.style.display = (content.style.display === "none") ? "block" : "none";
     }
-}
 
-function tlumaczPogodeTeraz(iconCode, description) {
-    let desc = description || "Zmienne warunki";
-    let icon = "☁️";
-    
-    if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-    
-    const isNight = iconCode.endsWith("n");
-    
-    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️";
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅";
-    else if (iconCode.startsWith("04")) icon = "☁️";
-    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
-    else if (iconCode.startsWith("11")) icon = "⚡";
-    else if (iconCode.startsWith("13")) icon = "❄️";
-    else if (iconCode.startsWith("50")) icon = "🌫️";
-    
-    return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-}
+    function cyberZmiana() {
+        const select = document.getElementById("selectCyber");
+        const audio = document.getElementById("cyberAudio");
+        const ekran = document.getElementById("statusEkranu");
+        const placeholder = document.getElementById("audioPlaceholder");
+        const val = select.value;
 
-function tlumaczPogodePrognoza(iconCode, description) {
-    let desc = description || "Zmienne warunki";
-    let icon = "☁️";
-    
-    if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-    
-    const isNightAPI = iconCode.endsWith("n");
-    
-    if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️";
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️🌙" : "⛅"; 
-    else if (iconCode.startsWith("04")) icon = "☁️";
-    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
-    else if (iconCode.startsWith("11")) icon = "⚡";
-    else if (iconCode.startsWith("13")) icon = "❄️";
-    else if (iconCode.startsWith("50")) icon = "🌫️";
-    
-    return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
-}
-
-
-function ocenaPowietrza(aqi) {
-    if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
-    if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
-    if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
-    if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
-    return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
-}
- function zainstalujAplikacje() {
-            alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\nMożesz dodać nasz radar prosto na swój ekran główny w 2 prostych krokach!\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz z menu opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania (Kwadrat ze strzałką na dole ekranu).\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! SkyCast PRO zapisze się na Twoim telefonie i będzie działać jak pełnoprawna aplikacja. Ogień! 🔥");
-
-      }  
-    async function uruchomZlotySkaner() {
-    let miastoInput = document.getElementById('cityIn')?.value.trim();
-    if (!miastoInput) {
-        miastoInput = "Kraków";
-        if(document.getElementById('cityIn')) document.getElementById('cityIn').value = "Kraków";
-    }
-    if(document.getElementById('regionalAlertCard')) document.getElementById('regionalAlertCard').style.display = 'none';
-    if(document.getElementById('atmCard')) document.getElementById('atmCard').style.display = 'none';
-    if(document.getElementById('alert24hCard')) document.getElementById('alert24hCard').style.display = 'none';
-    
-    let statusEl = document.getElementById('valD');
-    if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
-    
-    try { 
-        const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
-        const currentRes = await fetch(currentUrl);
-
-        if (!currentRes.ok) {
-            if(statusEl) statusEl.innerText = "Błąd: Miasto nieodnalezione.";
+        if (val === "") {
+            ekran.innerText = "WYBIERZ STACJĘ";
+            audio.style.display = "none";
+            placeholder.style.display = "block";
+            audio.pause();
             return;
         }
-        const currentData = await currentRes.json();
-        const lat = currentData.coord.lat;
-        const lon = currentData.coord.lon;
-        const nazwaMiasta = currentData.name;
-        
-        let aqiData = null;
-        try {
-            const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi`;
-            const aqiRes = await fetch(aqiUrl);
-            aqiData = await aqiRes.json();
-        } catch(e) { console.log("Moduł AQI poza zasięgiem"); }
 
-        // POBIERANIE PROGNOZY
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
-        const forecastRes = await fetch(forecastUrl);
-        const forecastData = await forecastRes.json();
-
-        renderUI(currentData, forecastData, aqiData, nazwaMiasta);
-    } catch (error) {
-        if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
-        console.error("Awaria radaru:", error.message);
+        ekran.innerText = select.options[select.selectedIndex].text;
+        placeholder.style.display = "none";
+        audio.src = val;
+        audio.style.display = "block";
+        audio.load();
+        audio.play().catch(e => console.log("Przeglądarka zablokowała autostart."));
     }
-}
 
-function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
-    const currentHour = new Date().getHours();
-    const isNight = currentHour >= 21 || currentHour < 5;
-    
-    if (isNight) document.body.classList.add('night-mode');
-    else document.body.classList.remove('night-mode');
+    function uruchomProtokolGPS() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pozycja) { console.log("GPS: Gotowy"); });
+        }
+    }
 
-    const tempCaly = Math.round(currentData.main.temp);
-    const weatherObj = currentData.weather[0];
-    const pogodaTeraz = tlumaczPogodeTeraz(weatherObj.icon, weatherObj.description);
-    
-    if (document.getElementById('cityName')) document.getElementById('cityName').innerText = nazwaMiasta;
-    if (document.getElementById('valT')) document.getElementById('valT').innerText = `${tempCaly}°`;
-    if (document.getElementById('mainIcon')) document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
-    if (document.getElementById('valD')) document.getElementById('valD').innerText = pogodaTeraz.desc;
+    function tlumaczPogodeTeraz(iconCode, description) {
+        let desc = description || "Zmienne warunki";
+        let icon = "☁️";
+        if (!iconCode) return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+        const isNight = iconCode.endsWith("n");
+        if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️";
+        else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅";
+        else if (iconCode.startsWith("04")) icon = "☁️";
+        else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️";
+        else if (iconCode.startsWith("11")) icon = "⚡";
+        else if (iconCode.startsWith("13")) icon = "❄️";
+        else if (iconCode.startsWith("50")) icon = "🌫️";
+        return { desc: desc, icon: `<span class="anim-float">${icon}</span>` };
+    }
 
-    const heroCard = document.getElementById('heroCard');
-    if (tempCaly > 34) { if(heroCard) heroCard.classList.add('heat-active'); } 
-    else { if(heroCard) heroCard.classList.remove('heat-active'); }
+    function tlumaczPogodePrognoza(iconCode, description) {
+        return tlumaczPogodeTeraz(iconCode, description);
+    }
 
-    const wiatrKm = Math.round(currentData.wind.speed * 3.6);
-    const atmCard = document.getElementById('atmCard');
-    if(atmCard) atmCard.style.display = 'block';
-    if(document.getElementById('valWind')) document.getElementById('valWind').innerText = wiatrKm;
-    if(document.getElementById('valPress')) document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
-    
-    if (aqiData && aqiData.current) {
-        const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
-        if(document.getElementById('valAqi')) {
+    function ocenaPowietrza(aqi) {
+        if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
+        if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
+        if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
+        if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
+        return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
+    }
+
+    function zainstalujAplikacje() {
+        alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki' (Prawy górny róg ekranu).\n2. Wybierz opcję 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania.\n2. Wybierz opcję 'Do ekranu początkowego'.\n\nGotowe! Ogień! 🔥");
+    }  
+
+    function wyswietlAlert(tytul, tresc) {
+        const okienko = document.createElement('div');
+        okienko.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background-color:rgba(15,23,42,0.95);color:#f8fafc;padding:20px;border-radius:15px;z-index:9999;border:2px solid #38bdf8;box-shadow:0 10px 25px rgba(56,189,248,0.2);width:88%;text-align:center;max-height:80vh;overflow-y:auto;';
+        okienko.innerHTML = `<h2 style="color:#38bdf8;margin-top:0;font-size:1.2rem;">${tytul}</h2><p style="white-space:pre-line;font-size:0.9rem;text-align:left;line-height:1.4;">${tresc}</p><button id="przyciskZamknijAlert" style="margin-top:15px;padding:12px 20px;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;font-weight:bold;width:100%;text-transform:uppercase;">Zrozumiano - Przejdź do radaru</button>`;
+        document.body.appendChild(okienko);
+        document.getElementById('przyciskZamknijAlert').addEventListener('click', function() { okienko.remove(); });
+    }
+
+    function pokazAlertPowitalny() {
+        const raport = "🌤️ SkyCast PRO | Raport Poranny\n📅 Niedziela, 31 maja 2026\n================================\n📍 KRAKÓW I OKOLICE\n🛡️ STATUS: STABILNIE (Brak opadów)\n\n👋 Szanowni Państwo,\nDzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️.\n\n✅ STATUS SYSTEMOWY: OPERACYJNY 📡\nCałym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
+        wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
+    }
+            async function uruchomZlotySkaner() {
+        let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
+        if(document.getElementById('cityIn')) document.getElementById('cityIn').value = miastoInput;
+        
+        ['regionalAlertCard', 'atmCard', 'alert24hCard'].forEach(id => {
+            if(document.getElementById(id)) document.getElementById(id).style.display = 'none';
+        });
+        
+        let statusEl = document.getElementById('valD');
+        if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
+        
+        try { 
+            const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`);
+            if (!currentRes.ok) { if(statusEl) statusEl.innerText = "Błąd: Miasto nieodnalezione."; return; }
+            const currentData = await currentRes.json();
+            
+            let aqiData = null;
+            try {
+                const aqiRes = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=european_aqi`);
+                aqiData = await aqiRes.json();
+            } catch(e) { console.log("Moduł AQI poza zasięgiem"); }
+
+            const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`);
+            const forecastData = await forecastRes.json();
+            renderUI(currentData, forecastData, aqiData, currentData.name);
+        } catch (error) {
+            if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
+        }
+    }
+
+    function renderUI(currentData, forecastData, aqiData, nazwaMiasta) {
+        const currentHour = new Date().getHours();
+        document.body.classList.toggle('night-mode', currentHour >= 21 || currentHour < 5);
+
+        const tempCaly = Math.round(currentData.main.temp);
+        const weatherObj = currentData.weather[0];
+        const pogodaTeraz = tlumaczPogodeTeraz(weatherObj.icon, weatherObj.description);
+        
+        if(document.getElementById('cityName')) document.getElementById('cityName').innerText = nazwaMiasta;
+        if(document.getElementById('valT')) document.getElementById('valT').innerText = `${tempCaly}°`;
+        if(document.getElementById('mainIcon')) document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
+        if(document.getElementById('valD')) document.getElementById('valD').innerText = pogodaTeraz.desc;
+
+        const heroCard = document.getElementById('heroCard');
+        if(heroCard) heroCard.classList.toggle('heat-active', tempCaly > 34);
+
+        const wiatrKm = Math.round(currentData.wind.speed * 3.6);
+        const atmCard = document.getElementById('atmCard');
+        if(atmCard) {
+            atmCard.style.display = 'block';
+            document.getElementById('valWind').innerText = wiatrKm;
+            document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
+        }
+        
+        if (aqiData && aqiData.current && document.getElementById('valAqi')) {
+            const stanPowietrza = ocenaPowietrza(aqiData.current.european_aqi);
             document.getElementById('valAqi').innerText = stanPowietrza.tekst;
             document.getElementById('valAqi').style.color = stanPowietrza.kolor;
+            document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
         }
-        if(document.getElementById('aqiIcon')) document.getElementById('aqiIcon').innerText = stanPowietrza.ikona;
-    }
 
-    const regCard = document.getElementById('regionalAlertCard');
-    const regTitle = document.getElementById('regAlertTitle');
-    const regText = document.getElementById('regAlertText');
-    if(regCard && regTitle && regText) {
-        regCard.style.display = "block";
-        if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
-            regCard.style.borderLeft = "6px solid var(--red)"; regCard.style.background = "rgba(239, 68, 68, 0.05)";
-            regTitle.style.color = "var(--red)"; regTitle.innerHTML = `⚠️ ALARM METEO`;
-            regText.innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność!`;
-        } else {
-            regCard.style.borderLeft = "6px solid var(--green)"; regCard.style.background = "rgba(22, 163, 74, 0.05)";
-            regTitle.style.color = "var(--green)"; regTitle.innerHTML = `✅ STATUS: BEZPIECZNIE`;
-            regText.innerText = `Warunki stabilne. Brak aktywnych zagrożeń pogodowych.`;
+        const regCard = document.getElementById('regionalAlertCard');
+        if(regCard) {
+            regCard.style.display = "block";
+            if (wiatrKm > 40 || weatherObj.id >= 900 || (weatherObj.id >= 200 && weatherObj.id < 300)) {
+                regCard.style.borderLeft = "6px solid var(--red)"; regCard.style.background = "rgba(239, 68, 68, 0.05)";
+                document.getElementById('regAlertTitle').innerHTML = `<span style="color:var(--red)">⚠️ ALARM METEO</span>`;
+                document.getElementById('regAlertText').innerText = `Wykryto trudne warunki (Wiatr: ${wiatrKm} km/h). Zalecana ostrożność!`;
+            } else {
+                regCard.style.borderLeft = "6px solid var(--green)"; regCard.style.background = "rgba(22, 163, 74, 0.05)";
+                document.getElementById('regAlertTitle').innerHTML = `<span style="color:var(--green)">✅ STATUS: BEZPIECZNIE</span>`;
+                document.getElementById('regAlertText').innerText = `Warunki stabilne. Brak zagrożeń.`;
+            }
         }
-    }
 
-    let wykrytoZagrozenie = false;
-    let ikonaZagrozenia = "", tekstZagrozenia = "", czasZagrozenia = "";
-    for (let i = 0; i < 8; i++) { 
-        const fItem = forecastData.list[i];
-        if (fItem) {
+        let wykrytoZagrozenie = false, ikonaZagrozenia = "", tekstZagrozenia = "", czasZagrozenia = "";
+        for (let i = 0; i < Math.min(8, forecastData.list.length); i++) { 
+            const fItem = forecastData.list[i];
             const fId = fItem.weather[0].id;
             if (fId >= 200 && fId < 300) { 
                 wykrytoZagrozenie = true; ikonaZagrozenia = "⚡⛈️"; tekstZagrozenia = "BURZA Z PIORUNAMI"; czasZagrozenia = fItem.dt_txt.slice(11, 16); break;
-            } else if (fId === 502 || fId === 503 || fId === 504 || fId === 522) {
-                wykrytoZagrozenie = true; ikonaZagrozenia = "🌧️🌊"; tekstZagrozenia = "POTĘŻNA ULEWA"; czasZagrozenia = fItem.dt_txt.slice(11, 16);
+            } else if ([502, 503, 504, 522].includes(fId)) {
+                wykrytoZagrozenie = true; ikonaZagrozenia = "🌧️🌊"; tekstZagrozenia = "POTĘŻNA ULEWA"; czasZagrozenia = fItem.dt_txt.slice(11, 16); break;
             }
         }
-    }
 
-    const tabliczka24h = document.getElementById('alert24hCard');
-    if(tabliczka24h) {
-        if (wykrytoZagrozenie) {
-            tabliczka24h.style.display = 'block';
-            document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
-            document.getElementById('alert24hText').innerText = tekstZagrozenia;
-            document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
-        } else { tabliczka24h.style.display = 'none'; }
-    }
+        const tabliczka24h = document.getElementById('alert24hCard');
+        if(tabliczka24h) {
+            tabliczka24h.style.display = wykrytoZagrozenie ? 'block' : 'none';
+            if (wykrytoZagrozenie) {
+                document.getElementById('alert24hIcon').innerText = ikonaZagrozenia;
+                document.getElementById('alert24hText').innerText = tekstZagrozenia;
+                document.getElementById('alert24hTime').innerText = "Spodziewane uderzenie: " + czasZagrozenia;
+            }
+        }
 
-    const widget = document.getElementById('thesisWidget');
-    if (widget) widget.style.display = 'block';
-    if(document.getElementById('thesisP')) document.getElementById('thesisP').innerText = pobierzMyslPiotrka(tempCaly, weatherObj.id);
-    
-    const hourlyCard = document.getElementById('hourlyCard');
-    if(hourlyCard) hourlyCard.style.display = 'block';
-    
-    const hL = document.getElementById('hList');
-    if(hL) {
-        hL.innerHTML = '';
-        for (let i = 0; i < 8; i++) {
-            const item = forecastData.list[i];
-            if (item) {
+        if (document.getElementById('thesisWidget')) document.getElementById('thesisWidget').style.display = 'block';
+        if (document.getElementById('thesisP')) document.getElementById('thesisP').innerText = pobierzMyslPiotrka(tempCaly, weatherObj.id);
+        
+        if (document.getElementById('hourlyCard')) document.getElementById('hourlyCard').style.display = 'block';
+        const hL = document.getElementById('hList');
+        if(hL) {
+            hL.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const item = forecastData.list[i];
                 const czas = item.dt_txt.slice(11, 16);
-                const godzinaH = parseInt(czas.split(':')[0]); 
-                const ikonaH = wybierzIkonePory(godzinaH, item.weather[0].icon);
+                const godz = parseInt(czas.split(':')[0]);
+                const ikonaH = wybierzIkonePory(godz, item.weather[0].icon);
                 hL.innerHTML += `<div class="h-box"><div style="font-size: 0.8rem; font-weight: 700;">${czas}</div><div style="font-size: 1.8rem; margin: 5px 0;"><span class="anim-float">${ikonaH}</span></div><div style="font-size: 1.1rem; font-weight: 900; color: var(--blue);">${Math.round(item.main.temp)}°</div></div>`;
             }
         }
-    }
 
-    const dailyCard = document.getElementById('dailyCard');
-    if (dailyCard) dailyCard.style.display = 'block';
-    const dL = document.getElementById('dList');
-    if (dL && forecastData && forecastData.list) {
-        dL.innerHTML = '';
-        const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const dzisiejszaData = new Date().toDateString();
-        const dniMap = {};
-        for (let i = 0; i < forecastData.list.length; i++) {
-            const item = forecastData.list[i];
-            const dataDnia = new Date(item.dt * 1000);
-            const kluczDnia = dataDnia.toDateString();
-            if (kluczDnia === dzisiejszaData) continue; 
-            if (!dniMap[kluczDnia]) { dniMap[kluczDnia] = { minTemp: item.main.temp_min, maxTemp: item.main.temp_max, wpisIkony: item }; } 
-            else {
-                if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
-                if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
-                if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
-            }
-        }
-        const dniKlucze = Object.keys(dniMap).slice(0, 5);
-for (let i = 0; i < dniKlucze.length; i++) {
-    const dane = dniMap[dniKlucze[i]];
-    const dataOb = new Date(dane.wpisIkony.dt * 1000);
-    // USUNIĘTO .replace('n', 'd') - teraz system obsłuży zarówno dzień, jak i noc!
-    const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon, dane.wpisIkony.weather[0].description).icon;
+        if (document.getElementById('dailyCard')) document.getElementById('dailyCard').style.display = 'block';
+        const dL = document.getElementById('dList');
+        if (dL) {
+            dL.innerHTML = '';
+            const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+            const dzisiejszaData = new Date().toDateString();
+            const dniMap = {};
+            
+            forecastData.list.forEach(item => {
+                const kluczDnia = new Date(item.dt * 1000).toDateString();
+                if (kluczDnia !== dzisiejszaData) {
+                    if (!dniMap[kluczDnia]) dniMap[kluczDnia] = { minTemp: item.main.temp_min, maxTemp: item.main.temp_max, wpisIkony: item };
+                    else {
+                        if (item.main.temp_min < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = item.main.temp_min;
+                        if (item.main.temp_max > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = item.main.temp_max;
+                        if (item.dt_txt.endsWith("12:00:00")) dniMap[kluczDnia].wpisIkony = item;
+                    }
+                }
+            });
 
-            
-            let tMaxColor = "#f97316"; if (dane.maxTemp > 24) tMaxColor = "#ef4444"; if (dane.maxTemp < 5) tMaxColor = "#3b82f6";
-            
-            dL.innerHTML += `
-            <div class="d-row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255,255,255,0.6); margin-bottom: 14px; padding: 12px 25px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                <div style="flex: 1; font-weight: 900; font-size: 1.05rem; color: var(--main-title); text-transform: uppercase;">
-                    ${dniTygodnia[dataOb.getDay()]}
-                </div>
+            Object.keys(dniMap).slice(0, 5).forEach(klucz => {
+                const dane = dniMap[klucz];
+                const dataOb = new Date(dane.wpisIkony.dt * 1000);
+                const ikonaD = tlumaczPogodePrognoza(dane.wpisIkony.weather[0].icon, dane.wpisIkony.weather[0].description).icon;
+                let tMaxColor = dane.maxTemp > 24 ? "#ef4444" : (dane.maxTemp < 5 ? "#3b82f6" : "#f97316");
                 
-    div style="font-size: 2.3rem; margin: 0 10px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));">
-                    ${ikonaD}
-                </div>
-                <div style="flex: 1; text-align: right; font-size: 1.5rem; font-weight: 900; color: ${tMaxColor};">
-                    <span style="background: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 20px;">${Math.round(dane.maxTemp)}°</span>
-                </div>
-            </div>`;
+                dL.innerHTML += `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.4); border:2px solid rgba(255,255,255,0.6); margin-bottom:14px; padding:12px 25px; border-radius:50px; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                    <div style="flex:1; font-weight:900; font-size:1.05rem; color:var(--main-title); text-transform:uppercase;">${dniTygodnia[dataOb.getDay()]}</div>
+                    <div style="font-size:2.3rem; margin:0 10px; filter:drop-shadow(0 3px 5px rgba(0,0,0,0.2));">${ikonaD}</div>
+                    <div style="flex:1; text-align:right; font-size:1.5rem; font-weight:900; color:${tMaxColor};">
+                        <span style="background:rgba(255,255,255,0.7); padding:4px 10px; border-radius:20px;">${Math.round(dane.maxTemp)}°</span>
+                    </div></div>`;
+            });
         }
-    } 
-    
-}
-        function pobierzWiadomosci() {
-    const kontener = document.getElementById('radar-wiadomosci');
-    if (!kontener) return; 
-    const rssKraj = 'https://www.polsatnews.pl/rss/wszystkie.xml';
-    const rssSport = 'https://rss.gazeta.pl/pub/rss/sport.xml';
-    const znacznikCzasu = new Date().getTime();
-    let zebraneHTML = '<h3 style="color: #f8fafc; text-align: center; margin-bottom: 20px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 10px; text-shadow: 0 0 15px rgba(56,189,248,0.5);"> 🇵🇱  KRAJ_Świat🌏_SPORT ⚽</h3>';
+    }
 
-            
+    function pobierzWiadomosci() {
+        const kontener = document.getElementById('radar-wiadomosci');
+        if (!kontener) return; 
+        const znacznikCzasu = new Date().getTime();
+        let zebraneHTML = '<h3 style="color:#f8fafc; text-align:center; margin-bottom:20px; font-size:1.1rem; font-weight:900; text-transform:uppercase; letter-spacing:3px; border-bottom:1px solid rgba(56,189,248,0.3); padding-bottom:10px; text-shadow:0 0 15px rgba(56,189,248,0.5);">🇵🇱 KRAJ_Świat🌏_SPORT ⚽</h3>';
 
-    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
-        .then(res => res.json())
-        .then(dane => {
-            if (dane.status === 'ok' && dane.items) {
-                for(let i = 0; i < Math.min(dane.items.length, 4); i++) {
-                    zebraneHTML += `
-                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15);">
-                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div>
-                        
-                        <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${dane.items[i].title}</a>
-                    </div>`;
+        fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.polsatnews.pl/rss/wszystkie.xml&t=${znacznikCzasu}`)
+            .then(res => res.json())
+            .then(dane => {
+                if (dane.status === 'ok') {
+                    dane.items.slice(0, 4).forEach(item => {
+                        zebraneHTML += `<div style="background:rgba(15,23,42,0.7); border:1px solid rgba(239,68,68,0.3); border-left:6px solid #ef4444; border-radius:12px; padding:12px; margin-bottom:12px; box-shadow:0 4px 15px rgba(239,68,68,0.15);"><div style="font-size:0.75rem; color:#ef4444; font-weight:900; letter-spacing:2px; margin-bottom:5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div><a href="${item.link}" target="_blank" style="color:#f8fafc; text-decoration:none; font-size:0.95rem; font-weight:700; display:block;">${item.title}</a></div>`;
+                    });
+                }
+                return fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://rss.gazeta.pl/pub/rss/sport.xml&t=${znacznikCzasu}`).then(r => r.json());
+            })
+            .then(daneSport => {
+                if (daneSport.status === 'ok') {
+                    daneSport.items.slice(0, 4).forEach(item => {
+                        zebraneHTML += `<div style="background:rgba(15,23,42,0.7); border:1px solid rgba(34,197,94,0.3); border-left:6px solid #22c55e; border-radius:12px; padding:12px; margin-bottom:12px; box-shadow:0 4px 15px rgba(34,197,94,0.15);"><div style="font-size:0.75rem; color:#22c55e; font-weight:900; letter-spacing:2px; margin-bottom:5px;">🚨 SPORT ⚽</div><a href="${item.link}" target="_blank" style="color:#f8fafc; text-decoration:none; font-size:0.95rem; font-weight:700; display:block;">${item.title}</a></div>`;
+                    });
+                }
+                kontener.innerHTML = zebraneHTML;
+            }).catch(e => console.log("RSS uśpione."));
+    }
+
+    function skanujZagrozenia() {
+        const szafeczka = document.getElementById('regionalAlertCard');
+        if (!szafeczka) return;
+        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://news.google.com/rss/search?q=ostrzeżenie+pogodowe+kraków+OR+małopolskie&hl=pl&gl=PL&ceid=PL:pl')}&t=${new Date().getTime()}`)
+        .then(res => res.json()).then(dane => {
+            if (dane.status === 'ok' && dane.items.length > 0) {
+                let tytul = dane.items[0].title.toLowerCase();
+                if (tytul.includes("ostrz") || tytul.includes("alert") || tytul.includes("burz") || tytul.includes("wichur")) {
+                    szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; szafeczka.style.borderLeft = "5px solid #ef4444";
+                    szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${dane.items[0].title}</div>`;
                 }
             }
-            return fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssSport)}&t=${znacznikCzasu}`).then(r => r.json());
-        })
-        .then(daneSport => {
-            if (daneSport.status === 'ok' && daneSport.items) {
-                for(let i = 0; i < Math.min(daneSport.items.length, 4); i++) {
-                    zebraneHTML += `
-                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15);">
-                        <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🚨 SPORT ⚽🎾🏀</div>
-                        <a href="${daneSport.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${daneSport.items[i].title}</a>
-                    </div>`;
-                }
-            }
-            kontener.innerHTML = zebraneHTML;
-        }).catch(e => console.log("RSS w trybie uśpienia."));
-}
-
-
-function pokazAlertPowitalny() {
-    const raport = 
-        "🌤️ SkyCast PRO | Raport Poranny\n" +
-        "📅 Niedziela, 31 maja 2026\n" +
-        "================================\n" +
-        "📍 KRAKÓW I OKOLICE\n" +
-        "🛡️ STATUS: STABILNIE (Brak opadów)\n\n" +
-        "👋 Szanowni Państwo,\n" +
-        "Dzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️. Co najważniejsze – nie spodziewamy się dziś ani kropli deszczu! 🚫🌧️\n\n" +
-        "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
-        "🔹 Poranek (09:00): Ok. 15.6°C, umiarkowane zachmurzenie ⛅.\n" +
-        "🔹 Południe (13:00 - 15:00): 20 - 21.4°C. Częściowo słonecznie 🌤️, wiatr umiarkowany z północnego zachodu (do 20 km/h) 💨.\n" +
-        "🔹 Popołudnie (17:00): Bardzo słonecznie ☀️ z temperaturą maksymalną ok. 22.3°C.\n\n" +
-        "🗺️ SYTUACJA W KRAJU:\n" +
-        "Dzisiejszy dzień w Polsce będzie bardzo różnorodny:\n" +
-        "🔥 Zachód (Wrocław): Najcieplej na mapie! Słonecznie, sucho, po południu do 24.6°C (odczuwalna 26°C).\n" +
-        "⛅ Centrum (Warszawa): Rano pochmurno z przelotnym deszczem 🌧️ (15.9°C). Po południu poprawa pogody, słońce ☀️ i 21.4°C.\n" +
-        "💨 Północ (Gdańsk): Odczuwalnie chłodniej i wietrznie. Rano słonecznie (18.3°C), po południu przelotny deszcz 🌧️ i spadek do 17.4°C. Silny wiatr w porywach >20 km/h.\n\n" +
-        "================================\n" +
-        "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
-        "Całym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
-
-    wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
-}
-        
-    
-
-function skanujZagrozenia() {
-    const szafeczka = document.getElementById('regionalAlertCard');
-    if (!szafeczka) return;
-    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://news.google.com/rss/search?q=ostrzeżenie+pogodowe+kraków+OR+małopolskie&hl=pl&gl=PL&ceid=PL:pl')}&t=${new Date().getTime()}`;
-
-    fetch(url).then(res => res.json()).then(dane => {
-        let czyAlert = false, tresc = "";
-        if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
-            let tytul = dane.items[0].title.toLowerCase();
-            if (tytul.includes("ostrz") || tytul.includes("alert") || tytul.includes("burz") || tytul.includes("wichur")) {
-                czyAlert = true; tresc = dane.items[0].title;
-            }
-        }
-        if (czyAlert) {
-            szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; szafeczka.style.borderLeft = "5px solid #ef4444";
-            szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
-        }
-    });
-}
-
-
-        
-
-    // NASZE BRAKUJĄCE NARZĘDZIE DO WYŚWIETLANIA ALERTÓW - WERSJA SKY BLUE 🌤️
-function wyswietlAlert(tytul, tresc) {
-    // 1. Tworzymy fizyczne okienko
-    const okienko = document.createElement('div');
-    okienko.style.position = 'fixed';
-    okienko.style.top = '50%';
-    okienko.style.left = '50%';
-    okienko.style.transform = 'translate(-50%, -50%)';
-    okienko.style.backgroundColor = 'rgba(15, 23, 42, 0.95)'; // Ciemne, eleganckie tło
-    okienko.style.color = '#f8fafc';
-    okienko.style.padding = '20px';
-    okienko.style.borderRadius = '15px';
-    okienko.style.zIndex = '9999'; // Gwarancja, że będzie ZAWSZE na wierzchu!
-    okienko.style.border = '2px solid #38bdf8'; // Nowa, niebieska ramka SkyCast PRO
-    okienko.style.boxShadow = '0 10px 25px rgba(56, 189, 248, 0.2)'; // Delikatna niebieska poświata
-    okienko.style.width = '88%';
-    okienko.style.textAlign = 'center';
-    
-    // Zabezpieczenia ekranu (Mobilne)
-    okienko.style.maxHeight = '80vh'; // Maksymalnie 80% wysokości widocznego ekranu
-    okienko.style.overflowY = 'auto'; // Umożliwia przewijanie tekstu wewnątrz okienka
-
-    // 2. Wstrzykujemy nasz tekst (Tytuł i Raport)
-    okienko.innerHTML = `
-        <h2 style="color: #38bdf8; margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
-        <p style="white-space: pre-line; font-size: 0.9rem; text-align: left; line-height: 1.4;">${tresc}</p>
-        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
-    `;
-
-    // 3. Dodajemy okienko do naszej strony
-    document.body.appendChild(okienko);
-
-    // 4. Mechanizm zamykania po kliknięciu przycisku
-    document.getElementById('przyciskZamknijAlert').addEventListener('click', function() {
-        okienko.remove(); // Niszczy okienko po przeczytaniu
-    });
-}
-        
-    
-
-        
-
-
-
-
-
-
-
-
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-    
-    
-
-
-function wybierzIkonePory(godzina, APIicon) {
-    if (godzina >= 19 || godzina <= 5) return "🌙"; 
-    if (APIicon.startsWith("01")) return "☀️";
-    if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
-    if (APIicon.startsWith("04")) return "☁️";
-    if (APIicon.startsWith("09") || APIicon.startsWith("10")) return "🌧️";
-    if (APIicon.startsWith("11")) return "⚡";
-    if (APIicon.startsWith("13")) return "❄️";
-    return "☁️";
-}
-// Załóżmy, że "iconCode" to zmienna z danymi, które dostałeś z API
-let weatherEmoji = "☀️☁️";
-
-// Metoda .includes() sprawdza, czy w tekście z API znajduje się literka "n"
-if (iconCode.includes("n")) {
-    weatherEmoji = "🌙☁️"; // API twierdzi, że jest noc
-} else {
-    weatherEmoji = "☀️☁️"; // API twierdzi, że jest dzień
-}
-
-function pobierzMyslPiotrka(temp, weatherId) {
-    const godzina = new Date().getHours();
-
-    // 1. NAJPIERW SPRAWDZAMY ZJAWISKA EKSTREMALNE (Niezależnie od godziny)
-    if (weatherId >= 200 && weatherId <= 232) {
-        return "⚡ Uwaga, burza w regionie! Zabezpieczcie rzeczy na balkonach. Siedzimy bezpiecznie, radar włączony, a na słuchawkach leci dobry bit! ⛈️💻🎧";
-    }
-    if (weatherId >= 500 && weatherId <= 531) {
-        return "🌧️ Pada deszcz! Idealny czas na kubek czegoś ciepłego, dobrą muzykę i śledzenie radaru. Uważajcie na drogach! 🎧💻";
+        });
     }
 
-    // 2. JEŚLI NIE MA BURZY ANI DESZCZU, LECIMY WEDŁUG PORY DNIA
-    if (godzina >= 22 || godzina < 6) {
-        return "🌙 Nocna Warta: System SkyCast w trybie czuwania. Miasto śpi, a my pilnujemy danych. Spokojnej nocy! ✨🎧";
+    function wybierzIkonePory(godzina, APIicon) {
+        if (godzina >= 19 || godzina <= 5) return "🌙"; 
+        if (APIicon.startsWith("01")) return "☀️";
+        if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
+        if (APIicon.startsWith("04")) return "☁️";
+        if (APIicon.startsWith("09") || APIicon.startsWith("10")) return "🌧️";
+        if (APIicon.startsWith("11")) return "⚡";
+        if (APIicon.startsWith("13")) return "❄️";
+        return "☁️";
     }
-    if (godzina >= 6 && godzina < 12) {
-        return "☕ Poranny skan: Kawa paruje, systemy zaktualizowane. Pogoda pod kontrolą. Gotowi na nowy dzień? Ogień! 🚀💻";
+
+    function pobierzMyslPiotrka(temp, weatherId) {
+        const godzina = new Date().getHours();
+        if (weatherId >= 200 && weatherId <= 232) return "⚡ Uwaga, burza w regionie! Zabezpieczcie rzeczy na balkonach. Siedzimy bezpiecznie, radar włączony, a na słuchawkach leci dobry bit! ⛈️💻🎧";
+        if (weatherId >= 500 && weatherId <= 531) return "🌧️ Pada deszcz! Idealny czas na kubek czegoś ciepłego, dobrą muzykę i śledzenie radaru. Uważajcie na drogach! 🎧💻";
+        if (godzina >= 22 || godzina < 6) return "🌙 Nocna Warta: System SkyCast w trybie czuwania. Miasto śpi, a my pilnujemy danych. Spokojnej nocy! ✨🎧";
+        if (godzina >= 6 && godzina < 12) return "☕ Poranny skan: Kawa paruje, systemy zaktualizowane. Pogoda pod kontrolą. Gotowi na nowy dzień? Ogień! 🚀💻";
+        if (godzina >= 12 && godzina < 18) return "☀️ Popołudnie: SkyCast operacyjny. Skanujemy niebo i ciśniemy z naszymi projektami. Trzymajcie się ciepło! 💻🔥🍕";
+        return "🌅 Wieczorny chill: Analizujemy dane z całego dnia. Dobry moment na odpoczynek, pizzę i podsumowania. System czuwa. ✨🎧🍕";
     }
-    if (godzina >= 12 && godzina < 18) {
-        return "☀️ Popołudnie: SkyCast operacyjny. Skanujemy niebo i ciśniemy z naszymi projektami. Trzymajcie się ciepło! 💻🔥🍕";
-    }
-    
-    // Domyślnie dla wieczoru (18-22)
-    return "🌅 Wieczorny chill: Analizujemy dane z całego dnia. Dobry moment na odpoczynek, pizzę i podsumowania. System czuwa. ✨🎧🍕";
-}
 
-function pokazGłownyAlert(tytul, tresc) {
-    const modal = document.createElement('div');
-    modal.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(5px);`;
-    const okno = document.createElement('div');
-    okno.style.cssText = `background:linear-gradient(135deg,#1a2a4a,#0a1628);color:#e0e0e0;padding:25px;border-radius:20px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;font-family:monospace;font-size:13px;line-height:1.4;white-space:pre-wrap;border:2px solid #4a9eff;box-shadow: 0 10px 30px rgba(0,0,0,0.5);`;
-    
-    const naglowek = document.createElement('h3');
-    naglowek.textContent = tytul;
-    naglowek.style.cssText = `color:#e74c3c;margin:0 0 15px 0;font-size:16px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(231,76,60,0.3);padding-bottom:10px;`;
-    okno.appendChild(naglowek);
-
-    const zawartosc = document.createElement('div');
-    zawartosc.textContent = tresc;
-    okno.appendChild(zawartosc);
-
-   const zamknij = document.createElement('button');
-zamknij.textContent = '✖ ZROZUMIAŁEM, ZAMKNIJ RAPORT';
-zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
-    
-    
-    
-    zamknij.onclick = () => modal.remove();
-    modal.onclick = e => { if(e.target===modal) modal.remove(); };
-    okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
-}
-
-setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
-</script>
-    
+    setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
+    </script>
 </body>
 </html>
 
         
-                            
-        
-                            
-        
-
-
-
-
-
-
-
-
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-    
-    
-
-
-
