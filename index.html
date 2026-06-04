@@ -487,108 +487,223 @@
         } 
     }
 
+    
     function pobierzWiadomosci() {
-        const kontener = document.getElementById('radar-wiadomosci');
-        if (!kontener) return; 
-        const rssKraj = 'https://www.rmf24.pl/feed';
-        const rssSport = 'https://www.sport.pl/pub/rss/sport.xml';
-        const znacznikCzasu = new Date().getTime();
-        let zebraneHTML = '<h3 style="color: #f8fafc; text-align: center; margin-bottom: 20px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 10px; text-shadow: 0 0 15px rgba(56,189,248,0.5);"> 🇵🇱  KRAJ_Świat🌏_SPORT ⚽</h3>';
+    const kontener = document.getElementById('radar-wiadomosci');
+    if (!kontener) return; 
+    const rssKraj = 'https://polskieradio24.pl/rss/24';
+    const rssSport = 'https://www.sport.pl/pub/rss/sport.xml';
+    const znacznikCzasu = new Date().getTime();
+    let zebraneHTML = '<h3 style="color: #f8fafc; text-align: center; margin-bottom: 20px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding-bottom: 10px; text-shadow: 0 0 15px rgba(56,189,248,0.5);"> 🇵🇱  KRAJ_Świat🌏_SPORT ⚽</h3>';
 
-        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
-            .then(res => res.json())
-            .then(dane => {
-                if (dane.status === 'ok' && dane.items) {
-                    for(let i = 0; i < Math.min(dane.items.length, 4); i++) {
-                        zebraneHTML += `
-                        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15);">
-                            <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div>
-                            <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${dane.items[i].title}</a>
-                        </div>`;
-                    }
-                }
-                return fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssSport)}&t=${znacznikCzasu}`).then(r => r.json());
-            })
-            .then(daneSport => {
-                if (daneSport.status === 'ok' && daneSport.items) {
-                    for(let i = 0; i < Math.min(daneSport.items.length, 4); i++) {
-                        zebraneHTML += `
-                        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15);">
-                            <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🚨 SPORT ⚽🎾🏀</div>
-                            <a href="${daneSport.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${daneSport.items[i].title}</a>
-                        </div>`;
-                    }
-                }
-                kontener.innerHTML = zebraneHTML;
-            }).catch(e => console.log("RSS w trybie uśpienia."));
-    }
-function skanujZagrozenia() {
-        const szafeczka = document.getElementById('regionalAlertCard');
-        if (!szafeczka) return;
-        const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://news.google.com/rss/search?q=ostrzeżenie+pogodowe+kraków+OR+małopolskie&hl=pl&gl=PL&ceid=PL:pl')}&t=${new Date().getTime()}`;
+            
 
-        fetch(url).then(res => res.json()).then(dane => {
-            let czyAlert = false, tresc = "";
-            if (dane.status === 'ok' && dane.items && dane.items.length > 0) {
-                let tytul = dane.items[0].title.toLowerCase();
-                if (tytul.includes("ostrz") || tytul.includes("alert") || tytul.includes("burz") || tytul.includes("wichur")) {
-                    czyAlert = true; tresc = dane.items[0].title;
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssKraj)}&t=${znacznikCzasu}`)
+        .then(res => res.json())
+        .then(dane => {
+            if (dane.status === 'ok' && dane.items) {
+                for(let i = 0; i < Math.min(dane.items.length, 4); i++) {
+                    zebraneHTML += `
+                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 6px solid #ef4444; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.15);">
+                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🇵🇱 POLSKA & ŚWIAT 🌍</div>
+                        
+                        <a href="${dane.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${dane.items[i].title}</a>
+                    </div>`;
                 }
             }
-            if (czyAlert) {
-                szafeczka.style.background = "rgba(239, 68, 68, 0.15)"; szafeczka.style.borderLeft = "5px solid #ef4444";
-                szafeczka.innerHTML = `<div style="color: #b91c1c; font-weight: bold;">⚠️ ALERT POGODOWY</div><div style="color: #7f1d1d;">${tresc}</div>`;
+            return fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssSport)}&t=${znacznikCzasu}`).then(r => r.json());
+        })
+        .then(daneSport => {
+            if (daneSport.status === 'ok' && daneSport.items) {
+                for(let i = 0; i < Math.min(daneSport.items.length, 4); i++) {
+                    zebraneHTML += `
+                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(34, 197, 94, 0.3); border-left: 6px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(34,197,94,0.15);">
+                        <div style="font-size: 0.75rem; color: #22c55e; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px;">🚨 SPORT ⚽🎾🏀</div>
+                        <a href="${daneSport.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${daneSport.items[i].title}</a>
+                    </div>`;
+                }
             }
-        });
-    }
+            kontener.innerHTML = zebraneHTML;
+        }).catch(e => console.log("RSS w trybie uśpienia."));
+}
 
-    function wybierzIkonePory(godzina, APIicon) {
-        if (godzina >= 19 || godzina <= 5) return "🌙"; 
-        if (APIicon.startsWith("01")) return "☀️";
-        if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
-        if (APIicon.startsWith("04")) return "☁️";
-        if (APIicon.startsWith("09") || APIicon.startsWith("10")) return "🌧️";
-        if (APIicon.startsWith("11")) return "⚡";
-        if (APIicon.startsWith("13")) return "❄️";
-        return "☁️";
-    }
 
-    function pobierzMyslPiotrka(temp, weatherId) {
+function pokazAlertPowitalny() {
+    const raport = 
+        "🌤️ SkyCast PRO | Raport Poranny\n" +
+        "📅 Niedziela, 31 maja 2026\n" +
+        "================================\n" +
+        "📍 KRAKÓW I OKOLICE\n" +
+        "🛡️ STATUS: STABILNIE (Brak opadów)\n\n" +
+        "👋 Szanowni Państwo,\n" +
+        "Dzień w Krakowie zapowiada się bardzo przyjemnie. Poranek to przewaga chmur ☁️, ale po południu czeka nas solidna dawka słońca ☀️. Co najważniejsze – nie spodziewamy się dziś ani kropli deszczu! 🚫🌧️\n\n" +
+        "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
+        "🔹 Poranek (09:00): Ok. 15.6°C, umiarkowane zachmurzenie ⛅.\n" +
+        "🔹 Południe (13:00 - 15:00): 20 - 21.4°C. Częściowo słonecznie 🌤️, wiatr umiarkowany z północnego zachodu (do 20 km/h) 💨.\n" +
+        "🔹 Popołudnie (17:00): Bardzo słonecznie ☀️ z temperaturą maksymalną ok. 22.3°C.\n\n" +
+        "🗺️ SYTUACJA W KRAJU:\n" +
+        "Dzisiejszy dzień w Polsce będzie bardzo różnorodny:\n" +
+        "🔥 Zachód (Wrocław): Najcieplej na mapie! Słonecznie, sucho, po południu do 24.6°C (odczuwalna 26°C).\n" +
+        "⛅ Centrum (Warszawa): Rano pochmurno z przelotnym deszczem 🌧️ (15.9°C). Po południu poprawa pogody, słońce ☀️ i 21.4°C.\n" +
+        "💨 Północ (Gdańsk): Odczuwalnie chłodniej i wietrznie. Rano słonecznie (18.3°C), po południu przelotny deszcz 🌧️ i spadek do 17.4°C. Silny wiatr w porywach >20 km/h.\n\n" +
+        "================================\n" +
+        "✅ STATUS SYSTEMOWY: OPERACYJNY 📡\n" +
+        "Całym naszym zespołem życzymy spokojnej i słonecznej niedzieli! 🙌";
+
+    wyswietlAlert("🌤️ PORANNY RAPORT OPERACYJNY", raport);
+}
+        
+    
+
+
+
+
+        
+
+    // NASZE BRAKUJĄCE NARZĘDZIE DO WYŚWIETLANIA ALERTÓW - WERSJA SKY BLUE 🌤️
+function wyswietlAlert(tytul, tresc) {
+    // 1. Tworzymy fizyczne okienko
+    const okienko = document.createElement('div');
+    okienko.style.position = 'fixed';
+    okienko.style.top = '50%';
+    okienko.style.left = '50%';
+    okienko.style.transform = 'translate(-50%, -50%)';
+    okienko.style.backgroundColor = 'rgba(15, 23, 42, 0.95)'; // Ciemne, eleganckie tło
+    okienko.style.color = '#f8fafc';
+    okienko.style.padding = '20px';
+    okienko.style.borderRadius = '15px';
+    okienko.style.zIndex = '9999'; // Gwarancja, że będzie ZAWSZE na wierzchu!
+    okienko.style.border = '2px solid #38bdf8'; // Nowa, niebieska ramka SkyCast PRO
+    okienko.style.boxShadow = '0 10px 25px rgba(56, 189, 248, 0.2)'; // Delikatna niebieska poświata
+    okienko.style.width = '88%';
+    okienko.style.textAlign = 'center';
+    
+    // Zabezpieczenia ekranu (Mobilne)
+    okienko.style.maxHeight = '80vh'; // Maksymalnie 80% wysokości widocznego ekranu
+    okienko.style.overflowY = 'auto'; // Umożliwia przewijanie tekstu wewnątrz okienka
+
+    // 2. Wstrzykujemy nasz tekst (Tytuł i Raport)
+    okienko.innerHTML = `
+        <h2 style="color: #hsla(0,82.7%,81.5%,0.231); margin-top: 0; font-size: 1.2rem;">${tytul}</h2>
+        <p style="white-space: pre-line; font-size: 0.9rem; text-align: left; line-height: 1.4;">${tresc}</p>
+        <button id="przyciskZamknijAlert" style="margin-top: 15px; padding: 12px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; width: 100%; text-transform: uppercase;">Zrozumiano - Przejdź do radaru</button>
+    `;
+
+    // 3. Dodajemy okienko do naszej strony
+    document.body.appendChild(okienko);
+
+    // 4. Mechanizm zamykania po kliknięciu przycisku
+    document.getElementById('przyciskZamknijAlert').addEventListener('click', function() {
+        okienko.remove(); // Niszczy okienko po przeczytaniu
+    });
+}
+        
+    
+
+        
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+    
+    
+
+
+function wybierzIkonePory(godzina, APIicon) {
+    if (godzina >= 19 || godzina <= 5) return "🌙"; 
+    if (APIicon.startsWith("01")) return "☀️";
+    if (APIicon.startsWith("02") || APIicon.startsWith("03")) return "⛅";
+    if (APIicon.startsWith("04")) return "☁️";
+    if (APIicon.startsWith("09") || APIicon.startsWith("10")) return "🌧️";
+    if (APIicon.startsWith("11")) return "⚡";
+    if (APIicon.startsWith("13")) return "❄️";
+    return "🌙";
+}
+// Załóżmy, że "iconCode" to zmienna z danymi, które dostałeś z API
+let weatherEmoji = "☀️☁️";
+
+// Metoda .includes() sprawdza, czy w tekście z API znajduje się literka "n"
+if (iconCode.includes("n")) {
+    weatherEmoji = "🌙☁️"; // API twierdzi, że jest noc
+} else {
+    weatherEmoji = "☀️☁️"; // API twierdzi, że jest dzień
+}
+
+function pobierzMyslPiotrka(temp, weatherId) {
     const godzina = new Date().getHours();
 
-    // 1. PRIORYTET: Alarmy pogodowe (skanowanie od góry - wersja weekendowa)
+    // 1. NAJPIERW SPRAWDZAMY ZJAWISKA EKSTREMALNE (Niezależnie od godziny)
     if (weatherId >= 200 && weatherId <= 232) {
-        return "⚡ Alert: Burza w regionie! Długi weekend z przygodami. Zabezpieczcie grille i balkony. Zostańcie w domu, odpalcie nasze radio w SkyCast i przeczekajcie bezpiecznie! ⛈️💻🎧";
+        return "⚡ Uwaga, burza w regionie! Zabezpieczcie rzeczy na balkonach. Siedzimy bezpiecznie, radar włączony, a na słuchawkach leci dobry bit! ⛈️💻🎧";
     }
     if (weatherId >= 500 && weatherId <= 531) {
-        return "🌧️ Pada! Jeśli pogoda trochę psuje plany plenerowe, to idealny moment na kawę, dobrą pizzę i odpalenie ulubionych stacji radiowych u nas. ☕📻";
-    }
-    if (weatherId >= 600 && weatherId <= 622) {
-        return "❄️ Śnieg na radarze?! Pogoda zwariowała na ten weekend! Nasze serwery grzeją, a gorąca pizza z pieca zawsze poprawi humor! 🍕💻☃️";
-    }
-    if (weatherId === 800 && temp >= 25) {
-        return "🔥 Czyste niebo i upał! Idealna pogoda na długi weekend. Pamiętajcie o wodzie, opalajcie się bezpiecznie i niech gra muzyka z naszej aplikacji! ☀️📻";
+        return "🌧️ Pada deszcz! Idealny czas na kubek czegoś ciepłego, dobrą muzykę i śledzenie radaru. Uważajcie na drogach! 🎧💻";
     }
 
-    // 2. CYKL DOBOWY: (jeśli pogoda jest spokojna - wersja weekendowa)
-    if (godzina >= 22 || godzina < 6) {
-        return "🌙 Nocna Warta: Długi weekend trwa, miasto imprezuje lub śpi, a Piotrek 👷🌛 koduje nocą. Algorytmy na posterunku. Bawcie się dobrze! 🦉💻✨";
+    // 2. JEŚLI NIE MA BURZY ANI DESZCZU, LECIMY WEDŁUG PORY DNIA
+    if (godzina >= 20 || godzina < 6) {
+        return "🌙 Nocna Warta: System SkyCast w trybie czuwania. Miasto śpi, a my pilnujemy danych. Spokojnej nocy! ✨🎧";
     }
     if (godzina >= 6 && godzina < 12) {
-        return "☕ Poranny skan: Długi weekend odpalony! Kawa paruje, a SkyCast pilnuje pogody na Wasze wyjazdy. Muzyka gra, lecimy z tym dniem! 🚀📻";
+        return "☕ Poranny skan: Kawa paruje, systemy zaktualizowane. Pogoda pod kontrolą. Gotowi na nowy dzień? Ogień! 🚀💻";
     }
     if (godzina >= 12 && godzina < 18) {
-        return "☀️ Popołudnie: Długi weekend w pełni! Skanujemy niebo, żeby Wasze grille wypaliły. Odpalcie ulubione bity i łapcie zasłużony chill! 🏕️🔥🍕";
+        return "☀️ Popołudnie: SkyCast operacyjny. Skanujemy niebo i ciśniemy z naszymi projektami. Trzymajcie się ciepło! 💻🔥🍕";
     }
     
-    // Zostaje nam wieczór (od 18:00 do 21:59)
-    return "🌅 Wieczorny chill: Czas na konkretny weekendowy reset. Odpalamy dobre bity, zamawiamy pizzę i ładujemy baterie. SkyCast czuwa nad Wami! ✨🎧🍕";
-    }
-                
+    // Domyślnie dla wieczoru (18-22)
+    return "🌅 Wieczorny chill: Analizujemy dane z całego dnia. Dobry moment na odpoczynek, pizzę i podsumowania. System czuwa. ✨🎧🍕";
+}
 
-    setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
-    </script>
+function pokazGłownyAlert(tytul, tresc) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(5px);`;
+    const okno = document.createElement('div');
+    okno.style.cssText = `background:linear-gradient(135deg,#1a2a4a,#0a1628);color:#e0e0e0;padding:25px;border-radius:20px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;font-family:monospace;font-size:13px;line-height:1.4;white-space:pre-wrap;border:2px solid #4a9eff;box-shadow: 0 10px 30px rgba(0,0,0,0.5);`;
+    
+    const naglowek = document.createElement('h3');
+    naglowek.textContent = tytul;
+    naglowek.style.cssText = `color:#e74c3c;margin:0 0 15px 0;font-size:16px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(231,76,60,0.3);padding-bottom:10px;`;
+    okno.appendChild(naglowek);
+
+    const zawartosc = document.createElement('div');
+    zawartosc.textContent = tresc;
+    okno.appendChild(zawartosc);
+
+   const zamknij = document.createElement('button');
+zamknij.textContent = '✖ ZROZUMIAŁEM, ZAMKNIJ RAPORT';
+zamknij.style.cssText = `display:block;margin:20px auto 0;padding:10px 25px;background:#e74c3c;color:#fff;border:none;border-radius:30px;font-weight:bold;cursor:pointer;`;
+    
+    
+    
+    zamknij.onclick = () => modal.remove();
+    modal.onclick = e => { if(e.target===modal) modal.remove(); };
+    okno.appendChild(zamknij); modal.appendChild(okno); document.body.appendChild(modal);
+}
+
+setInterval(() => { uruchomZlotySkaner(); }, 2 * 60 * 60 * 1000);
+</script>
+    
 </body>
 </html>
-    
+
+        
+                            
         
