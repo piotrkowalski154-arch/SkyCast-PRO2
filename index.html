@@ -442,7 +442,14 @@
         const dL = document.getElementById('dList');
         if (dL && forecastData && forecastData.list) {
             dL.innerHTML = '';
-            const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+            
+            
+
+            
+
+            
+                const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+            
             const dzisiejszaData = new Date().toDateString();
             const dniMap = {};
             for (let i = 0; i < forecastData.list.length; i++) {
