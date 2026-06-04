@@ -68,6 +68,23 @@ body.night-mode {
     --card-text: #f8fafc;
 }
 
+/* NAPRAWA: Wszystkie karty w trybie nocnym (w tym Skan Godzinowy i 5 Dni) */
+body.night-mode .card {
+    background: rgba(15, 23, 42, 0.6) !important; /* Głębia granatu */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important; /* Subtelna ramka */
+}
+
+/* Specjalna poprawka dla kart godzinowych (h-box) w trybie nocnym */
+body.night-mode .h-box {
+    background: rgba(30, 41, 59, 0.5) !important; /* Ciemniejsze tło dla lepszego kontrastu */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Poprawa czytelności tekstu w kartach godzinowych nocą */
+body.night-mode .h-box div {
+    color: #f8fafc !important; /* Czysta biel dla czasu i temperatury */
+    text-shadow: none !important; /* Usuwamy zbędne cienie */
+}
 
 
 
