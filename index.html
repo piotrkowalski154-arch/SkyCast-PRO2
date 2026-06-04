@@ -11,7 +11,7 @@
         okienko.style.transform = 'translate(-50%, -50%)';
         okienko.style.backgroundColor = 'rgba(15, 23, 42, 0.95)'; // Mroczny, cyber-klimat
         okienko.style.color = '#f8fafc';
-        okienko.style.padding = '25px';
+        okienko.style.padding = '65px';
         okienko.style.borderRadius = '15px';
         okienko.style.zIndex = '9999';
         okienko.style.border = '2px solid #38bdf8';
@@ -24,7 +24,7 @@
         okienko.innerHTML = `
             <h2 style="color: #38bdf8; margin-top: 0; font-size: 1.3rem; text-transform: uppercase;">${tytul}</h2>
             <p style="white-space: pre-line; font-size: 0.95rem; text-align: left; line-height: 1.5; margin-bottom: 20px;">${tresc}</p>
-            <button id="przyciskZamknijAlert" style="padding: 14px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: 900; width: 100%; text-transform: uppercase; cursor: pointer; font-size: 1rem;">Zrozumiano - Ogień! 🔥</button>
+            <button id="przyciskZamknijAlert" style="padding: 19px 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: 900; width: 100%; text-transform: uppercase; cursor: pointer; font-size: 1rem;">Zrozumiano - Ogień! 🔥</button>
         `;
         
         // Dodanie okienka do sekcji <body>
@@ -39,7 +39,7 @@
     // 2. Automatyczne uruchomienie przy wejściu na stronę
     window.onload = function() {
         const tytulAktualizacji = "🚀 ZMIENIAMY SIĘ DLA WAS!";
-        const trescAktualizacji = "Witajcie!\n\nSkyCast PRO przechodzi właśnie potężną ewolucję. Pracujemy nad grubą aktualizacją, żeby dostarczyć Wam absolutnie najlepsze narzędzie na to lato!\n\n⚡ Co przygotowujemy?\n• Jeszcze szybszy i dokładniejszy skaner pogodowy.\n• Nowe, stabilniejsze moduły stacji radiowych i wiadomości w tle.\n• Optymalizację systemu pod maską, żeby aplikacja śmigała błyskawicznie na każdym telefonie.\n\nDziękuję, że jesteście, korzystacie z aplikacji i dajecie mi tyle motywacji do pisania kodu. Bądźcie czujni, nowości wjeżdżają na serwery!\n\nGarda Wysoko! 🦾";
+        const trescAktualizacji = "Witajcie!\n\nSkyCast PRO przechodzi właśnie potężną ewolucję. Pracujemy nad grubą aktualizacją, żeby dostarczyć Wam absolutnie najlepsze narzędzie na to lato!\n\n⚡ Co przygotowujemy?\n• Jeszcze szybszy i dokładniejszy skaner pogodowy.\n• Nowe, stabilniejsze moduły stacji radiowych i wiadomości w tle.\n• Optymalizację systemu pod maską, żeby aplikacja śmigała błyskawicznie na każdym telefonie.\n\nDziękuję, że jesteście, korzystacie z aplikacji i dajecie mi tyle motywacji do pisania kodu. Bądźcie czujni, nowości wjeżdżają na serwery!\n\n🌏🌍🔥 🦾";
         
         // Uruchamiamy funkcję zdefiniowaną wyżej
         wyswietlAlert(tytulAktualizacji, trescAktualizacji);
