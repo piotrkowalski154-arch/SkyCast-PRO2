@@ -66,6 +66,7 @@
         
         .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #d3d3d3 !important; }
+        .karta-krakow { overflow: hidden; }
     </style>
 </head>
 <body>
@@ -156,8 +157,12 @@
 
         <div class="card manifest animate" style="border-left: 4px solid var(--orange); background: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
             <h2 style="font-size: 1.4rem; font-weight: bold; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👋</h2>
-            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">Przez ponad 10 lat stałem przy gorącym piecu jako pizzaiolo w Trattorii Soprano. Znam smak ciężkiej pracy i wiem, co to znaczy działać na pełnych obrotach. Ale w życiu każdego faceta przychodzi taki moment, że trzeba coś zmienić i pójść za tym, co zawsze siedziało w głowie.</p>
-            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">Dlatego postawiłem wszystko na jedną kartę. Zamieniłem piec na klawiaturę i wkręciłem się w IT. Uczę się cyberbezpieczeństwa, testuję sztuczną inteligencję i buduję własne systemy (jak mój projekt pogodowy SkyCast PRO). Małymi krokami, ale cały czas do przodu.</p>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
+                Przez 10 lat stałem przy gorącym piecu jako pizzaiolo. Znam smak ciężkiej pracy i wiem, co to znaczy działać na pełnych obrotach. Ale w życiu każdego faceta przychodzi taki moment, że trzeba coś zmienić i pójść za tym, co zawsze siedziało w głowie.
+            </p>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
+                Dlatego postawiłem wszystko na jedną kartę. Zamieniłem piec na klawiaturę i wkręciłem się w IT. Uczę się cyberbezpieczeństwa, testuję sztuczną inteligencję i buduję własne systemy (jak mój projekt pogodowy SkyCast PRO). Małymi krokami, ale cały czas do przodu. 
+            </p>
             <div style="background: rgba(255,255,255,0.05); border-radius: 6px; padding: 12px; font-size: 0.85rem; color: #aaa; border-left: 2px solid var(--orange);">
                 ☕ Jeśli podoba Ci się to, co robię, albo po prostu chcesz zbić piątkę za wytrwałość, możesz postawić mi wirtualną kawę:<br>
                 <strong style="color: #fff; font-size: 1rem; display: inline-block; margin-top: 5px;">33 2910 0006 2469 8002 1032</strong>
@@ -171,7 +176,7 @@
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
     const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
     
-    // TWOJA SZAFECZKA Z ALERTEM IMGW
+    // TWOJA SZAFECZKA Z ALERTEM IMGW NA BOŻE CIAŁO (4 CZERWCA)
     const alertIMGW = "⚠️ Komunikat IMGW: Dynamiczna aura w Boże Ciało. Przed południem spokojnie, po południu ryzyko punktowych burz z gradem (opady do 20 mm, porywy wiatru do 60 km/h), głównie na południu, centrum i płd-wschodzie. Najcieplejszy dzień weekendu: 20°C - 25°C, lokalnie do 27°C! Uważajcie na drogach i mniejszych ciekach wodnych.";
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -179,7 +184,7 @@
         pokazAlertPowitalny(); 
         uruchomProtokolGPS();  
         pobierzWiadomosci();
-        uruchomZlotySkaner(); // Uruchamia silnik przy starcie
+        uruchomZlotySkaner(); // Uruchamia skaner automatycznie przy starcie aplikacji
     });
 
     // ======================================================================
@@ -206,7 +211,7 @@
         placeholder.style.display = "none";
         audio.src = select.value;
         audio.style.display = "block";
-        audio.play().catch(e => console.log("Zablokowano autostart."));
+        audio.play().catch(e => console.log("Zablokowano autostart audio."));
     }
 
     function pobierzWiadomosci() {
@@ -235,9 +240,8 @@
                 kontener.innerHTML = zebraneHTML;
             }).catch(e => console.log("RSS offline."));
     }
-
-    // ======================================================================
-    // 🧠 MYŚL PIOTRKA & TŁUMACZENIA (ZAŁATANE)
+                // ======================================================================
+    // 🧠 MYŚL PIOTRKA, ALERT POWITALNY I FUNKCJE POMOCNICZE
     // ======================================================================
     function pobierzMyslPiotrka(temp, weatherId) {
         const godzina = new Date().getHours();
@@ -289,7 +293,8 @@
         const raport = "🌤️ SkyCast PRO | Raport Świąteczny\n📅 Czwartek, 4 czerwca 2026 (Boże Ciało)\n================================\n📍 KRAKÓW I OKOLICE\n🛡️ STATUS: ALERT BURZOWY ⚡☔\n\n👋 Szanowni Państwo,\nDzisiaj Boże Ciało! Poranek w Krakowie przywita nas słońcem ⛅, ale uwaga – po południu atmosfera zrobi się bardzo dynamiczna. Spodziewamy się przelotnych opadów i lokalnych burz ⚡☔. Zabierzcie parasole na procesje! 🌂\n\n================================\n✅ STATUS SYSTEMOWY: OPERACYJNY 📡";
         wyswietlAlert("🌤️ ŚWIĄTECZNY RAPORT", raport);
     }
-                // ======================================================================
+
+    // ======================================================================
     // 🚀 GŁÓWNY SILNIK (ZŁOTY SKANER POGODY OPENWEATHER)
     // ======================================================================
     async function uruchomZlotySkaner() {
@@ -298,7 +303,6 @@
         btn.innerText = "SKANOWANIE...";
         
         try {
-            // 1. Pobieranie danych z API OpenWeather
             const wRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=pl`);
             const wData = await wRes.json();
             if(wData.cod !== 200) throw new Error(wData.message);
@@ -306,7 +310,6 @@
             const aRes = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${wData.coord.lat}&lon=${wData.coord.lon}&appid=${API_KEY}`);
             const aData = await aRes.json();
 
-            // 2. Renderowanie Głównej Karty
             document.getElementById('cityName').innerText = wData.name;
             document.getElementById('valT').innerText = Math.round(wData.main.temp) + "°";
             document.getElementById('valD').innerText = wData.weather[0].description;
@@ -314,11 +317,9 @@
             const iconInfo = tlumaczPogodeTeraz(wData.weather[0].icon, wData.weather[0].description);
             document.getElementById('mainIcon').innerHTML = iconInfo.icon;
             
-            // Logika Noc/Dzień
             if(wData.weather[0].icon.includes('n')) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
 
-            // 3. Renderowanie Szafeczki Atmosferycznej
             const wiatrKm = Math.round(wData.wind.speed * 3.6);
             document.getElementById('valWind').innerText = wiatrKm;
             document.getElementById('valPress').innerText = wData.main.pressure;
@@ -327,11 +328,9 @@
             document.getElementById('aqiIcon').innerText = aqiInfo.ikona;
             document.getElementById('atmCard').style.display = "block";
 
-            // 4. Renderowanie Myśli Piotrka
             document.getElementById('thesisP').innerText = pobierzMyslPiotrka(wData.main.temp, wData.weather[0].id);
             document.getElementById('thesisWidget').style.display = "block";
 
-            // 5. Aktualizacja Szafeczki Regionalnej (Zabezpieczenie IMGW)
             const regCard = document.getElementById('regionalAlertCard');
             const regTitle = document.getElementById('regAlertTitle');
             const regText = document.getElementById('regAlertText');
@@ -364,3 +363,6 @@
     </script>
 </body>
 </html>
+
+    
+    
