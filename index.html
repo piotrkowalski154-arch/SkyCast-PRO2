@@ -284,7 +284,7 @@
     "🌡️ SZCZEGÓŁOWA PROGNOZA (Kraków):\n" +
     "🔹 Poranek (09:00): Ok. 18°C, umiarkowane zachmurzenie, robi się parno ⛅.\n" +
     "🔹 Południe (13:00 - 15:00): Gorąco, ok. 24°C. Wypiętrzające się chmury i pierwsze sygnały burzowe na radarach ⛈️.\n" +
-    "🔹 Popołudnie (17:00): 21°C, duże prawdopodobieństwo gwałtownych opadów deszczu i burz ⚡☔. Zalecamy ostrożność!\n\n" +
+    "🔹 Popołudnie (17:00): 21°C, duże prawdopodobieństwo gwałtownych opadów deszczu i burz ⚡☔. Zalecam 🚨 ostrożność!\n\n" +
     "🗺️ SYTUACJA W KRAJU:\n" +
     "Polska dziś podzielona frontem burzowym:\n" +
     "🔥 Zachód (Wrocław): Bardzo ciepło (25°C), ale duszno. Gwałtowne burze po południu ⚡.\n" +
@@ -310,7 +310,7 @@
         
         let statusEl = document.getElementById('valD');
         if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
-        
+       3D 
         try { 
             const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`;
             const currentRes = await fetch(currentUrl);
