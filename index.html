@@ -684,68 +684,80 @@ function pobierzWiadomosci() {
     }
 }
 // ========================================================
-// 🧠 MYŚL PIOTRKA – WAKACYJNY HUMOR (Z NAPRAWIONYM TRYBEM NOCNYM!)
+// 🧠 MYŚL PIOTRKA – TRYB DYNAMICZNY (UNIWERSALNE LATO)
 // ========================================================
 const widget = document.getElementById('thesisWidget');
 if (widget) widget.style.display = 'block';
 
-// 💥 NAPRAWA 1: Domyślne zmienne wiedzą, czy jest noc!
-let mysl = "Pogoda stabilna jak leniwe popołudnie na hamaku. Idealna chwila na kawę i odpoczynek! ☁️☕";
+// Pobieramy aktualną godzinę do logiki porannej/dziennej/nocnej
+const obecnaGodzina = new Date().getHours();
+const toRano = obecnaGodzina >= 5 && obecnaGodzina < 11;
+const toDzien = obecnaGodzina >= 11 && obecnaGodzina < 21;
+
+// Domyślne zmienne wiedzą, czy jest noc
+let mysl = "Pogoda jest dzisiaj wyjątkowo stabilna. Idealne warunki na odpoczynek i regenerację sił. ☁️☕";
 let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
 let textColor = isNight ? "#e2e8f0" : "#000000"; 
 let titleColor = isNight ? "#38bdf8" : "#000000";
 
 // HIERARCHIA POCHODZENIA WARUNKÓW
 if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-    // Burza 
-    mysl = "⚡🌩️ Niebo wariuje! Zostań w domu, włącz muzykę i podziwiaj widowisko zza szyby. Latem każda burza ma swój urok!";
+    mysl = "⚡🌩️ Niestabilna, letnia aura. Zaleca się pozostanie w pomieszczeniach i bezpieczne przeczekanie burzy.";
     cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-    // Deszcz 
-    mysl = "🌧️ Letni deszcz pachnie najlepiej! Po nim wszystko budzi się do życia. Zasłużona drzemka przy otwartym oknie!";
+    mysl = "🌧️ Letnie opady deszczu przynoszą przyjemne orzeźwienie. Dobry czas na chwilę wytchnienia w domowym zaciszu.";
     cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (weatherObj.id === 800 && isNight) {
-    // Bezchmurna noc
-    mysl = "🌙 Niebo czyste jak łza, księżyc w pełni. Lato pachnie nocą i ciszą. Odetchnij głęboko i ciesz się chwilą.";
+    mysl = "🌙 Bezchmurna noc zachęca do wyciszenia. Idealny moment na uporządkowanie myśli po aktywnym, letnim dniu.";
     cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
     textColor = "#ffffff"; titleColor = "#38bdf8";
 } else if (weatherObj.id === 800 && !isNight) {
-    // Bezchmurny dzień 
-    mysl = "☀️ Nie ma ani jednej chmurki! Rzucaj wszystko i łap promienie – lato w Polsce jest za krótkie, żeby siedzieć w domu!";
+    mysl = "☀️ Doskonała widoczność i brak zachmurzenia. Warto spędzić czas na zewnątrz, korzystając z uroków polskiego lata.";
     cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
 } else if (currentData.main.temp > 34) {
-    // Skrajny upał 
-    mysl = "🔥 Gorąco jak na plaży w południe! Pamiętaj o wodzie, czapce i kremie z filtrem. A najlepiej schowaj się w cieniu!";
+    mysl = "🔥 Ekstremalne temperatury. Należy unikać dłuższego przebywania na słońcu i pamiętać o odpowiednim nawodnieniu organizmu.";
     cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
-    // Upał 
-    mysl = "☀️ Lato w pełni! Wskakuj w klapki, bierz ręcznik i pędź nad wodę. Takie dni są po to, żeby je pamiętać cały rok!";
+    mysl = "☀️ Bardzo wysokie temperatury w ciągu dnia. Zaleca się ostrożność podczas dłuższego przebywania na otwartym słońcu.";
     cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
 } else if (currentData.main.temp > 25) {
-    // Ciepło
-    mysl = "🌞 Idealna pogoda na grilla, rower albo po prostu długi spacer. Polskie lato potrafi być przepiękne – korzystaj!";
+    mysl = "🌞 Optymalne warunki na spacer i aktywność fizyczną. Letnia pogoda w swoim najbardziej przystępnym wydaniu.";
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
 } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
-    // Przyjemne ciepło
-    mysl = "🌤️ Złoty środek lata – nie za gorąco, nie za zimno. Najlepszy moment na wycieczkę za miasto i oddech od codzienności!";
+    mysl = "🌤️ Umiarkowane, przyjemne ciepło. Pogoda sprzyja rekreacji na świeżym powietrzu i dłuższym wyjazdom.";
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
 } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
-    // Umiarkowanie (To z Twojego screena!)
-    // 💥 NAPRAWA 2: Pełna synchronizacja szkła i tekstu z trybem nocnym
-    mysl = "🌌 Czerwiec w pełni, noc jest krótka i pełna obietnic. Świat śpi, a my planujemy przyszłość. Pamiętaj: najlepsze pomysły przychodzą w nocy.";
-    
-        
+    // 💥 UNIWERSALNY PRZEKAZ DOBOWY
+    if (toRano) {
+        mysl = "☕ Rześki poranek to dobry moment na rozpoczęcie dnia. Spokojna organizacja to klucz do efektywności.";
+    } else if (toDzien) {
+        mysl = "☀️ Optymalna temperatura sprzyja zarówno codziennym obowiązkom, jak i popołudniowemu relaksowi na zewnątrz.";
+    } else {
+        mysl = "🌌 Spokojna, letnia noc zachęca do wyciszenia umysłu. To doskonały czas, by odpocząć po całym dniu.";
+    }
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
     textColor = isNight ? "#e2e8f0" : "#000000";
     titleColor = isNight ? "#38bdf8" : "#000000";
 } else if (currentData.main.temp < 5) {
-    // Zimno
-    mysl = "🥶 Chłodno jak na polską jesień, choć to przecież lato! Herbata z miodem i ciepły koc – czas się zrelaksować!";
+    mysl = "🥶 Zaskakująco niska temperatura jak na tę porę roku. Należy pamiętać o cieplejszym ubraniu przed wyjściem.";
     cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
+    textColor = "#ffffff"; titleColor = "#ffffff";
+} else {
+    // 💥 PROFESJONALNA LOSOWOŚĆ: Wyważone myśli poranne
+    let polskieMysli = [
+        "🍃 Rześkie, poranne powietrze to zapowiedź pogodnego dnia. Idealna aura, aby spokojnie zaplanować nadchodzące obowiązki.",
+        "🍃 Długie letnie dni sprzyjają aktywności na świeżym powietrzu. Warto wykorzystać ten chłodniejszy poranek na chwilę wytchnienia.",
+        "🍃 Spokojny początek dnia w letniej scenerii. To doskonały czas na poranną kawę i zebranie myśli przed codziennymi wyzwaniami.",
+        "🍃 Przyjemne orzeźwienie zapewnia optymalne warunki do działania. Letnia pogoda w swoim najbardziej wyważonym wydaniu."
+    ];
+    
+    mysl = polskieMysli[Math.floor(Math.random() * polskieMysli.length)];
+    cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
 }
+            
 
 // 🛠️ Dynamiczne wstrzykiwanie ostatecznych stylów do widżetu
 if (widget) {
