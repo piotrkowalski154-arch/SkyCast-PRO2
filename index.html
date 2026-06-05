@@ -342,6 +342,64 @@ function pokazAlertPowitalny() {
     document.body.appendChild(okienko);
     document.getElementById('zamknijAlert').onclick = () => okienko.remove();
 }
+function pokazAlertPowitalny() {
+    // 1. Zabezpieczenie przed dublowaniem alertu
+    if (document.getElementById('skycast-welcome-alert')) return;
+
+    const okienko = document.createElement("div");
+    okienko.id = 'skycast-welcome-alert';
+    okienko.style.cssText = `
+        position: fixed; top: 5%; left: 5%; width: 90%;
+        background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 2px solid #ef4444; border-radius: 20px;
+        padding: 20px; z-index: 9999; color: white;
+        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        max-height: 90vh; overflow-y: auto;
+    `;
+
+    // 2. Automatyczna data ustawiona na dzisiaj (front idzie w piątek)
+    const dzisiaj = new Date();
+    const dataStr = dzisiaj.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    // 3. Profesjonalny burzowy komunikat systemowy
+    const tresc = `👋 Witaj w SkyCast PRO!\n` +
+        `================================\n` +
+        `📍 ALERT METEO | ${dataStr.toUpperCase()} | 1. STOPIEŃ ZAGROŻENIA 🚨\n\n` +
+        `⚠️ UWAGA: Przez Polskę przechodzi dynamiczny front. Aktywne superkomórki burzowe!⚡️\n\n` +
+        `☀️ KRAKÓW & POŁUDNIE:\n` +
+        `• Temp: do 24°C w dzień, wysoka parność. Po południu gwałtowny rozwój chmur burzowych ⛈️.\n\n` +
+        `🇵🇱 POLSKA - STREFA NIEBEZPIECZEŃSTWA:\n` +
+        `• Centrum & Północny Wschód: Najbardziej gwałtowny przebieg nawałnic!\n` +
+        `• Warmia, Kujawy, Mazowsze: Ekstremalna konwekcja. Możliwe 1-2 trąby powietrzne (do IF2)! 🌪️\n\n` +
+        `💥 ZJAWISKA WSPÓŁTOWARZYSZĄCE:\n` +
+        `• 🌬️ Nawałnice: Silny wiatr w porywach do 80-90 km/h, punktowo powyżej 100 km/h!\n` +
+        `• 🌧️ Opad: Ulewne deszcze 30-40 mm/h (w superkomórkach nawet do 50 mm/h – ryzyko podtopień).\n` +
+        `• 🔮 Grad: Możliwe opady dużego gradu o średnicy do 3,5 cm!\n\n` +
+        `⚠️ Podsumowanie: Front niesie ze sobą niszczycielskie porywy wiatru i lokalne podtopienia. Zabezpiecz luźne przedmioty i unikaj otwartych przestrzeni! ☂️⚡\n\n` +
+        `Infrastruktura SkyCast PRO gotowa, radary aktywne. System śledzi superkomórki na żywo! 💻\n` +
+        `================================\n` +
+        `SYSTEM ALERTOWY • PEŁNA GOTOWOŚĆ ⚡`;
+
+    okienko.innerHTML = `
+        <h2 style="color:#ef4444; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase; text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
+            🚨 NIEBEZPIECZNE WARUNKI METEO
+        </h2>
+        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
+            ${tresc}
+        </p>
+        <button id="zamknijAlert" style="
+            padding:12px; background:#ef4444; color:#ffffff;
+            border:none; border-radius:10px; font-weight:900;
+            width:100%; cursor:pointer; font-size:1rem; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        ">ROZUMIEM, ZABEZPIECZAM TEREN</button>
+    `;
+
+    document.body.appendChild(okienko);
+    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
+}
+            
+
 
 
 
