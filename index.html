@@ -269,143 +269,70 @@ body.night-mode .h-box div {
         <script>
         // ==========================================
         // ⚙️ GŁÓWNE ZMIENNE SYSEMOWE
-        // ==========================================
+        //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
-        const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-        const alertIMGW = `⚡ ALERT METEO: W piątek w wielu regionach Polski wystąpią gwałtowne burze! ⛈️
-Wprowadzono 1. stopień zagrożenia 🚨⚠️, szczególnie dla centrum i północnego wschodu kraju.
-
-Zjawiska współtowarzyszące i zagrożenia:
-➡️ 🌬️ Nawałnice: Silny wiatr w porywach do 80-90 km/h, a punktowo nawet powyżej 100 km/h!
-➡️ 🌧️ Ulewy: Opady deszczu do 30-40 mm/h, a w superkomórkach lokalnie aż do 50 mm/h.
-➡️ 🔮 Grad: Możliwe opady dużego gradu o średnicy do 3,5 cm.
-➡️ 🌪️ Trąby powietrzne: W pasie Warmia, Kujawy i Mazowsze nie wyklucza się 1-2 zjawisk (do IF2).
-
-Infrastruktura SkyCast PRO zaleca bezwzględne, bieżące śledzenie radarów opadów i detektorów wyładowań!`;
+        const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
+        
+        // Zaktualizowany alert na sobotę
+        const alertIMGW = `☀️ STATUS POGODY: Sobota 6 czerwca - Stabilna aura w Krakowie i większości kraju!`;
             
         window.onload = function() {
-            pokazAlertPowitalny(); 
-            uruchomProtokolGPS();  
-            pobierzWiadomosci(); 
-            uruchomZlotySkaner(); 
+            // Bezpieczny start - moduły uruchamiane z obsługą błędów
+            const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
+            moduly.forEach(fn => {
+                try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
+            });
         };
 
-        // ==========================================
-        // 💬 POP-UP ALERT POWITALNY
-        // ==========================================
-        
+        function pokazAlertPowitalny() {
+            if (document.getElementById('skycast-welcome-alert')) return;
 
-function pokazAlertPowitalny() {
-    // 1. Zabezpieczenie przed dublowaniem alertu
-    if (document.getElementById('skycast-welcome-alert')) return;
+            const okienko = document.createElement("div");
+            okienko.id = 'skycast-welcome-alert';
+            okienko.style.cssText = `
+                position: fixed; top: 5%; left: 5%; width: 90%;
+                background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
+                border: 2px solid #38bdf8; border-radius: 20px;
+                padding: 20px; z-index: 9999; color: white;
+                box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+                max-height: 90vh; overflow-y: auto;
+            `;
 
-    const okienko = document.createElement("div");
-    okienko.id = 'skycast-welcome-alert';
-    okienko.style.cssText = `
-        position: fixed; top: 5%; left: 5%; width: 90%;
-        background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 2px solid #38bdf8; border-radius: 20px;
-        padding: 20px; z-index: 9999; color: white;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        max-height: 90vh; overflow-y: auto;
-    `;
+            const tresc = `👋 Witaj w SkyCast PRO!\n` +
+                `================================\n` +
+                `📍 RAPORT POGODOWY | SOBOTA 6 CZERWCA 2026\n\n` +
+                `☀️ KRAKÓW (MAŁOPOLSKA):\n` +
+                `• Aura: Słonecznie, idealne warunki na relaks.\n` +
+                `• Temp: Dzień 23°C, Noc 13°C.\n` +
+                `• Deszcz: Prawie zerowe ryzyko (<10%).\n\n` +
+                `🇵🇱 POLSKA:\n` +
+                `• Zachód: Najcieplej (25°C), słonecznie.\n` +
+                `• Północ: Przelotne opady (szczególnie Gdańsk).\n` +
+                `• Centrum/Wschód: Stabilnie, 21-23°C.\n\n` +
+                `⚠️ Podsumowanie: Stabilny wyż w większości kraju. Dzień sprzyja aktywnościom na zewnątrz. ☂️ (Północ zabierz parasol!).\n\n` +
+                `Infrastruktura SkyCast PRO: System w trybie monitorowania stabilnego wyżu. 💻\n` +
+                `================================\n` +
+                `SYSTEM AKTYWNY • PEŁNA GOTOWOŚĆ ⚡`;
 
-    // 2. Automatyczna data
-    const jutro = new Date();
-    jutro.setDate(jutro.getDate() + 1);
-    const dataStr = jutro.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+            okienko.innerHTML = `
+                <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
+                    🌤️ PROGNOZA: SOBOTA 6.06
+                </h2>
+                <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
+                    ${tresc}
+                </p>
+                <button id="zamknijAlert" style="
+                    padding:12px; background:#38bdf8; color:#0f172a;
+                    border:none; border-radius:10px; font-weight:900;
+                    width:100%; cursor:pointer; font-size:1rem;
+                ">ROZUMIEM, DZIAŁAM</button>
+            `;
 
-    // 3. Profesjonalny komunikat systemowy
-    const tresc = `👋 Witaj w SkyCast PRO!\n` +
-        `================================\n` +
-        `📍 RAPORT METEO | ${dataStr.toUpperCase()} | AKTUALIZACJA ⚡\n\n` +
-        `System rozpoczął analizę danych dla Twojej lokalizacji.\n\n` +
-        `☀️ KRAKÓW:\n` +
-        `• Temp: od 8°C rano do 24°C w dzień.\n` +
-        `• Niebo: poranek pochmurny ☁️, po południu przelotne opady 🌧️.\n\n` +
-        `🇵🇱 POLSKA:\n` +
-        `• Północ: chłodniej (~18°C), intensywne opady 🌧️.\n` +
-        `• Zachód: zmienna aura, ok. 17°C.\n` +
-        `• Centrum: ciepło, ok. 24°C, ryzyko popołudniowych opadów.\n\n` +
-        `⚠️ Podsumowanie: Front atmosferyczny podzielił kraj na chłodniejszy zachód/północ oraz cieplejsze południe. Parasol wskazany w całym kraju. ☂️\n\n` +
-        `Infrastruktura SkyCast PRO gotowa, radary aktywne. System śledzi każdą zmianę! 💻\n` +
-        `================================\n` +
-        `SYSTEM AKTYWNY • PEŁNA GOTOWOŚĆ ⚡`;
+            document.body.appendChild(okienko);
+            document.getElementById('zamknijAlert').onclick = () => okienko.remove();
+        }
 
-    okienko.innerHTML = `
-        <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            ⚡🌤️ RAPORT DLA POLSKI🇵🇱🎶🎶
-        </h2>
-        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
-            ${tresc}
-        </p>
-        <button id="zamknijAlert" style="
-            padding:12px; background:#38bdf8; color:#0f172a;
-            border:none; border-radius:10px; font-weight:900;
-            width:100%; cursor:pointer; font-size:1rem;
-        ">PRZYJMUJĘ DO WIADOMOŚCI</button>
-    `;
 
-    document.body.appendChild(okienko);
-    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-}
-function pokazAlertPowitalny() {
-    // 1. Zabezpieczenie przed dublowaniem alertu
-    if (document.getElementById('skycast-welcome-alert')) return;
-
-    const okienko = document.createElement("div");
-    okienko.id = 'skycast-welcome-alert';
-    okienko.style.cssText = `
-        position: fixed; top: 5%; left: 5%; width: 90%;
-        background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 2px solid #ef4444; border-radius: 20px;
-        padding: 20px; z-index: 9999; color: white;
-        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-        max-height: 90vh; overflow-y: auto;
-    `;
-
-    // 2. Automatyczna data ustawiona na dzisiaj (front idzie w piątek)
-    const dzisiaj = new Date();
-    const dataStr = dzisiaj.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
-
-    // 3. Profesjonalny burzowy komunikat systemowy
-    const tresc = `👋 Witaj w SkyCast PRO!\n` +
-        `================================\n` +
-        `📍 ALERT METEO | ${dataStr.toUpperCase()} | 1. STOPIEŃ ZAGROŻENIA 🚨\n\n` +
-        `⚠️ UWAGA: Przez Polskę przechodzi dynamiczny front. Aktywne superkomórki burzowe!⚡️\n\n` +
-        `☀️ KRAKÓW & POŁUDNIE:\n` +
-        `• Temp: do 24°C w dzień, wysoka parność. Po południu gwałtowny rozwój chmur burzowych ⛈️.\n\n` +
-        `🇵🇱 POLSKA - STREFA NIEBEZPIECZEŃSTWA:\n` +
-        `• Centrum & Północny Wschód: Najbardziej gwałtowny przebieg nawałnic!\n` +
-        `• Warmia, Kujawy, Mazowsze: Ekstremalna konwekcja. Możliwe 1-2 trąby powietrzne (do IF2)! 🌪️\n\n` +
-        `💥 ZJAWISKA WSPÓŁTOWARZYSZĄCE:\n` +
-        `• 🌬️ Nawałnice: Silny wiatr w porywach do 80-90 km/h, punktowo powyżej 100 km/h!\n` +
-        `• 🌧️ Opad: Ulewne deszcze 30-40 mm/h (w superkomórkach nawet do 50 mm/h – ryzyko podtopień).\n` +
-        `• 🔮 Grad: Możliwe opady dużego gradu o średnicy do 3,5 cm!\n\n` +
-        `⚠️ Podsumowanie: Front niesie ze sobą niszczycielskie porywy wiatru i lokalne podtopienia. Zabezpiecz luźne przedmioty i unikaj otwartych przestrzeni! ☂️⚡\n\n` +
-        `Infrastruktura SkyCast PRO gotowa, radary aktywne. System śledzi superkomórki na żywo! 💻\n` +
-        `================================\n` +
-        `SYSTEM ALERTOWY • PEŁNA GOTOWOŚĆ ⚡`;
-
-    okienko.innerHTML = `
-        <h2 style="color:#ef4444; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase; text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
-            🚨 NIEBEZPIECZNE WARUNKI METEO
-        </h2>
-        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
-            ${tresc}
-        </p>
-        <button id="zamknijAlert" style="
-            padding:12px; background:#ef4444; color:#ffffff;
-            border:none; border-radius:10px; font-weight:900;
-            width:100%; cursor:pointer; font-size:1rem; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
-        ">ROZUMIEM, ZABEZPIECZAM TEREN</button>
-    `;
-
-    document.body.appendChild(okienko);
-    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-}
             
 
 
