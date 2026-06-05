@@ -272,9 +272,17 @@ body.night-mode .h-box div {
         // ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-        const alertIMGW = " ⚡ AKTUALIZACJA METEO: Front burzowy po Bożym Ciele powoli słabnie. W nocy z czwartku na piątek przeważnie spokojnie, z lokalnymi spadkami temperatury do 8°C. W piątek (5 czerwca) kraj zostanie podzielony przez nowy front atmosferyczny – spodziewane są ochłodzenie i przelotne opady deszczu, szczególnie na zachodzie i północy. Zalecamy bieżące śledzenie radarów opadów.";
+        const alertIMGW = `⚡ ALERT METEO: W piątek w wielu regionach Polski wystąpią gwałtowne burze! ⛈️
+Wprowadzono 1. stopień zagrożenia 🚨⚠️, szczególnie dla centrum i północnego wschodu kraju.
 
+Zjawiska współtowarzyszące i zagrożenia:
+➡️ 🌬️ Nawałnice: Silny wiatr w porywach do 80-90 km/h, a punktowo nawet powyżej 100 km/h!
+➡️ 🌧️ Ulewy: Opady deszczu do 30-40 mm/h, a w superkomórkach lokalnie aż do 50 mm/h.
+➡️ 🔮 Grad: Możliwe opady dużego gradu o średnicy do 3,5 cm.
+➡️ 🌪️ Trąby powietrzne: W pasie Warmia, Kujawy i Mazowsze nie wyklucza się 1-2 zjawisk (do IF2).
 
+Infrastruktura SkyCast PRO zaleca bezwzględne, bieżące śledzenie radarów opadów i detektorów wyładowań!`;
+            
         window.onload = function() {
             pokazAlertPowitalny(); 
             uruchomProtokolGPS();  
@@ -327,7 +335,7 @@ function pokazAlertPowitalny() {
 
     okienko.innerHTML = `
         <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            🌤️ RAPORT DLA POLSKI
+            ⚡🌤️ RAPORT DLA POLSKI🇵🇱🎶🎶
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
             ${tresc}
