@@ -436,75 +436,54 @@ function pobierzWiadomosci() {
                 navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
             }
         }
-        function tlumaczPogodeTeraz(iconCode, description) {
+  // ==========================================
+// 🔥 SILNIK LOGIKI NOCNEJ (Sercze Systemu)
+// ==========================================
+function czyJestNoc(daneCzasowe = null) {
+    const godzina = daneCzasowe ? new Date(daneCzasowe).getHours() : new Date().getHours();
+    // Dzień trwa od 6:00 do 21:00. Noc zaczyna się o 21:00, kończy o 6:00.
+    return (godzina >= 21 || godzina < 6);
+}
+
+// 🔥 POGODA TERAZ (Główny Hero)
+function tlumaczPogodeTeraz(iconCode, description) {
     let icon = "☁️";
-    if (!iconCode) {
-        return {
-            desc: description || "Zmienne warunki",
-            icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>`
-        };
-    }
+    const isNight = czyJestNoc(); // Sprawdza aktualny czas systemowy
 
-    const isNightAPI = iconCode.endsWith("n");
+    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅"; 
+    else if (iconCode.startsWith("04")) icon = "☁️"; 
+    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    else if (iconCode.startsWith("11")) icon = "⚡"; 
+    else if (iconCode.startsWith("13")) icon = "❄️"; 
+    else if (iconCode.startsWith("50")) icon = "🌫️"; 
 
-    if (iconCode.startsWith("01")) {
-        icon = isNightAPI ? "🌙" : "☀️";
-    } else if (iconCode.startsWith("02") || iconCode.startsWith("03")) {
-        icon = isNightAPI ? "☁️🌙" : "⛅";
-    } else if (iconCode.startsWith("04")) {
-        icon = "☁️";
-    } else if (iconCode.startsWith("09") || iconCode.startsWith("10")) {
-        icon = "🌧️";
-    } else if (iconCode.startsWith("11")) {
-        icon = "⚡";
-    } else if (iconCode.startsWith("13")) {
-        icon = "❄️";
-    } else if (iconCode.startsWith("50")) {
-        icon = "🌫️";
-    }
-
-    return {
-        desc: description || "Zmienne warunki",
-        icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>`
+    return { 
+        desc: description || "Zmienne warunki", 
+        icon: `<div class="anim-float" style="display: flex; align-items: center; justify-content: center; font-size: 4.5rem; line-height: 1; filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.55));">${icon}</div>` 
     };
 }
 
-        function tlumaczPogodeTeraz(iconCode, description) {
-            let icon = "☁️";
-            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.4em;">${icon}</span>` };
+// 🔥 POGODA PROGNOZA (Lista godzinowa)
+function tlumaczPogodePrognoza(iconCode, description, timestamp) {
+    let icon = "☁️";
+    // timestamp jest w sekundach, więc mnożymy * 1000 dla JS Date
+    const isNight = czyJestNoc(timestamp * 1000); 
 
-            // 🔥 Sztywna reguła czasu: od 21:00 do przed 6:00 rano to noc
-            const hour = new Date().getHours();
-            const isNight = (hour >= 21 || hour < 6);
+    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅"; 
+    else if (iconCode.startsWith("04")) icon = "☁️"; 
+    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    else if (iconCode.startsWith("11")) icon = "⚡"; 
+    else if (iconCode.startsWith("13")) icon = "❄️"; 
+    else if (iconCode.startsWith("50")) icon = "🌫️"; 
 
-            if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
-            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
-            else if (iconCode.startsWith("04")) icon = "☁️"; 
-            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-            else if (iconCode.startsWith("11")) icon = "⚡"; 
-            else if (iconCode.startsWith("13")) icon = "❄️"; 
-            else if (iconCode.startsWith("50")) icon = "🌫️"; 
-
-            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
-        }
-
-        function tlumaczPogodePrognoza(iconCode, description) {
-            let icon = "☁️";
-            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
-
-            // 🔥 W prognozie korzystamy z 'n' od satelity, żeby nie popsuć przyszłych godzin
-            const isNightAPI = iconCode.endsWith("n");
-
-            if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
-            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
-            else if (iconCode.startsWith("04")) icon = "☁️"; 
-            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-            else if (iconCode.startsWith("11")) icon = "⚡"; 
-            else if (iconCode.startsWith("13")) icon = "❄️"; 
-            else if (iconCode.startsWith("50")) icon = "🌫️"; 
-
-            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
-        }
+    return { 
+        desc: description || "Zmienne warunki", 
+        icon: `<div class="anim-float" style="display: flex; align-items: center; justify-content: center; font-size: 2.9rem; line-height: 1; filter: drop-shadow(1px 2px 5px rgba(0,0,0,0.4));">${icon}</div>` 
+    };
+}
+            
 
 
 
