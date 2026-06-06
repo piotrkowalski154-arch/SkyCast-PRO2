@@ -436,20 +436,22 @@ function pobierzWiadomosci() {
                 navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
             }
         }
-  // ==========================================
-// 🔥 SILNIK LOGIKI NOCNEJ (Sercze Systemu)
+  // // ==========================================
+// 🔥 ZAKTUALIZOWANY SILNIK LOGIKI NOCNEJ
 // ==========================================
 function czyJestNoc(daneCzasowe = null) {
     const godzina = daneCzasowe ? new Date(daneCzasowe).getHours() : new Date().getHours();
-    // Dzień trwa od 6:00 do 21:00. Noc zaczyna się o 21:00, kończy o 6:00.
+    // Noc kończy się o 5:00 (godzina < 6), dzień trwa od 6:00 do 21:00
     return (godzina >= 21 || godzina < 6);
 }
 
-// 🔥 POGODA TERAZ (Główny Hero)
+// ==========================================
+// 🔥 1. POGODA TERAZ (Główny Hero - 4.5rem)
+// ==========================================
 function tlumaczPogodeTeraz(iconCode, description) {
-    let icon = "☁️";
-    const isNight = czyJestNoc(); // Sprawdza aktualny czas systemowy
+    const isNight = iconCode.endsWith("n") || czyJestNoc(); 
 
+    let icon = "☁️";
     if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
@@ -464,12 +466,36 @@ function tlumaczPogodeTeraz(iconCode, description) {
     };
 }
 
-// 🔥 POGODA PROGNOZA (Lista godzinowa)
-function tlumaczPogodePrognoza(iconCode, description, timestamp) {
-    let icon = "☁️";
-    // timestamp jest w sekundach, więc mnożymy * 1000 dla JS Date
-    const isNight = czyJestNoc(timestamp * 1000); 
+// ==========================================
+// 🔥 2. SKAN GODZINOWY (Ikony 3.8rem, NAPRAWIONA IKONA NOCY)
+// ==========================================
+function tlumaczPogodeGodzinowa(iconCode, description, timestamp) {
+    const isNight = iconCode.endsWith("n") || czyJestNoc(timestamp * 1000); 
 
+    let icon = "☁️";
+    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+    // ZMIANA TUTAJ: Zamiast ☁️🌙 użyliśmy ☁️, żeby nie rozbijać flexboxa w małym kółku
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
+    else if (iconCode.startsWith("04")) icon = "☁️"; 
+    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    else if (iconCode.startsWith("11")) icon = "⚡"; 
+    else if (iconCode.startsWith("13")) icon = "❄️"; 
+    else if (iconCode.startsWith("50")) icon = "🌫️"; 
+
+    return { 
+        desc: description || "Zmienne warunki", 
+        icon: `<div class="anim-float" style="display: flex; align-items: center; justify-content: center; font-size: 3.8rem; line-height: 1; filter: drop-shadow(1px 3px 6px rgba(0,0,0,0.5));">${icon}</div>` 
+    };
+}
+
+// ==========================================
+// 🔥 3. PROGNOZA NA 5 DNI (Bezpieczne 2.9rem)
+// ==========================================
+function tlumaczPogodePrognoza(iconCode, description, timestamp) {
+    // Ufamy 'd'/'n' z API, żeby w prognozie całodniowej nie wskakiwały nocne ikony
+    const isNight = iconCode.endsWith("n"); 
+
+    let icon = "☁️";
     if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️🌙" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
@@ -482,7 +508,8 @@ function tlumaczPogodePrognoza(iconCode, description, timestamp) {
         desc: description || "Zmienne warunki", 
         icon: `<div class="anim-float" style="display: flex; align-items: center; justify-content: center; font-size: 2.9rem; line-height: 1; filter: drop-shadow(1px 2px 5px rgba(0,0,0,0.4));">${icon}</div>` 
     };
-}
+            }
+            
             
 
 
