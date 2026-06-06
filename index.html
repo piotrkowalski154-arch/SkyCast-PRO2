@@ -272,65 +272,69 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        
-        // Zaktualizowany alert na sobotę
-        const alertIMGW = `☀️ STATUS POGODY: Sobota 6 czerwca - Stabilna aura w Krakowie i większości kraju!`;
+        const alertIMGW = `⚠️ STATUS POGODY: Niedziela 7 czerwca - Przelotne opady i możliwe burze, zwłaszcza po południu!`;
             
-        window.onload = function() {
-            // Bezpieczny start - moduły uruchamiane z obsługą błędów
-            const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
-            moduly.forEach(fn => {
-                try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
-            });
-        };
+window.onload = function() {
+    // Bezpieczny start - moduły uruchamiane z obsługą błędów
+    const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
+    moduly.forEach(fn => {
+        try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
+    });
+};
 
-        function pokazAlertPowitalny() {
-            if (document.getElementById('skycast-welcome-alert')) return;
+function pokazAlertPowitalny() {
+    if (document.getElementById('skycast-welcome-alert')) return;
 
-            const okienko = document.createElement("div");
-            okienko.id = 'skycast-welcome-alert';
-            okienko.style.cssText = `
-                position: fixed; top: 5%; left: 5%; width: 90%;
-                background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-                border: 2px solid #38bdf8; border-radius: 20px;
-                padding: 20px; z-index: 9999; color: white;
-                box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
-                max-height: 90vh; overflow-y: auto;
-            `;
+    const okienko = document.createElement("div");
+    okienko.id = 'skycast-welcome-alert';
+    okienko.style.cssText = `
+        position: fixed; top: 5%; left: 5%; width: 90%;
+        background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
+        border: 2px solid #38bdf8; border-radius: 20px;
+        padding: 20px; z-index: 9999; color: white;
+        box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+        max-height: 90vh; overflow-y: auto;
+    `;
 
-            const tresc = `👋 Witaj w SkyCast PRO!\n` +
-                `================================\n` +
-                `📍 RAPORT POGODOWY | SOBOTA 6 CZERWCA 2026\n\n` +
-                `☀️ KRAKÓW (MAŁOPOLSKA):\n` +
-                `• Aura: Słonecznie, idealne warunki na relaks.\n` +
-                `• Temp: Dzień 23°C, Noc 13°C.\n` +
-                `• Deszcz: Prawie zerowe ryzyko (<10%).\n\n` +
-                `🇵🇱 POLSKA:\n` +
-                `• Zachód: Najcieplej (25°C), słonecznie.\n` +
-                `• Północ: Przelotne opady (szczególnie Gdańsk).\n` +
-                `• Centrum/Wschód: Stabilnie, 21-23°C.\n\n` +
-                `⚠️ Podsumowanie: Stabilny wyż w większości kraju. Dzień sprzyja aktywnościom na zewnątrz. ☂️ (Północ zabierz parasol!).\n\n` +
-                `Infrastruktura SkyCast PRO: System w trybie monitorowania stabilnego wyżu. 💻\n` +
-                `================================\n` +
-                `SYSTEM AKTYWNY • PEŁNA GOTOWOŚĆ ⚡`;
+    // Zaktualizowana treść na Niedzielę, 7 czerwca, z alertami IMGW
+    const tresc = `👋 Witaj w SkyCast PRO!\n` +
+        `================================\n` +
+        `📍 RAPORT POGODOWY | NIEDZIELA 7 CZERWCA 2026\n\n` +
+        `⚠️ ALERT IMGW (ZAGROŻENIE 1. STOPNIA):\n` +
+        `• Rejon: Woj. małopolskie i centralne.\n` +
+        `• Zjawiska: Burze, opady do 20 mm, wiatr do 65 km/h.\n` +
+        `• Czas: Główne ryzyko (16:00 - 19:00).\n\n` +
+        `🐉 KRAKÓW (SZCZEGÓŁOWO):\n` +
+        `• Poranek: Słonecznie, ok. 11-12°C.\n` +
+        `• Popołudnie: Wzrost zachmurzenia, temp. do 24-25°C. Ryzyko deszczu 58% (burza 12%).\n` +
+        `• Uwaga: Utrzymuje się stan suszy. Prognozowany opad (1 mm) jej nie złagodzi.\n\n` +
+        `🇵🇱 POLSKA (PRZEGLĄD REGIONALNY):\n` +
+        `• Najcieplej (Wschód/Centrum): Nawet 27-28°C (Rzeszów, Warszawa).\n` +
+        `• Najchłodniej (Pomorze): 18-20°C.\n` +
+        `• Zjawiska: Przelotne opady i burze idące od zachodu w głąb kraju.\n\n` +
+        `================================\n` +
+        `SYSTEM AKTYWNY • PEŁNA GOTOWOŚĆ ⚡`;
 
-            okienko.innerHTML = `
-                <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-                    🌤️ PROGNOZA: SOBOTA 6.06
-                </h2>
-                <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
-                    ${tresc}
-                </p>
-                <button id="zamknijAlert" style="
-                    padding:12px; background:#38bdf8; color:#0f172a;
-                    border:none; border-radius:10px; font-weight:900;
-                    width:100%; cursor:pointer; font-size:1rem;
-                ">ROZUMIEM, DZIAŁAM</button>
-            `;
+    okienko.innerHTML = `
+        <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
+            🌤️ PROGNOZA: NIEDZ. 7.06
+        </h2>
+        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
+            ${tresc}
+        </p>
+        <button id="zamknijAlert" style="
+            padding:12px; background:#38bdf8; color:#0f172a;
+            border:none; border-radius:10px; font-weight:900;
+            width:100%; cursor:pointer; font-size:1rem;
+        ">ROZUMIEM, DZIAŁAM</button>
+    `;
 
-            document.body.appendChild(okienko);
-            document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-        }
+    document.body.appendChild(okienko);
+    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
+}
+            
+     
+        
 
 
             
