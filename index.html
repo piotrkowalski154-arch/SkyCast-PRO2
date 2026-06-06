@@ -272,7 +272,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `⚠️ STATUS POGODY: Niedziela 7 czerwca - Przelotne opady i możliwe burze, zwłaszcza po południu!`;
+        const alertIMGW = `⚡ ALERT BURZOWY: Niedziela z gradem i wiatrem do 90 km/h! We wtorek możliwe gwałtowne załamanie pogody!`;
             
 window.onload = function() {
     // Bezpieczny start - moduły uruchamiane z obsługą błędów
@@ -296,28 +296,25 @@ function pokazAlertPowitalny() {
         max-height: 90vh; overflow-y: auto;
     `;
 
-    // Zaktualizowana treść na Niedzielę, 7 czerwca, z alertami IMGW
+    // Zaktualizowana treść na podstawie Twojej analizy modeli numerycznych
     const tresc = `👋 Witaj w SkyCast PRO!\n` +
         `================================\n` +
-        `📍 RAPORT POGODOWY | NIEDZIELA 7 CZERWCA 2026\n\n` +
-        `⚠️ ALERT IMGW (ZAGROŻENIE 1. STOPNIA):\n` +
-        `• Rejon: Woj. małopolskie i centralne.\n` +
-        `• Zjawiska: Burze, opady do 20 mm, wiatr do 65 km/h.\n` +
-        `• Czas: Główne ryzyko (16:00 - 19:00).\n\n` +
-        `🐉 KRAKÓW (SZCZEGÓŁOWO):\n` +
-        `• Poranek: Słonecznie, ok. 11-12°C.\n` +
-        `• Popołudnie: Wzrost zachmurzenia, temp. do 24-25°C. Ryzyko deszczu 58% (burza 12%).\n` +
-        `• Uwaga: Utrzymuje się stan suszy. Prognozowany opad (1 mm) jej nie złagodzi.\n\n` +
-        `🇵🇱 POLSKA (PRZEGLĄD REGIONALNY):\n` +
-        `• Najcieplej (Wschód/Centrum): Nawet 27-28°C (Rzeszów, Warszawa).\n` +
-        `• Najchłodniej (Pomorze): 18-20°C.\n` +
-        `• Zjawiska: Przelotne opady i burze idące od zachodu w głąb kraju.\n\n` +
+        `📍 DYNAMICZNY RAPORT | NIEDZIELA 7 CZERWCA 2026\n\n` +
+        `⚡ SYTUACJA BURZOWA (DZISIAJ):\n` +
+        `• Aura: Od rana opady na zachodzie i północy. Od południa gwałtowny rozwój chmur kłębiastych Cb i burz w całym kraju.\n` +
+        `• Główne zagrożenie: Północ, centrum oraz zachód Polski.\n` +
+        `• Parametry: Ulewy (20-30 mm/h), grad (2-3 cm) oraz silne porywy wiatru do 80-90 km/h (niedobory wilgoci napędzają wiatr!).\n` +
+        `• Struktura: Układy liniowe wielokomórkowe z lokalnymi superkomórkami. Front idzie z zachodu na wschód.\n\n` +
+        `⚠️ PROGNOZA OSTRZEGAWCZA (WTOREK):\n` +
+        `• Gwałtowny incydent: Napływ mas zwrotnikowych i przejście chłodnego frontu wywoła silne, aktywne elektrycznie burze!\n` +
+        `• Rejon maksymalnego zagrożenia: Południowy wschód Polski.\n\n` +
         `================================\n` +
-        `SYSTEM AKTYWNY • PEŁNA GOTOWOŚĆ ⚡`;
+        `Źródła: Swiss | Wetterzentrale | UM PL\n` +
+        `SYSTEM W TRYBIE DETEKCJI FRONTÓW • OGIEŃ! ⚡`;
 
     okienko.innerHTML = `
         <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            🌤️ PROGNOZA: NIEDZ. 7.06
+            ⚡ PROGNOZA: NIEDZ. 7.06
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
             ${tresc}
@@ -332,6 +329,7 @@ function pokazAlertPowitalny() {
     document.body.appendChild(okienko);
     document.getElementById('zamknijAlert').onclick = () => okienko.remove();
 }
+            
             
      
         
