@@ -274,7 +274,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `ALARM METEOROLOGICZNY: Burza bezpośrednio nad Krakowem.`;
+const alertIMGW = `ALARM KRYTYCZNY: Burza bezpośrednio nad Krakowem. Zagrożenie w całym kraju.`;
             
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -301,23 +301,25 @@ function pokazAlertPowitalny() {
         overflow-y: auto; 
     `;
 
-    const tresc = `KOMUNIKAT METEOROLOGICZNY SKYCAST\n` +
+    const tresc = `RAPORT METEOROLOGICZNY SKYCAST - AKTUALIZACJA\n` +
         `===================================\n` +
-        `CZAS: 15:43 (07.06.2026)\n\n` +
-        `STATUS KRAKÓW (BEZPOŚREDNIE ZAGROŻENIE):\n` +
-        `• Burza znajduje się bezpośrednio nad aglomeracją.\n` +
-        `• Występują nawalne opady, grad oraz silne porywy wiatru.\n` +
-        `• Bardzo wysoka aktywność elektryczna w rejonie miasta.\n\n` +
+        `CZAS: 15:50 (07.06.2026)\n\n` +
+        `SYTUACJA KRAJOWA:\n` +
+        `• Front burzowy przemieszcza się przez Polskę, powodując gwałtowne zjawiska.\n\n` +
+        `STATUS KRAKÓW (PRIORYTET - ZAGROŻENIE BEZPOŚREDNIE):\n` +
+        `• Rdzeń burzowy zlokalizowany centralnie nad aglomeracją.\n` +
+        `• Występują nawalne opady, grad oraz niszczycielskie porywy wiatru.\n` +
+        `• Bardzo wysoka aktywność wyładowań atmosferycznych.\n\n` +
         `ZALECENIA BEZPIECZEŃSTWA:\n` +
-        `• Pozostań w bezpiecznym, murowanym budynku.\n` +
-        `• Zabezpiecz mienie i unikaj przebywania na zewnątrz.\n` +
-        `• Nie szukaj schronienia pod drzewami.\n\n` +
+        `• Pozostań wewnątrz trwałego budynku.\n` +
+        `• Unikaj przebywania w pobliżu drzew, słupów i na otwartym terenie.\n` +
+        `• Zachowaj najwyższą ostrożność do czasu przejścia frontu.\n\n` +
         `===================================\n` +
         `Źródła: Radar Live, Monitor Burz`;
 
     okienko.innerHTML = `
         <h1 style="color:#ffffff; margin:0 0 20px 0; font-size:2rem; text-align:center; font-weight: 700; text-transform:uppercase;">
-            ⚠️ BURZA NAD KRAKOWEM
+            ⚠️ ALARM KRYTYCZNY
         </h1>
         <p style="white-space:pre-line; font-size:1.1rem; line-height:1.7; margin-bottom:30px; color:#ffffff; font-weight: 500; text-align: center; max-width: 600px;">
             ${tresc}
@@ -343,20 +345,6 @@ function pokazAlertPowitalny() {
     przyciskZamknij.addEventListener('click', () => okienko.remove());
 }
             
-            
-            
-            
-            
-     
-        
-
-
-            
-
-
-
-
-
             
 
         // ==========================================
