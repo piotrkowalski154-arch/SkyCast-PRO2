@@ -296,18 +296,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-
-const alertIMGW = `SKYCAST: RAPORT OPERACYJNY 🌞⚡☔  SKAN: PONIEDZIAŁEK (8 CZERWCA) 🎶🎧🌞😀
-⚠️ AKTUALIZACJA IMGW:
-
-🌤️ KRAKÓW I POŁUDNIE:
-Pełna stabilizacja! Słońce, czyste niebo i temperatura do 26°C. Brak alertów. Idealny warunki na 
-🌴😎🍨 Chill.
-
-⚡ PÓŁNOC POLSKI (Strefa Zrzutu):
-Aktywne strefy burzowe (Podlasie, Warmia, Pomorze). Porywy do 55 km/h i ulewy do 15 mm. 
-
-ZALECENIE SYSTEMU: Południe ładuje baterie na słońcu 🌞😎😁🍹, Północ z parasolami 💦 ☔ 🌂 w pełnej gotowości!';
+const alertIMGW = `SKYCAST: RAPORT WIECZORNY - 7 CZERWCA 2026`;
 
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -325,7 +314,7 @@ function pokazAlertPowitalny() {
     const style = document.createElement('style');
     style.innerHTML = `
         @keyframes pulse_summer_evening {
-            1%, 100% { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+            0%, 100% { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
             50% { border-color: #eab308; box-shadow: 0 0 30px rgba(234, 179, 8, 0.4); }
         }
     `;
@@ -342,61 +331,65 @@ function pokazAlertPowitalny() {
         animation: pulse_summer_evening 3s infinite ease-in-out;
     `;
 
-    const tresc = `☔PROGNOZA POGODY: KRAKÓW I POLSKA Poniedziałek🌂, 8 czerwca 2026 r.
+    const tresc = `PROGNOZA POGODOWA: KRAKÓW I POLSKA (DO KOŃCA DNIA)
+Aktualizacja: Niedziela, 7 czerwca 2026 r.
 
 ===============================================================================
-1.🐉 KRAKÓW - PROGNOZA SZCZEGÓŁOWA 🐉🏙️
+1. KRAKÓW - PROGNOZA GODZINOWA (16:30 - 24:00) 🏙️
 ===============================================================================
 
-[RANO (06:00 - 12:00)]
-* Temperatura: 13°C -> 21°C 🌡️
-* Stan nieba: Słonecznie, z czasem umiarkowane zachmurzenie. ☀️⛅
-* Opady: Brak ryzyka (szansa <10%). 🚫
-* Wiatr: Słaby, zachodni (ok. 5-7 km/h). 🌬️
+[16:30 - 18:00]
+* Temperatura: 23°C -> 22°C 🌡️
+* Stan nieba: Zachmurzenie umiarkowane, przejściowe rozpogodzenia. 🌤️
+* Opady: Niskie ryzyko przelotnego deszczu (ok. 20%), brak burz. 🚫
+* Wiatr: Zachodni, umiarkowany (20-30 km/h), w porywach do 45 km/h. 🌬️
 
-[POPOŁUDNIE (12:00 - 18:00)]
-* Temperatura max: 24°C (odczuwalna ok. 25°C). 🌡️🔥
-* Stan nieba: Umiarkowane zachmurzenie, długie okresy słońca. 🌤️
-* Opady: Całkowity brak – sucha aura sprzyjająca aktywnościom. 🚫
-* Wiatr: Zachodni i północno-zachodni (do 10 km/h). 🌬️
+[18:00 - 20:00]
+* Temperatura: 21°C -> 19°C 🌡️
+* Stan nieba: Zauważalne wypogodzenia, niebo niemal bezchmurne. ☀️
+* Opady: Brak ryzyka opadów (0%). 🚫
+* Wiatr: Słabnący, w porywach poniżej 20 km/h. 🌬️
 
-[WIECZÓR I NOC (18:00 - 24:00)]
-* Temperatura: 23°C -> 15°C 🌡️
-* Stan nieba: Zmiana na niebo klarowne i gwieździste. 🌌
-* Opady: Całkowity brak opadów. 🚫
+[20:00 - 24:00]
+* Temperatura: 18°C -> 15°C 🌡️
+* Stan nieba: Całkowicie bezchmurnie i stabilnie. 🌌
+* Opady: Brak. 🚫
+* Wiatr: Słaby, zmienny (poniżej 10 km/h). 🌬️
 
 ===============================================================================
 2. STAN POGODY DLA CAŁEJ POLSKI 🇵🇱
 ===============================================================================
 
 REGION PÓŁNOCNY (Pomorze, Warmia, Mazury, Podlasie): 🌊
-* Warunki: Spora strefa wilgoci. Zachmurzenie duże z przejaśnieniami. ☁️
-* Opady: Przelotne deszcze oraz lokalne, rozproszone burze. 🌧️⚡
-* Temperatura: Najchłodniej w kraju – od 17°C do 20°C. 🌡️
-* Wiatr: W czasie burz porywisty (do 55 km/h). ⚠️
+* Status: Najbardziej dynamiczna sytuacja w kraju. ⚡
+* Warunki: Przelotne, ulewne deszcze oraz lokalne burze. 🌧️
+* Zagrożenia: Możliwy grad i silne porywy wiatru w strefie burzowej. ⚠️
+* Temperatura wieczorem: Chłodno, od 16°C do 19°C. 🌡️
 
-REGION CENTRALNY I ZACHODNI (Wielkopolska, Łódzkie, Mazowsze): 📍
-* Warunki: Spokojny dzień ze zmiennym zachmurzeniem. ⛅
-* Opady: Przeważnie sucho (deszcz możliwy tylko na płn. Mazowsza). 🚫
-* Temperatura: Komfortowe wartości od 21°C do 23°C. 🌡️
+REGION CENTRALNY (Wielkopolska, Łódzkie, Mazowsze): 📍
+* Status: Przejściowe pogorszenie warunków. ⛅
+* Warunki: Zmienne zachmurzenie z przesuwającymi się strefami opadów. 🌧️
+* Zagrożenia: Izolowane, krótkotrwałe burze, które szybko gasną po zachodzie słońca. ⚡
+* Temperatura wieczorem: Od 20°C do 22°C. 🌡️
 
-REGION POŁUDNIOWY I WSCHODNI (Dolny Śląsk, Śląsk, Małopolska, Podkarpacie): ⛰️
-* Warunki: Najbardziej stabilna pogoda w kraju. Dużo słońca! ☀️
-* Opady: Brak opadów przez cały dzień. ✅
-* Temperatura: Najwyższa w kraju – od 24°C do 26°C. 🌡️🔥
+REGION POŁUDNIOWY I ZACHODNI (Dolny Śląsk, Śląsk, Małopolska, Lubuskie): ⛰️
+* Status: Sytuacja stabilna i najcieplejsza. ☀️
+* Warunki: Szybkie rozpogodzenia, chmury ustępują miejsca czystemu niebu. 🌌
+* Zagrożenia: Brak istotnych zagrożeń meteo w nadchodzących godzinach. ✅
+* Temperatura wieczorem: Komfortowe 21°C do 24°C. 🌡️
 
 ===============================================================================
-3. AKTYWNE OSTRZEŻENIA METEOROLOGICZNE IMGW ⚠️
+3. AKTYWNE OSTRZEŻENIA METEOROLOGICZNE IMGW (DO KOŃCA DNIA) ⚠️
 ===============================================================================
 
-* Alert: Ostrzeżenia 1. stopnia przed burzami. 🚨
-* Obszar: Podlaskie, warmińsko-mazurskie, płn. Mazowsze i Pomorze. 🗺️
-* Zjawiska: Przelotne ulewy (do 15 mm) i wiatr (do 55 km/h). Lokalne stany ostrzegawcze rzek. 🌊
-* KRAKÓW I MAŁOPOLSKA: Czysto! Całkowity brak alertów (Zielona mapa). ✅`;
+* Alert: Ostrzeżenia 1. stopnia przed burzami z gradem. 🚨
+* Obszar: Pas północny oraz pas centralno-wschodni. 🗺️
+* Parametry zjawisk: Suma opadów do 25-30 mm, porywy wiatru do 70-75 km/h. ⚡
+* Czas obowiązywania: Główna aktywność do godz. 20:00, w nocy całkowity zanik. 🌙`;
 
     okienko.innerHTML = `
         <h2 style="color:#eab308; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif;">
-            🌤️ RAPORT: 8 CZERWCA 2026😎🍸
+            🌤️ RAPORT: 7 CZERWCA 2026
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
             ${tresc}
@@ -405,13 +398,14 @@ REGION POŁUDNIOWY I WSCHODNI (Dolny Śląsk, Śląsk, Małopolska, Podkarpacie)
             padding:15px; background:linear-gradient(90deg, #38bdf8, #eab308);
             color:#0f172a; border:none; border-radius:12px; font-weight:900;
             width:100%; cursor:pointer; font-size:1.1rem;
-        ">DZIĘKI • CIESZ SIĘ LATEM! 🌊</button>
-    `;
+  ">DZIĘKI • CIESZ SIĘ LATEM! 🌊</button>    `;
+    
 
     document.body.appendChild(okienko);
     document.getElementById('zamknijAlert').onclick = () => okienko.remove();
 }
-            
+
+
 
 
             
