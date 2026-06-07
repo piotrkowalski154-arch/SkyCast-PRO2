@@ -296,7 +296,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-const alertIMGW = `SKYCAST: RAPORT WIECZORNY - 7 CZERWCA 2026`;
+          const alertIMGW = `SKYCAST: RAPORT PORANNY - 8 CZERWCA 2026`;
 
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -313,103 +313,107 @@ function pokazAlertPowitalny() {
 
     const style = document.createElement('style');
     style.innerHTML = `
-        @keyframes pulse_summer_evening {
-            0%, 100% { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
-            50% { border-color: #eab308; box-shadow: 0 0 30px rgba(234, 179, 8, 0.4); }
+        @keyframes pulse_sunny {
+            0%, 100% { border-color: #facc15; box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+            50% { border-color: #38bdf8; box-shadow: 0 0 35px rgba(56, 189, 248, 0.5); }
         }
     `;
     document.head.appendChild(style);
 
     okienko.style.cssText = `
         position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-        background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%); 
+        background: linear-gradient(135deg, #075985 0%, #0284c7 100%);
         backdrop-filter: blur(15px);
-        border: 4px solid #38bdf8; border-radius: 25px;
+        border: 4px solid #facc15; border-radius: 25px;
         padding: 25px; z-index: 9999; color: white;
         box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         overflow-y: auto;
-        animation: pulse_summer_evening 3s infinite ease-in-out;
+        animation: pulse_sunny 3s infinite ease-in-out;
     `;
 
-    const tresc = `PROGNOZA POGODOWA: KRAKÓW I POLSKA (DO KOŃCA DNIA)
-Aktualizacja: Niedziela, 7 czerwca 2026 r.
+    const tresc = `DOKŁADNA PROGNOZA POGODY: KRAKÓW I POLSKA (8 CZERWCA 2026 r.)
+Źródło danych: Analiza synoptyczna i ostrzeżenia IMGW-PIB
 
 ===============================================================================
-1. KRAKÓW - PROGNOZA GODZINOWA (16:30 - 24:00) 🏙️
+1. KRAKÓW - PROGNOZA SZCZEGÓŁOWA NA CAŁY DZIEŃ 🏙️
 ===============================================================================
 
-[16:30 - 18:00]
-* Temperatura: 23°C -> 22°C 🌡️
-* Stan nieba: Zachmurzenie umiarkowane, przejściowe rozpogodzenia. 🌤️
-* Opady: Niskie ryzyko przelotnego deszczu (ok. 20%), brak burz. 🚫
-* Wiatr: Zachodni, umiarkowany (20-30 km/h), w porywach do 45 km/h. 🌬️
+Poniedziałek w stolicy Małopolski przyniesie zdecydowaną poprawę aury i stabilizację
+pogody po niedzielnych frontach. Będzie to bardzo przyjemny, ciepły dzień.
 
-[18:00 - 20:00]
-* Temperatura: 21°C -> 19°C 🌡️
-* Stan nieba: Zauważalne wypogodzenia, niebo niemal bezchmurne. ☀️
-* Opady: Brak ryzyka opadów (0%). 🚫
-* Wiatr: Słabnący, w porywach poniżej 20 km/h. 🌬️
+[RANO (06:00 - 12:00)] ☀️
+* Temperatura: od 13°C o poranku, szybko rosnąca do 21°C w południe. 🌡️
+* Stan nieba: Początkowo częściowo słonecznie, z czasem umiarkowane zachmurzenie. ⛅
+* Opady: Brak ryzyka (szansa poniżej 5-10%). 🚫
+* Wiatr: Słaby, zachodni (ok. 5-7 km/h). 🍃
 
-[20:00 - 24:00]
-* Temperatura: 18°C -> 15°C 🌡️
-* Stan nieba: Całkowicie bezchmurnie i stabilnie. 🌌
-* Opady: Brak. 🚫
-* Wiatr: Słaby, zmienny (poniżej 10 km/h). 🌬️
+[POPOŁUDNIE (12:00 - 18:00)] 🌤️
+* Temperatura maksymalna: 24°C (temperatura odczuwalna ok. 25°C). 🌡️
+* Stan nieba: Zachmurzenie umiarkowane, przeplatane długimi okresami słońca. ☀️
+* Opady: Brak opadów – stabilna, sucha aura sprzyjająca aktywnościom. ✅
+* Wiatr: Zachodni i północno-zachodni, słaby do umiarkowanego (do 10 km/h). 🌬️
+
+[WIECZÓR I NOC (18:00 - 24:00)] 🌙
+* Temperatura: Spadek od 23°C o zachodzie słońca do ok. 15°C o północy. 🌡️
+* Stan nieba: Zmiana zachmurzenia na małe, niebo przeważnie klarowne i gwieździste. ✨
+* Opady: Całkowity brak opadów. 🚫
 
 ===============================================================================
 2. STAN POGODY DLA CAŁEJ POLSKI 🇵🇱
 ===============================================================================
 
-REGION PÓŁNOCNY (Pomorze, Warmia, Mazury, Podlasie): 🌊
-* Status: Najbardziej dynamiczna sytuacja w kraju. ⚡
-* Warunki: Przelotne, ulewne deszcze oraz lokalne burze. 🌧️
-* Zagrożenia: Możliwy grad i silne porywy wiatru w strefie burzowej. ⚠️
-* Temperatura wieczorem: Chłodno, od 16°C do 19°C. 🌡️
+Polska podzieli się na chłodniejszą, bardziej wilgotną północ oraz ciepłe i suche
+południe wraz z centrum kraju.
 
-REGION CENTRALNY (Wielkopolska, Łódzkie, Mazowsze): 📍
-* Status: Przejściowe pogorszenie warunków. ⛅
-* Warunki: Zmienne zachmurzenie z przesuwającymi się strefami opadów. 🌧️
-* Zagrożenia: Izolowane, krótkotrwałe burze, które szybko gasną po zachodzie słońca. ⚡
-* Temperatura wieczorem: Od 20°C do 22°C. 🌡️
+PAS PÓŁNOCNY I PÓŁNOCNO-WSCHODNI (Wybrzeże, Pomorze, Mazury, Podlasie): 🌊
+* Warunki: Spora strefa wilgoci. Zachmurzenie będzie duże z przejaśnieniami. ☁️
+* Opady: Spodziewane są przelotne opady deszczu oraz lokalne, rozproszone burze. ⛈️
+* Temperatura: Najchłodniej w kraju – od 17°C nad samym morzem do 20°C na Mazurach. 🌡️
+* Wiatr: W czasie burz porywisty, osiągający w porywach do 55 km/h. 💨
 
-REGION POŁUDNIOWY I ZACHODNI (Dolny Śląsk, Śląsk, Małopolska, Lubuskie): ⛰️
-* Status: Sytuacja stabilna i najcieplejsza. ☀️
-* Warunki: Szybkie rozpogodzenia, chmury ustępują miejsca czystemu niebu. 🌌
-* Zagrożenia: Brak istotnych zagrożeń meteo w nadchodzących godzinach. ✅
-* Temperatura wieczorem: Komfortowe 21°C do 24°C. 🌡️
+PAS CENTRALNY I ZACHODNI (Wielkopolska, Ziemia Lubuska, Łódzkie, Mazowsze): 📍
+* Warunki: Spokojny dzień ze zmiennym zachmurzeniem umiarkowanym. ⛅
+* Opady: Przeważnie bez opadów, jedynie na krańcach północnych Mazowsza możliwy deszcz. 🌦️
+* Temperatura: Komfortowe wartości od 21°C do 23°C. 🌡️
+
+PAS POŁUDNIOWY I POŁUDNIOWO-WSCHODNI (Dolny Śląsk, Śląsk, Małopolska, Podkarpacie): ⛰️
+* Warunki: Najlepsza i najbardziej stabilna pogoda w kraju. Dużo słońca. ☀️
+* Opady: Brak opadów przez cały dzień. ✅
+* Temperatura: Najwyższa w kraju – od 24°C w Małopolsce do 26°C na Podkarpaciu. 🌡️
 
 ===============================================================================
-3. AKTYWNE OSTRZEŻENIA METEOROLOGICZNE IMGW (DO KOŃCA DNIA) ⚠️
+3. OFICJALNE ALERTY I OSTRZEŻENIA IMGW-PIB ⚠️
 ===============================================================================
 
-* Alert: Ostrzeżenia 1. stopnia przed burzami z gradem. 🚨
-* Obszar: Pas północny oraz pas centralno-wschodni. 🗺️
-* Parametry zjawisk: Suma opadów do 25-30 mm, porywy wiatru do 70-75 km/h. ⚡
-* Czas obowiązywania: Główna aktywność do godz. 20:00, w nocy całkowity zanik. 🌙`;
+Sytuacja niebezpieczna przenosi się na krańce północne i północno-wschodnie RP.
+
+* Typ alertu: Ostrzeżenia 1. stopnia przed burzami (lokalnie). 🚨
+* Rejon zagrożony: Województwo podlaskie, warmińsko-mazurskie oraz północne części 
+  województwa mazowieckiego i pomorskiego. 🗺️
+* Specyfikacja zjawisk:
+  - Przelotne, intensywne opady deszczu (lokalnie do 15 mm). 🌧️
+  - Porywy wiatru konwekcyjnego: do 55 km/h. 💨
+* Zagrożenia hydrologiczne: Na północy kraju mogą lokalnie utrzymywać się stany 
+  ostrzegawcze na mniejszych ciekach wodnych po opadach z ubiegłej doby. 🌊
+* REJON KRAKOWA I MAŁOPOLSKI: Całkowity brak alertów. Zielona mapa ostrzeżeń. 🟢`;
 
     okienko.innerHTML = `
-        <h2 style="color:#eab308; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif;">
-            🌤️ RAPORT: 7 CZERWCA 2026
+        <h2 style="color:#facc15; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            ☀️ RAPORT: 8 CZERWCA 2026
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:15px; background:linear-gradient(90deg, #38bdf8, #eab308);
+            padding:15px; background:linear-gradient(90deg, #38bdf8, #facc15);
             color:#0f172a; border:none; border-radius:12px; font-weight:900;
             width:100%; cursor:pointer; font-size:1.1rem;
-  ">DZIĘKI • CIESZ SIĘ LATEM! 🌊</button>    `;
-    
+        ">ROZUMIEM – Skycast pro  ☀️</button>
+    `;
 
     document.body.appendChild(okienko);
     document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-}
-
-
-
-
-            
-            
+}  
 
         // ==========================================
         // 📻 RADIO
