@@ -296,7 +296,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-          const alertIMGW = `SKYCAST: RAPORT PORANNY - 8 CZERWCA 2026`;
+  const alertIMGW = `SKYCAST: RAPORT PORANNY - 8 CZERWCA 2026`;
 
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -313,11 +313,13 @@ function pokazAlertPowitalny() {
 
     const style = document.createElement('style');
     style.innerHTML = `
-        @keyframes pulse_sunny {
-            0%, 100% { border-color: #facc15; box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
-            50% { border-color: #38bdf8; box-shadow: 0 0 35px rgba(56, 189, 248, 0.5); }
-        }
-    `;
+    @keyframes pulse_sunny {
+        0%   { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
+        33%  { border-color: #FF6B6B; box-shadow: 0 0 35px #FF6B6B; }
+        66%  { border-color: #4ECDC4; box-shadow: 0 0 35px #4ECDC4; }
+        100% { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
+    }
+`;
     document.head.appendChild(style);
 
     okienko.style.cssText = `
@@ -335,7 +337,7 @@ function pokazAlertPowitalny() {
 Źródło danych: Analiza synoptyczna i ostrzeżenia IMGW-PIB
 
 ===============================================================================
-1. KRAKÓW - PROGNOZA SZCZEGÓŁOWA NA CAŁY DZIEŃ 🏙️
+1. KRAKÓW - PROGNOZA SZCZEGÓŁOWA NA CAŁY DZIEŃ 🏙️🐉
 ===============================================================================
 
 Poniedziałek w stolicy Małopolski przyniesie zdecydowaną poprawę aury i stabilizację
@@ -399,7 +401,7 @@ Sytuacja niebezpieczna przenosi się na krańce północne i północno-wschodni
 
     okienko.innerHTML = `
         <h2 style="color:#facc15; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
-            ☀️ RAPORT: 8 CZERWCA 2026
+            🐉☀️ RAPORT: 8 CZERWCA 2026 
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
             ${tresc}
@@ -408,12 +410,14 @@ Sytuacja niebezpieczna przenosi się na krańce północne i północno-wschodni
             padding:15px; background:linear-gradient(90deg, #38bdf8, #facc15);
             color:#0f172a; border:none; border-radius:12px; font-weight:900;
             width:100%; cursor:pointer; font-size:1.1rem;
-        ">ROZUMIEM – Skycast pro  ☀️</button>
+">🥃Kliknij🌴  🐉Dzięki za ☕🎧😀🎶☔ </button>
     `;
 
     document.body.appendChild(okienko);
     document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-}  
+}        
+
+
 
         // ==========================================
         // 📻 RADIO
