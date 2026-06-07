@@ -274,7 +274,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `⚡ CYBER-ALERT V8: Układ liniowy nad Małopolską! Ekstremalne uderzenie wiatru!`;
+        const alertIMGW = `⚡ CYBER-ALERT V9: FRONT W KRAKOWIE! Ulewa i wichura w toku!`;
             
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -289,68 +289,64 @@ function pokazAlertPowitalny() {
     const okienko = document.createElement("div");
     okienko.id = 'skycast-welcome-alert';
     
-    // 🔥 PANCERNY UX + NOWE BURZOWE TŁO (Czerwono-czarny gradient)
     okienko.style.cssText = `
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, rgba(80, 0, 0, 0.95) 0%, rgba(10, 0, 0, 0.98) 100%);
-        backdrop-filter: blur(20px);
-        border: 4px solid #ff0000;
+        background: linear-gradient(135deg, rgba(120, 0, 0, 0.98) 0%, rgba(20, 0, 0, 0.99) 100%);
+        backdrop-filter: blur(25px);
+        border: 6px solid #ff0000;
         z-index: 10000; color: white;
         display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
         padding: 40px 20px; box-sizing: border-box;
-        animation: pulse_alert_border 1s infinite;
+        animation: pulse_alert_border 0.8s infinite;
         overflow-y: auto; 
     `;
 
     const tresc = `RAPORT TAKTYCZNY SKYCAST PRO 22\n` +
         `===================================\n` +
-        `⏱️ CZAS DETEKCJI: 14:45 (NIEDZ. 7.06)\n\n` +
-        `🔥 SYTUACJA KRYTYCZNA (V8):\n` +
-        `• Aura: Formacja ściany (Wał Szkwałowy) zlała się w jeden potężny front!\n` +
-        `• Główne zagrożenie: KRAKÓW ZACHÓD (Bezpośrednie uderzenie).\n` +
-        `• Parametry (PANCERNE): Nawalne opady deszczu, DUŻY GRAD (2-4 cm) oraz uderzenia wiatru (Downburst) o sile taranu.\n` +
-        `• Analiza Radarowa: Najgęstsza fioletowa plama rdzenia opadowego znajduje się bezpośrednio przed aglomeracją krakowską.\n\n` +
-        `🚨 PROTOKÓŁ EWAKUACJI:\n` +
-        `• Schronienie w budynku 🏠 jest bezwzględnie wymagane. Omijaj drzewa i lekkie konstrukcje.\n\n` +
+        `⏱️ CZAS DETEKCJI: 15:12 (NIEDZ. 7.06)\n\n` +
+        `🔥 SYTUACJA KRYTYCZNA (V9 - UDERZENIE):\n` +
+        `• Aura: FRONT WESZEDŁ NAD KRAKÓW! Fioletowe rdzenie nad miastem.\n` +
+        `• Główne zagrożenie: Ekstremalne zjawiska w czasie rzeczywistym.\n` +
+        `• Parametry (PANCERNE): Nawalne opady deszczu, silny grad, wichura o sile niszczącej.\n` +
+        `• Analiza Radarowa: Centrum układu znajduje się bezpośrednio nad aglomeracją. Aktywność elektryczna bardzo wysoka!\n\n` +
+        `🚨 PROTOKÓŁ BEZPIECZEŃSTWA (WYJŚCIE):\n` +
+        `• NIE WYCHODŹ NA ZEWNĄTRZ, JEŚLI TO MOŻLIWE! Jeśli jesteś w drodze, znajdź twardy budynek. Nie szukaj schronienia pod drzewami ani parasolami!\n\n` +
         `===================================\n` +
-        `Źródła: Monitor Burz | Zwiad Radarowy\n` +
-        `Pełna OCHRONA 👷😀•  ⚡⛈️🚨`;
-        
+        `Źródła: Radar Live | Monitor Burz\n` +
+        `PANCERNA OCHRONA • OGIEŃ! ⚡⛈️🚨`;
 
     okienko.innerHTML = `
-        <h1 style="color:#ff4444; margin:0 0 20px 0; font-size:2.2rem; text-align:center; font-weight: 900; text-transform:uppercase; text-shadow: 0px 0px 15px #ff0000;">
-            ⚠️ ALARM: UDERZENIE FRONTU
+        <h1 style="color:#ffffff; margin:0 0 20px 0; font-size:2.5rem; text-align:center; font-weight: 900; text-transform:uppercase; text-shadow: 0px 0px 20px #ff0000;">
+            ⚠️ BURZA NAD KRAKOWEM
         </h1>
-        <p style="white-space:pre-line; font-size:1.05rem; line-height:1.8; margin-bottom:30px; color:#ffffff; font-weight: 600; text-align: center; max-width: 600px;">
+        <p style="white-space:pre-line; font-size:1.1rem; line-height:1.7; margin-bottom:30px; color:#ffffff; font-weight: 700; text-align: center; max-width: 600px;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:20px; background:#ff0000; color:#ffffff;
+            padding:25px; background:#ff0000; color:#ffffff;
             border:none; border-radius:15px; font-weight:900;
-            width:100%; max-width: 400px; cursor:pointer; font-size:1.2rem;
-            text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+            width:100%; max-width: 400px; cursor:pointer; font-size:1.3rem;
+            text-shadow: 0px 1px 4px rgba(0,0,0,0.8);
             transition: transform 0.1s;
-            box-shadow: 0 0 20px #ff0000;
-            margin-bottom: 30px; 
-        ">POTWIERDZAM 🏠🔥</button>
+            box-shadow: 0 0 30px #ff0000;
+            margin-bottom: 50px; 
+        ">POTWIERDZAM: JESTEM W BEZPIECZNYM BUDYNKU</button>
 
         <style>
             @keyframes pulse_alert_border {
                 0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
-                50% { border-color: #000000; box-shadow: 0 0 40px #ff0000; }
+                50% { border-color: #ffffff; box-shadow: 0 0 50px #ff0000; }
                 100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
             }
-            #zamknijAlert:active { transform: scale(0.98); }
+            #zamknijAlert:active { transform: scale(0.95); }
         </style>
     `;
 
     document.body.appendChild(okienko);
-
     const przyciskZamknij = document.getElementById('zamknijAlert');
-    przyciskZamknij.addEventListener('click', function() {
-        okienko.remove(); 
-    });
+    przyciskZamknij.addEventListener('click', () => okienko.remove());
 }
+            
             
 
             
