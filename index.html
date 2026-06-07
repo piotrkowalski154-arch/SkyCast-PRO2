@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ser<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -274,7 +274,7 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-const alertIMGW = `ALARM KRYTYCZNY: Burza bezpośrednio nad Krakowem. Zagrożenie w całym kraju.`;
+const alertIMGW = `SKYCAST: AKTUALIZACJA RADAROWA - KRAKÓW ORAZ POLSKA`;
             
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -291,53 +291,40 @@ function pokazAlertPowitalny() {
     
     okienko.style.cssText = `
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, rgba(120, 0, 0, 0.98) 0%, rgba(20, 0, 0, 0.99) 100%);
-        backdrop-filter: blur(25px);
-        border: 6px solid #ff0000;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.99) 0%, rgba(15, 23, 42, 0.99) 100%);
+        backdrop-filter: blur(30px);
+        border: 4px solid #f59e0b;
         z-index: 10000; color: white;
         display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
         padding: 40px 20px; box-sizing: border-box;
-        animation: pulse_alert_border 0.8s infinite;
         overflow-y: auto; 
     `;
 
-    const tresc = `RAPORT METEOROLOGICZNY SKYCAST - AKTUALIZACJA\n` +
-        `===================================\n` +
-        `CZAS: 15:50 (07.06.2026)\n\n` +
-        `SYTUACJA KRAJOWA:\n` +
-        `• Front burzowy przemieszcza się przez Polskę, powodując gwałtowne zjawiska.\n\n` +
-        `STATUS KRAKÓW (PRIORYTET - ZAGROŻENIE BEZPOŚREDNIE):\n` +
-        `• Rdzeń burzowy zlokalizowany centralnie nad aglomeracją.\n` +
-        `• Występują nawalne opady, grad oraz niszczycielskie porywy wiatru.\n` +
-        `• Bardzo wysoka aktywność wyładowań atmosferycznych.\n\n` +
-        `ZALECENIA BEZPIECZEŃSTWA:\n` +
-        `• Pozostań wewnątrz trwałego budynku.\n` +
-        `• Unikaj przebywania w pobliżu drzew, słupów i na otwartym terenie.\n` +
-        `• Zachowaj najwyższą ostrożność do czasu przejścia frontu.\n\n` +
+    const tresc = `RAPORT METEOROLOGICZNY SKYCAST - AKTUALIZACJA 16:15\n` +
+        `===================================\n\n` +
+        `SYTUACJA KRAJOWA (ALARM): \n` +
+        `Aktywny front burzowy przemieszcza się przez środkową i wschodnią Polskę. Występują gwałtowne zjawiska, silne wiatry i opady.\n\n` +
+        `STATUS KRAKÓW (MONITOROWANIE):\n` +
+        `Główny rdzeń burzowy opuścił aglomerację. Intensywność zjawisk maleje do opadów o charakterze ciągłym. Ryzyko wyładowań w bezpośrednim sąsiedztwie miasta wygasa.\n\n` +
+        `ZALECENIA:\n` +
+        `• Dla Krakowa: Możliwość stopniowego powrotu do aktywności zewnętrznych po ustąpieniu opadów.\n` +
+        `• Dla reszty kraju: Zachowaj czujność, monitoruj komunikaty dla Twojego regionu.\n\n` +
         `===================================\n` +
         `Źródła: Radar Live, Monitor Burz`;
 
     okienko.innerHTML = `
-        <h1 style="color:#ffffff; margin:0 0 20px 0; font-size:2rem; text-align:center; font-weight: 700; text-transform:uppercase;">
-            ⚠️ ALARM KRYTYCZNY
+        <h1 style="color:#f59e0b; margin:0 0 20px 0; font-size:1.8rem; text-align:center; font-weight: 700; text-transform:uppercase;">
+            STATUS: MONITOROWANIE
         </h1>
-        <p style="white-space:pre-line; font-size:1.1rem; line-height:1.7; margin-bottom:30px; color:#ffffff; font-weight: 500; text-align: center; max-width: 600px;">
+        <p style="white-space:pre-line; font-size:1.1rem; line-height:1.7; margin-bottom:30px; color:#e2e8f0; font-weight: 400; text-align: center; max-width: 600px;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:20px; background:#ff0000; color:#ffffff;
+            padding:20px; background:#f59e0b; color:#0f172a;
             border:none; border-radius:10px; font-weight:700;
             width:100%; max-width: 400px; cursor:pointer; font-size:1.2rem;
             margin-bottom: 50px; 
-        ">POTWIERDZAM I ROZUMIEM</button>
-
-        <style>
-            @keyframes pulse_alert_border {
-                0% { border-color: #ff0000; }
-                50% { border-color: #ffffff; }
-                100% { border-color: #ff0000; }
-            }
-        </style>
+        ">PRZYJĘŁEM</button>
     `;
 
     document.body.appendChild(okienko);
