@@ -274,8 +274,8 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-const alertIMGW = `SKYCAST: AKTUALIZACJA RADAROWA - KRAKÓW ORAZ POLSKA`;
-            
+const alertIMGW = `SKYCAST: RAPORT WIECZORNY - 7 CZERWCA 2026`;
+
 window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
     moduly.forEach(fn => {
@@ -288,48 +288,99 @@ function pokazAlertPowitalny() {
 
     const okienko = document.createElement("div");
     okienko.id = 'skycast-welcome-alert';
-    
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes pulse_summer_evening {
+            1%, 100% { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+            50% { border-color: #eab308; box-shadow: 0 0 30px rgba(234, 179, 8, 0.4); }
+        }
+    `;
+    document.head.appendChild(style);
+
     okienko.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.99) 0%, rgba(15, 23, 42, 0.99) 100%);
-        backdrop-filter: blur(30px);
-        border: 4px solid #f59e0b;
-        z-index: 10000; color: white;
-        display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-        padding: 40px 20px; box-sizing: border-box;
-        overflow-y: auto; 
+        position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
+        background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%); 
+        backdrop-filter: blur(15px);
+        border: 4px solid #38bdf8; border-radius: 25px;
+        padding: 25px; z-index: 9999; color: white;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        overflow-y: auto;
+        animation: pulse_summer_evening 3s infinite ease-in-out;
     `;
 
-    const tresc = `RAPORT METEOROLOGICZNY SKYCAST - AKTUALIZACJA 16:15\n` +
-        `===================================\n\n` +
-        `SYTUACJA KRAJOWA (ALARM): \n` +
-        `Aktywny front burzowy przemieszcza się przez środkową i wschodnią Polskę. Występują gwałtowne zjawiska, silne wiatry i opady.\n\n` +
-        `STATUS KRAKÓW (MONITOROWANIE):\n` +
-        `Główny rdzeń burzowy opuścił aglomerację. Intensywność zjawisk maleje do opadów o charakterze ciągłym. Ryzyko wyładowań w bezpośrednim sąsiedztwie miasta wygasa.\n\n` +
-        `ZALECENIA:\n` +
-        `• Dla Krakowa: Możliwość stopniowego powrotu do aktywności zewnętrznych po ustąpieniu opadów.\n` +
-        `• Dla reszty kraju: Zachowaj czujność, monitoruj komunikaty dla Twojego regionu.\n\n` +
-        `===================================\n` +
-        `Źródła: Radar Live, Monitor Burz`;
+    const tresc = `PROGNOZA POGODOWA: KRAKÓW I POLSKA (DO KOŃCA DNIA)
+Aktualizacja: Niedziela, 7 czerwca 2026 r.
+
+===============================================================================
+1. KRAKÓW - PROGNOZA GODZINOWA (16:30 - 24:00) 🏙️
+===============================================================================
+
+[16:30 - 18:00]
+* Temperatura: 23°C -> 22°C 🌡️
+* Stan nieba: Zachmurzenie umiarkowane, przejściowe rozpogodzenia. 🌤️
+* Opady: Niskie ryzyko przelotnego deszczu (ok. 20%), brak burz. 🚫
+* Wiatr: Zachodni, umiarkowany (20-30 km/h), w porywach do 45 km/h. 🌬️
+
+[18:00 - 20:00]
+* Temperatura: 21°C -> 19°C 🌡️
+* Stan nieba: Zauważalne wypogodzenia, niebo niemal bezchmurne. ☀️
+* Opady: Brak ryzyka opadów (0%). 🚫
+* Wiatr: Słabnący, w porywach poniżej 20 km/h. 🌬️
+
+[20:00 - 24:00]
+* Temperatura: 18°C -> 15°C 🌡️
+* Stan nieba: Całkowicie bezchmurnie i stabilnie. 🌌
+* Opady: Brak. 🚫
+* Wiatr: Słaby, zmienny (poniżej 10 km/h). 🌬️
+
+===============================================================================
+2. STAN POGODY DLA CAŁEJ POLSKI 🇵🇱
+===============================================================================
+
+REGION PÓŁNOCNY (Pomorze, Warmia, Mazury, Podlasie): 🌊
+* Status: Najbardziej dynamiczna sytuacja w kraju. ⚡
+* Warunki: Przelotne, ulewne deszcze oraz lokalne burze. 🌧️
+* Zagrożenia: Możliwy grad i silne porywy wiatru w strefie burzowej. ⚠️
+* Temperatura wieczorem: Chłodno, od 16°C do 19°C. 🌡️
+
+REGION CENTRALNY (Wielkopolska, Łódzkie, Mazowsze): 📍
+* Status: Przejściowe pogorszenie warunków. ⛅
+* Warunki: Zmienne zachmurzenie z przesuwającymi się strefami opadów. 🌧️
+* Zagrożenia: Izolowane, krótkotrwałe burze, które szybko gasną po zachodzie słońca. ⚡
+* Temperatura wieczorem: Od 20°C do 22°C. 🌡️
+
+REGION POŁUDNIOWY I ZACHODNI (Dolny Śląsk, Śląsk, Małopolska, Lubuskie): ⛰️
+* Status: Sytuacja stabilna i najcieplejsza. ☀️
+* Warunki: Szybkie rozpogodzenia, chmury ustępują miejsca czystemu niebu. 🌌
+* Zagrożenia: Brak istotnych zagrożeń meteo w nadchodzących godzinach. ✅
+* Temperatura wieczorem: Komfortowe 21°C do 24°C. 🌡️
+
+===============================================================================
+3. AKTYWNE OSTRZEŻENIA METEOROLOGICZNE IMGW (DO KOŃCA DNIA) ⚠️
+===============================================================================
+
+* Alert: Ostrzeżenia 1. stopnia przed burzami z gradem. 🚨
+* Obszar: Pas północny oraz pas centralno-wschodni. 🗺️
+* Parametry zjawisk: Suma opadów do 25-30 mm, porywy wiatru do 70-75 km/h. ⚡
+* Czas obowiązywania: Główna aktywność do godz. 20:00, w nocy całkowity zanik. 🌙`;
 
     okienko.innerHTML = `
-        <h1 style="color:#f59e0b; margin:0 0 20px 0; font-size:1.8rem; text-align:center; font-weight: 700; text-transform:uppercase;">
-            STATUS: MONITOROWANIE
-        </h1>
-        <p style="white-space:pre-line; font-size:1.1rem; line-height:1.7; margin-bottom:30px; color:#e2e8f0; font-weight: 400; text-align: center; max-width: 600px;">
+        <h2 style="color:#eab308; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif;">
+            🌤️ RAPORT: 7 CZERWCA 2026
+        </h2>
+        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:20px; background:#f59e0b; color:#0f172a;
-            border:none; border-radius:10px; font-weight:700;
-            width:100%; max-width: 400px; cursor:pointer; font-size:1.2rem;
-            margin-bottom: 50px; 
-        ">PRZYJĘŁEM</button>
-    `;
+            padding:15px; background:linear-gradient(90deg, #38bdf8, #eab308);
+            color:#0f172a; border:none; border-radius:12px; font-weight:900;
+            width:100%; cursor:pointer; font-size:1.1rem;
+  ">DZIĘKI • CIESZ SIĘ LATEM! 🌊</button>    `;
+    
 
     document.body.appendChild(okienko);
-    const przyciskZamknij = document.getElementById('zamknijAlert');
-    przyciskZamknij.addEventListener('click', () => okienko.remove());
+    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
 }
             
             
