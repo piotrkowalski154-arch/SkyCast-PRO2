@@ -277,7 +277,6 @@ body.night-mode .h-box div {
         const alertIMGW = `⚡ NAWADY ALERT CYBER: Fioletowe rdzenie nadchodzą ze Śląska! Kraków bezpośrednio na linii strzału superkomórek!`;
             
 window.onload = function() {
-    // Bezpieczny start - moduły uruchamiane z obsługą błędów
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
     moduly.forEach(fn => {
         try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
@@ -285,6 +284,7 @@ window.onload = function() {
 };
 
 function pokazAlertPowitalny() {
+    // Jeśli alert już istnieje, nie twórz drugiego
     if (document.getElementById('skycast-welcome-alert')) return;
 
     const okienko = document.createElement("div");
@@ -299,7 +299,6 @@ function pokazAlertPowitalny() {
         animation: pulse_alert_border 1s infinite;
     `;
 
-    // Zaktualizowana treść na podstawie Twojego radaru i analizy z 14:15!
     const tresc = `PANCERNY RAPORT SKYCAST PRO 22\n` +
         `===================================\n` +
         `⏱️ CZAS DETEKCJI: 14:15 (NIEDZ. 7.06)\n\n` +
@@ -340,11 +339,16 @@ function pokazAlertPowitalny() {
         </style>
     `;
 
+    // 1. Najpierw fizycznie dodajemy okienko do strony
     document.body.appendChild(okienko);
-    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
+
+    // 2. 🔥 PANCERNE ZAMKNIĘCIE (Event Listener na 100% pewności)
+    const przyciskZamknij = document.getElementById('zamknijAlert');
+    przyciskZamknij.addEventListener('click', function() {
+        okienko.remove(); // Niszczy element bezpowrotnie
+    });
 }
             
-        
             
             
             
