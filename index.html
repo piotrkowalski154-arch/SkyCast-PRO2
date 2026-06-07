@@ -274,8 +274,11 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `⚡ ALERT BURZOWY: Niedziela z gradem i wiatrem do 90 km/h! We wtorek możliwe gwałtowne załamanie pogody!`;
-            
+        const alertIMGW = `⚡ ALERT BURZOWY: Potężne komórki nad Śląskiem! Ryzyko gradu i silnego wiatru na froncie.`;
+// ZMIENIAJ TĘ NAZWĘ PRZY KAŻDEJ AKTUALIZACJI (np. alert_1400, alert_1500), 
+// żeby okienko znów wyskoczyło użytkownikom po wejściu w apkę:
+const WERSJA_ALERTU = 'alert_slask_1340'; 
+
 window.onload = function() {
     // Bezpieczny start - moduły uruchamiane z obsługą błędów
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -285,7 +288,8 @@ window.onload = function() {
 };
 
 function pokazAlertPowitalny() {
-    if (document.getElementById('skycast-welcome-alert')) return;
+    // Protokół sprawdzający: Jeśli okienko jest otwarte LUB użytkownik już zamknął tę wersję alertu -> przerwij
+    if (document.getElementById('skycast-welcome-alert') || localStorage.getItem(WERSJA_ALERTU)) return;
 
     const okienko = document.createElement("div");
     okienko.id = 'skycast-welcome-alert';
@@ -298,25 +302,23 @@ function pokazAlertPowitalny() {
         max-height: 90vh; overflow-y: auto;
     `;
 
-    // Zaktualizowana treść na podstawie Twojej analizy modeli numerycznych
+    // Zaktualizowana treść na podstawie zrzutu radaru ze Śląska
     const tresc = `👋 Witaj w SkyCast PRO!\n` +
         `================================\n` +
-        `📍 DYNAMICZNY RAPORT | NIEDZIELA 7 CZERWCA 2026\n\n` +
-        `⚡ SYTUACJA BURZOWA (DZISIAJ):\n` +
-        `• Aura: Od rana opady na zachodzie i północy. Od południa gwałtowny rozwój chmur kłębiastych Cb i burz w całym kraju.\n` +
-        `• Główne zagrożenie: Północ, centrum oraz zachód Polski.\n` +
-        `• Parametry: Ulewy (20-30 mm/h), grad (2-3 cm) oraz silne porywy wiatru do 80-90 km/h (niedobory wilgoci napędzają wiatr!).\n` +
-        `• Struktura: Układy liniowe wielokomórkowe z lokalnymi superkomórkami. Front idzie z zachodu na wschód.\n\n` +
-        `⚠️ PROGNOZA OSTRZEGAWCZA (WTOREK):\n` +
-        `• Gwałtowny incydent: Napływ mas zwrotnikowych i przejście chłodnego frontu wywoła silne, aktywne elektrycznie burze!\n` +
-        `• Rejon maksymalnego zagrożenia: Południowy wschód Polski.\n\n` +
+        `📍 AKTUALIZACJA TAKTYCZNA | NIEDZ. 7 CZERWCA 2026\n\n` +
+        `🚨 ${alertIMGW}\n\n` +
+        `⚡ DETEKCJA FRONTU (Skan na żywo):\n` +
+        `• Centrum zjawisk: Aktywne gniazda wyładowań na Śląsku i Jurze (Myszków, Tarnowskie Góry, Pajęczno).\n` +
+        `• Zagrożenie: Widoczne fioletowe rdzenie oznaczają wysokie prawdopodobieństwo opadów gradu.\n` +
+        `• Trajektoria: Front przesuwa się dynamicznie na wschód. Sytuacja rozwojowa.\n` +
+        `• Kraków: Aktualnie czysto, ale zamykamy okna pogodowe i wdrażamy "Zasadę 5+5".\n\n` +
         `================================\n` +
-        `Źródła: Swiss | Wetterzentrale | UM PL\n` +
+        `Źródła: Monitor Burz | Złoty Skaner SkyCast\n` +
         `SYSTEM W TRYBIE DETEKCJI FRONTÓW • OGIEŃ! ⚡`;
 
     okienko.innerHTML = `
         <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            ⚡ PROGNOZA: NIEDZ. 7.06
+            🚨 ALERT: FRONT NA ŚLĄSKU
         </h2>
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
             ${tresc}
@@ -329,8 +331,14 @@ function pokazAlertPowitalny() {
     `;
 
     document.body.appendChild(okienko);
-    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-}
+    
+    // Obsługa zamknięcia i zapisania do pamięci RAM przeglądarki
+    document.getElementById('zamknijAlert').onclick = () => {
+        okienko.remove();
+        localStorage.setItem(WERSJA_ALERTU, 'przeczytane');
+    };
+            }
+            
             
             
      
