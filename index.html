@@ -455,52 +455,51 @@ function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return;
 
-    // 🚨 Nowe, ściśle wyselekcjonowane źródła
+    // Żelazne źródła danych zsynchronizowane z układem nerwowym aplikacji
     const rssInteria = 'https://wydarzenia.interia.pl/feed';
-    const rssPolsat = 'http://przegladsportowy.onet.pl/.feed';
-        
-        
-    
+    const rssPolsat = 'https://www.polsatnews.pl/rss/sport.xml'; 
 
-
-    
-
-    // 👑 Twój nowy, potężny nagłówek
-    let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 20px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; line-height: 1.5;">
-        POLSKA ŚWIAT 🇵🇱🌍🌏<br>SPORT ⚽🎾
+    // Nowoczesny, zbalansowany nagłówek sekcji
+    let html = `<h3 style="color: var(--main-title, #ffffff); text-align: center; margin-bottom: 20px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.1)); padding-bottom: 20px; line-height: 1.5; letter-spacing: 1px;">
+        POLSKA ŚWIAT 🇵🇱🌍🌏<br>& SPORT 🏆⚽
     </h3>`;
 
-    // Ładujemy oba kanały jednocześnie (Turbo Promise.all)
     Promise.all([
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssInteria)}`).then(r => r.json()),
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssPolsat)}`).then(r => r.json())
     ])
     .then(([daneInteria, danePolsat]) => {
-
-        // 1. Wiadomości Kraj/Świat - INTERIA (Niebieski pasek)
+        // SZUFLADA 1: WIADOMOŚCI OGÓLNE (Zoptymalizowana czytelność)
         if (daneInteria.status === 'ok' && daneInteria.items) {
             const limit = Math.min(daneInteria.items.length, 4);
             for (let i = 0; i < limit; i++) {
                 html += `
-                <div style="background: rgba(69,130,246,0.1); border-left: 6px solid #3b82f6; border-radius: 12px; padding: 15px; margin-bottom: 12px;">
-                    <div style="font-size: 0.7rem; color: #3b82f6; font-weight: 900; margin-bottom: 4px; text-transform: uppercase;">WIADOMOŚCI 🇵🇱🌍🌏🌐</div>
-                    <a href="${daneInteria.items[i].link}" target="_blank" style="color: var(--card-text); text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${daneInteria.items[i].title}</a>
-                </div>`;
+                <div style="background: rgba(69,130,246,0.08); border-left: 6px solid #3b82f6; border-radius: 12px; padding: 15px; margin-bottom: 12px; backdrop-filter: blur(8px); border-top: 1px solid rgba(69,130,246,0.15);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="font-size: 0.7rem; color: #3b82f6; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;">WIADOMOŚCI 🇵🇱🌍🌏</div>
+            <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; opacity: 0.9;">● LIVE</div>
+        </div>
+        <a href="${daneInteria.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block; transition: color 0.2s;">${daneInteria.items[i].title}</a>
+    </div>`;
             }
         }
-
-        // 2. Wiadomości Sportowe - POLSAT SPORT (Pomarańczowy pasek)
+        
+        // SZUFLADA 2: NOWOCZESNY MODUŁ MUNDIALOWY (Z luksusowym, szmaragdowym blaskiem)
         if (danePolsat.status === 'ok' && danePolsat.items) {
             const limit = Math.min(danePolsat.items.length, 4);
             for (let i = 0; i < limit; i++) {
                 html += `
-                <div style="background: rgba(249,115,22,0.1); border-left: 6px solid #f97316; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
-                    <div style="font-size: 0.7rem; color: #f97316; font-weight: 900; margin-bottom: 4px; text-transform: uppercase;">SPORT ⚽🎾🏅🏐🚴🏒🏀🥈</div>
-                    <a href="${danePolsat.items[i].link}" target="_blank" style="color: var(--card-text); text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">${danePolsat.items[i].title}</a>
+                <div style="background: linear-gradient(135deg, rgba(4, 47, 31, 0.35), rgba(15, 23, 42, 0.75)); border-left: 6px solid #00f0ff; border-top: 1px solid rgba(0, 240, 255, 0.2); border-right: 1px solid rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.05); border-radius: 12px; padding: 16px; margin-bottom: 12px; backdrop-filter: blur(12px); box-shadow: 0 4px 24px rgba(0, 240, 255, 0.03);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="font-size: 0.7rem; color: #00ff88; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;">SPORT  🏆⚽</div>
+                        <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; opacity: 0.9;">● LIVE</div>
+                    </div>
+                    <a href="${danePolsat.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">
+                        ${danePolsat.items[i].title}
+                    </a>
                 </div>`;
             }
         }
-
         kontener.innerHTML = html;
     })
     .catch(e => console.log("Błąd wczytywania RSS.", e));
