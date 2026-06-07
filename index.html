@@ -274,11 +274,8 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `⚡ ALERT BURZOWY: Potężne komórki nad Śląskiem! Ryzyko gradu i silnego wiatru na froncie.`;
-// ZMIENIAJ TĘ NAZWĘ PRZY KAŻDEJ AKTUALIZACJI (np. alert_1400, alert_1500), 
-// żeby okienko znów wyskoczyło użytkownikom po wejściu w apkę:
-const WERSJA_ALERTU = 'alert_slask_1340'; 
-
+        const alertIMGW = `⚡ ALERT BURZOWY: Niedziela z gradem i wiatrem do 90 km/h! We wtorek możliwe gwałtowne załamanie pogody!`;
+            
 window.onload = function() {
     // Bezpieczny start - moduły uruchamiane z obsługą błędów
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
@@ -288,56 +285,57 @@ window.onload = function() {
 };
 
 function pokazAlertPowitalny() {
-    // Protokół sprawdzający: Jeśli okienko jest otwarte LUB użytkownik już zamknął tę wersję alertu -> przerwij
-    if (document.getElementById('skycast-welcome-alert') || localStorage.getItem(WERSJA_ALERTU)) return;
+    if (document.getElementById('skycast-welcome-alert')) return;
 
     const okienko = document.createElement("div");
     okienko.id = 'skycast-welcome-alert';
     okienko.style.cssText = `
         position: fixed; top: 5%; left: 5%; width: 90%;
         background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-        border: 2px solid #38bdf8; border-radius: 20px;
+        border: 2px solid #ef4444; /* Zmiana na czerwony alertowy! */
+        border-radius: 20px;
         padding: 20px; z-index: 9999; color: white;
-        box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
         max-height: 90vh; overflow-y: auto;
     `;
 
-    // Zaktualizowana treść na podstawie zrzutu radaru ze Śląska
+    // Zaktualizowana treść na podstawie Twojego radaru z 14:05!
     const tresc = `👋 Witaj w SkyCast PRO!\n` +
         `================================\n` +
-        `📍 AKTUALIZACJA TAKTYCZNA | NIEDZ. 7 CZERWCA 2026\n\n` +
-        `🚨 ${alertIMGW}\n\n` +
-        `⚡ DETEKCJA FRONTU (Skan na żywo):\n` +
-        `• Centrum zjawisk: Aktywne gniazda wyładowań na Śląsku i Jurze (Myszków, Tarnowskie Góry, Pajęczno).\n` +
-        `• Zagrożenie: Widoczne fioletowe rdzenie oznaczają wysokie prawdopodobieństwo opadów gradu.\n` +
-        `• Trajektoria: Front przesuwa się dynamicznie na wschód. Sytuacja rozwojowa.\n` +
-        `• Kraków: Aktualnie czysto, ale zamykamy okna pogodowe i wdrażamy "Zasadę 5+5".\n\n` +
+        `📍 DYNAMICZNY RAPORT | NIEDZIELA 7 CZERWCA 2026\n\n` +
+        `⚡ SYTUACJA BURZOWA (RADAR LIVE):\n` +
+        `• Aura: Gwałtowny rozwój chmur Cb (Cumulonimbus) na południu!\n` +
+        `• Główne zagrożenie (AKTUALIZACJA): Śląsk, Świętokrzyskie i Małopolska (aktywne komórki nacierają na Twój rejon!).\n` +
+        `• Parametry: Ulewy (20-30 mm/h), grad (2-3 cm) oraz silne porywy wiatru do 80-90 km/h.\n` +
+        `• Struktura: Fioletowe i czerwone rdzenie widoczne na radarach oznaczają wysoką aktywność elektryczną i ulewne opady.\n\n` +
+        `⚠️ PROGNOZA OSTRZEGAWCZA (WTOREK):\n` +
+        `• Gwałtowny incydent: Napływ mas zwrotnikowych i przejście chłodnego frontu wywoła kolejne silne burze!\n` +
+        `• Rejon maksymalnego zagrożenia: Południowy wschód Polski.\n\n` +
         `================================\n` +
-        `Źródła: Monitor Burz | Złoty Skaner SkyCast\n` +
+        `Źródła: Monitor Burz | Swiss | UM PL\n` +
         `SYSTEM W TRYBIE DETEKCJI FRONTÓW • OGIEŃ! ⚡`;
 
     okienko.innerHTML = `
-        <h2 style="color:#38bdf8; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            🚨 ALERT: FRONT NA ŚLĄSKU
+        <h2 style="color:#ef4444; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
+            ⚠️ ALERT: AKTYWNE BURZE NA POŁUDNIU
         </h2>
-        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0;">
+        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-weight: 500;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:12px; background:#38bdf8; color:#0f172a;
+            padding:12px; background:#ef4444; color:#ffffff;
             border:none; border-radius:10px; font-weight:900;
             width:100%; cursor:pointer; font-size:1rem;
-        ">ROZUMIEM, DZIAŁAM</button>
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.4);
+        ">ROZUMIEM, MAM OKO NA RADAR</button>
     `;
 
     document.body.appendChild(okienko);
+    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
+}
+            
     
-    // Obsługa zamknięcia i zapisania do pamięci RAM przeglądarki
-    document.getElementById('zamknijAlert').onclick = () => {
-        okienko.remove();
-        localStorage.setItem(WERSJA_ALERTU, 'przeczytane');
-    };
-            }
+
             
             
             
