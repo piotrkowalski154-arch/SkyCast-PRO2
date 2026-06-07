@@ -275,6 +275,7 @@ body.night-mode .h-box div {
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
         const alertIMGW = `⚡ ALERT BURZOWY: Niedziela z gradem i wiatrem do 90 km/h! We wtorek możliwe gwałtowne załamanie pogody!`;
+        const alertIMGW = `⚡ NAWADY ALERT CYBER: Fioletowe rdzenie nadchodzą ze Śląska! Kraków bezpośrednio na linii strzału superkomórek!`;
             
 window.onload = function() {
     // Bezpieczny start - moduły uruchamiane z obsługą błędów
@@ -290,44 +291,54 @@ function pokazAlertPowitalny() {
     const okienko = document.createElement("div");
     okienko.id = 'skycast-welcome-alert';
     okienko.style.cssText = `
-        position: fixed; top: 5%; left: 5%; width: 90%;
-        background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-        border: 2px solid #ef4444; /* Zmiana na czerwony alertowy! */
-        border-radius: 20px;
-        padding: 20px; z-index: 9999; color: white;
-        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-        max-height: 90vh; overflow-y: auto;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px);
+        border: 4px solid #ff0000;
+        z-index: 10000; color: white;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 30px; box-sizing: border-box;
+        animation: pulse_alert_border 1s infinite;
     `;
 
-    // Zaktualizowana treść na podstawie Twojego radaru z 14:05!
-    const tresc = `👋 Witaj w SkyCast PRO!\n` +
-        `================================\n` +
-        `📍 DYNAMICZNY RAPORT | NIEDZIELA 7 CZERWCA 2026\n\n` +
-        `⚡ SYTUACJA BURZOWA (RADAR LIVE):\n` +
-        `• Aura: Gwałtowny rozwój chmur Cb (Cumulonimbus) na południu!\n` +
-        `• Główne zagrożenie (AKTUALIZACJA): Śląsk, Świętokrzyskie i Małopolska (aktywne komórki nacierają na Twój rejon!).\n` +
-        `• Parametry: Ulewy (20-30 mm/h), grad (2-3 cm) oraz silne porywy wiatru do 80-90 km/h.\n` +
-        `• Struktura: Fioletowe i czerwone rdzenie widoczne na radarach oznaczają wysoką aktywność elektryczną i ulewne opady.\n\n` +
-        `⚠️ PROGNOZA OSTRZEGAWCZA (WTOREK):\n` +
-        `• Gwałtowny incydent: Napływ mas zwrotnikowych i przejście chłodnego frontu wywoła kolejne silne burze!\n` +
-        `• Rejon maksymalnego zagrożenia: Południowy wschód Polski.\n\n` +
-        `================================\n` +
+    // Zaktualizowana treść na podstawie Twojego radaru i analizy z 14:15!
+    const tresc = `PANCERNY RAPORT SKYCAST PRO 22\n` +
+        `===================================\n` +
+        `⏱️ CZAS DETEKCJI: 14:15 (NIEDZ. 7.06)\n\n` +
+        `🔥 SYTUACJA BURZOWA (EXTREME):\n` +
+        `• Aura: Potężne superkomórki burzowe nacierają znad Śląska na Małopolskę.\n` +
+        `• Główne zagrożenie: KRAKÓW I AGLOMERACJA.\n` +
+        `• Parametry (PANCERNE): Nawalne opady deszczu (powyżej 40 mm/h), DUŻY GRAD (2-4 cm) oraz niszczące porywy wiatru DO 90-100 KM/H.\n` +
+        `• Analiza Radarowa: Fioletowe rdzenie na radarze z 14:05 oznaczają ekstremalnie silne rdzenie opadowe i gradowe wchodzące nad Twój rejon.\n\n` +
+        `🚨 WEKTOR UDERZENIA NA NAJBLIŻSZE 30-60 MIN:\n` +
+        `• Najgorsze uderzenie wejdzie w Kraków w ciągu najbliższej godziny. Będzie bardzo wysoka aktywność elektryczna (pioruny doziemne CG).\n\n` +
+        `===================================\n` +
         `Źródła: Monitor Burz | Swiss | UM PL\n` +
-        `SYSTEM W TRYBIE DETEKCJI FRONTÓW • OGIEŃ! ⚡`;
+        `PANCERNA OCHRONA • OGIEŃ! ⚡⛈️🚨`;
 
     okienko.innerHTML = `
-        <h2 style="color:#ef4444; margin:0 0 10px 0; font-size:1.3rem; text-align:center; font-weight: 900; text-transform:uppercase;">
-            ⚠️ ALERT: AKTYWNE BURZE NA POŁUDNIU
-        </h2>
-        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-weight: 500;">
+        <h1 style="color:#ff0000; margin:0 0 20px 0; font-size:2rem; text-align:center; font-weight: 900; text-transform:uppercase; text-shadow: 0px 0px 15px #ff0000;">
+            ⚠️ CYBER-ALERT: UDERZENIE SUPERKOMÓRKI
+        </h1>
+        <p style="white-space:pre-line; font-size:1rem; line-height:1.8; margin-bottom:30px; color:#ffffff; font-weight: 600; text-align: center; max-width: 600px;">
             ${tresc}
         </p>
         <button id="zamknijAlert" style="
-            padding:12px; background:#ef4444; color:#ffffff;
-            border:none; border-radius:10px; font-weight:900;
-            width:100%; cursor:pointer; font-size:1rem;
-            text-shadow: 0px 1px 2px rgba(0,0,0,0.4);
-        ">ROZUMIEM, MAM OKO NA RADAR</button>
+            padding:20px; background:#ff0000; color:#ffffff;
+            border:none; border-radius:15px; font-weight:900;
+            width:100%; max-width: 400px; cursor:pointer; font-size:1.2rem;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+            transition: transform 0.1s;
+            box-shadow: 0 0 20px #ff0000;
+        ">ROZUMIEM, SZUKAM TWARDEGO SCHRONIENIA</button>
+
+        <style>
+            @keyframes pulse_alert_border {
+                0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+                50% { border-color: #000000; box-shadow: 0 0 30px #ff0000; }
+                100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            }
+            #zamknijAlert:active { transform: scale(0.98); }
+        </style>
     `;
 
     document.body.appendChild(okienko);
