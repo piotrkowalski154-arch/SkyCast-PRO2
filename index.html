@@ -337,14 +337,15 @@ function pokazAlertPowitalny() {
         overflow-y: auto;
         animation: pulse_sunny 3s infinite ease-in-out;
     `;
- const tresc = `AKTUALIZACJA: KRYTYCZNE ZAGROŻENIE W KRAKOWIE (17:45) 🚨⚡
+ // AKTUALIZACJA SYSTEMU SKYCAST PRO - PROTOKÓŁ KRYTYCZNY (17:45)
+const tresc = `AKTUALIZACJA: KRYTYCZNE ZAGROŻENIE W KRAKOWIE (17:45) 🚨⚡
 
 ===============================================================================
 1. STATUS RADAROWY: DRUGA FALA W PEŁNI 🐉⛈️
 ===============================================================================
 
 [ANALIZA NA 17:45]
-* Sytuacja: Druga fala, o której wspominałem, jest w tej chwili nad Krakowem. 
+* Sytuacja: Druga fala jest w tej chwili nad Krakowem. 
 * "Training Storms" w akcji: Radar pokazuje, że kolejne jądra burzowe o bardzo
   wysokiej odbiciowości (kolor ciemnoczerwony/fioletowy) wchodzą w tę samą strefę.
 * Zagrożenie: To nie jest zwykły deszcz. To jest kumulacja wody. 
@@ -375,13 +376,15 @@ if (okienko) {
         <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
             ${tresc}
         </p>
-        <button id="zamknijAlert" style="
-            padding:15px; background:linear-gradient(90deg, #ef4444, #facc15);
-            color:#0f172a; border:none; border-radius:12px; font-weight:900;
-            width:100%; cursor:pointer; font-size:1.1rem;
-        "> 🛡️ PRZYJĄŁEM, TRZYMAM GARDĘ 🛡️ </button>
-    `;
-}
+        
+    <button id="zamknijAlert" style="
+        padding:15px; background:linear-gradient(90deg, #ef4444, #facc15);
+        color:#0f172a; border:none; border-radius:12px; font-weight:900;
+        width:100%; cursor:pointer; font-size:1.1rem;
+    ">🥃 Potwierdzam 🌴 🐉 Czekamy na drugą falę ☕🎧☔</button>
+`; 
+
+    
     
     
     
