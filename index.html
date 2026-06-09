@@ -162,25 +162,41 @@ body.night-mode .h-box div {
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
         .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
+     @keyframes pulse-glass-frame {
+        /* Zatrzymujemy Twój oryginalny cień i dodajemy nową, rozchodzącą się falę */
+@keyframes pulse-glass-frame {
+    0%   { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0.7); }
+    70%  { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 20px rgba(255, 0, 128, 0); }
+    100% { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0); }
+}
+
+    
+
+    .pulsujaca-ramka-muzyczna {
+        animation: pulse-glass-frame 2.5s infinite;
+    }
+    
     </style>
+    
+    
+
 </head>
 <body>
     <div class="app-container">
-<div style="
-    margin: 20px auto 10px auto; 
-    max-width: 90%; 
-    background: rgba(255, 255, 255, 0.3); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    border-radius: 20px; 
-    padding: 15px; 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-">
-    <div style="display: flex; align-items: center; margin-bottom: 12px; color: #1e3a8a;">
-        <span style="font-size: 20px; margin-right: 8px;">🔥🎧</span>
-        <h3 style="margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">SELEKCJA PIOTRKA: TOP #1 SET</h3>
-    </div>
+<div class="pulsujaca-ramka-muzyczna" style="
+        margin: 20px auto 10px auto; 
+        max-width: 90%; 
+        background: rgba(255, 255, 255, 0.3); 
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
+        border-radius: 20px; 
+        padding: 15px; 
+        border: 1px solid rgba(255, 255, 255, 0.2); 
+    ">
+        <div style="display: flex; align-items: center; margin-bottom: 12px; color: #ff0080; text-shadow: 0px 0px 8px rgba(255, 0, 128, 0.4);">
+            <span style="font-size: 20px; margin-right: 8px;">🔥🎧</span>
+            <h3 style="margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 900;">SELEKCJA PIOTRKA: TOP #1 SET</h3>
+        </div>
 
     <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
         <iframe 
