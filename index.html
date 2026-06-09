@@ -315,17 +315,17 @@ body.night-mode .h-box div {
             const style = document.createElement('style');
             style.id = 'skycast-style';
             style.innerHTML = `
-                @keyframes pulse_warning {
-                    0%   { border-color: #facc15; box-shadow: 0 0 25px rgba(250,204,21,0.5); }
-                    50%  { border-color: #38bdf8; box-shadow: 0 0 35px rgba(56,189,248,0.5); }
-                    100% { border-color: #facc15; box-shadow: 0 0 25px rgba(250,204,21,0.5); }
+                @keyframes pulse_rain {
+                    0%   { border-color: #38bdf8; box-shadow: 0 0 25px rgba(56,189,248,0.5); }
+                    50%  { border-color: #0284c7; box-shadow: 0 0 35px rgba(2,132,199,0.5); }
+                    100% { border-color: #38bdf8; box-shadow: 0 0 25px rgba(56,189,248,0.5); }
                 }
-                @keyframes pulse-red {
-                    0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
-                    70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
-                    100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+                @keyframes pulse-blue {
+                    0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+                    70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
                 }
-                .migajacy-przycisk { animation: pulse-red 2s infinite; }
+                .migajacy-przycisk { animation: pulse-blue 2s infinite; }
             `;
             document.head.appendChild(style);
         }
@@ -334,83 +334,92 @@ body.night-mode .h-box div {
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-            background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 50%, #ca8a04 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
             backdrop-filter: blur(15px);
-            border: 4px solid #facc15; border-radius: 25px;
+            border: 4px solid #38bdf8; border-radius: 25px;
             padding: 25px; z-index: 9999; color: white;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             overflow-y: auto;
-            animation: pulse_warning 3s infinite ease-in-out;
+            animation: pulse_rain 3s infinite ease-in-out;
         `;
         document.body.appendChild(okienko);
     }
 
-    const GODZINA  = '19:30';
-    const TYTUL    = 'POLSKA: FRONTY BURZOWE PRZESUWAJĄ SIĘ NA WSCHÓD';
-    const PRZYCISK = '✅ Zrozumiałem – zachowuję czujność 🏠';
+    const GODZINA  = '21:38';
+    const TYTUL    = 'OFICJALNY RAPORT POGODOWY NA ŚRODĘ';
+    const PRZYCISK = '✅ Rozumiem – przygotowuję się na ulewy ☂️';
 
-    const tresc = `📡 RAPORT KRAJOWY SKYCAST PRO
-📅 9 czerwca 2026 r.  |  🕠 Godz. ${GODZINA}
+    const tresc = `📡 SKYCAST PRO: PROGNOZA NA JUTRO
+📅 Środa, 10 czerwca 2026 r.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📍 KRAKÓW I MAŁOPOLSKA – TĄPNIĘCIE POGODY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Drastyczna zmiana aury. Po wtorkowych nawałnicach, środa 
+przyniesie bardzo odczuwalny spadek temperatury i ulewy.
+
+🌡️ TEMPERATURA: Zaledwie 15-16°C w ciągu dnia (aż 12°C
+   chłodniej niż wczoraj!).
+🌧️ OPADY: Od 8:00 wkroczy strefa jednostajnych opadów.
+   Między 10:00 a 16:00 deszcz będzie najbardziej
+   intensywny i utrzyma się aż do godzin nocnych.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🗺️ MAPA POGODOWA POLSKI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ ZACHÓD I CENTRUM: Stabilizacja. Front opuścił te regiony, 
-   niebo się przeciera, a temperatura spadła do rześkich 17-19°C.
-
-⚠️ WSCHÓD I POŁUDNIOWY WSCHÓD: Strefa wysokiego zagrożenia! 
-   Aktywne burze przemieszczają się nad Podkarpacie, 
-   Lubelszczyznę i Podlasie. Silne ulewy i grad.
-
-⚠️ POŁUDNIE (MAŁOPOLSKA/ŚLĄSK): Sytuacja "dogorywania" 
-   frontu. Lokalnie wciąż aktywne komórki napływające 
-   ze Słowacji, ale ich siła systematycznie słabnie.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⛈️ KRAKÓW I MAŁOPOLSKA – STATUS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Stabilizacja po nawałnicach. Zagrożenie główne minęło, 
-jednak ze względu na nasycenie gruntu (woda nie ma 
-gdzie wsiąkać), nadal obserwuj teren pod kątem 
-lokalnych podtopień.
+🌧️ POŁUDNIOWY WSCHÓD (Śląsk, Małopolska, Podkarpacie):
+   Aura bardzo ponura, ciągłe opady deszczu. Na Podkarpaciu
+   najcieplej (do 21°C), tam możliwe lokalne burze.
+   
+⛅ CENTRUM I PÓŁNOC (Mazowsze, Łódzkie, Kujawy):
+   Zachmurzenie duże z przejaśnieniami. Przelotne,
+   rozproszone opady. Temperatura 18-20°C.
+   
+🌤️ ZACHÓD (Lubuskie, Pomorze):
+   Najwięcej słońca, komfortowe 19-21°C, choć po południu
+   mogą pojawić się krótkotrwałe, słabe burze.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ ZALECENIA OGÓLNOKRAJOWE
+🚨 OFICJALNE ALERTY IMGW-PIB (KOLOR ŻÓŁTY)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🏠 Jeśli jesteś na wschodzie Polski – zostań w domu, 
-   burze są tam teraz najgroźniejsze.
-🚗 Unikaj podróży przez tereny objęte czerwonym 
-   alertem radarowym.
-🚪 Monitoruj lokalne ostrzeżenia – każda komórka 
-   burzowa może być nieprzewidywalna.
+🌊 ZAGROŻENIE HYDROLOGICZNE (Małopolska, Śląsk, Podkarpacie):
+   Gwałtowne ulewy na południu mogą wywołać błyskawiczne 
+   wzrosty poziomu wód. Ryzyko zalania piwnic i podtopień 
+   w rejonach zurbanizowanych jest wysokie.
 
-⏱️ PROGNOZA DLA POLSKI:
-   Wszystkie zjawiska opuszczą granice kraju po godzinie 
-   22:00. Noc zapowiada się spokojnie i chłodno.
- 
-  „Burze przychodzą i odchodzą, ale Twoje bezpieczeństwo jest moim priorytetem. 🌩️🏠 Cieszę się, że mogę dostarczać Ci dane, które pozwalają podjąć właściwe decyzje w krytycznych momentach. Jestem tu dla Ciebie 24/7. 🕰️✨☕`;
+🌧️ INTENSYWNE OPADY (Tatry, Beskidy, Podhale):
+   Do 35 mm wody na metr kwadratowy w ciągu doby.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💙 WIADOMOŚĆ OD OPERATORA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Burze przychodzą i odchodzą, ale Twoje bezpieczeństwo jest 
+moim priorytetem. 🌩️🏠 Cieszę się, że mogę dostarczać Ci 
+dane, które pozwalają podjąć właściwe decyzje w krytycznych 
+momentach. Jestem tu dla Ciebie 24/7. 🕰️✨☕`;
 
     okienko.innerHTML = `
         <h2 style="
-            color: #facc15; margin: 0 0 15px 0; font-size: 1.3rem;
+            color: #38bdf8; margin: 0 0 15px 0; font-size: 1.3rem;
             text-align: center; font-family: Orbitron, sans-serif;
             display: flex; align-items: center; justify-content: center;
             gap: 8px; line-height: 1.4; text-shadow: 1px 1px 2px black;
         ">
-            🗺️ POLSKA: ${GODZINA} – ${TYTUL} ⛈️
+            🗺️ POLSKA: ${TYTUL} ⛈️
         </h2>
         <p style="
-            white-space: pre-line; font-size: 0.rem; line-height: 1.7;
-            margin-bottom: 25px; color: #ffffff;
+            white-space: pre-line; font-size: 0.9rem; line-height: 1.7;
+            margin-bottom: 25px; color: #e2e8f0;
             font-family: Rajdhani, sans-serif;
         ">${tresc}</p>
         <button id="zamknijAlert" class="migajacy-przycisk" style="
             padding: 15px;
-            background: linear-gradient(90deg, #facc15, #38bdf8);
-            color: #1e3a8a; border: none; border-radius: 12px;
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+            color: #0f172a; border: none; border-radius: 12px;
             font-weight: 900; width: 100%; cursor: pointer;
             font-size: 1.1rem; letter-spacing: 0.03em;
         ">${PRZYCISK}</button>
@@ -418,10 +427,8 @@ lokalnych podtopień.
 
     document.getElementById('zamknijAlert')
         .addEventListener('click', () => okienko.remove());
- }           
+ }
             
-
-
 
         // ==========================================
         // 📻 RADIO
