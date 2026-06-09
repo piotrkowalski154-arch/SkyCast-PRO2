@@ -337,53 +337,66 @@ function pokazAlertPowitalny() {
         overflow-y: auto;
         animation: pulse_sunny 3s infinite ease-in-out;
     `;
- // AKTUALIZACJA SYSTEMU SKYCAST PRO - PROTOKÓŁ KRYTYCZNY (17:45)
-const tresc = `AKTUALIZACJA: KRYTYCZNE ZAGROŻENIE W KRAKOWIE (17:45) 🚨⚡
+ const tresc = `PROGNOZA POGODY I STAN BIEŻĄCY: KRAKÓW I POLSKA – WTOREK, 9 CZERWCA 2026 r.
+Aktualizacja z godziny: 16:40
+Status bieżący: DRUGA FALA W NATARCIU. Pierwsze rdzenie uderzyły w północ regionu, potężna formacja nadciąga z południa!
 
 ===============================================================================
-1. STATUS RADAROWY: DRUGA FALA W PEŁNI 🐉⛈️
+1. KRAKÓW I MAŁOPOLSKA (STAN NA 16:40 - NA ŻYWO) 🏙️🐉⚡
 ===============================================================================
 
-[ANALIZA NA 17:45]
-* Sytuacja: Druga fala jest w tej chwili nad Krakowem. 
-* "Training Storms" w akcji: Radar pokazuje, że kolejne jądra burzowe o bardzo
-  wysokiej odbiciowości (kolor ciemnoczerwony/fioletowy) wchodzą w tę samą strefę.
-* Zagrożenie: To nie jest zwykły deszcz. To jest kumulacja wody. 
-  - ⚠️ Woda w przejściach podziemnych i piwnicach może podnosić się błyskawicznie.
-  - ⚠️ Silne porywy wiatru (szkwał) mogą łamać gałęzie, które są już obciążone wodą.
+[TERAŹNIEJSZOŚĆ: GODZINA 16:40 - ANALIZA RADAROWA]
+* Sytuacja: Pierwszy ekstremalnie silny rdzeń (fioletowy) przetoczył się tuż nad Krakowem 
+  i uderza teraz w pełną mocą w powiaty północne i wschodnie (Wolbrom, Proszowice). 
+* KRAKÓW: Radary pokazują chwilowe uspokojenie elektryczne nad samym miastem, 
+  ale to tylko cisza przed drugą burzą.
+* UWAGA - DRUGA FALA: Złoty Skaner wykrywa potężny, nowy układ z piorunami napierający 
+  od strony południowo-zachodniej (Żywiec, granica ze Słowacją). Korytarz południowy 
+  wciąż pompuje nowe komórki prosto na stolicę Małopolski!
+
+[RYZYKO W NAJBLIŻSZYCH GODZINACH]
+* Ziemia po pierwszej fali nie przyjmuje już wody. Gdy uderzy formacja z południa,
+  ryzyko błyskawicznych podtopień (urban flooding) drastycznie wzrośnie. 
+* Utrzymany zostaje żółty alert hydrologiczny dla Prądnika i Alert II stopnia IMGW.
+* Wiatr: Możliwe uderzenia szkwałowe na czele nowych, nadciągających komórek.
 
 ===============================================================================
-2. KOMUNIKAT BEZPIECZEŃSTWA (PROTOKÓŁ "OTWARTA GARDA") 🛡️
+2. STAN BIEŻĄCY: CO OBECNIE DZIEJE SIĘ W POLSCE? 🇵🇱
 ===============================================================================
 
-KRAKÓW: Złoty Skaner utrzymuje alert najwyższego stopnia! 
+Złoty Skaner na godzinę 16:40:
 
-* ZALECENIE: Jeśli jesteś w domu, pozostań w środku. Jeśli jesteś w drodze, 
-  unikaj obniżeń terenu i przejść podziemnych.
-* Monitoring: Kolejne jądra burzowe wciąż napływają z południa (od strony Słowacji). 
-  Sytuacja w aglomeracji będzie niestabilna przez następne 2-3 godziny.
+STREFA PRZEDFRONTOWA (Ściana Wschodnia): ☀️🥵
+* Upał osiąga apogeum. Powietrze gotuje się przed uderzeniem wieczornych nawałnic.
 
-Złoty Skaner (Lucky Smart 2.0 PRO) monitoruje trasę burzy co sekundę. 
-W razie załamania infrastruktury, trzymaj telefon w pogotowiu. 🚨☔⚡`;
+STREFA ZDERZENIA (Śląsk, Małopolska, Świętokrzyskie, Mazowsze): 🚨⛈️
+* Efekt "Training Storms" (Burze wielokomórkowe przemieszczające się jedna za drugą 
+  nad tym samym obszarem). Trwa nieustanne zasilanie frontu z południa Europy.
 
-// Podmieniamy treść w istniejącym oknie alertu
-const okienko = document.getElementById('skycast-welcome-alert');
-if (okienko) {
-    okienko.innerHTML = `
-        <h2 style="color:#ef4444; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
-            🚨 KRAKÓW: KRYTYCZNA AKTUALIZACJA (17:45) ⚡🐉
-        </h2>
-        <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
-            ${tresc}
-        </p>
-        
+STREFA ZAFRONTOWA (Zachód Polski): 🍃🌥️
+* Koniec zjawisk. Pełna stabilizacja, zachmurzenie umiarkowane i chłodne 19-22°C.
+
+===============================================================================
+3. KOMUNIKAT BEZPIECZEŃSTWA SKYCAST PRO 🐉💜
+===============================================================================
+
+Kraków i Małopolska! To jeszcze nie koniec! Nawet jeśli u Ciebie na chwilę 
+przestało grzmieć lub wyszło słońce, z południa pcha się kolejna ściana deszczu. 
+Zostańcie w bezpiecznych miejscach. Drogi mogą za chwilę znów zamienić się w potoki!`;
+
+okienko.innerHTML = `
+    <h2 style="color:#ef4444; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        KRAKÓW: DRUGA FALA Z POŁUDNIA (16:40) 🏙️🐉⚡
+    </h2>
+    <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
+        ${tresc}
+    </p>
     <button id="zamknijAlert" style="
         padding:15px; background:linear-gradient(90deg, #ef4444, #facc15);
         color:#0f172a; border:none; border-radius:12px; font-weight:900;
         width:100%; cursor:pointer; font-size:1.1rem;
     ">🥃 Potwierdzam 🌴 🐉 Czekamy na drugą falę ☕🎧☔</button>
-`; 
-
+`;
     
     
     
