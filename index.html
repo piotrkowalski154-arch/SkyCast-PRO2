@@ -300,10 +300,7 @@ body.night-mode .h-box div {
 ⚠️ METEO: Polska przecięta frontem! Wschód i południe nawałnice i upał, zachód stabilizacja.
 📍 KRAKÓW: ALERT 2. STOPNIA! (13:00-23:00). Gwałtowne burze, grad i ulewy do 45mm. 28°C. ⛔`;
             
-            
-            
-
-window.onload = function() {
+    window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
     moduly.forEach(fn => {
         try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
@@ -311,102 +308,138 @@ window.onload = function() {
 };
 
 function pokazAlertPowitalny() {
-    if (document.getElementById('skycast-welcome-alert')) return;
+    let okienko = document.getElementById('skycast-welcome-alert');
 
-    const okienko = document.createElement("div");
-    okienko.id = 'skycast-welcome-alert';
+    if (!okienko) {
+        if (!document.getElementById('skycast-style')) {
+            const style = document.createElement('style');
+            style.id = 'skycast-style';
+            style.innerHTML = `
+                @keyframes pulse_sunny {
+                    0%   { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
+                    33%  { border-color: #FF6B6B; box-shadow: 0 0 35px #FF6B6B; }
+                    66%  { border-color: #4ECDC4; box-shadow: 0 0 35px #4ECDC4; }
+                    100% { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
 
-    const style = document.createElement('style');
-    style.innerHTML = `
-    @keyframes pulse_sunny {
-        0%   { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
-        33%  { border-color: #FF6B6B; box-shadow: 0 0 35px #FF6B6B; }
-        66%  { border-color: #4ECDC4; box-shadow: 0 0 35px #4ECDC4; }
-        100% { border-color: #FFD700; box-shadow: 0 0 25px #FFD700; }
+        okienko = document.createElement('div');
+        okienko.id = 'skycast-welcome-alert';
+        okienko.style.cssText = `
+            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
+            background: linear-gradient(135deg, #075985 0%, #0284c7 100%);
+            backdrop-filter: blur(15px);
+            border: 4px solid #facc15; border-radius: 25px;
+            padding: 25px; z-index: 9999; color: white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            animation: pulse_sunny 3s infinite ease-in-out;
+        `;
+        document.body.appendChild(okienko);
     }
-`;
-    document.head.appendChild(style);
 
-    okienko.style.cssText = `
-        position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-        background: linear-gradient(135deg, #075985 0%, #0284c7 100%);
-        backdrop-filter: blur(15px);
-        border: 4px solid #facc15; border-radius: 25px;
-        padding: 25px; z-index: 9999; color: white;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-        overflow-y: auto;
-        animation: pulse_sunny 3s infinite ease-in-out;
+    // =========================================================
+    // TREŚĆ AKTUALIZACJI – edytuj tylko tę sekcję
+    // =========================================================
+    const GODZINA  = '18:30';
+    const TYTUL    = 'UWAGA – BURZA MOŻE BYĆ NIEBEZPIECZNA';
+    const PRZYCISK = '✅ Rozumiem zagrożenie, zostaję bezpieczny 🏠';
+
+    const tresc = `📡 AKTUALIZACJA POGODOWA – KRAKÓW I OKOLICE
+📅 9 czerwca 2026 r.  |  🕠 Godz. ${GODZINA}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ CO MOŻE ZROBIĆ TA BURZA?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💧 PODTOPIENIA I POWODZIE BŁYSKAWICZNE
+   Ziemia jest już nasączona wodą po poprzednich godzinach ulewy.
+   Każdy nowy opad natychmiast spływa na ulice. Piwnice,
+   garaże podziemne i przejścia mogą zalać się w ciągu minut.
+
+🌪️ SILNE PORYWY WIATRU
+   Czoło komórki burzowej może przynieść szkwały do 80–100 km/h.
+   Mogą łamać gałęzie, przewracać drzewa i odrywać elementy
+   dachów, reklam, rusztowań.
+
+⚡ PIORUNY – ŚMIERTELNE ZAGROŻENIE
+   Aktywność elektryczna jest bardzo wysoka. Piorun uderza
+   bez ostrzeżenia. Jedno trafienie może zabić lub trwale
+   uszkodzić zdrowie.
+
+🚗 KATASTROFY DROGOWE
+   Zalane jezdnie, aquaplaning, zerowa widoczność podczas
+   nawalnego deszczu. Nawet 10 cm wody na drodze może
+   zepchnąć samochód z trasy.
+
+🏚️ USZKODZENIA MIENIA
+   Grad towarzyszący burzom może wybić szyby, zniszczyć
+   karoserię auta i uszkodzić dachy w ciągu sekund.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚨 CZEGO ABSOLUTNIE NIE ROBIĆ?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Nie wchodź do zalanej piwnicy – prąd elektryczny
+   i szybko rosnąca woda to śmiertelna pułapka.
+❌ Nie wjeżdżaj w zalane ulice – nawet SUV-em.
+   Woda głębsza niż 30 cm może unieść auto.
+❌ Nie chowaj się pod drzewem podczas burzy –
+   to jeden z najczęstszych powodów śmierci od pioruna.
+❌ Nie rozmawiaj przez telefon na zewnątrz –
+   metal i wilgoć przyciągają wyładowania.
+❌ Nie wychylaj się przez okno "pooglądać burzę" –
+   odłamki i grad latają z dużą prędkością.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ CO ROBIĆ TERAZ?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏠 Zostań w środku, z dala od okien i zewnętrznych ścian.
+🕯️ Miej pod ręką latarkę – mogą wystąpić przerwy w prądzie.
+📱 Naładuj telefon teraz, zanim ewentualnie zniknie prąd.
+🚪 Zamknij okna i drzwi balkonowe.
+🐾 Zabierz zwierzęta do środka.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ KIEDY MINIE ZAGROŻENIE?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔮 Stopniowe uspokojenie przewidujemy po godz. 20:30–21:00.
+   Do tego czasu traktuj każdy spokojny moment jako przerwę,
+   nie koniec burzy. Nowe komórki wciąż nadciągają z południa.
+
+📱 Obserwuj radar. 🚨`;
+
+    okienko.innerHTML = `
+        <h2 style="
+            color: #facc15; margin: 0 0 15px 0; font-size: 1.3rem;
+            text-align: center; font-family: Orbitron, sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; line-height: 1.4;
+        ">
+            ⚠️ KRAKÓW: ${GODZINA} – ${TYTUL} ⛈️
+        </h2>
+        <p style="
+            white-space: pre-line; font-size: 0.9rem; line-height: 1.7;
+            margin-bottom: 20px; color: #e2e8f0;
+            font-family: Rajdhani, sans-serif;
+        ">${tresc}</p>
+        <button id="zamknijAlert" style="
+            padding: 15px;
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+            color: #052e16; border: none; border-radius: 12px;
+            font-weight: 900; width: 100%; cursor: pointer;
+            font-size: 1.1rem; letter-spacing: 0.03em;
+        ">${PRZYCISK}</button>
     `;
- const tresc = `PROGNOZA POGODY I STAN BIEŻĄCY: KRAKÓW I POLSKA – WTOREK, 9 CZERWCA 2026 r.
-Aktualizacja z godziny: 16:40
-Status bieżący: DRUGA FALA W NATARCIU. Pierwsze rdzenie uderzyły w północ regionu, potężna formacja nadciąga z południa!
 
-===============================================================================
-1. KRAKÓW I MAŁOPOLSKA (STAN NA 16:40 - NA ŻYWO) 🏙️🐉⚡
-===============================================================================
-
-[TERAŹNIEJSZOŚĆ: GODZINA 16:40 - ANALIZA RADAROWA]
-* Sytuacja: Pierwszy ekstremalnie silny rdzeń (fioletowy) przetoczył się tuż nad Krakowem 
-  i uderza teraz w pełną mocą w powiaty północne i wschodnie (Wolbrom, Proszowice). 
-* KRAKÓW: Radary pokazują chwilowe uspokojenie elektryczne nad samym miastem, 
-  ale to tylko cisza przed drugą burzą.
-* UWAGA - DRUGA FALA: Złoty Skaner wykrywa potężny, nowy układ z piorunami napierający 
-  od strony południowo-zachodniej (Żywiec, granica ze Słowacją). Korytarz południowy 
-  wciąż pompuje nowe komórki prosto na stolicę Małopolski!
-
-[RYZYKO W NAJBLIŻSZYCH GODZINACH]
-* Ziemia po pierwszej fali nie przyjmuje już wody. Gdy uderzy formacja z południa,
-  ryzyko błyskawicznych podtopień (urban flooding) drastycznie wzrośnie. 
-* Utrzymany zostaje żółty alert hydrologiczny dla Prądnika i Alert II stopnia IMGW.
-* Wiatr: Możliwe uderzenia szkwałowe na czele nowych, nadciągających komórek.
-
-===============================================================================
-2. STAN BIEŻĄCY: CO OBECNIE DZIEJE SIĘ W POLSCE? 🇵🇱
-===============================================================================
-
-Złoty Skaner na godzinę 16:40:
-
-STREFA PRZEDFRONTOWA (Ściana Wschodnia): ☀️🥵
-* Upał osiąga apogeum. Powietrze gotuje się przed uderzeniem wieczornych nawałnic.
-
-STREFA ZDERZENIA (Śląsk, Małopolska, Świętokrzyskie, Mazowsze): 🚨⛈️
-* Efekt "Training Storms" (Burze wielokomórkowe przemieszczające się jedna za drugą 
-  nad tym samym obszarem). Trwa nieustanne zasilanie frontu z południa Europy.
-
-STREFA ZAFRONTOWA (Zachód Polski): 🍃🌥️
-* Koniec zjawisk. Pełna stabilizacja, zachmurzenie umiarkowane i chłodne 19-22°C.
-
-===============================================================================
-3. KOMUNIKAT BEZPIECZEŃSTWA SKYCAST PRO 🐉💜
-===============================================================================
-
-Kraków i Małopolska! To jeszcze nie koniec! Nawet jeśli u Ciebie na chwilę 
-przestało grzmieć lub wyszło słońce, z południa pcha się kolejna ściana deszczu. 
-Zostańcie w bezpiecznych miejscach. Drogi mogą za chwilę znów zamienić się w potoki!`;
-
-okienko.innerHTML = `
-    <h2 style="color:#ef4444; margin:0 0 15px 0; font-size:1.4rem; text-align:center; font-family:Orbitron, sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        KRAKÓW: DRUGA FALA Z POŁUDNIA (16:40) 🏙️🐉⚡
-    </h2>
-    <p style="white-space:pre-line; font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#e2e8f0; font-family:Rajdhani, sans-serif;">
-        ${tresc}
-    </p>
-    <button id="zamknijAlert" style="
-        padding:15px; background:linear-gradient(90deg, #ef4444, #facc15);
-        color:#0f172a; border:none; border-radius:12px; font-weight:900;
-        width:100%; cursor:pointer; font-size:1.1rem;
-    ">🥃 Potwierdzam 🌴 🐉 Czekamy na drugą falę ☕🎧☔</button>
-`;
-    
-    
-    
-    
-
-    document.body.appendChild(okienko);
-    document.getElementById('zamknijAlert').onclick = () => okienko.remove();
-    
-    
-}        
+    document.getElementById('zamknijAlert')
+        .addEventListener('click', () => okienko.remove());
+}            
+            
 
 
 
