@@ -312,10 +312,20 @@ body.night-mode .h-box div {
         //q11 ==========================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = `SKYCAST: STATUS OPERACYJNY - 10.06.2026 ⚡
-⚠️ METEO: Front nad Polską! Południe – ulewy (do 35mm), Wschód/Północ – niszczycielskie burze (grad 4cm, wiatr 90km/h).
-📍 KRAKÓW: Stabilizacja, aktywny monitoring spływu wód górskich. ⛔`;
-            
+         const alertIMGW = `‼️ OSTRZEŻENIE METEOROLOGICZNE IMGW-PIB ‼️
+
+Zjawisko: BURZE
+Stopień zagrożenia: 1
+Ważność: od godz. 22:00 dnia 10.06.2026 do godz. 06:00 dnia 11.06.2026
+Obszar: woj. małopolskie, podkarpackie, świętokrzyskie, lubelskie, południowa część mazowieckiego
+
+Przebieg: W nocy prognozowane są burze przemieszczające się z południa na północny wschód. Miejscami wystąpią intensywne opady deszczu do 30–40 mm, lokalnie więcej, porywy wiatru do 70–80 km/h oraz drobny grad.
+
+Skutki: Możliwe lokalne podtopienia, utrudnienia komunikacyjne, zalania posesji, ryzyko łamania gałęzi.
+
+Prawdopodobieństwo: 80%
+
+⚠️ Śledź kolejne komunikaty na bieżąco.`;
     window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
     moduly.forEach(fn => {
