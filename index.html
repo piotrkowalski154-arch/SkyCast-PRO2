@@ -333,10 +333,11 @@ Prawdopodobieństwo: 80%
     });
 };
 
- function pokazAlertPowitalny() {
+  function pokazAlertPowitalny() {
     let okienko = document.getElementById('skycast-welcome-alert');
 
     if (!okienko) {
+        // Dodanie stylów CSS dla neonowego efektu
         if (!document.getElementById('skycast-style')) {
             const style = document.createElement('style');
             style.id = 'skycast-style';
@@ -356,6 +357,7 @@ Prawdopodobieństwo: 80%
             document.head.appendChild(style);
         }
 
+        // Tworzenie kontenera alertu
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
@@ -371,63 +373,45 @@ Prawdopodobieństwo: 80%
         document.body.appendChild(okienko);
     }
 
-    const GODZINA  = '23:47';
-    const TYTUL    = 'OFICJALNY RAPORT POGODOWY NA ŚRODĘ';
-    const PRZYCISK = '✅ Rozumiem – przygotowuję się na ulewy ☂️';
-   const tresc = `📡 SKYCAST PRO: STATUS OPERACYJNY
-📅 Czwartek, 11 czerwca 2026 r.
+    // Główne zmienne z danymi (zaktualizowane na 11.06)
+    const GODZINA  = '00:15';
+    const TYTUL    = 'RAPORT POGODOWY: NIŻ GENUEŃSKI UDERZA';
+    const PRZYCISK = '✅ Zrozumiałem – tarcze ochronne aktywne 🛡️';
+
+    // Zaktualizowany raport wprowadzony przez operatora
+    const tresc = `🚨 UWAGA: NIŻ GENUEŃSKI NAD POLSKĄ | SILNE ULEWY I BURZE 🚨
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 KRAKÓW I MAŁOPOLSKA – POWOLNA STABILIZACJA
+📍 KRAKÓW I MAŁOPOLSKA (STAN BIEŻĄCY)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Front ulewny stopniowo się odsuwa, ale czwartek wciąż 
-utrzyma nas w chłodnym, jesiennym klimacie.
-
-🌡️ TEMPERATURA: Rano zaledwie 11°C. W ciągu dnia 
-   maksymalnie 17-18°C. W nocy spadek do 10°C.
-🌧️ OPADY: Rano (do 11:00) ciągły deszcz i mgły. 
-   Po południu opady zaczną zanikać (35% szans), 
-   a wieczorem i w nocy niebo całkowicie się oczyści!
+🌧️ Opady: Ciągły, uciążliwy deszcz orograficzny. 
+🌡️ Temperatura: Chłodno, odczuwalnie tylko 12-14°C.
+🌊 Hydrologia: Poziom rzek gwałtownie rośnie. Obowiązuje 1. stopień zagrożenia dla dopływów Wisły (Dunajec, Poprad, Raba)!
+🌬️ Wiatr: Umiarkowany, potęgujący odczucie zimna.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🗺️ MAPA POGODOWA POLSKI
+🗺️ SYTUACJA W KRAJU – PODZIAŁ FRONTOWY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⛈️ POŁUDNIE I CENTRUM (Uderzenie Niżu):
+Wkroczenie wielkoskalowych, ciągłych opadów od południa. Główne uderzenie idzie przez Śląsk, Małopolskę i Świętokrzyskie aż po Mazowsze i Mazury. 
+💧 Spodziewane sumy opadów to 15-40 mm, a w górach lokalnie do 30-40 mm!
 
-🌧️ WSCHÓD (Podlasie, Lubelszczyzna, Podkarpacie):
-   Najbardziej dynamiczna strefa frontu. Silne opady 
-   deszczu z lokalnymi burzami. Temp: 18-22°C.
-   
-💧 CENTRUM I POŁUDNIE (Mazowsze, Świętokrzyskie, Łódzkie):
-   Zimno (14-17°C) i bardzo ponuro. Wielogodzinne ulewy,
-   lokalnie spadnie kolejne 20-30 mm wody.
-   
-🌤️ ZACHÓD I PÓŁNOC (Lubuskie, Wielkopolska, Pomorze):
-   Najlepsza pogoda w kraju! Dużo słońca od południa, 
-   komfortowe 19-21°C i brak opadów.
+⚡ WSCHÓD (Podkarpacie, Lubelszczyzna, Podlasie):
+Ekstremalna dynamika! 🧨 Zderzenie frontów generuje warunki do gwałtownych superkomórek burzowych (Energa CAPE do 2000 j/kg).
+🌪️ Możliwe zjawiska: 
+• Porywy wiatru do 80-100 km/h 💨
+• Duży grad o średnicy do 4-6 cm 🧊
+• Ulewne deszcze (do 40 mm) i niewielkie ryzyko trąb powietrznych! 🌪️
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚨 OFICJALNE ALERTY IMGW-PIB (KOLOR ŻÓŁTY)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🌊 ALERTY HYDROLOGICZNE (1. i 2. STOPIEŃ):
-   Zlewnie dopływów Wisły, Sanu, Wieprza i Bugu. Spływ 
-   wód po ulewach generuje wzrosty poziomów rzek. W 
-   Krakowie monitorujemy rzeki miejskie (Prądnik, Wilga).
-
-⚡ INTENSYWNE OPADY Z BURZAMI (Wschód kraju):
-   Ostrzeżenie do godzin południowych. Opady do 40 mm,
-   wiatr w burzach do 60 km/h.
+🌤️ ZACHÓD I PÓŁNOC (Pomorze, Zachodniopomorskie):
+Zdecydowanie spokojniej i bezpieczniej. Przejaśnienia, słabszy wiatr (50 km/h) i tylko lokalne, przelotne opady do 15 mm.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💙 WIADOMOŚĆ OD OPERATORA
+⚠️ KOMUNIKAT OD OPERATORA SKYCAST PRO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Niże genueńskie są wyjątkowo trudne do przewidzenia, dlatego radary i skanery SkyCast pracują w trybie ciągłym. Unikaj parkowania w obniżeniach terenu i monitoruj alerty! 💻☕`;
 
-Fronty atmosferyczne mijają, ale system czuwa bez przerw. 
-Bezpieczeństwo na pierwszym miejscu. Pamiętaj, po burzy 
-zawsze wychodzi słońce – a na zachodzie widać już czyste 
-niebo. Jestem tu dla Ciebie 24/7. 🕰️✨☕`;
-
+    // Wstawienie treści i przycisku (z neonowym tytułem)
     okienko.innerHTML = `
         <h2 style="
             color: #38bdf8; margin: 0 0 15px 0; font-size: 1.3rem;
@@ -435,7 +419,7 @@ niebo. Jestem tu dla Ciebie 24/7. 🕰️✨☕`;
             display: flex; align-items: center; justify-content: center;
             gap: 8px; line-height: 1.4; text-shadow: 1px 1px 2px black;
         ">
-            🗺️ POLSKA: ${TYTUL} ⛈️
+            🗺️ POLSKA: ${TYTUL} ⛈️<br><small style="font-size:0.8rem; color:#facc15;">Aktualizacja: 11.06.2026, ${GODZINA}</small>
         </h2>
         <p style="
             white-space: pre-line; font-size: 0.9rem; line-height: 1.7;
@@ -451,12 +435,12 @@ niebo. Jestem tu dla Ciebie 24/7. 🕰️✨☕`;
         ">${PRZYCISK}</button>
     `;
 
-    document.getElementById('zamknijAlert')
-        .addEventListener('click', () => okienko.remove());
- }
+    // Mechanizm zamykania alertu
+    document.getElementById('zamknijAlert').addEventListener('click', () => {
+        okienko.remove();
+    });
+        }
             
-    
-
             
 
         // ==========================================
