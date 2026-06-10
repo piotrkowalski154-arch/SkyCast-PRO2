@@ -162,7 +162,8 @@ body.night-mode .h-box div {
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
         .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
-     @keyframes pulse-glass-frame {
+        
+    @keyframes pulse-glass-frame {
         /* Zatrzymujemy Twój oryginalny cień i dodajemy nową, rozchodzącą się falę */
 @keyframes pulse-glass-frame {
     0%   { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0.7); }
@@ -175,15 +176,13 @@ body.night-mode .h-box div {
     .pulsujaca-ramka-muzyczna {
         animation: pulse-glass-frame 2.5s infinite;
     }
-    
-    </style>
-    
-    
 
+
+    </style>
 </head>
 <body>
     <div class="app-container">
-<div class="pulsujaca-ramka-muzyczna" style="
+    <div class="pulsujaca-ramka-muzyczna" style="
         margin: 20px auto 10px auto; 
         max-width: 90%; 
         background: rgba(255, 255, 255, 0.3); 
@@ -197,12 +196,20 @@ body.night-mode .h-box div {
             <span style="font-size: 20px; margin-right: 8px;">🔥🎧</span>
             <h3 style="margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 900;">SELEKCJA PIOTRKA: TOP #1 SET</h3>
         </div>
+        
+        
+
+
+    
+    
+
 
     <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
         <iframe 
             width="100%" 
             height="120" 
             src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=0&feed=%2FDefectedrecords%2Fdefected-radio-show-mak%C3%A8z-takeover-050626%2F"
+
             frameborder="0" 
             allow="autoplay">
         </iframe>
@@ -309,7 +316,7 @@ body.night-mode .h-box div {
         <script>
         // ==========================================
         // ⚙️ GŁÓWNE ZMIENNE SYSEMOWE
-        //q11 ==========================================
+        // ======================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
          const alertIMGW = `‼️ OSTRZEŻENIE METEOROLOGICZNE IMGW-PIB ‼️
@@ -326,18 +333,22 @@ Skutki: Możliwe lokalne podtopienia, utrudnienia komunikacyjne, zalania posesji
 Prawdopodobieństwo: 80%
 
 ⚠️ Śledź kolejne komunikaty na bieżąco.`;
+         
+         
+
+            
+            
     window.onload = function() {
     const moduly = [pokazAlertPowitalny, uruchomProtokolGPS, pobierzWiadomosci, uruchomZlotySkaner];
     moduly.forEach(fn => {
         try { fn(); } catch(e) { console.error(`Błąd w module ${fn.name}:`, e); }
     });
 };
-
-  function pokazAlertPowitalny() {
+function pokazAlertPowitalny() {
     let okienko = document.getElementById('skycast-welcome-alert');
 
+    // Tworzenie okienka i stylów, jeśli jeszcze nie istnieją w systemie
     if (!okienko) {
-        // Dodanie stylów CSS dla neonowego efektu
         if (!document.getElementById('skycast-style')) {
             const style = document.createElement('style');
             style.id = 'skycast-style';
@@ -357,7 +368,6 @@ Prawdopodobieństwo: 80%
             document.head.appendChild(style);
         }
 
-        // Tworzenie kontenera alertu
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
@@ -373,12 +383,13 @@ Prawdopodobieństwo: 80%
         document.body.appendChild(okienko);
     }
 
-    // Główne zmienne z danymi (zaktualizowane na 11.06)
+    // ---------------------------------------------------------------
+    // TWOJE DANE OPERACYJNE
+    // ---------------------------------------------------------------
     const GODZINA  = '00:15';
     const TYTUL    = 'RAPORT POGODOWY: NIŻ GENUEŃSKI UDERZA';
     const PRZYCISK = '✅ Zrozumiałem – tarcze ochronne aktywne 🛡️';
 
-    // Zaktualizowany raport wprowadzony przez operatora
     const tresc = `🚨 UWAGA: NIŻ GENUEŃSKI NAD POLSKĄ | SILNE ULEWY I BURZE 🚨
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -411,7 +422,7 @@ Zdecydowanie spokojniej i bezpieczniej. Przejaśnienia, słabszy wiatr (50 km/h)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Niże genueńskie są wyjątkowo trudne do przewidzenia, dlatego radary i skanery SkyCast pracują w trybie ciągłym. Unikaj parkowania w obniżeniach terenu i monitoruj alerty! 💻☕`;
 
-    // Wstawienie treści i przycisku (z neonowym tytułem)
+    // Wstawienie treści i przycisku
     okienko.innerHTML = `
         <h2 style="
             color: #38bdf8; margin: 0 0 15px 0; font-size: 1.3rem;
@@ -439,9 +450,13 @@ Niże genueńskie są wyjątkowo trudne do przewidzenia, dlatego radary i skaner
     document.getElementById('zamknijAlert').addEventListener('click', () => {
         okienko.remove();
     });
-        }
-            
-            
+}
+
+
+
+
+
+
 
         // ==========================================
         // 📻 RADIO
@@ -471,20 +486,18 @@ Niże genueńskie są wyjątkowo trudne do przewidzenia, dlatego radary i skaner
             audio.play().catch(e => console.log("Zablokowano autostart audio."));
         }
 
-        // ==========================================
-// ========================================================
-// 📰 RSS WIADOMOŚCI (Szybkie ładowanie równoległe)
+  // 📰 RSS WIADOMOŚCI (Szybkie ładowanie równoległe)
 // ========================================================
 function pobierzWiadomosci() {
     const kontener = document.getElementById('radar-wiadomosci');
     if (!kontener) return;
 
     // Żelazne źródła danych zsynchronizowane z układem nerwowym aplikacji
-    const rssInteria = 'https://wiadomosci.gazeta.pl/pub/rss/wiadomosci.xml';
-    const rssPolsat = 'https://sport.tvp.pl/rss.xml'; 
+    const rssInteria = 'https://www.rmf24.pl/fakty/feed'; 
+    const rssPolsat = 'https://sport.tvp.pl/rss'; 
 
     // Nowoczesny, zbalansowany nagłówek sekcji
-    let html = `<h3 style="color: var(--main-title, #1c1c1e  ); text-align: center; margin-bottom: 20px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.1)); padding-bottom: 20px; line-height: 1.5; letter-spacing: 1px;">
+    let html = `<h3 style="color: var(--main-title, #1c1c1e); text-align: center; margin-bottom: 20px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.1)); padding-bottom: 20px; line-height: 1.5; letter-spacing: 1px;">
         POLSKA ŚWIAT 🇵🇱🌍🌏<br>& SPORT 🏆⚽
     </h3>`;
 
@@ -499,12 +512,12 @@ function pobierzWiadomosci() {
             for (let i = 0; i < limit; i++) {
                 html += `
                 <div style="background: rgba(15, 23, 42, 0.88); border-left: 6px solid #3b82f6; border-radius: 12px; padding: 15px; margin-bottom: 12px; backdrop-filter: blur(8px); border-top: 1px solid rgba(69,130,246,0.15);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <div style="font-size: 0.7rem; color: #3b82f6; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;">WIADOMOŚCI 🇵🇱🌍🌏</div>
-            <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; opacity: 0.9;">● LIVE</div>
-        </div>
-        <a href="${daneInteria.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block; transition: color 0.2s;">${daneInteria.items[i].title}</a>
-    </div>`;
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="font-size: 0.7rem; color: #3b82f6; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;">WIADOMOŚCI 🇵🇱🌍🌏</div>
+                        <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; opacity: 0.9;">● LIVE</div>
+                    </div>
+                    <a href="${daneInteria.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block; transition: color 0.2s;">${daneInteria.items[i].title}</a>
+                </div>`;
             }
         }
         
@@ -513,23 +526,25 @@ function pobierzWiadomosci() {
             const limit = Math.min(danePolsat.items.length, 4);
             for (let i = 0; i < limit; i++) {
                 html += `
-                <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.75)); border-left: 6px solid #00f0ff; border-top: 1px solid rgba(0, 240, 255, 0.2); border-right: 1px solid rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.05); border-radius: 12px; padding: 16px; margin-bottom: 12px; backdrop-filter: blur(12px); box-shadow: 0 4px 24px rgba(0, 240, 255, 0.03);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <div style="font-size: 0.7rem; color: #00ff88; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;">SPORT 🏆⚽</div>
-                        <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; opacity: 0.9;">● LIVE</div>
-                    </div>
-                    <a href="${danePolsat.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">
-                        ${danePolsat.items[i].title}
-                    </a>
-                </div>`;
+<div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.75)); border-left: 6px solid #facc15; border-top: 1px solid rgba(250, 204, 21, 0.2); border-right: 1px solid rgba(250, 204, 21, 0.05); border-bottom: 1px solid rgba(250, 204, 21, 0.05); border-radius: 12px; padding: 16px; margin-bottom: 12px; backdrop-filter: blur(12px); box-shadow: 0 4px 24px rgba(250, 204, 21, 0.08);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div style="font-size: 0.75rem; color: #facc15; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);">
+            MUNDIAL 2026 🏆🌍
+        </div>
+        <div style="font-size: 0.7rem; color: #ff3b3b; font-weight: 900; text-shadow: 0 0 5px rgba(255, 59, 59, 0.5);">● MUNDIAL LIVE</div>
+    </div>
+    <a href="${danePolsat.items[i].link}" target="_blank" style="color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; line-height: 1.4; display: block;">
+        ${danePolsat.items[i].title}
+    </a>
+</div>`;
+
             }
         }
         kontener.innerHTML = html;
     })
     .catch(e => console.log("Błąd wczytywania RSS.", e));
 }
-
-        // ==========================================
+          // ==========================================
         // 🛠️ FUNKCJE POMOCNICZE POGODY
         // ==========================================
         function uruchomProtokolGPS() {
@@ -575,7 +590,7 @@ function tlumaczPogodeGodzinowa(iconCode, description, timestamp) {
 
     let icon = "☁️";
     if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
-    // ZMIANA TUTAJ: Zamiast ☁️🌙 użyliśmy ☁️, żeby nie rozbijać flexboxa w małym kółku
+// ZMIANA TUTAJ: Zamiast ☁️🌙 użyliśmy ☁️, żeby nie rozbijać flexboxa w małym kółku
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
@@ -649,7 +664,7 @@ function tlumaczPogodePrognoza(iconCode, description, timestamp) {
                     aqiData = await aqiRes.json();
                 } catch(e) { console.log("Moduł AQI offline"); }
 
-                renderUI(currentData, forecastData, aqiData, currentData.name);
+renderUI(currentData, forecastData, aqiData, currentData.name);
                 if (btn) btn.innerText = "SKANUJ";
             } catch (error) {
                 if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
@@ -733,13 +748,6 @@ if (widget) widget.style.display = 'block';
 const obecnaGodzina = new Date().getHours();
 const toRano = obecnaGodzina >= 5 && obecnaGodzina < 11;
 const toDzien = obecnaGodzina >= 11 && obecnaGodzina < 21;
-
-// Domyślne zmienne wiedzą, czy jest noc
-let mysl = "Pogoda jest dzisiaj wyjątkowo stabilna. Idealne warunki na odpoczynek i regenerację sił. ☁️☕";
-let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
-let textColor = isNight ? "#e2e8f0" : "#000000"; 
-let titleColor = isNight ? "#38bdf8" : "#000000";
-
 // Domyślne zmienne wiedzą, czy jest noc
 let mysl = "Pogoda na zewnątrz schodzi dziś na dalszy plan. Cały świat patrzy teraz w jednym kierunku – piłka w grze! 🌍⚽";
 let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
@@ -803,7 +811,7 @@ if (weatherObj.id >= 200 && weatherObj.id <= 232) {
     mysl = polskieMysli[Math.floor(Math.random() * polskieMysli.length)];
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
 }
-            
+
             
 
 // 🛠️ Dynamiczne wstrzykiwanie ostatecznych stylów do widżetu
@@ -861,10 +869,8 @@ if (hL) {
             </div>`;
         }
     }
-}
-
-
-            // 📅 NAPRAWIONA LOGIKA PROGNOZY 5 DNI
+            }
+                   // 📅 NAPRAWIONA LOGIKA PROGNOZY 5 DNI
             const dailyCard = document.getElementById('dailyCard');
             if (dailyCard) dailyCard.style.display = 'block';
             const dL = document.getElementById('dList');
@@ -913,7 +919,7 @@ if (hL) {
                         </div>`;
                 });
                 dL.innerHTML = htmlWydruk;
-            }
+}
         }
 
         function zainstalujAplikacje() {
@@ -923,8 +929,5 @@ if (hL) {
         setInterval(uruchomZlotySkaner, 2 * 60 * 60 * 1000);
     </script>
 </body>
-</html>
-
-
-
-
+</html>     
+            
