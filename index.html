@@ -388,36 +388,30 @@ function pokazAlertPowitalny() {
     // ---------------------------------------------------------------
     // TWOJE DANE OPERACYJNE
     // ---------------------------------------------------------------
-    const GODZINA  = '23:15';
+    const GODZINA  = '12:06';
     const TYTUL    = 'SYTUACJA STABILIZUJE SIĘ | FRONT ODPUSZCZA';
 const PRZYCISK = '✅ Zrozumiałem – wracamy do trybu czuwania 🌤️';
-const tresc = `🌤️ RAPORT POGODOWY: SYTUACJA STABILIZUJE SIĘ | FRONT ODPUSZCZA 🌤️
+const tresc = `🚨 ALERT POGODOWY: NAGŁA ZMIANA SYTUACJI | FRONT BURZOWY 🚨
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 KRAKÓW I MAŁOPOLSKA (STAN BIEŻĄCY)
+📍 KRAKÓW I MAŁOPOLSKA (STAN BIEŻĄCY - HOTFIX)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌥️ Pogoda: Zachmurzenie umiarkowane, dużo przejaśnień i rozpogodzeń!
-🌡️ Temperatura: Przyjemnie, maksymalnie do 19°C.
-🌧️ Opady: Ryzyko spada do 20-25%. Możliwy jedynie słaby, przelotny deszcz.
-🌊 Hydrologia: Brak alertów meteo najwyższego stopnia, ale monitorujemy rzeki ze względu na spływ wód po wczorajszych ulewach.
-🌬️ Wiatr: Słaby, zachodni (6-8 km/h).
+🌩️ Pogoda: Gwałtowne pogorszenie aury. Szybko rosnące zachmurzenie z rozbudowującymi się komórkami konwekcyjnymi.
+🌡️ Temperatura: Nagłe spadki temperatury w strefach opadów.
+🌧️ Opady / Burze: Radary SkyCast PRO wyłapały aktywne komórki burzowe na północ i wschód od Krakowa (rejon Proszowic/Skalbmierza). Ryzyko ulewnego deszczu i wyładowań atmosferycznych drastycznie wzrosło!
+🌬️ Wiatr: Spodziewane silne porywy wiatru w momencie uderzenia komórki.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🗺️ SYTUACJA W KRAJU – MAPA OSTRZEŻEŃ
+🗺️ SYTUACJA W KRAJU – DYNAMIKA ZJAWISK
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ ZACHÓD I PÓŁNOCNY WSCHÓD (Żółte Alerty):
-Lokalnie mogą tworzyć się przelotne burze. 
-💧 Spodziewane opady: 10-15 mm.
-💨 Wiatr w porywach: do 65-70 km/h (możliwy drobny grad).
-
-🌤️ CENTRUM I POŁUDNIE:
-Polska znajduje się w zasięgu chłodniejszej masy powietrza polarnego morskiego. Nawałnice odpuściły i przesunęły się na wschód poza granice kraju. Temperatury w dzień od 18°C do 21°C. Noce chłodne (7-11°C).
+⚠️ POŁUDNIE I ZACHÓD (Alerty Aktualizowane):
+Sytuacja jest wysoce dynamiczna. Mimo ogólnej poprawy aury, lokalne warunki sprzyjają tworzeniu się nagłych, izolowanych burz. Systemy ostrzegania pracują w trybie ciągłym. 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💻 KOMUNIKAT OD OPERATORA SKYCAST PRO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Najgorsze za nami! Niż genueński odpuścił, wracamy do spokojniejszej aury. Skanery SkyCast nadal monitorują sytuację hydrologiczną na południu. Wykorzystajcie ten dzień na regenerację i łapanie słońca w przejaśnieniach! ☕☀️`;
-
+Złamaliśmy wczorajsze modele! Ręczny nasłuch radarowy wyłapał nadciągające komórki opadowe nad Małopolską. Nadpisujemy statyczne algorytmy twardymi danymi z frontu. SkyCast PRO przechodzi w tryb ostrzegawczy. Miejcie radar pod ręką i uważajcie na siebie! ⛈️👀`;
+    
     // Wstawienie treści i przycisku
     okienko.innerHTML = `
         <h2 style="
