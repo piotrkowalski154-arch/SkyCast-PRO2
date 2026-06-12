@@ -311,37 +311,34 @@
         // ======================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        // 🛡️ REFAKTORYZACJA: Dane w formie obiektu (Data-Driven Design)
-const alertData = {
-    status: {
-        meteo: "🟢 STATUS METEO: PEŁNA STABILIZACJA | OSTRZEŻENIA HYDROLOGICZNE",
-        alertLevel: "ZIELONA MAPA"
-    },
-    hydrologia: {
-        południe: "Trwa spływ wód opadowych po ulewach. Ostrzeżenia dla zlewni: Skawa, Raba, Dunajec, Wisła, Soła.",
-        resztaKraju: "Susza hydrologiczna (45 alertów)."
-    },
-    prognozaKrakow: {
-        data: "Sobota 13.06",
-        temp: "20°C - 21°C",
-        warunki: "Dużo przejaśnień, chłodniejsza cyrkulacja",
-        opady: "40% (wieczorem)",
-        wiatr: "40-55 km/h (potęguje chłód)"
-    },
-    komunikatOperatora: "Burze za nami. Na południu uważajcie na szlaki przy potokach. W Krakowie bierz kurtkę!"
-};
+       const alertIMGW = `🟢 STATUS METEO: PEŁNA STABILIZACJA | OSTRZEŻENIA HYDROLOGICZNE 🟢
 
-// 🖥️ Funkcja wyświetlająca (logika separacji prezentacji)
-function wyswietlRaport(data) {
-    console.log(`${data.status.meteo}\n`);
-    console.log(`📍 PROGNOZA: ${data.prognozaKrakow.data}`);
-    console.log(`🌡️ Temp: ${data.prognozaKrakow.temp}`);
-    console.log(`🌬️ Wiatr: ${data.prognozaKrakow.wiatr}`);
-    console.log(`\n💻 OPERATOR: ${data.komunikatOperatora}`);
-}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌤️ SYTUACJA METEOROLOGICZNA (POLSKA I KRAKÓW)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Status: BRAK ALERTÓW METEO (ZIELONA MAPA)
+Front burzowy ostatecznie opuścił nasze terytorium. Na sobotę (13.06) IMGW nie wydało żadnych ostrzeżeń przed ekstremalnymi zjawiskami dla Krakowa ani reszty kraju. 
 
-// Odpalenie systemu
-wyswietlRaport(alertData);
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌊 SYTUACJA HYDROLOGICZNA (SPŁYW WÓD)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ Uwaga Południe: Trwa spływ wód opadowych po wczorajszych ulewach. Obowiązują ostrzeżenia hydrologiczne m.in. dla zlewni Skawy, Raby, Dunajca, Małej Wisły i Soły. Woda w rzekach może osiągać stany wysokie.
+🏜️ Reszta kraju: Susza hydrologiczna (aż 45 alertów w centrum, na wschodzie i zachodzie).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📍 LOKALNA PROGNOZA DLA KRAKOWA (SOBOTA 13.06)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌡️ Temperatura: Od 20°C do 21°C.
+🌤️ Warunki: Dużo przejaśnień, odczuwalnie chłodniejsza cyrkulacja zachodnia. 
+🌧️ Opady: Szansa na słaby, przelotny deszcz zaledwie ok. 40% (głównie wieczorem).
+🌬️ Wiatr: Dość silny, w porywach 40-55 km/h (będzie mocno potęgował odczucie chłodu).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Burze za nami, ale górskie rzeki na południu wciąż zbierają wodę. Uważajcie na szlakach w pobliżu rwących potoków! Sobota w Krakowie będzie rześka i wietrzna, więc na strefę kibica lub grilla warto zabrać kurtkę. Radary cały czas pracują w trybie nasłuchu, ale możecie odetchnąć z ulgą. Gramy dalej! 🦅⚽`;
+
+
          
          
 
