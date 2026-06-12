@@ -380,37 +380,41 @@ function pokazAlertPowitalny() {
     // ---------------------------------------------------------------
     // TWOJE DANE OPERACYJNE
     // ---------------------------------------------------------------
-    const GODZINA  = '15:46';
-    const TYTUL    = 'SYTUACJA STABILIZUJE SIĘ | FRONT ODPUSZCZA';
-const PRZYCISK = '✅ Zrozumiałem – wracamy do trybu czuwania 🌤️';
-const tresc = `⛈️ RAPORT METEO: DYNAMIKA BURZOWA | KRAKÓW (12.06) ⛈️
+    const GODZINA  = '18:49';
+    const TYTUL = '🦅 RAPORT SKYCAST PRO | WEEKENDOWE OCHŁODZENIE';
+    const PRZYCISK = '🌤️ Niech pada tylko grad goli! – Otwórz aplikację ⚽🔥';
+    const tresc = `⛅ RAPORT METEO SKYCAST PRO | KRAKÓW I POLSKA (13.06) ⛅
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 KRAKÓW I MAŁOPOLSKA (STAN BIEŻĄCY)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌥️ Pogoda: Sytuacja zmienna. Zachmurzenie umiarkowane, przechodzące w duże.
-🌡️ Temperatura: Odczuwalna ok. 22°C (na termometrach max. 20°C).
-🌧️ Opady / Burze: Wysokie ryzyko przelotnych opadów deszczu o charakterze konwekcyjnym. Lokalnie możliwe wyładowania atmosferyczne.
-🌬️ Wiatr: Silny i porywisty (do 15 m/s – ok. 54 km/h), szczególnie w strefach burzowych.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📍 KRAKÓW I MAŁOPOLSKA (SOBOTA 13.06)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌥️ Pogoda: Zachmurzenie umiarkowane, przejściowo rosnące do dużego.
+🌡️ Temperatura: W dzień max. 20°C. Noc dość rześka – spadek do ok. 13°C.
+🌧️ Opady: Szansa na opady ok. 35%. Możliwy przelotny deszcz głównie rano (06:00–08:00) oraz w godzinach wieczornych.
+🌬️ Wiatr: Umiarkowany, zachodni (do 20 km/h).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🗺️ SYTUACJA W KRAJU – RADAR KONWEKCYJNY
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ ALERT BURZOWY:
-Polska znajduje się w zasięgu płytkiej zatoki niżowej. Od rana rozwijały się liczne komórki opadowe. Największa aktywność burzowa występuje w pasie od Pomorza aż po Podkarpacie. 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🗺️ SYTUACJA W KRAJU – WEEKENDOWE OCHŁODZENIE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cała Polska pod wpływem chłodniejszego, wilgotnego frontu:
+🌊 Północ i Wybrzeże: Chłodno (15-16°C), przelotne deszcze i silniejszy wiatr.
+🏙️ Centrum: Ok. 20°C, umiarkowane zachmurzenie z lokalnymi przejaśnieniami.
+🏔️ Południowy Wschód: Najcieplej (21-22°C), ale z największym ryzykiem wyładowań.
 
-⚡ Główne zagrożenia:
-- Intensywne, punktowe opady deszczu.
-- Lokalnie grad (do 1 cm).
-- Silne, nagłe porywy wiatru.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ OFICJALNE ALERTY IMGW-PIB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Pojawiły się ostrzeżenia dla południowej i południowo-wschodniej Polski!
+⚡ Wyładowania: Możliwe lokalne burze z opadami rzędu 20–25 mm.
+💨 Wiatr burzowy: Porywy mogą osiągać 75-80 km/h.
+🌊 Hydrologia: Uwaga na gwałtowne wzrosty stanów wód w mniejszych zlewniach górskich (szczególnie na południu).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💻 KOMUNIKAT OPERATORA SKYCAST PRO
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Systemy SkyCast PRO w trybie nasłuchu. Ręczny monitoring radarowy potwierdza nadciągające komórki burzowe. W Małopolsce należy spodziewać się szybkich zmian aury. Nie lekceważcie nawet słabych burz – trzymajcie radar pod ręką! 🦾🌩️`;
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cały czas mam radary na oku, a mój system SkyCast PRO pracuje dla Was bez przerwy. Czeka nas chłodniejszy i wilgotny początek weekendu. Jeśli planujecie wyprawy w góry (Tatry/Beskidy) lub aktywność w plenerze na południu – trzymajcie mój skaner pod ręką i nie dajcie się zaskoczyć burzom! Czuwam na stanowisku, żeby zawsze być dla Was o krok przed pogodą. 🦅⛈️`;
     
-    
-    // Wstawienie treści i przycisku
+        // Wstawienie treści i przycisku
     okienko.innerHTML = `
         <h2 style="
             color: #38bdf8; margin: 0 0 15px 0; font-size: 1.3rem;
