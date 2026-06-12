@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     
     <style>
-             /* -------------------------------------------------------------------------- */
+           /* -------------------------------------------------------------------------- */
         /* SKYCAST PRO - SYSTEM DESIGN: "STONOWANY KARNAWAŁ" 🎭🌅 (Wersja Ostra)    */
         /* -------------------------------------------------------------------------- */
 
@@ -68,129 +68,106 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.9) !important; /* Głębszy cień pod złoto */
             border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Delikatna linia pod nagłówkiem */
         }
-        
-body.night-mode {
-    --bg: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 30%, #4f46e5 60%, #1e1b4b 85%, #0f172a 100%);
-    --glass: rgba(15, 23, 42, 0.65); 
-    --glass-border: rgba(56, 189, 248, 0.25); 
-    --text: #e2e8f0; 
-    --main-title: #ffffff; 
-    --blue: #38bdf8; 
-    --purple: #a78bfa; 
-    --card-text: #f8fafc;
-}
-
-/* NAPRAWA: Wszystkie karty w trybie nocnym (w tym Skan Godzinowy i 5 Dni) */
-body.night-mode .card {
-    background: rgba(15, 23, 42, 0.6) !important; /* Głębia granatu */
-    border: 1px solid rgba(255, 255, 255, 0.05) !important; /* Subtelna ramka */
-}
-
-/* Specjalna poprawka dla kart godzinowych (h-box) w trybie nocnym */
-body.night-mode .h-box {
-    background: rgba(30, 41, 59, 0.5) !important; /* Ciemniejsze tło dla lepszego kontrastu */
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* Poprawa czytelności tekstu w kartach godzinowych nocą */
-body.night-mode .h-box div {
-    color: #f8fafc !important; /* Czysta biel dla czasu i temperatury */
-    text-shadow: none !important; /* Usuwamy zbędne cienie */
-}
-
-
-
-
-
-
-
 
 
 
 
 
         
-       
+        
+
+
+
+
+        /* 3. TRYB NOCNY (GŁĘBOKI GRANAT) */
+        body.night-mode {
+            --bg-primary: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 30%, #4f46e5 60%, #1e1b4b 85%, #0f172a 100%);
+            --glass: rgba(15, 23, 42, 0.65); 
+            --glass-border: rgba(56, 189, 248, 0.25); 
+            --text-main: #e2e8f0; 
+            --main-title: #ffffff; 
+            --blue: #38bdf8; 
+            /* Dodatkowe zmienne trybu nocnego */
+            --purple: #a78bfa; 
+            --card-text: #f8fafc;
+            background: var(--bg-primary); /* Wymuszenie tła nocnego */
         }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); background-attachment: fixed; min-height: 100vh; display: flex; justify-content: center; padding: 10px; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
+
+        /* -------------------------------------------------------------------------- */
+        /* UI COMPONENTS (LAYOUT I KARTY)                                             */
+        /* -------------------------------------------------------------------------- */
         
         .app-container { max-width: 400px; width: 100%; margin: 0 auto; padding: 15px; box-sizing: border-box; }
         .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; }
-        input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; outline: none; color: var(--text); }
-        .scan-btn { flex-shrink: 0; height: 55px; padding: 0 24px; border-radius: 20px; background: #00bfff; color: #333333; border: 2px solid #2563eb; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s ease; }
         
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
-        .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; outline: none; color: var(--text-main); }
+        .scan-btn { flex-shrink: 0; height: 55px; padding: 0 24px; border-radius: 20px; background: var(--blue); color: #ffffff; border: 2px solid rgba(255,255,255,0.2); font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s ease; }
         
-        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 15px; }
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); margin-top: 15px; }
+        
+        body.night-mode .card { background: rgba(15, 23, 42, 0.6) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important; }
+
+        /* HERO SEKCJA (Temperatura i Ikonka Główna) */
         .main-hero { text-align: center; transition: all 0.5s ease; }
         .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
         .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
         body.night-mode .temp { color: #ffffff; text-shadow: 0 0 10px rgba(255, 159, 67, 0.5); }
         .hero-icon { font-size: 5rem; }
-        
-        .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); margin-top: 15px; }
+        .badge { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); margin-top: 15px; }
 
+        /* SIATKA ATMOSFERYCZNA (Wiatr, Wilgotność itp.) */
         .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
-        .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
+        .atm-box { background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
         .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
         .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
-        .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-top: 3px; }
-        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
-        body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
+        .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--text-main); margin-top: 3px; }
+        body.night-mode .atm-label { color: #ffffff; }
 
+        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--main-title); margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+        body.night-mode .label { color: #ffffff; }
+
+        /* SKAN GODZINOWY (H-SCROLL) */
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px;}
-        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        body.night-mode .h-box { background: rgba(30, 41, 59, 0.5) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important; }
+        body.night-mode .h-box div { color: #f8fafc !important; text-shadow: none !important; }
         body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
-        
-        /* NAPRAWIONE STYLE DLA 5 DNI PROGNOZY */
-        .d-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 19px 20px; border-radius: 20px; margin-bottom: 10px; }
-                .d-day { 
-            font-size: 1.30rem; /* Zwiększone, czytelne i wyraźne */
-            font-weight: 800; 
-            width: 45%; /* Ogromna przestrzeń, żeby Poniedziałek się rozsiadł */
-            text-align: left; 
-            white-space: nowrap; /* Żelazna tarcza przed łamaniem wyrazu na dwie linie */
-            overflow: hidden; 
-            letter-spacing: -0.5px; /* Delikatne ściśnięcie liter ratuje mnóstwo miejsca */
-        }
-        .d-icon { 
-            font-size: 1.8rem; 
-            width: 15%; /* Usunięty błąd z 260%, teraz ikona ma idealnie miejsca */
-            text-align: center; 
-        }
-        .d-temp { 
-            font-size: 1.25rem; /* Powiększona temperatura */
-            font-weight: 900; 
-            width: 40%; 
-            text-align: right; 
-            color: var(--blue); 
-        }
 
+        /* SKAN 5 DNI */
+        .d-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); padding: 19px 20px; border-radius: 20px; margin-bottom: 10px; }
+        .d-day { font-size: 1.30rem; font-weight: 800; width: 45%; text-align: left; white-space: nowrap; overflow: hidden; letter-spacing: -0.5px; }
+        .d-icon { font-size: 1.8rem; width: 15%; text-align: center; }
+        .d-temp { font-size: 1.25rem; font-weight: 900; width: 40%; text-align: right; color: var(--blue); }
+        
         body.night-mode .d-row { background: rgba(0,0,0,0.3); }
         body.night-mode .d-temp { color: #38bdf8; }
 
+        /* MODUŁY DODATKOWE (Manifest, Wiadomości, Alerty) */
         .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
-        .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
+        .wiadomosci { background: rgba(255, 255, 255, 0.1); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
         body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
+
+        /* WYOSTRZANIE ALERTU POGODOWEGO */
+        .alert-card p, .alert-card span { color: #000000; font-weight: 500; line-height: 1.6; letter-spacing: 0.3px; text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .alert-card h3 { font-weight: 900; letter-spacing: 0.5px; text-shadow: 3px 1px 2px rgba(255, 255, 255, 0.8); }
+
+        /* -------------------------------------------------------------------------- */
+        /* ANIMACJE (Klucze i Przypisania)                                            */
+        /* -------------------------------------------------------------------------- */
         
-    @keyframes pulse-glass-frame {
-        /* Zatrzymujemy Twój oryginalny cień i dodajemy nową, rozchodzącą się falę */
-@keyframes pulse-glass-frame {
-    0%   { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0.7); }
-    70%  { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 20px rgba(255, 0, 128, 0); }
-    100% { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0); }
-}
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @keyframes pulse-glass-frame {
+            0%   { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0.7); }
+            70%  { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 20px rgba(255, 0, 128, 0); }
+            100% { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 0 0 0 rgba(255, 0, 128, 0); }
+        }
 
-    
-
-    .pulsujaca-ramka-muzyczna {
-        animation: pulse-glass-frame 2.5s infinite;
-    }
+        .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
+        .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
+        .pulsujaca-ramka-muzyczna { animation: pulse-glass-frame 2.5s infinite; }           
 
 
     </style>
