@@ -9,51 +9,61 @@
     
     <style>
         :root {
-    --bg: linear-gradient(135deg, #ff0844 0%, #ffb199 35%, #ffd200 70%, #00ffff 100%);
-    --text-color: #ffffff;
-    --text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7); /* Ostra brzytwa dla jasnego tła */
+            /* Tło: Głębszy, przygaszony fiolet -> Ciepły, stonowany zachód słońca */
+            --bg-primary: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 45%, #E65100 80%, #FFB300 100%);
+            
+            /* Szkło: CIEMNE! To ono naprawia czytelność białego tekstu w body */
+            --glass: rgba(0, 0, 0, 0.35); 
+            --glass-border: rgba(255, 255, 255, 0.15); 
+            
+            --text-main: #FFFFFF; 
+            --main-title: #FFFFFF; 
+            
+            /* Akcenty */
+            --puchar-gold: #FFB300; 
+            --tropikalny-orange: #E65100;
+            --blue: #FFB300; 
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+                /* -------------------------------------------------------------------------- */
+        /* 🔥 HOTFIX V2: PEŁNE WYOSTRZENIE KART I SKANU GODZINOWEGO                 */
+        /* -------------------------------------------------------------------------- */
+        
+        body { 
+            background: var(--bg-primary); 
+            background-attachment: fixed; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            padding: 10px; 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            transition: background 1s ease; 
+        }
 
+        /* Twardy reset dla tekstów w kartach ORAZ w Skanie Godzinowym (.h-box div) ORAZ w 5 dni (.d-day, .d-temp) */
+        .card p, 
+        .card span, 
+        .alert-card p, 
+        .wiadomosci p,
+        .h-box div, 
+        .d-day,
+        .d-temp {
+            color: #FFFFFF !important; /* Bezwzględna czysta biel */
+            font-weight: 600 !important; /* Lekkie pogrubienie dla czytelności */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9) !important; /* Twardy, czarny cień odcinający litery */
+            letter-spacing: 0.5px; 
+        }
 
-body {
-    background: var(--bg);
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
-    padding: 15px; /* Oddech od krawędzi ekranu */
-}
-
-/* Poprawa tła samej karty z alertem, żeby dawała lepszy kontrast */
-.alert-card {
-    background: rgba(255, 255, 255, 0.45); /* Zwiększamy ilość "bieli" w szkle */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-/* 🔥 Wyostrzanie samego tekstu alertu */
-.alert-card p, 
-.alert-card span {
-    color: #000000; /* Czysta, głęboka czerń */
-    font-weight: 500; /* Lekkie pogrubienie - litery nie będą "znikać" */
-    line-height: 1.6; /* Więcej światła między wierszami - poprawia czytelność bloku tekstu */
-    letter-spacing: 0.3px; /* Minimalne rozsunięcie liter - zapobiega ich zlewaniu się */
-    
-    /* KLUCZ DO OSTROŚCI: biały, delikatny cień pod tekstem */
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7); 
-    
-    /* Wymuszanie ostrego renderowania czcionek w przeglądarkach mobilnych */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-/* Wyostrzenie samego nagłówka "ALERT POGODOWY" */
-.alert-card h3 {
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    text-shadow: 3px 1px 2px rgba(255, 255, 255, 0.8);
-}
+        /* Przywracamy pucharowe złoto dla nagłówków sekcji! */
+        .label, 
+        .card h3, 
+        .alert-card h3 {
+            color: var(--puchar-gold) !important; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9) !important; /* Głębszy cień pod złoto */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Delikatna linia pod nagłówkiem */
+        }        
 body.night-mode {
     --bg: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 30%, #4f46e5 60%, #1e1b4b 85%, #0f172a 100%);
     --glass: rgba(15, 23, 42, 0.65); 
