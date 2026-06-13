@@ -747,63 +747,59 @@ const obecnaGodzina = new Date().getHours();
 const toRano = obecnaGodzina >= 5 && obecnaGodzina < 11;
 const toDzien = obecnaGodzina >= 11 && obecnaGodzina < 21;
 // Domyślne zmienne wiedzą, czy jest noc
-let mysl = "Pogoda na zewnątrz schodzi dziś na dalszy plan. Cały świat patrzy teraz w jednym kierunku – piłka w grze! 🌍⚽";
+let mysl = "Pogoda na zewnątrz schodzi dziś na dalszy plan. Cały świat patrzy teraz w jednym kierunku – odpalamy aplikację, bo piłka w grze! 🌍⚽";
 let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
 let textColor = isNight ? "#e2e8f0" : "#000000"; 
 let titleColor = isNight ? "#38bdf8" : "#000000";
 
-// HIERARCHIA POCHODZENIA WARUNKÓW
+// HIERARCHIA POCHODZENIA WARUNKÓW - UNIWERSALNY PRZEKAZ DLA LUDZI
 if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-    mysl = "⚡🌩️ Nawet jeśli za oknem burza, prawdziwe emocje przenoszą się dzisiaj na stadiony całego świata. Bezpiecznego kibicowania! 🏟️";
+    mysl = "⚡🌩️ Burza za oknem, ale prawdziwe wyładowania i tak będą dzisiaj na stadionach. Bezpiecznego kibicowania i wielkich emocji! 🏟️";
     cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-    mysl = "🌧️ Deszczowa pogoda to tylko świetna wymówka, żeby bez wyrzutów sumienia zaszyć się w domu i śledzić mundialowe zmagania. 📺⚽";
+    mysl = "🌧️ Leje deszcz? Idealnie! Przynajmniej masz świetną wymówkę, żeby zaszyć się w domu i śledzić mundial bez wyrzutów sumienia! 📺⚽";
     cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (weatherObj.id === 800 && isNight) {
-    mysl = "🌙 Po emocjach na murawie czas na wyciszenie. Piękna, bezchmurna noc to idealny moment na odpoczynek po dobrym meczu. 🏆";
+    mysl = "🌙 Czyste niebo, czysty umysł. Po emocjach na murawie czas wyłączyć ekrany i dobrze odpocząć. Turniej dopiero się rozkręca! 🏆";
     cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
     textColor = "#ffffff"; titleColor = "#38bdf8";
 } else if (weatherObj.id === 800 && !isNight) {
-    mysl = "☀️ Słońce za oknem, a na stadionach rośnie napięcie. Załatw swoje sprawy w ciągu dnia, żeby wieczorem skupić się na kibicowaniu! 👟";
+    mysl = "☀️ Słońce razi i pogoda zachęca do wyjścia! Załatw sprawy na mieście w ciągu dnia, żeby wieczorem w spokoju skupić się na kibicowaniu. 👟";
     cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
 } else if (currentData.main.temp > 34) {
-    mysl = "🔥 Na zewnątrz jest równie gorąco, co na mundialowych murawach! Pamiętaj o nawodnieniu i unikaj słońca przed wieczornymi meczami. 🥤⚽";
+    mysl = "🔥 Gorąco jak na równiku! Pamiętaj o wodzie, unikaj ostrego słońca i trzymaj nerwy na wodzy. Dzisiejsze mecze najlepiej oglądać w chłodnym cieniu! 🥤⚽";
     cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
-    mysl = "☀️ Gorąca, turniejowa atmosfera uderza z nieba. Odpoczywaj w cieniu i zbieraj siły na piłkarski wieczór! 🌍";
+    mysl = "☀️ Temperatura rośnie tak szybko jak napięcie przed meczami faworytów. Odpoczywaj w cieniu, zbieraj siły, bo wieczorem czeka nas piłkarskie święto! 🌍";
     cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
-} else if (currentData.main.temp > 25) {
-    mysl = "🌞 Świetna pogoda na szybki spacer czy trening przed telewizyjnym maratonem z Mistrzostwami Świata. Kto dzisiaj wygra? 🏆";
-    cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
-} else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
-    mysl = "🌤️ Komfortowa aura zachęca do działania. Zrób co trzeba, a potem wskakuj w koszulkę ulubionej drużyny – piłka w grze! ⚽";
+} else if (currentData.main.temp >= 20 && currentData.main.temp < 30) {
+    mysl = "🌤️ Idealna pogoda na wszystko. Zrób dzisiaj to, co do Ciebie należy, a potem wskakuj w barwy ulubionej drużyny – piłka w grze! ⚽";
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
 } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
-    // 💥 UNIWERSALNY PRZEKAZ DOBOWY
     if (toRano) {
-        mysl = "☕ Rześki poranek i dobra widoczność. Szybka kawa, plan na dzień i odliczamy godziny do pierwszego gwizdka! ⏱️";
+        mysl = "☕ Rześki poranek to idealny start. Szybka kawa, dobry plan na dzień i odliczamy godziny do pierwszego gwizdka sędziego! ⏱️";
     } else if (toDzien) {
-        mysl = "☀️ Optymalna temperatura na zewnątrz. Idealny dzień, by załatwić sprawy, zanim zacznie się mundialowa gorączka! 🏟️";
+        mysl = "☀️ Temperatura optymalna do działania. Ogarnij swoje sprawy, póki jest jasno, by wieczorem zająć najlepsze miejsce przed ekranem! 🏟️";
     } else {
-        mysl = "🌌 Chłodny wieczór po dniu pełnym wrażeń. Odpocznij i podsumuj dzisiejsze wyniki, turniej dopiero się rozkręca! 📊";
+        mysl = "🌌 Chłodniejszy wieczór, emocje po meczach powoli opadają. Dobrze odpocznij, jutro też gramy! 📊";
     }
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
     textColor = isNight ? "#e2e8f0" : "#000000";
     titleColor = isNight ? "#38bdf8" : "#000000";
 } else if (currentData.main.temp < 5) {
-    mysl = "🥶 Zaskakujący chłód jak na tę porę roku. Ciepły koc, gorąca herbata i dobre mecze na ekranie to najlepszy plan na dziś! 📺";
+    mysl = "🥶 Zaskakujący chłód! Gruby koc, gorąca herbata i dobre mecze na ekranie to jedyny słuszny ratunek na dzisiejszy wieczór. 📺";
     cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 } else {
-    // 💥 PROFESJONALNA LOSOWOŚĆ: Mundialowe myśli poranne
+    // 💥 PROFESJONALNA LOSOWOŚĆ DLA KAŻDEGO KIBICA
     let polskieMysli = [
-        "🌍 Niezależnie od tego, co pokazują termometry, atmosfera przez najbliższe tygodnie będzie wyjątkowa. Startujemy z Mundialem!",
-        "🏆 W chłodniejszy poranek najlepiej rozgrzewa myśl o nadchodzących sportowych emocjach. Pięknego dnia!",
-        "🎉 Złap oddech, zaplanuj dzień i przygotuj się na wieczór pełen mundialowych wrażeń. Niech wygrają najlepsi!",
-        "⚽ Pogoda sprzyja organizacji. Zrób dzisiaj swoje na 100%, a wieczorem ciesz się prawdziwym, piłkarskim świętem."
+        "🌍 Niezależnie od wskazań termometrów, atmosfera na trybunach będzie dziś gorąca! Mistrzostwa trwają w najlepsze.",
+        "🏆 W chłodny poranek najlepiej rozgrzewa myśl o pięknych golach i wieczornych emocjach na murawie!",
+        "🎉 Złap oddech i zrelaksuj się w ciągu dnia. Wieczorem wszyscy mówimy jednym językiem – językiem futbolu!",
+        "⚽ Pogoda sprzyja dobrej organizacji. Zrób dzisiaj swoje na 100%, a wieczorem oddaj się piłkarskiej rozrywce."
     ];
     
     mysl = polskieMysli[Math.floor(Math.random() * polskieMysli.length)];
