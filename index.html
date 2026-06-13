@@ -312,64 +312,50 @@
         // ======================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = 
-  
-  
-   ⚡ SYSTEM MONITORINGU METEOROLOGICZNEGO SKYCAST PRO | AKTUALIZACJA: 15:32 ⚡
-📊 STATUS GLOBALNY: DYNAMICZNA AKTUALIZACJA ZAGROŻEŃ [KOD: AM-11-2026]
-
-================================================================================
-🚨 [METEO] ALERTY I STOPNIA DLA 11 WOJEWÓDZTW (WAŻNE DO GODZ. 23:00)
-================================================================================
-🛑 STATUS KRAKÓW & MAŁOPOLSKA: SAFE 🟢 (BRAK AKTYWNYCH ALERTÓW METEO)
-🛑 STATUS POLSKA CENTRALNA / PÓŁNOCNA / ZACHODNIA: WARNING 🟡 (FRONT KONWEKCYJNY)
-
-[ANALIZA SYTUACJI]: Nastąpiła gwałtowna intensyfikacja procesów konwekcyjnych na froncie chłodnym. Komórki burzowe formują się w pasie przejściowym. IMGW-PIB objął oficjalnymi ostrzeżeniami meteorologicznymi 1. stopnia 11 województw.
-
-📍 STREFA ZAGROŻENIA (ALERTY METEO 🟡):
-• Województwa: dolnośląskie, lubuskie, wielkopolskie, łódzkie, kujawsko-pomorskie,
-  pomorskie, zachodniopomorskie, warmińsko-mazurskie, mazowieckie, podlaskie,
-  opolskie (część północna).
-
-📊 PARAMETRY TECHNICZNE ZJAWISK:
-• 🌧️ Intensywność opadów: 20 mm – 30 mm (lokalne kumulacje i podtopienia do 45 mm)
-• 🌬️ Porywy wiatru: 70 – 75 km/h (wiatr szkwałowy generowany przez prądy zstępujące)
-• ☄️ Grad: Miejscami opady drobnego gradu o średnicy do 1-2 cm
-
-================================================================================
-🌊 [HYDRO] REŻIM HYDROLOGICZNY (DWATOROWOŚĆ ZAGROŻEŃ)
-================================================================================
-⚠️ REJON POŁUDNIE (WEZBRANIA 🌊):
-Trwa gwałtowny spływ powierzchniowy wód opadowych po ulewach z nocy 12/13.06. 
-Alerty hydrologiczne obowiązują dla górskich i podgórskich zlewni: Skawy, Raby, 
-Dunajca, Małej Wisły oraz Soły. Możliwe przekroczenia stanów ostrzegawczych.
-
-🏜️ REJON CENTRUM / WSCHÓD / ZACHÓD (SUSZA 📉):
-Równolegle utrzymuje się permanentny deficyt wody. Aktywnych jest aż 45 alertów 
-przed suszą hydrologiczną (niskie przepływy w korytach rzecznych).
-
-================================================================================
-📍 [LOCAL] SZCZEGÓŁOWA PROGNOZA METEOROLOGICZNA DLA KRAKOWA
-================================================================================
-• 🌡️ Temperatura bieżąca: 21°C (stabilizacja termiczna)
-• 🌤️ Zachmurzenie: Umiarkowane (4-5/8 oktantów), z dominacją przejaśnień
-• 🌧️ Prawdopodobieństwo opadu: 35% (potencjalny słaby, przelotny deszcz po godz. 20:00)
-• 🌬️ Wektor wiatru: Zachodni (W), prędkość bazowa 20 km/h, porywy do 40-55 km/h
-
-================================================================================
-💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO [LOG-ID: 884-X]
-================================================================================
-[RAPORT OPERATORA]: Uwaga, system odnotował skokową zmianę aktywności burzowej! 
-Północna, środkowa i zachodnia Polska weszły w tryb bezpośredniego zagrożenia 
-krótkotrwałymi nawałnicami. Kraków pozostaje na ten moment bezpieczną enklawą – 
-dzisiejsza strefa kibica, mecze i eventy plenerowe w Małopolsce mogą odbywać się 
-bez ryzyka gradobicia, choć wiatr wymusi cieplejszy ubiór. 
-
-Jeśli kontrolujecie sytuację logistyczną lub macie bliskich w pasie od Wrocławia 
-i Poznania, przez Łódź i Warszawę, aż po Olsztyn i Białystok – zalecane jest 
-zabezpieczenie mienia i śledzenie radarów w trybie ciągłym. Granica frontu 
-jest niezwykle ostra. System monitorowania SkyCast pozostaje online 24/7. 
-Bez odbioru! 🦅⚽`;
+        const alertIMGW = {
+  metadata: {
+    system: "SKYCAST PRO",
+    operator: "SYSTEM OVERSEER",
+    lastUpdate: "2026-06-13T15:32:00+02:00",
+    status: "CRITICAL_UPDATE",
+    globalRiskLevel: "MODERATE"
+  },
+  payload: {
+    naglowek: "⚡ BEZPIECZEŃSTWO Z SKYCAST PRO | AKTUALNE OSTRZEŻENIA METEO: 15:32 ⚡",
+    statusGlobalny: "📊 STATUS KRAJOWY: SZYBKA ZMIANA POGODY – SPRAWDŹ SWÓJ REGION",
+    
+    alertyMeteo: {
+      statusMałopolska: "🟢 KRAKÓW I MAŁOPOLSKA: BEZPIECZNIE. Dzisiaj nie musisz martwić się burzami ani gradem.",
+      statusResztaKraju: "🟡 POLSKA CENTRALNA, PÓŁNOCNA I ZACHODNIA: ŻÓŁTY ALERT (Zagrożenie nagłymi burzami).",
+      analizaSytuacji: "Nad Polskę nadciągnął chłodny front pogodowy. Bardzo szybko tworzą się silne chmury burzowe. Oficjalne ostrzeżenia pierwszego stopnia wydano dla 11 województw.",
+      strefaZagrozenia: [
+        "dolnośląskie", "lubuskie", "wielkopolskie", "łódzkie", "kujawsko-pomorskie",
+        "pomorskie", "zachodniopomorskie", "warmińsko-mazurskie", "mazowieckie", "podlaskie",
+        "opolskie (część północna)"
+      ],
+      parametryTechniczne: {
+        opady: "Ulewny deszcz (miejscami może mocno popadać i utworzyć duże kałuże na drogach)",
+        porywyWiatru: "Silne, porywiste podmuchy do 75 km/h (mogą łamać gałęzie)",
+        grad: "Miejscami opady drobnego gradu (kulki lodowe do 1-2 cm)"
+      }
+    },
+    
+    rezymHydrologiczny: {
+      poludnieWezbrania: "⚠️ POŁUDNIE POLSKI: Po nocnych ulewach rzeki w górach i na podgórzu prowadzą bardzo dużo wody. Trzymajcie się bezpiecznej odległości od rwących potoków w rejonach Skawy, Raby, Dunajca, Małej Wisły i Soły.",
+      centrumWschodZachodSusza: "🏜️ RESZTA KRAJU: W centrum i na zachodzie wciąż brakuje deszczu. Obowiązuje tam 45 ostrzeżeń przed suszą w rzekach."
+    },
+    
+    prognozaLokalnaKrakow: {
+      temperatury: "21°C (przyjemna, stabilna temperatura)",
+      zachmurzenie: "Trochę chmur, dużo słońca i przejaśnień",
+      prawdopodobienstwoOpadu: "Niskie, około 35% (może słabo pokropić dopiero późnym wieczorem)",
+      wektorWiatru: "Wiatr z zachodu – dość silny i wietrzny (odczuwalnie będzie chłodniej, weź kurtkę)"
+    },
+    
+    komunikatOperatora: "[KOMUNIKAT SKYCAST]: Uwaga! Pogoda w Polsce mocno się podzieliła. Północne, środkowe i zachodnie regiony kraju są zagrożone nagłymi, krótkimi nawałnicami – jeśli tam mieszkacie lub macie bliskich (od Wrocławia, przez Łódź i Warszawę, aż po Mazury), warto zabezpieczyć rzeczy na balkonach i sprawdzać radary deszczu. Kraków i Małopolska są dzisiaj bezpieczną enklawą. Wszystkie mecze, strefy kibica i imprezy na świeżym powietrzu mogą odbywać się bez strachu przed burzą, ale wieczorem mocniej dmuchnie, więc ubierzcie się cieplej. Dbajcie o siebie, jesteśmy z Wami online przez całą dobę! 🦅⚽"
+  }
+};
+            
 
             
          
