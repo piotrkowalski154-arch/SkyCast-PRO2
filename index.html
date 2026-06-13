@@ -312,49 +312,26 @@
         // ======================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-        const alertIMGW = {
-  metadata: {
-    system: "SKYCAST PRO",
-    operator: "SYSTEM OVERSEER",
-    lastUpdate: "2026-06-13T15:32:00+02:00",
-    status: "CRITICAL_UPDATE",
-    globalRiskLevel: "MODERATE"
-  },
-  payload: {
-    naglowek: "⚡ BEZPIECZEŃSTWO Z SKYCAST PRO | AKTUALNE OSTRZEŻENIA METEO: 15:32 ⚡",
-    statusGlobalny: "📊 STATUS KRAJOWY: SZYBKA ZMIANA POGODY – SPRAWDŹ SWÓJ REGION",
-    
-    alertyMeteo: {
-      statusMałopolska: "🟢 KRAKÓW I MAŁOPOLSKA: BEZPIECZNIE. Dzisiaj nie musisz martwić się burzami ani gradem.",
-      statusResztaKraju: "🟡 POLSKA CENTRALNA, PÓŁNOCNA I ZACHODNIA: ŻÓŁTY ALERT (Zagrożenie nagłymi burzami).",
-      analizaSytuacji: "Nad Polskę nadciągnął chłodny front pogodowy. Bardzo szybko tworzą się silne chmury burzowe. Oficjalne ostrzeżenia pierwszego stopnia wydano dla 11 województw.",
-      strefaZagrozenia: [
-        "dolnośląskie", "lubuskie", "wielkopolskie", "łódzkie", "kujawsko-pomorskie",
-        "pomorskie", "zachodniopomorskie", "warmińsko-mazurskie", "mazowieckie", "podlaskie",
-        "opolskie (część północna)"
-      ],
-      parametryTechniczne: {
-        opady: "Ulewny deszcz (miejscami może mocno popadać i utworzyć duże kałuże na drogach)",
-        porywyWiatru: "Silne, porywiste podmuchy do 75 km/h (mogą łamać gałęzie)",
-        grad: "Miejscami opady drobnego gradu (kulki lodowe do 1-2 cm)"
-      }
-    },
-    
-    rezymHydrologiczny: {
-      poludnieWezbrania: "⚠️ POŁUDNIE POLSKI: Po nocnych ulewach rzeki w górach i na podgórzu prowadzą bardzo dużo wody. Trzymajcie się bezpiecznej odległości od rwących potoków w rejonach Skawy, Raby, Dunajca, Małej Wisły i Soły.",
-      centrumWschodZachodSusza: "🏜️ RESZTA KRAJU: W centrum i na zachodzie wciąż brakuje deszczu. Obowiązuje tam 45 ostrzeżeń przed suszą w rzekach."
-    },
-    
-    prognozaLokalnaKrakow: {
-      temperatury: "21°C (przyjemna, stabilna temperatura)",
-      zachmurzenie: "Trochę chmur, dużo słońca i przejaśnień",
-      prawdopodobienstwoOpadu: "Niskie, około 35% (może słabo pokropić dopiero późnym wieczorem)",
-      wektorWiatru: "Wiatr z zachodu – dość silny i wietrzny (odczuwalnie będzie chłodniej, weź kurtkę)"
-    },
-    
-    komunikatOperatora: "[KOMUNIKAT SKYCAST]: Uwaga! Pogoda w Polsce mocno się podzieliła. Północne, środkowe i zachodnie regiony kraju są zagrożone nagłymi, krótkimi nawałnicami – jeśli tam mieszkacie lub macie bliskich (od Wrocławia, przez Łódź i Warszawę, aż po Mazury), warto zabezpieczyć rzeczy na balkonach i sprawdzać radary deszczu. Kraków i Małopolska są dzisiaj bezpieczną enklawą. Wszystkie mecze, strefy kibica i imprezy na świeżym powietrzu mogą odbywać się bez strachu przed burzą, ale wieczorem mocniej dmuchnie, więc ubierzcie się cieplej. Dbajcie o siebie, jesteśmy z Wami online przez całą dobę! 🦅⚽"
-  }
-};
+        const alertIMGW = `🟢 STATUS METEO: PEŁNA STABILIZACJA | OSTRZEŻENIA HYDROLOGICZNE 🟢
+
+🌤️ SYTUACJA METEOROLOGICZNA (POLSKA I KRAKÓW)
+Status: BRAK ALERTÓW METEO (ZIELONA MAPA)
+Front burzowy ostatecznie opuścił nasze terytorium.
+Na sobotę (13.06) IMGW nie wydało żadnych ostrzeżeń przed ekstremalnymi zjawiskami dla Krakowa ani reszty kraju.
+
+🌊 SYTUACJA HYDROLOGICZNA (SPŁYW WÓD)
+⚠️ Uwaga Południe: Trwa spływ wód opadowych po wczorajszych ulewach. Obowiązują ostrzeżenia hydrologiczne m.in. dla zlewni Skawy, Raby, Dunajca, Małej Wisły i Soły. Woda w rzekach może osiągać stany wysokie.
+🏜️ Reszta kraju: Susza hydrologiczna (aż 45 alertów w centrum, na wschodzie i zachodzie).
+
+📍 LOKALNA PROGNOZA DLA KRAKOWA (SOBOTA 13.06)
+🌡️ Temperatura: Od 20°C do 21°C.
+🌤️ Warunki: Dużo przejaśnień, odczuwalnie chłodniejsza cyrkulacja zachodnia.
+🌧️ Opady: Szansa na słaby, przelotny deszcz zaledwie ok. 40% (głównie wieczorem).
+🌬️ Wiatr: Dość silny, w porywach 40-55 km/h (będzie mocno potęgował odczucie chłodu).
+
+💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO
+Burze za nami, ale górskie rzeki na południu wciąż zbierają wodę. Uważajcie na szlakach w pobliżu rwących potoków! Sobota w Krakowie będzie rześka i wietrzna, więc na strefę kibica lub grilla warto zabrać kurtkę. Radary cały czas pracują w trybie nasłuchu, ale możecie odetchnąć z ulgą. Gramy dalej! 🦅⚽`;
+            
             
 
             
