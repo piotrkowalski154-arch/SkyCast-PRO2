@@ -312,24 +312,71 @@
         // ======================================
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'];
-       const alertIMGW = `🟢 STATUS METEO: PEŁNA STABILIZACJA | OSTRZEŻENIA HYDROLOGICZNE 🟢
+        const alertIMGW = {
+  metadata: {
+    system: "SKYCAST PRO",
+    operator: "SYSTEM OVERSEER",
+    lastUpdate: "2026-06-13T15:32:00+02:00",
+    status: "CRITICAL_UPDATE",
+    globalRiskLevel: "MODERATE"
+  },
+  payload: `⚡ SYSTEM MONITORINGU METEOROLOGICZNEGO SKYCAST PRO | AKTUALIZACJA: 15:32 ⚡
+📊 STATUS GLOBALNY: DYNAMICZNA AKTUALIZACJA ZAGROŻEŃ [KOD: AM-11-2026]
 
-🌤️ SYTUACJA METEOROLOGICZNA (POLSKA I KRAKÓW)
-Status: BRAK ALERTÓW METEO (ZIELONA MAPA)
-Front burzowy ostatecznie opuścił nasze terytorium. Na sobotę (13.06) IMGW nie wydało żadnych ostrzeżeń przed ekstremalnymi zjawiskami dla Krakowa ani reszty kraju. 
+================================================================================
+🚨 [METEO] ALERTY I STOPNIA DLA 11 WOJEWÓDZTW (WAŻNE DO GODZ. 23:00)
+================================================================================
+🛑 STATUS KRAKÓW & MAŁOPOLSKA: SAFE 🟢 (BRAK AKTYWNYCH ALERTÓW METEO)
+🛑 STATUS POLSKA CENTRALNA / PÓŁNOCNA / ZACHODNIA: WARNING 🟡 (FRONT KONWEKCYJNY)
 
-🌊 SYTUACJA HYDROLOGICZNA (SPŁYW WÓD)
-⚠️ Uwaga Południe: Trwa spływ wód opadowych po wczorajszych ulewach. Obowiązują ostrzeżenia hydrologiczne m.in. dla zlewni Skawy, Raby, Dunajca, Małej Wisły i Soły. Woda w rzekach może osiągać stany wysokie.
-🏜️ Reszta kraju: Susza hydrologiczna (aż 45 alertów w centrum, na wschodzie i zachodzie).
+[ANALIZA SYTUACJI]: Nastąpiła gwałtowna intensyfikacja procesów konwekcyjnych na froncie chłodnym. Komórki burzowe formują się w pasie przejściowym. IMGW-PIB objął oficjalnymi ostrzeżeniami meteorologicznymi 1. stopnia 11 województw.
 
-📍 LOKALNA PROGNOZA DLA KRAKOWA (SOBOTA 13.06)
-🌡️ Temperatura: Od 20°C do 21°C.
-🌤️ Warunki: Dużo przejaśnień, odczuwalnie chłodniejsza cyrkulacja zachodnia. 
-🌧️ Opady: Szansa na słaby, przelotny deszcz zaledwie ok. 40% (głównie wieczorem).
-🌬️ Wiatr: Dość silny, w porywach 40-55 km/h (będzie mocno potęgował odczucie chłodu).
+📍 STREFA ZAGROŻENIA (ALERTY METEO 🟡):
+• Województwa: dolnośląskie, lubuskie, wielkopolskie, łódzkie, kujawsko-pomorskie,
+  pomorskie, zachodniopomorskie, warmińsko-mazurskie, mazowieckie, podlaskie,
+  opolskie (część północna).
 
-💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO
-Burze za nami, ale górskie rzeki na południu wciąż zbierają wodę. Uważajcie na szlakach w pobliżu rwących potoków! Sobota w Krakowie będzie rześka i wietrzna, więc na strefę kibica lub grilla warto zabrać kurtkę. Radary cały czas pracują w trybie nasłuchu, ale możecie odetchnąć z ulgą. Gramy dalej! 🦅⚽`;
+📊 PARAMETRY TECHNICZNE ZJAWISK:
+• 🌧️ Intensywność opadów: 20 mm – 30 mm (lokalne kumulacje i podtopienia do 45 mm)
+• 🌬️ Porywy wiatru: 70 – 75 km/h (wiatr szkwałowy generowany przez prądy zstępujące)
+• ☄️ Grad: Miejscami opady drobnego gradu o średnicy do 1-2 cm
+
+================================================================================
+🌊 [HYDRO] REŻIM HYDROLOGICZNY (DWATOROWOŚĆ ZAGROŻEŃ)
+================================================================================
+⚠️ REJON POŁUDNIE (WEZBRANIA 🌊):
+Trwa gwałtowny spływ powierzchniowy wód opadowych po ulewach z nocy 12/13.06. 
+Alerty hydrologiczne obowiązują dla górskich i podgórskich zlewni: Skawy, Raby, 
+Dunajca, Małej Wisły oraz Soły. Możliwe przekroczenia stanów ostrzegawczych.
+
+🏜️ REJON CENTRUM / WSCHÓD / ZACHÓD (SUSZA 📉):
+Równolegle utrzymuje się permanentny deficyt wody. Aktywnych jest aż 45 alertów 
+przed suszą hydrologiczną (niskie przepływy w korytach rzecznych).
+
+================================================================================
+📍 [LOCAL] SZCZEGÓŁOWA PROGNOZA METEOROLOGICZNA DLA KRAKOWA
+================================================================================
+• 🌡️ Temperatura bieżąca: 21°C (stabilizacja termiczna)
+• 🌤️ Zachmurzenie: Umiarkowane (4-5/8 oktantów), z dominacją przejaśnień
+• 🌧️ Prawdopodobieństwo opadu: 35% (potencjalny słaby, przelotny deszcz po godz. 20:00)
+• 🌬️ Wektor wiatru: Zachodni (W), prędkość bazowa 20 km/h, porywy do 40-55 km/h
+
+================================================================================
+💻 OSOBISTY KOMUNIKAT OPERATORA SKYCAST PRO [LOG-ID: 884-X]
+================================================================================
+[RAPORT OPERATORA]: Uwaga, system odnotował skokową zmianę aktywności burzowej! 
+Północna, środkowa i zachodnia Polska weszły w tryb bezpośredniego zagrożenia 
+krótkotrwałymi nawałnicami. Kraków pozostaje na ten moment bezpieczną enklawą – 
+dzisiejsza strefa kibica, mecze i eventy plenerowe w Małopolsce mogą odbywać się 
+bez ryzyka gradobicia, choć wiatr wymusi cieplejszy ubiór. 
+
+Jeśli kontrolujecie sytuację logistyczną lub macie bliskich w pasie od Wrocławia 
+i Poznania, przez Łódź i Warszawę, aż po Olsztyn i Białystok – zalecane jest 
+zabezpieczenie mienia i śledzenie radarów w trybie ciągłym. Granica frontu 
+jest niezwykle ostra. System monitorowania SkyCast pozostaje online 24/7. 
+Bez odbioru! 🦅⚽`
+};
+            
          
          
 
