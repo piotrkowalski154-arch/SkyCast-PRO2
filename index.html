@@ -373,7 +373,9 @@ function pokazAlertPowitalny() {
             document.head.appendChild(style);
         }
 
-       okienko.style.cssText = `
+      okienko = document.createElement('div');
+        okienko.id = 'skycast-welcome-alert';
+        okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
             background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
             backdrop-filter: blur(15px);
@@ -381,8 +383,9 @@ function pokazAlertPowitalny() {
             padding: 25px; z-index: 9999; color: white;
             box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
             overflow-y: auto;
-            animation: pulse_sun 3s infinite ease-in-out;
+            animation: pulse_rain 3s infinite ease-in-out;
         `;
+        document.body.appendChild(okienko);
     }
 
 const GODZINA = '23:50'; // Możesz zaktualizować na bieżącą godzinę publikacji
