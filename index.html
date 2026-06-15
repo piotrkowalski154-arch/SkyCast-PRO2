@@ -373,23 +373,20 @@ function pokazAlertPowitalny() {
             document.head.appendChild(style);
         }
 
-        okienko = document.createElement('div');
-        okienko.id = 'skycast-welcome-alert';
-        okienko.style.cssText = `
+       okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
             backdrop-filter: blur(15px);
-            border: 4px solid #38bdf8; border-radius: 25px;
+            border: 4px solid #ffffff; border-radius: 25px;
             padding: 25px; z-index: 9999; color: white;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
             overflow-y: auto;
-            animation: pulse_rain 3s infinite ease-in-out;
+            animation: pulse_sun 3s infinite ease-in-out;
         `;
-        document.body.appendChild(okienko);
     }
 
-const GODZINA = '07:00'; // Możesz zaktualizować na bieżącą godzinę publikacji
-const TYTUL = '☀️ DZIENNY RAPORT SKYCAST PRO | SŁONECZNY WTOREK 23.50';
+const GODZINA = '23:50'; // Możesz zaktualizować na bieżącą godzinę publikacji
+const TYTUL = '☀️ DZIENNY RAPORT SKYCAST PRO | SŁONECZNY WTOREK ☀️';
 const PRZYCISK = '⚽ Sprawdź statystyki meczowe i radary pogodowe! – Otwórz aplikację 📊';
 
 const tresc = `🌤️ DZIENNY RAPORT METEO SKYCAST PRO | WTOREK (16.06) 🌤️
