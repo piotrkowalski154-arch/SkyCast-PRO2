@@ -420,26 +420,27 @@ const tresc = `🌤️ DZIENNY RAPORT METEO SKYCAST PRO | WTOREK (16.06) 🌤️
 Dzisiejsza pogoda dzieli nasz kraj na dwie odmienne strefy – przypomina to taktyczny podział sił na boisku piłkarskim. Południowa Polska gra dzisiaj spokojnie i stabilnie w głębokiej obronie, gwarantując słońce. Północny wschód z kolei narażony jest na dynamiczne, frontowe kontrataki w postaci lokalnych burz. Niezależnie od strefy, życzymy spokojnego i udanego wtorku! 🦅`;
     
     // Wstawienie treści i przycisku do interfejsu
+    // Wstawienie treści i przycisku do interfejsu
     okienko.innerHTML = `
         <h2 style="
-            color: #ff9800; margin: 0 0 15px 0; font-size: 1.3rem;
+            color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem;
             text-align: center; font-family: Orbitron, sans-serif;
             display: flex; align-items: center; justify-content: center;
-            gap: 8px; line-height: 1.4; text-shadow: 1px 1px 2px black;
+            gap: 8px; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         ">
-            🗺️ POLSKA: ${TYTUL} 🌤️<br><small style="font-size:0.8rem; color:#facc15;">Aktualizacja: 16.06.2026, ${GODZINA}</small>
+            🗺️ POLSKA: ${TYTUL} 🌤️<br><small style="font-size:0.8rem; color:#ffffff;">Aktualizacja: 16.06.2026, ${GODZINA}</small>
         </h2>
         <p style="
-            white-space: pre-line; font-size: 0.9rem; line-height: 1.7;
-            margin-bottom: 25px; color: #e2e8f0;
+            white-space: pre-line; font-size: 0.95rem; line-height: 1.7;
+            margin-bottom: 25px; color: #0f172a; font-weight: 600;
             font-family: Rajdhani, sans-serif;
         ">${tresc}</p>
         <button id="zamknijAlert" class="migajacy-przycisk" style="
             padding: 15px;
-            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
-            color: #0f172a; border: none; border-radius: 12px;
+            background: #0f172a;
+            color: #38bdf8; border: none; border-radius: 12px;
             font-weight: 900; width: 100%; cursor: pointer;
-            font-size: 1.1rem; letter-spacing: 0.03em;
+            font-size: 1.1rem; letter-spacing: 0.03em; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         ">${PRZYCISK}</button>
     `;
 
