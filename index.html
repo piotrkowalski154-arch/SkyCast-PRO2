@@ -278,29 +278,31 @@
             pobierzWiadomosci(); 
             uruchomZlotySkaner(); 
         };
+function pokazAlertPowitalny() {
+    let okienko = document.getElementById('skycast-welcome-alert');
+    if (!okienko) {
+        okienko = document.createElement('div');
+        okienko.id = 'skycast-welcome-alert';
+        okienko.style.cssText = `
+            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
+            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+            backdrop-filter: blur(15px);
+            border: 4px solid #ffffff; border-radius: 25px;
+            padding: 25px; z-index: 9999; color: white;
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+            overflow-y: auto;
+            animation: pulse_rain 3s infinite ease-in-out;
+        `;
+        document.body.appendChild(okienko);
+    }
 
-        function pokazAlertPowitalny() {
-            let okienko = document.getElementById('skycast-welcome-alert');
-            if (!okienko) {
-                okienko = document.createElement('div');
-                okienko.id = 'skycast-welcome-alert';
-                okienko.style.cssText = `
-                    position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-                    background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-                    backdrop-filter: blur(15px);
-                    border: 4px solid #ffffff; border-radius: 25px;
-                    padding: 25px; z-index: 9999; color: white;
-                    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-                    overflow-y: auto;
-                    animation: pulse_rain 3s infinite ease-in-out;
-                `;
-                document.body.appendChild(okienko);
-            }
+    const TYTUL = 'RAPORT STRATEGICZNY'; 
+    const GODZINA = '08:00';
+    
+    // Połączona prognoza pogody z wyborem modułów
+    const tresc = `🌤️ WITAJ W MOIM CENTRUM DOWODZENIA SKYCAST PRO!
 
-            const GODZINA = '08:00';
-            const TYTUL = '🌤️ DZIENNY RAPORT SKYCAST PRO | ŚRODA 🌤️';
-
-            const tresc = `Dzisiaj, 17 czerwca 2026, wkraczamy w strefę poprawy pogody dzięki klinowi wysokiego ciśnienia. 🌤️
+Dzisiaj, 17 czerwca 2026, wkraczamy w strefę poprawy pogody dzięki klinowi wysokiego ciśnienia. 🌤️
 🌡️ Maksymalna temperatura sięgnie dziś 23°C (odczuwalnie 25°C).
 ☁️ Przez większość dnia utrzyma się zachmurzenie umiarkowane.
 🌀 Ciśnienie jest stabilne na poziomie 1018 hPa.
@@ -308,56 +310,61 @@
 💨 Wiatr słaby, zachodni (15 km/h).
 🔥 Trend: Nadciąga fala upałów, która uderzy pod koniec tygodnia.
 📢 Status operacyjny: Warunki idealne na trening!
-================================
-⚽ SKYCAST PRO FUTBOL – ANALIZA MUNDIALOWA
-Twój komplementarny system operacyjny dla świata futbolu. Podczas gdy SkyCast monitoruje niebo, SkyCast Pro Futbol analizuje murawę. Dostarczam tu precyzyjne dane meczowe, statystyki i analizy mundialowe. System jest w fazie aktywnej implementacji – korzystaj z danych i podejmuj świadome decyzje.`;
 
-            okienko.innerHTML = `
-                <h2 style="
-                    color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem;
-                    text-align: center; font-family: Orbitron, sans-serif;
-                    display: flex; align-items: center; justify-content: center;
-                    gap: 8px; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-                ">
-                    🗺️ POLSKA: ${TYTUL} <br>
-                    <small style="font-size:0.8rem; color:#ffffff;">Aktualizacja: 17.06.2026, ${GODZINA}</small>
-                </h2>
-                <p style="
-                    white-space: pre-line; font-size: 0.95rem; line-height: 1.7;
-                    margin-bottom: 25px; color: #0f172a; font-weight: 600;
-                    font-family: Rajdhani, sans-serif;
-                ">${tresc}</p>
-                <div style="display: flex; gap: 10px;">
-                    <button id="btnMeteo" style="
-                        padding: 15px;
-                        background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-                        color: #fff; border: none; border-radius: 12px;
-                        font-weight: 900; width: 50%; cursor: pointer;
-                        font-size: 1rem; letter-spacing: 0.03em;
-                        box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-                        text-transform: uppercase;
-                    ">❌ ZAMKNIJ</button>
-                    <button id="btnMundial" class="migajacy-przycisk" style="
-                        padding: 15px;
-                        background: linear-gradient(90deg, #ffcc00, #d4ac0d);
-                        color: #000; border: none; border-radius: 12px;
-                        font-weight: 900; width: 50%; cursor: pointer;
-                        font-size: 1rem; letter-spacing: 0.03em;
-                        box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
-                        text-transform: uppercase;
-                    ">⚽ WEJDŹ DO CENTRUM MUNDIALU 📊</button>
-                </div>
-            `;
+=================================
+Mój system jest w pełni zoptymalizowany. Wybierz moduł do pracy:
 
-            document.getElementById('btnMeteo').addEventListener('click', () => {
-                okienko.remove();
-            });
+📡 Moduł Pogodowy: Ciągle skanuję radary, śledzę fronty i dostarczam alerty.
+⚽ Moduł Mundialowy: Pełny terminarz spotkań i ankieta! Typuj, kto jest faworytem turnieju!`;
 
-            document.getElementById('btnMundial').addEventListener('click', () => {
-                okienko.remove();
-                window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-            });
-        }
+    okienko.innerHTML = `
+        <h2 style="
+            color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem;
+            text-align: center; font-family: Orbitron, sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        ">
+            🗺️ POLSKA: ${TYTUL} <br>
+            <small style="font-size:0.8rem; color:#ffffff;">Aktualizacja: 17.06.2026, ${GODZINA}</small>
+        </h2>
+        <p style="
+            white-space: pre-line; font-size: 0.95rem; line-height: 1.7;
+            margin-bottom: 25px; color: #0f172a; font-weight: 600;
+            font-family: Rajdhani, sans-serif;
+        ">${tresc}</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button id="btnMeteo" style="
+                padding: 15px; flex: 1; min-width: 140px;
+                background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+                color: #fff; border: none; border-radius: 12px;
+                font-weight: 900; cursor: pointer;
+                font-size: 0.85rem; letter-spacing: 0.03em;
+                box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+                text-transform: uppercase;
+            ">🌤️ ZOSTAŃ W MOJEJ APLIKACJI POGODOWEJ</button>
+            
+            <button id="btnMundial" class="migajacy-przycisk" style="
+                padding: 15px; flex: 1; min-width: 140px;
+                background: linear-gradient(90deg, #ffcc00, #d4ac0d);
+                color: #000; border: none; border-radius: 12px;
+                font-weight: 900; cursor: pointer;
+                font-size: 0.85rem; letter-spacing: 0.03em;
+                box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+                text-transform: uppercase;
+            ">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
+        </div>
+    `;
+
+    document.getElementById('btnMeteo').addEventListener('click', () => {
+        okienko.remove();
+    });
+
+    document.getElementById('btnMundial').addEventListener('click', () => {
+        okienko.remove();
+        window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+    });
+}
+        
 
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
