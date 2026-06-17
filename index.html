@@ -585,56 +585,58 @@ Mój system jest w pełni zoptymalizowany. Wybierz moduł do pracy:
             // ========================================================
             const widget = document.getElementById('thesisWidget');
             if (widget) widget.style.display = 'block';
-            let mysl = "Pogoda stabilna jak wynik 0:0. Idealny czas na analizę taktyczną i kawę! ☕";
+            
+            // Domyślna myśl (gdy żaden z warunków poniżej nie wejdzie)
+            let mysl = "Pogoda stabilna jak wynik 0:0 do przerwy. Idealny czas na kawkę i sprawdzenie, kto dzisiaj gra na Mundialu! ☕⚽";
             let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
             let textColor = isNight ? "#e2e8f0" : "#000000"; 
             let titleColor = isNight ? "#38bdf8" : "#000000";
             
             if (weatherObj.id >= 200 && weatherObj.id <= 232) {
                 // BURZA
-                mysl = "⚡🌩️ Burza na boisku! Sędzia przerywa mecz? Nie, to tylko taktyczne starcie. Schowaj się w szatni, póki nie przejdzie!";
+                mysl = "⚡ Piorunujące uderzenie! Pogoda szaleje jak sędzia z żółtymi kartkami. Lepiej zostań na kanapie i bezpiecznie oglądaj mecz w TV! 📺";
                 cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
                 textColor = "#ffffff"; titleColor = "#ffffff";
             } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
                 // DESZCZ
-                mysl = "🌧️ Murawa śliska jak w finale Ligi Mistrzów! Piłka lata po boisku, uważaj na wślizgi. Dzisiaj gramy w stylu angielskim!";
+                mysl = "🌧️ Leje! Murawa śliska jak w finale Ligi Mistrzów. Idealna wymówka, żeby nie wychodzić z domu i po prostu odpalić meczyk z paczką czipsów! 🍿⚽";
                 cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
                 textColor = "#ffffff"; titleColor = "#ffffff";
             } else if (weatherObj.id === 800 && isNight) {
                 // NOC
-                mysl = "🌙 Reflektory na stadionie świecą pełną mocą! Nocna analiza taktyczna – taktyka mistrzów wymaga spokoju. Odpocznij, jutro mecz o wszystko.";
+                mysl = "🌙 Czyste niebo i włączone jupitery! Kto gra nocne mecze, ten wie, że to najlepszy klimat. Odpoczywaj przed jutrzejszymi starciami! 🏟️";
                 cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
                 textColor = "#ffffff"; titleColor = "#38bdf8";
             } else if (weatherObj.id === 800 && !isNight) {
                 // DZIEŃ SŁOŃCE
-                mysl = "☀️ Słońce na boisku! Idealna pogoda na finał. Forma wysoka, kondycja 100%, dzisiaj wygrywamy każdy pojedynek!";
+                mysl = "☀️ Czyste niebo i pełne słońce! Pogoda na finał mistrzostw świata. Aż się chce wyjść pokopać... albo chociaż wypić zimne piwko na balkonie! 🍺⚽";
                 cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
             } else if (currentData.main.temp > 34) {
                 // UPAŁ EKSTREMALNY
-                mysl = "🔥 Gorąco jak w dogrywce finału! Pij wodę, bo kondycja spadnie przed 90. minutą. Trener zaleca cień!";
+                mysl = "🔥 Upał jak w Katarze! Sędzia zarządza przerwę na wodę. Schowaj się w cieniu, włącz wiatrak i oszczędzaj siły na wieczorny seans! 🥵💦";
                 cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
                 textColor = "#ffffff"; titleColor = "#ffffff";
             } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
                 // UPAŁ
-                mysl = "☀️ Mecz o wysoką stawkę! Pot na czole, ale technika się zgadza. Pamiętaj o nawodnieniu, żeby nie było skurczów w końcówce.";
+                mysl = "☀️ Gorąco jak w polu karnym w 90. minucie! Pamiętaj o nawodnieniu, żeby dotrwać do końcowego gwizdka bez zadyszki. 🥤⚽";
                 cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
             } else if (currentData.main.temp > 25) {
                 // CIEPŁO
-                mysl = "🌞 Pogoda na orlika! Idealny dzień na szybkie podania i wygrywanie meczy. Forma mistrzowska, korzystaj z boiska!";
+                mysl = "😎 Idealne ciepełko! Pogoda stworzona do kibicowania w strefie fana albo wyjścia na lokalnego orlika. Łap słońce i dobrą formę! 🏟️☀️";
                 cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
             } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
                 // PRZYJEMNIE
-                mysl = "🌤️ Złoty środek – nie za gorąco, nie za zimno. Najlepszy moment na trening kondycyjny. Dzisiaj robimy formę!";
+                mysl = "🌤️ Pogoda mistrzowska, idealne 20+ stopni! Piłka sama niesie się po murawie. Świetny dzień na mały spacer przed wieczornym meczem! 🚶‍♂️⚽";
                 cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
             } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
                 // RZEŚKO
-                mysl = "🍃 Rześka murawa, dobrze się biega! To pogoda na pressing przez 90 minut. Oddychaj głęboko i atakuj!";
+                mysl = "🍂 Trochę rześko, ale do biegania w sam raz! Idealna temperatura na ostry pressing. Załóż dresik i bądź gotowy do akcji! 🏃‍♂️💨";
                 cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
                 textColor = isNight ? "#e2e8f0" : "#000000";
                 titleColor = isNight ? "#38bdf8" : "#000000";
             } else if (currentData.main.temp < 5) {
                 // ZIMNO
-                mysl = "🥶 Chłodno na boisku? To tylko brak rozgrzewki! Herbata z miodem zamiast izotonika i wracamy do gry!";
+                mysl = "🥶 Zimno jak na ławce rezerwowych w grudniu! Trener radzi: gorąca herbata, ciepły kocyk i mecz w telewizorze to jedyna słuszna taktyka na dziś! ☕❄️";
                 cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
             }
 
