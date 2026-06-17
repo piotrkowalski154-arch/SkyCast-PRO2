@@ -141,24 +141,30 @@
         <div id="radar-wiadomosci" class="wiadomosci">
             <p style="text-align: center; color: var(--main-title); font-weight: bold; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
         </div>
+        <div style="width: 100%; margin: 0 auto 35px auto; background: #001233; border: 2px solid #FFD600; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 5px 15px rgba(255, 214, 0, 0.15);">
+    
+    <div onclick="toggleRadio()" style="background: #FFD600; padding: 18px; color: #001233; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px;">
+        <span style="font-size: 1.8rem; animation: pulse 2s infinite;">📻</span>
+        <h3 style="margin: 0; font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase;">SkyCast PRO Radio ▾</h3>
+        <span style="font-size: 1.5rem;">🎛️</span>
+    </div>
+    
+    <div id="radioContent" style="display: none; padding: 20px;">
+        <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; display: block;">🎧 Wybierz stację... 📡</span>
         
-        <div style="width: 100%; margin: 0 auto 35px auto; background: #001233; border: 2px solid #FFD600; border-radius: 20px; overflow: hidden; text-align: center;">
-            <div onclick="toggleRadio()" style="background: #FFD600; padding: 15px; color: #001233; cursor: pointer;">
-                <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio ▾</h3>
-            </div>
-            <div id="radioContent" style="display: none; padding: 20px;">
-                <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: block;">Wybierz stację...</span>
-                <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background: rgba(0, 35, 92, 0.8); color: #FFD600; border: 1px dashed #FFD600; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 1rem; margin-bottom: 20px;">
-                    <option value="">-- Wybierz Radio --</option>
-                    <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX 🔥</option>
-                    <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/MELORADIO.mp3">Meloradio ⛅</option>
-                    <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA ⚡</option>
-                    <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET ☔</option>
-                </select>
-                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg);"></audio>
-                <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
-            </div>
-        </div>
+        <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background: rgba(0, 35, 92, 0.8); color: #FFD600; border: 2px dashed #FFD600; padding: 16px; border-radius: 12px; font-weight: 900; font-size: 1.3rem; margin-bottom: 20px; outline: none; cursor: pointer;">
+            <option value="">-- Wybierz Radio --</option>
+            <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX 🔥</option>
+            <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/MELORADIO.mp3">Meloradio ⛅</option>
+            <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA ⚡</option>
+            <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">RADIO ZET ☔</option>
+        </select>
+        
+        <audio id="cyberAudio" controls style="width: 100%; height: 50px; display: none; filter: invert(1) hue-rotate(180deg); border-radius: 8px;"></audio>
+        
+        <span id="audioPlaceholder" style="color: rgba(255,255,255,0.5); font-size: 1rem; font-style: italic; font-weight: 600;">⏳ Oczekuję na sygnał... 📶</span>
+    </div>
+</div>
         
         <div class="search-row">
             <input type="text" id="cityIn" value="Kraków">
