@@ -291,125 +291,71 @@
             pobierzWiadomosci(); 
             uruchomZlotySkaner(); 
         };
-
- function pokazAlertPowitalny() {
+function pokazAlertPowitalny() {
     let okienko = document.getElementById('skycast-welcome-alert');
     if (!okienko) {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
+        // Ujednoliciłem style, dodając display: flex dla lepszej kontroli
         okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
             background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px);
-            border: 4px solid #ffffff; border-radius: 25px;
-            padding: 25px; z-index: 9999; color: white;
-            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-            overflow-y: auto;
-            animation: pulse_rain 3s infinite ease-in-out;
+            backdrop-filter: blur(15px); border: 4px solid #ffffff;
+            border-radius: 25px; padding: 25px; z-index: 9999;
+            color: white; box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+            overflow-y: auto; display: flex; flex-direction: column;
         `;
         document.body.appendChild(okienko);
     }
 
     const TYTUL = 'RAPORT STRATEGICZNY'; 
-    const GODZINA = '17:46';
+    const GODZINA = '17:45'; // Zaktualizowano na bieżącą
     
-    // Połączona prognoza pogody z wyborem modułów
-  const tresc = `🌤️ CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY
+    // Używamy backticków dla czytelności; wyczyściłem zbędne spacje
+    const tresc = `🌤️ CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY
 
-SYSTEM UPDATE: Piątek, 19 czerwca 2026 roku (Aktualizacja frontowa: 17:45)
-Wkraczamy w skrajnie dynamiczną i niebezpieczną fazę! Do silnej adwekcji zwrotnikowych mas powietrza dołącza gwałtowny front burzowy. System monitoruje sytuację 24/7.
+SYSTEM UPDATE: Piątek, 19 czerwca 2026 roku (Aktualizacja: 17:45)
+Wkraczamy w skrajnie dynamiczną i niebezpieczną fazę burzową!
 
-🌡️ WARUNKI LOKALNE (KRAKÓW - BAZA DOMOWA):
-• Temperatura maksymalna: 29°C – 30°C (Odczuwalna w pełnym słońcu: 31°C)
-• Warunki nocne: Stabilne, spadek temperatury minimalnie do 17°C – 20°C
-• Zachmurzenie: Małe do umiarkowanego. Pełna ekspozycja solarna.
-• Dynamika opadów: Brak zagrożeń. Kraków pozostaje w bezpiecznym sektorze, potężna dynamika uderza w zachód i północny zachód kraju.
-• Wektor wiatru: Bardzo słaby, kierunek NW (północno-zachodni) w granicach 3–4 km/h.
-• Indeks UV: 5 (Wysoki).
+🌡️ WARUNKI LOKALNE (KRAKÓW):
+• Temp: 29°C | Bezpieczny sektor. Główna dynamika na zachodzie.
 
-🗺️ SKANER SYNOPTYCZNY (LIVE) I TRAJEKTORIA BURZY NA NAJBLIŻSZE GODZINY:
-‼️ ALARM 2. STOPNIA (LUBUSKIE / WIELKOPOLSKIE): Główny rdzeń aktywnej superkomórki przesuwa się znad linii Gorzów Wielkopolski – Strzelce Krajeńskie i uderza z impetem w północno-zachodnią Wielkopolskę!
-📍 NA CELOWNIKU (KIERUNEK SE): Powiaty międzychodzki, szamotulski, czarnkowsko-trzcianecki, z systematycznym zbliżaniem się do aglomeracji poznańskiej na przestrzeni najbliższych 1-2 godzin.
+🗺️ SKANER SYNOPTYCZNY:
+‼️ ALARM 2. STOPNIA: Aktywna superkomórka przemieszcza się z linii Gorzów Wlkp. w głąb Wielkopolski (kierunek SE).
+⚠️ ZAGROŻENIA: Nawalny deszcz (30-40 mm/h), grad (3-5 cm), porywy wiatru do 90 km/h.
 
-⚠️ ZAGROŻENIA NA TRASIE UKŁADU (NOWY TREND):
-  - Nawalny deszcz: 30-40 mm/h (Wykryto zjawisko dobudowywania się komórek – EKSTREMALNE RYZYKO LOKALNYCH PODTOPIEŃ!)
-  - Duży grad: 3-5 cm (ryzyko strat materialnych)
-  - Niszczące porywy wiatru: do 90 km/h (prostoliniowe)
-Sytuacja jest skrajnie dynamiczna, prosimy o omijanie otwartych przestrzeni!
-
-• Śląsk: 29°C – 30°C (Dużo słońca, wysoki komfort termiczny przed weekendowym tąpnięciem).
-• Centrum (Warszawa / Łódź): 25°C – 27°C (Klasyczna, przyjemna letnia aura).
-• Wybrzeże Wschodnie / Podlasie: 22°C – 26°C (Stabilnie, najchłodniejsza i najspokojniejsza strefa).
-
-🚨 ALERT STRATEGICZNY (EKSTREMALNY TREND NA WEEKEND – SOBOTA/NIEDZIELA):
-Główne modele numeryczne bezwzględnie podtrzymują potężne wartości energii CAPE (2000-3000 J/kg) oraz skrajną wodność troposfery! Sobotnie uderzenie upału (35°C – 36°C) zdetonuje niszczycielską niestabilność:
-🔴 ZAGROŻENIE EKSTREMALNE: Jeżeli ten scenariusz się utrzyma, w sobotę wieczorem oraz w niedzielę przejdą przez Polskę bardzo silne, niszczycielskie burze. Największym zagrożeniem będą nawalne opady deszczu (ryzyko podtopień) oraz wielki grad lokalnie do 6 cm!
-🟠 STATUS MODELI: Sytuacja jest skrajnie rozwojowa. Kolejne analizy na weekend pojawią się natychmiast po wieczornych lub porannych wyliczeniach.`;
+🚨 ALERT STRATEGICZNY (WEEKEND):
+Sobota/Niedziela: Potencjalne uderzenie niszczycielskich burz (CAPE 3000 J/kg). Upał do 36°C zdetonuje niestabilność. Sytuacja krytyczna – śledź wyliczenia!
 
 ==================================================
-MÓJ SYSTEM JEST W PEŁNI ZOPTYMALIZOWANY. WYBIERZ MODUŁ:
+MÓJ SYSTEM JEST ZOPTYMALIZOWANY. WYBIERZ MODUŁ:
 
-⚽ SKYCAST PRO FUTBOL – ANALIZA MUNDIALOWA
+⚽ SKYCAST PRO FUTBOL
+Meksyk 1:0 Korea Płd. – Pancerne zwycięstwo!
+Głosowanie live: Portugalia (5), Argentyna (2), Hiszpania (1), USA (1).`;
 
-Podczas gdy SkyCast monitoruje niebo, SkyCast Pro Futbol przejmuje kontrolę nad murawą! Oto najświeższe dane frontowe:
-
-🔥 AKTUALNOŚĆ DNIA: Meksyk 1:0 Korea Południowa! Fatalny błąd bramkarza wykorzystany przez Luisa Romo dał Meksykowi skromne, ale pancerne zwycięstwo. Rangel interwencją turnieju uratował wynik w końcówce! Głosuj dalej!
-
-📊 WYNIKI GŁOSOWANIA DNIA (Firebase live):
-• Portugalia: 5 głosów
-• Argentyna: 2 głosy
-• Hiszpania: 1 głos
-• USA: 1 głos
-
-Podejmij świadome decyzje i klikaj w mecze po czyste dane! Widzimy się w grze!`;
-
+    // Naprawiony innerHTML: dodano 'white-space: pre-wrap' dla poprawnego wyświetlania tekstu
     okienko.innerHTML = `
-        <h2 style="
-            color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem;
-            text-align: center; font-family: Orbitron, sans-serif;
-            display: flex; align-items: center; justify-content: center;
-            gap: 8px; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        ">
+        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
             🗺️ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem; color:#ffffff;">Aktualizacja: 19.06.2026, ${GODZINA}</small>
+            <small style="font-size:0.8rem;">Aktualizacja: 19.06.2026, ${GODZINA}</small>
         </h2>
-        <p style="
-            white-space: pre-line; font-size: 0.95rem; line-height: 1.7;
-            margin-bottom: 25px; color: #0f172a; font-weight: 600;
-            font-family: Rajdhani, sans-serif;
-        ">${tresc}</p>
+        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
+            ${tresc}
+        </p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnMeteo" style="
-                padding: 15px; flex: 1; min-width: 140px;
-                background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-                color: #fff; border: none; border-radius: 12px;
-                font-weight: 900; cursor: pointer;
-                font-size: 0.85rem; letter-spacing: 0.03em;
-                box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-                text-transform: uppercase;
-            ">🌤️ ZOSTAŃ W MOJEJ APLIKACJI POGODOWEJ</button>
-            
-            <button id="btnMundial" class="migajacy-przycisk" style="
-                padding: 15px; flex: 1; min-width: 140px;
-                background: linear-gradient(90deg, #ffcc00, #d4ac0d);
-                color: #000; border: none; border-radius: 12px;
-                font-weight: 900; cursor: pointer;
-                font-size: 0.85rem; letter-spacing: 0.03em;
-                box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
-                text-transform: uppercase;
-            ">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
+            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">Zostań w Meteo</button>
+            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">Przejdź do Mundialu</button>
         </div>
     `;
 
-    document.getElementById('btnMeteo').addEventListener('click', () => {
-        okienko.remove();
-    });
-
+    document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
     document.getElementById('btnMundial').addEventListener('click', () => {
         okienko.remove();
         window.open('https://skycast-pro-mundial.vercel.app', '_blank');
     });
 }
+
 
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
