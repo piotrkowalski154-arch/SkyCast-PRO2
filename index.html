@@ -332,7 +332,7 @@ W stolicy Małopolski niedziela będzie gorąca, parna i burzowa.
 • [ Centrum / Mazowsze ] ➔  ok. 30°C (Gorąco, lokalne burze)
 • [ Południe / Śląsk ]   ➔  31°C – 33°C (Upalnie, gwałtowne nawałnice)
 
-⚠️ OSTRZEŻENIA I KOMUNIKATY (STATUS NA 23.28)
+⚠️ OSTRZEŻENIA I KOMUNIKATY (STATUS NA 21.06)
 🚨 Alert RCB i Alerty IMGW: Obowiązują ostrzeżenia meteo przed gwałtownymi zjawiskami!
 Przelotne opady deszczu i lokalne, silne burze z intensywnymi ulewami rozwiną się głównie w pasie od Dolnego Śląska i Śląska, przez Małopolskę, Łódzkie, aż po Mazowsze i Podlasie. 
 Najbezpieczniejszej aury mogą spodziewać się mieszkańcy zachodniej i północno-zachodniej Polski.
@@ -340,27 +340,54 @@ Najbezpieczniejszej aury mogą spodziewać się mieszkańcy zachodniej i półno
 ==================================================
 MÓJ SYSTEM JEST ZOPTYMALIZOWANY. WYBIERZ MODUŁ:
 
-    // Naprawiony innerHTML: dodano 'white-space: pre-wrap' dla poprawnego wyświetlania tekstu
+⚽ SKYCAST PRO FUTBOL
+Meksyk 1:0 Korea Płd. – Pancerne zwycięstwo!
+
+📊 WYNIKI GŁOSOWANIA LIVE (FIREBASE):
+• PORTUGALIA: 5
+• ARGENTYNA: 2
+• HISZPANIA: 2
+• USA: 2
+
+Podejmij świadome decyzje i klikaj w mecze po czyste dane! Widzimy się w grze!`;
+
     okienko.innerHTML = `
-        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+        <h2 style="
+            color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem;
+            text-align: center; font-family: Orbitron, sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        ">
             🗺️ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">Aktualizacja: 20.06.2026, ${GODZINA}</small>
+            <small style="font-size:0.8rem; color:#ffffff;">Aktualizacja: 20.06.2026, ${GODZINA}</small>
         </h2>
-        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
-            ${tresc}
-        </p>
+        <p style="
+            white-space: pre-line; font-size: 0.95rem; line-height: 1.7;
+            margin-bottom: 25px; color: #0f172a; font-weight: 600;
+            font-family: Rajdhani, sans-serif;
+        ">${tresc}</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">🌤️ ZOSTAŃ W MOJEJ APLIKACJI POGODOWEJ</button>
-            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
+            <button id="btnMeteo" style="
+                padding: 15px; flex: 1; min-width: 140px;
+                background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+                color: #fff; border: none; border-radius: 12px;
+                font-weight: 900; cursor: pointer;
+                font-size: 0.85rem; letter-spacing: 0.03em;
+                box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+                text-transform: uppercase;
+            ">🌤️ ZOSTAŃ W MOJEJ APLIKACJI POGODOWEJ</button>
+            
+            <button id="btnMundial" class="migajacy-przycisk" style="
+                padding: 15px; flex: 1; min-width: 140px;
+                background: linear-gradient(90deg, #ffcc00, #d4ac0d);
+                color: #000; border: none; border-radius: 12px;
+                font-weight: 900; cursor: pointer;
+                font-size: 0.85rem; letter-spacing: 0.03em;
+                box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+                text-transform: uppercase;
+            ">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
         </div>
     `;
-
-    document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
-    document.getElementById('btnMundial').addEventListener('click', () => {
-        okienko.remove();
-        window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-    });
-}
 
 
         // ==========================================
