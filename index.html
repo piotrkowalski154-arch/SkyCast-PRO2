@@ -267,12 +267,14 @@
     // ==========================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
     const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+    const alertIMGW = ""; // Przywrócona pusta definicja, aby nie wywalało błędu na dole kodu. Możesz tu wpisywać mniejsze alerty do radaru 24h.
 
+    // 🚀 START SYSTEMU
     window.onload = function() {
         pokazAlertPowitalny(); 
-        // uruchomProtokolGPS();  // Odkomentuj jeśli te funkcje istnieją w innym miejscu
-        // pobierzWiadomosci(); 
-        // uruchomZlotySkaner(); 
+        uruchomProtokolGPS();  
+        pobierzWiadomosci(); 
+        uruchomZlotySkaner(); // NAPRAWA: Złoty Skaner uruchamia się automatycznie!
     };
 
     function pokazAlertPowitalny() {
@@ -294,7 +296,6 @@
         const TYTUL = 'RAPORT STRATEGICZNY'; 
         const GODZINA = '18:49';
 
-        // 🔥 TUTAJ TWÓJ NOWY ALERT (Wstrzyknięty poprawnie w zmienną)
         const tresc = `🔴 SKYCAST METEO-ALERT: EKSTREMALNY UPAŁ I GWAŁTOWNE BURZE
 
 ⚡ SKYCAST METEO-ALERT– RAPORT BIEŻĄCY (LIVE) ⚡
