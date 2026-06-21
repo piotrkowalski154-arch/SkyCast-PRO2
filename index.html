@@ -314,41 +314,37 @@ function pokazAlertPowitalny() {
 
     const TYTUL = 'RAPORT STRATEGICZNY'; 
     const GODZINA = '23:28'; 
-    const tresc = `🌤️ CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY
+   onst tresc = `⚡ CENTRUM OPERACYJNE SKYCAST PRO – ALERT BURZOWY LIVE ⚡
    
-📅 NIEDZIELA, 21 CZERWCA 2026 | SZCZEGÓŁOWY RAPORT METEOROLOGICZNY
+📅 NIEDZIELA, 21 CZERWCA 2026 | RAPORT Z FRONTU
 
-W niedzielę czeka nas bardzo dynamiczna, letnia aura z wysokimi temperaturami, ale też z poważnymi ostrzeżeniami przed burzami i ulewami. Polska znajdzie się w zasięgu frontu atmosferycznego, który przyniesie podział na chłodniejszą północ i upalne południe.
+Słuchaj, sytuacja robi się ekstremalnie dynamiczna! Przeanalizowałem właśnie najświeższy radar i równowaga w atmosferze oficjalnie została rozbita. Front, który w nocy szalał na granicy, teraz uderza od zachodu ze zdwojoną siłą!
 
-📍 POGODA DLA KRAKOWA (SZCZEGÓŁOWA)
-W stolicy Małopolski niedziela będzie gorąca, parna i burzowa.
-• Temperatura: W nocy i nad ranem bardzo ciepło (18–21°C). W ciągu dnia termometry wskażą do 28°C w cieniu (odczuwalna przekroczy 30°C z powodu wysokiej wilgotności).
-• Opady i burze: Ryzyko opadów wynosi aż 70%. Najbardziej niebezpiecznie będzie w godzinach 13:00 – 19:00. Nad miastem mogą przechodzić silne burze z piorunami i ulewami.
-• Wiatr i Ciśnienie: Wiatr słaby (5–15 km/h), jednak w czasie burz porywy mogą osiągać do 70 km/h, lokalnie możliwy grad. Ciśnienie stabilne (1016–1023 hPa).
+📍 POGODA DLA KRAKOWA (NA ŻYWO)
+• Mój radar pokazuje czerwony rdzeń tuż obok! Dokładnie na zachód od Krakowa, w rejonie Krzeszowic i na linii Katowice/Tychy, wyrosła bardzo agresywna komórka burzowa.
+• Kierunek: Idzie prosto na nas (wschód / północny wschód). Za kilkadziesiąt minut ten kocioł wejdzie nad miasto!
+• Zjawiska: Komórka generuje silne wyładowania i niesie ze sobą potężny, ulewny deszcz.
 
-🌍 POGODA DLA POLSKI (PRZEGLĄD KRAJOWY)
-• [ Północ / Pomorze ]  ➔  20°C – 25°C (Chłodniej, więcej chmur, najspokojniej)
-• [ Centrum / Mazowsze ] ➔  ok. 30°C (Gorąco, lokalne burze)
-• [ Południe / Śląsk ]   ➔  31°C – 33°C (Upalnie, gwałtowne nawałnice)
+🌍 POGODA DLA POLSKI (FRONT POŁUDNIOWY)
+• Niżej, na południu (Słowacja i rejony Tatr), tworzy się kolejny fioletowy pas z ogromną ilością piorunów. Energia w powietrzu jest dzisiaj niesamowita!
+• Północ i zachód kraju łapią oddech i znacznie stabilniejszą aurę.
 
-⚠️ OSTRZEŻENIA I KOMUNIKATY (STATUS NA 23.28)
-🚨 Alert RCB i Alerty IMGW: Obowiązują ostrzeżenia meteo przed gwałtownymi zjawiskami!
-Przelotne opady deszczu i lokalne, silne burze z intensywnymi ulewami rozwiną się głównie w pasie od Dolnego Śląska i Śląska, przez Małopolskę, Łódzkie, aż po Mazowsze i Podlasie. 
-Najbezpieczniejszej aury mogą spodziewać się mieszkańcy zachodniej i północno-zachodniej Polski.
+⚠️ OSTRZEŻENIA I KOMUNIKATY (STATUS NA TERAZ)
+🚨 Zabezpieczam sprzęt i szykuję się na mocne uderzenie. Jeżeli jesteś w mojej okolicy, zrób to samo! Monitoruj ten front minuta po minucie na moim żywym radarze.
 
 ==================================================
-MÓJ SYSTEM JEST ZOPTYMALIZOWANY. WYBIERZ MODUŁ:`;
+MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
 
     okienko.innerHTML = `
         <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-            🗺️ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">Aktualizacja: 20.06.2026, ${GODZINA}</small>
+            ⚡ POLSKA: ${TYTUL} <br>
+            <small style="font-size:0.8rem;">Aktualizacja: 21.06.2026, ${GODZINA}</small>
         </h2>
         <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
             ${tresc}
         </p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">🌤️ ZOSTAŃ W MOJEJ APLIKACJI POGODOWEJ</button>
+            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⛈️ ŚLEDŹ BURZĘ W MOJEJ APLIKACJI</button>
             <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
         </div>
     `;
@@ -358,7 +354,6 @@ MÓJ SYSTEM JEST ZOPTYMALIZOWANY. WYBIERZ MODUŁ:`;
         okienko.remove();
         window.open('https://skycast-pro-mundial.vercel.app', '_blank');
     });
-}
 
 
         // ==========================================
