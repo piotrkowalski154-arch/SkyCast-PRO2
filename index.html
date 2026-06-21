@@ -261,108 +261,86 @@
         </div>
     </div>
 
-    <script>
-        // ==========================================
-        // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
-        // ==========================================
-        const API_KEY = "6def6302b0a9b722144968390f4b8522";
-        const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-        
-        // 🔥 TUTAJ TWÓJ ALERT
-     const alertIMGW = `🔴 SKYCAST METEO-ALERT: EKSTREMALNY UPAŁ I GWAŁTOWNE BURZE (NIEDZIELA, 21 CZERWCA)
+<script>
+    // ==========================================
+    // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
+    // ==========================================
+    const API_KEY = "6def6302b0a9b722144968390f4b8522";
+    const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+
+    window.onload = function() {
+        pokazAlertPowitalny(); 
+        // uruchomProtokolGPS();  // Odkomentuj jeśli te funkcje istnieją w innym miejscu
+        // pobierzWiadomosci(); 
+        // uruchomZlotySkaner(); 
+    };
+
+    function pokazAlertPowitalny() {
+        let okienko = document.getElementById('skycast-welcome-alert');
+        if (!okienko) {
+            okienko = document.createElement('div');
+            okienko.id = 'skycast-welcome-alert';
+            okienko.style.cssText = `
+                position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
+                background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+                backdrop-filter: blur(15px); border: 4px solid #ffffff;
+                border-radius: 25px; padding: 25px; z-index: 9999;
+                color: white; box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+                overflow-y: auto; display: flex; flex-direction: column;
+            `;
+            document.body.appendChild(okienko);
+        }
+
+        const TYTUL = 'RAPORT STRATEGICZNY'; 
+        const GODZINA = '18:49';
+
+        // 🔥 TUTAJ TWÓJ NOWY ALERT (Wstrzyknięty poprawnie w zmienną)
+        const tresc = `🔴 SKYCAST METEO-ALERT: EKSTREMALNY UPAŁ I GWAŁTOWNE BURZE
 
 ⚡ SKYCAST METEO-ALERT– RAPORT BIEŻĄCY (LIVE) ⚡
 
-📅 NIEDZIELA, 21 CZERWCA 2026 | GODZINA: 18:39
+📅 NIEDZIELA, 21 CZERWCA 2026 | GODZINA: 18:49
 🔴 STATUS: KOD 11 (ALERT POMARAŃCZOWY) – AKTYWNE SUPERKOMÓRKI
 
-Bieżący skan radarowy (18:40) potwierdza uderzenie dwóch potężnych klastrów burzowych. Analiza wyładowań i echa radarowego wskazuje na następujące ścieżki przemieszczania się frontów:
+Bieżący skan radarowy (18:49) potwierdza uderzenie dwóch potężnych klastrów burzowych. Analiza wyładowań i echa radarowego wskazuje na następujące ścieżki przemieszczania się frontów:
 
 📍 ANALIZA OPERACYJNA I DROGA FRONTÓW:
 
 1️⃣ FRONT POŁUDNIOWY (Główny rdzeń i ekstremalne wyładowania):
-• Gdzie jest teraz: Największa aktywność elektryczna (fioletowe i czerwone sygnatury) pokrywa całe Podhale i Tatry[cite: 3]. Obejmuje potężny pas od Zakopanego i Czarnego Dunajca, sięgając na północ aż po Jordanów[cite: 3]. Korzenie tej burzy ciągną się głęboko nad Słowację (Tvrdošín, Poprad, Liptovský Hrádok)[cite: 3].
+• Gdzie jest teraz: Największa aktywność elektryczna (fioletowe i czerwone sygnatury) pokrywa całe Podhale i Tatry. Obejmuje potężny pas od Zakopanego i Czarnego Dunajca, sięgając na północ aż po Jordanów. Korzenie tej burzy ciągną się głęboko nad Słowację.
 • Prognozowana droga: Układ pcha się z południowego zachodu na północny wschód. Zmierza w kierunku linii Rabka-Zdrój – Nowy Sącz. Zewnętrzne, gwałtowne strefy opadowe z tego frontu mogą uderzać w południowe powiaty aglomeracji krakowskiej.
 
 2️⃣ FRONT PÓŁNOCNO-WSCHODNI (Świętokrzyskie):
-• Gdzie jest teraz: Bardzo silna, gęsta komórka z masowymi wyładowaniami operuje dokładnie w rejonie Buska-Zdroju i Chmielnika[cite: 3].
+• Gdzie jest teraz: Bardzo silna, gęsta komórka z masowymi wyładowaniami operuje dokładnie w rejonie Buska-Zdroju i Chmielnika.
 • Prognozowana droga: Komórka przemieszcza się dalej na wschód i północny wschód, stwarzając ogromne zagrożenie gradobiciem na swojej trasie.
 
 3️⃣ SEKTOR KRAKÓW I OKOLICE:
-• Gdzie jest teraz: Kraków, Krzeszowice, Niepołomice i Proszowice znajdują się aktualnie w obszernej strefie ulewnego deszczu (niebieskie i żółte echa radarowe)[cite: 3]. Bezpośredni, główny rdzeń z wyładowaniami omija nas obecnie od południa i wschodu[cite: 3].
+• Gdzie jest teraz: Kraków, Krzeszowice, Niepołomice i Proszowice znajdują się aktualnie w obszernej strefie ulewnego deszczu (niebieskie i żółte echa radarowe). Bezpośredni, główny rdzeń z wyładowaniami omija nas obecnie od południa i wschodu.
 • Zagrożenie dla regionu: Utrzymujące się nawalne opady powodują duże ryzyko lokalnych podtopień (tzw. flash flood) w obszarach miejskich.
 
 ⚠️ KOMUNIKAT BEZPIECZEŃSTWA:
-🚨 Utrzymuje ALERT 2. STOPNIA. Porywy wiatru w rdzeniach burz na południu mogą przekraczać 80 km/h. Ekstremalnie wysokie ryzyko opadów gradu! Jeśli znajdujecie się na Podhalu lub w okolicach Buska-Zdroju – natychmiast szukajcie bezpiecznego schronienia. Śledźcie radary bez przerwy!
-`;
-==================================================
-        
-        window.onload = function() {
-            pokazAlertPowitalny(); 
-            uruchomProtokolGPS();  
-            pobierzWiadomosci(); 
-            uruchomZlotySkaner(); 
-        };
-        function pokazAlertPowitalny() {
-    let okienko = document.getElementById('skycast-welcome-alert');
-    if (!okienko) {
-        okienko = document.createElement('div');
-        okienko.id = 'skycast-welcome-alert';
-        okienko.style.cssText = `
-            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); border: 4px solid #ffffff;
-            border-radius: 25px; padding: 25px; z-index: 9999;
-            color: white; box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-            overflow-y: auto; display: flex; flex-direction: column;
+🚨 Utrzymuje ALERT 2. STOPNIA. Porywy wiatru w rdzeniach burz na południu mogą przekraczać 80 km/h. Ekstremalnie wysokie ryzyko opadów gradu! Jeśli znajdujecie się na Podhalu lub w okolicach Buska-Zdroju – natychmiast szukajcie bezpiecznego schronienia. Śledźcie radary bez przerwy!`;
+
+        okienko.innerHTML = `
+            <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                ⚡ POLSKA: ${TYTUL} <br>
+                <small style="font-size:0.8rem;">Aktualizacja: 21.06.2026, ${GODZINA}</small>
+            </h2>
+            <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
+                ${tresc}
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⛈️ ŚLEDŹ BURZĘ W MOJEJ APLIKACJI</button>
+                <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
+            </div>
         `;
-        document.body.appendChild(okienko);
+
+        document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
+        document.getElementById('btnMundial').addEventListener('click', () => {
+            okienko.remove();
+            window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+        });
     }
-
-    const TYTUL = 'RAPORT STRATEGICZNY'; 
-    const GODZINA = '14:25'; // Zaktualizowana godzina pod Twój najnowszy radar
-
-    const tresc = `⚡ CENTRUM OPERACYJNE SKYCAST PRO – ALERT BURZOWY LIVE ⚡
-   
-⚠️ STATUS: KRYTYCZNY / RED ALERT
-Lokalizacja: Kraków i bezpośrednie sąsiedztwo.
-
-⚡ ANALIZA RADAROWA (16:35 — AKTUALIZACJA):
-- Rdzeń burzowy o maksymalnej intensywności (czerwień/żółć) bezpośrednio nad centrum Krakowa.
-- Drugi ośrodek aktywny: Podhale (Jordanów / Gorczański PN).
-- Trajektoria: Układ przesuwa się SE→NE (kierunek: Wieliczka → Tarnów → wschodnia Małopolska).
-- Front: Niż znad Morza Norweskiego. Masy powietrza przesuwają się BARDZO WOLNO.
-- Zjawiska: Ekstremalnie silne opady 20–40mm, częste wyładowania, porywy do 70 km/h, lokalnie GRAD.
-- Zasięg: Olkusz → Chrzanów → Myślenice → Babiogórski PN (niebieski pas deszczu umiarkowanego).
-- IMGW/RCB: Ostrzeżenie II stopnia. Alert ogólnopolski 21–22.06.2026.
-
-🛡️ PROTOKÓŁ BEZPIECZEŃSTWA "SECOND HEART CHAMBER":
-1. ODŁĄCZ ZASILANIE: Wyciągnij wtyczki z gniazdek (szczególnie urządzenia wrażliwe).
-2. ZAMKNIJ OKNA: Woda może być nawalna, zabezpiecz przedmioty na balkonach.
-3. ABSOLUTNY ZAKAZ PRACY: Nie pracuj na sprzęcie podłączonym do sieci podczas trwania wyładowań.
-4. MONITORING: Obserwuj sytuację wyłącznie offline lub z urządzenia zasilanego bateryjnie (telefon).
-`;
-    okienko.innerHTML = `
-        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-            ⚡ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">Aktualizacja: 21.06.2026, ${GODZINA}</small>
-        </h2>
-        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
-            ${tresc}
-        </p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⛈️ ŚLEDŹ BURZĘ W MOJEJ APLIKACJI</button>
-            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
-        </div>
-    `;
-
-    document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
-    document.getElementById('btnMundial').addEventListener('click', () => {
-        okienko.remove();
-        window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-    });
-}
-
 
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
