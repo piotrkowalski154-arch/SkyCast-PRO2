@@ -453,19 +453,30 @@ SYSTEM PRACUJE. TRWA MONITORING LIVE.`;
                 navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
             }
         }
-        function tlumaczPogodeTeraz(iconCode, description) {
-            let icon = "☁️";
-            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.4em;">${icon}</span>` };
-            const hour = new Date().getHours();
-            const isNight = (hour >= 21 || hour < 6);
-            if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
-            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
-            else if (iconCode.startsWith("04")) icon = "☁️"; 
-            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-            else if (iconCode.startsWith("11")) icon = "⚡"; 
-            else if (iconCode.startsWith("13")) icon = "❄️"; 
-            else if (iconCode.startsWith("50")) icon = "🌫️"; 
-            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+       function tlumaczPogodeTeraz(iconCode, description) {
+    let icon = "☁️";
+    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.4em;">${icon}</span>` };
+    
+    const hour = new Date().getHours();
+    const isNight = (hour >= 21 || hour < 6);
+    
+    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
+    else if (iconCode.startsWith("04")) icon = "☁️"; 
+    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    
+    // --- TU JEST KLUCZOWA ZMIANA ---
+    else if (iconCode.startsWith("11")) { 
+        icon = "⚡"; 
+        description = "Burza"; // WYMUSZENIE: Nawet jak API wyśle co innego, Ty ustawiasz "Burza"
+    }
+    // --------------------------------
+    
+    else if (iconCode.startsWith("13")) icon = "❄️"; 
+    else if (iconCode.startsWith("50")) icon = "🌫️"; 
+    
+    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+
         }
         function tlumaczPogodePrognoza(iconCode, description) {
     let icon = "☁️";
