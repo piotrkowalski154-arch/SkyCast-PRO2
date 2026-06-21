@@ -468,19 +468,26 @@ MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
             return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
         }
         function tlumaczPogodePrognoza(iconCode, description) {
-            let icon = "☁️";
-            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
-            const isNightAPI = iconCode.endsWith("n");
-            if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
-            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
-            else if (iconCode.startsWith("04")) icon = "☁️"; 
-            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-            else if (iconCode.startsWith("11")) icon = "⚡"; 
-            else if (iconCode.startsWith("13")) icon = "❄️"; 
-            else if (iconCode.startsWith("50")) icon = "🌫️"; 
-            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
-        }
-
+    let icon = "☁️";
+    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+    
+    const isNightAPI = iconCode.endsWith("n");
+    
+    if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
+    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
+    else if (iconCode.startsWith("04")) icon = "☁️"; 
+    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    // ZMIANA TUTAJ:
+    else if (iconCode.startsWith("11")) { 
+        icon = "⚡"; 
+        description = "Burza"; // Nadpisujesz parametr funkcji
+    }
+    // KONIEC ZMIANY
+    else if (iconCode.startsWith("13")) icon = "❄️"; 
+    else if (iconCode.startsWith("50")) icon = "🌫️"; 
+    
+    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+}
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
             if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
