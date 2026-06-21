@@ -296,7 +296,7 @@
             pobierzWiadomosci(); 
             uruchomZlotySkaner(); 
         };
-function pokazAlertPowitalny() {
+        function pokazAlertPowitalny() {
     let okienko = document.getElementById('skycast-welcome-alert');
     if (!okienko) {
         okienko = document.createElement('div');
@@ -313,8 +313,9 @@ function pokazAlertPowitalny() {
     }
 
     const TYTUL = 'RAPORT STRATEGICZNY'; 
-    const GODZINA = '23:28'; 
-   onst tresc = `⚡ CENTRUM OPERACYJNE SKYCAST PRO – ALERT BURZOWY LIVE ⚡
+    const GODZINA = '14:25'; // Zaktualizowana godzina pod Twój najnowszy radar
+
+    const tresc = `⚡ CENTRUM OPERACYJNE SKYCAST PRO – ALERT BURZOWY LIVE ⚡
    
 📅 NIEDZIELA, 21 CZERWCA 2026 | RAPORT Z FRONTU
 
@@ -354,6 +355,7 @@ MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
         okienko.remove();
         window.open('https://skycast-pro-mundial.vercel.app', '_blank');
     });
+}
 
 
         // ==========================================
