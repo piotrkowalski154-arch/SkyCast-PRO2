@@ -295,46 +295,33 @@
         }
 
         const TYTUL = 'RAPORT STRATEGICZNY'; 
-        const GODZINA = '21:26';
+const GODZINA = '00:10'; 
+const tresc = `⚡ CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY ⚡
 
-        const tresc = `🔴 SKYCAST METEO-ALERT: EKSTREMALNY UPAŁ I GWAŁTOWNE BURZE
+📅 PONIEDZIAŁEK, 22 CZERWCA 2026 | BIEŻĄCA ANALIZA FRONTU
 
-SKYCAST METEO-ALERT– RAPORT BIEŻĄCY (LIVE) ⚡
-📅 NIEDZIELA, 21 CZERWCA 2026 | GODZINA: 21:26
+Słuchaj, wchodzimy w nowy tydzień i mamy potężne starcie mas powietrza! Front atmosferyczny tnie Polskę na dwie połowy: dynamiczne, burzowe południe/wschód oraz słoneczną, stabilną północ/zachód. 
 
-🔴 STATUS: KOD 11 (ALERT POMARAŃCZOWY) – EWOLUCJA FRONTÓW
+📍 POGODA DLA KRAKOWA (PROGNOZA NA DZIŚ)
+• Dzień: Od rana do wczesnego popołudnia musimy zachować czujność. Radary pokazują 70% szans na przelotne deszcze i lokalne burze.
+• Temperatura: Termometry pokażą 25°C-26°C, ale uwaga – przez dużą wilgotność odczujemy nawet 28°C. Będzie naprawdę parno!
+• Wieczór: Po burzliwym dniu nadejdzie ulga. Od późnego popołudnia front odpuści, niebo mocno się rozpogodzi i złapiemy oddech przy przyjemnych 17°C-18°C w nocy.
 
-Bieżący skan radarowy (21:26) wskazuje na dalszą, dynamiczną wędrówkę systemów burzowych na wschód i południowy wschód.  
+🌍 POGODA DLA POLSKI (KONTRAST)
+• Północ i Zachód (Gdańsk, Poznań, Szczecin): Pełna stabilizacja, wyż, słońce i temperatury w okolicach 24°C-28°C. Idealna aura.
+• Centrum (Warszawa): Gorący kocioł! Temperatura wystrzeli nawet do 31°C w ciągu dnia.
+• Południe i Wschód (Katowice, Rzeszów, Lublin, Zakopane): Tu operuje dzisiejszy front. Spodziewane przelotne uderzenia burz, szczególnie w okolicach południa.
 
-📍 ANALIZA OPERACYJNA I DROGA FRONTÓW:
+⚠️ OSTRZEŻENIA I KOMUNIKATY
+🚨 W rejonach burzowych (pas od Śląska przez Małopolskę po Lubelszczyznę) porywy wiatru w trakcie uderzenia mogą osiągać 60-80 km/h. System monitoruje parametry!
 
-1️⃣ FRONT PÓŁNOCNO-ZACHODNI (Aktywny):
-
-Gdzie jest teraz: Potężna komórka burzowa, która wcześniej operowała nad Wolbromiem, przesunęła się wyraźnie na wschód/południowy wschód. Obecnie jej rdzeń znajduje się na północ od Krakowa, w rejonie Skały i Miechowa. Echo radarowe pozostaje bardzo intensywne.  
-
-Prognozowana droga: Układ kontynuuje ruch w stronę wschodnią, co oznacza, że tereny na północ od Krakowa są najbardziej narażone na wyładowania i ulewne deszcze w najbliższym czasie.  
-
-2️⃣ FRONT POŁUDNIOWY (Tatry / Podhale):
-
-Gdzie jest teraz: System pozostaje aktywny w rejonie Tatr i Podhala (okolice Zakopanego i Czarnego Dunajca), choć jego intensywność wydaje się skoncentrowana na terenach górskich.  
-
-3️⃣ FRONT PÓŁNOCNO-WSCHODNI:
-
-Gdzie jest teraz: Klaster burzowy oddalił się na wschód, poza bezpośrednie sąsiedztwo aglomeracji.  
-
-4️⃣ SEKTOR KRAKÓW I OKOLICE:
-
-Gdzie jest teraz: Kraków i bezpośrednie otoczenie pozostają w strefie relatywnie spokojniejszej, jednak jesteśmy "osaczeni" przez aktywne komórki burzowe – od północy (Skała/Miechów) oraz od południa (góry).  
-
-⚠️ KOMUNIKAT BEZPIECZEŃSTWA:
-
-🚨 Utrzymuje ALERT 2. STOPNIA 🚨. Największe ryzyko dotyczy teraz terenów na północ od Krakowa. Sytuacja jest rozwojowa – monitorujcie radar, ponieważ burza przemieszcza się nad obszarami zamieszkanymi. Bądźcie gotowi na nagłe pogorszenie warunków,`;
-
+==================================================
+MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
 
         okienko.innerHTML = `
             <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
                 ⚡ POLSKA: ${TYTUL} <br>
-                <small style="font-size:0.8rem;">Aktualizacja: 21.06.2026, ${GODZINA}</small>
+                <small style="font-size:0.8rem;">Aktualizacja: 22.06.2026, ${GODZINA}</small>
             </h2>
             <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
                 ${tresc}
