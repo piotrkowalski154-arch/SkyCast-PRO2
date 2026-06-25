@@ -268,10 +268,11 @@
     // ==========================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
     const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-   const alertIMGW = `🟢 BRAK ALERTÓW - 23 CZERWCA 2026 🟢
-Prognoza stabilna dla całej Polski. Kraków: słonecznie, brak ostrzeżeń, temp. do 26°C. 
-Lokalnie w Karpatach możliwy słaby rozwój burz tylko w pierwszej połowie dnia. 
-Warunki w pełni bezpieczne.`;
+   const alertIMGW = `🔴 OSTRZEŻENIE - FALA UPAŁÓW - 25 CZERWCA 2026 🔴
+Ekstremalne warunki. Kraków: 31°C+ w cieniu, odczuwalna znacznie wyższa.
+Indeks UV: EKSTREMALNY (8+). 
+Zalecenia: Bezwzględna ochrona, nawodnienie, przebywanie w cieniu (11-16).
+Status: OSTRZEŻENIE WYSOKIEGO RYZYKA.`;
     // 🚀 START SYSTEMU
     window.onload = function() {
         pokazAlertPowitalny(); 
@@ -325,7 +326,7 @@ MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
         okienko.innerHTML = `
             <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
                 ⚡ POLSKA: ${TYTUL} <br>
-                <small style="font-size:0.8rem;">Aktualizacja: 23.06.2026, ${GODZINA}</small>
+                <small style="font-size:0.8rem;">Aktualizacja: 25.06.2026, ${GODZINA}</small>
             </h2>
             <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
                 ${tresc}
