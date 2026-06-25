@@ -637,61 +637,61 @@ let titleColor = isNight ? "#38bdf8" : "#000000";
 
 if (weatherObj.id >= 200 && weatherObj.id <= 232) {
     // BURZA
-    mysl = "⚡ Piorunujące uderzenie! Pogoda szaleje jak sędzia z żółtymi kartkami. Lepiej zostań na kanapie i bezpiecznie oglądaj mecz w TV! 📺";
+    mysl = "⚡ Piorunujące uderzenie! Pogoda szaleje jak sędzia z żółtymi kartkami. Lepiej zostań na kanapie, odpal klimę i bezpiecznie analizuj mecze Mundialu w TV! 📺⚽";
     cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 
 } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
     // DESZCZ
-    mysl = "🌧️ Leje! Murawa śliska jak w finale Ligi Mistrzów. Idealna wymówka, żeby nie wychodzić z domu i po prostu odpalić meczyk z paczką czipsów! 🍿⚽";
+    mysl = "🌧️ Leje! Murawa śliska jak w finale Ligi Mistrzów. Idealna wymówka, żeby skryć się przed afrykańskim słońcem, odpalić mundialowy hit i paczkę czipsów! 🍿⚽";
     cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 
 } else if (weatherObj.id === 800 && isNight) {
     // NOC (Czyste niebo)
-    mysl = "🌙 Czyste niebo i włączone jupitery! Kto gra nocne mecze, ten wie, że to najlepszy klimat. Odpoczywaj przed jutrzejszymi starciami! 🏟️";
+    mysl = "🌙 Czyste niebo, włączone jupitery i wreszcie chłodniej! Kto gra nocne mecze na Mundialu, ten wie, że to najlepszy klimat. Odpoczywaj przed jutrzejszym skwarem i kolejnymi starciami! 🏟️";
     cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
     textColor = "#ffffff"; titleColor = "#38bdf8";
 
 } else if (weatherObj.id === 800 && !isNight) {
     // DZIEŃ (Czyste niebo)
-    mysl = "☀️ Czyste niebo i pełne słońce! Pogoda na finał mistrzostw świata. Aż się chce wyjść pokopać... albo chociaż wypić zimne piwko na balkonie! 🍺⚽";
+    mysl = "☀️ Bezchmurne niebo i pełne słońce! Pogoda na finał Mundialu, ale uważaj na patelnię na zewnątrz. Zamiast kopać, lepiej wypić zimne piwko w cieniu i oglądać, jak inni biegają! 🍺⚽";
     cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
 
 } else if (currentData.main.temp > 34) {
     // UPAŁ EKSTREMALNY
-    mysl = "🔥 Upał jak w Katarze! Sędzia zarządza przerwę na wodę. Schowaj się w cieniu, włącz wiatrak i oszczędzaj siły na wieczorny seans! 🥵💦";
+    mysl = "🔥 Upał jak na stadionach w Katarze! Sędzia zarządza przerwę na wodę, a VAR potwierdza: mamy czerwony alert. Schowaj się w cieniu, odpal wiatrak i oszczędzaj siły na wieczorny seans! 🥵💦";
     cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
     textColor = "#ffffff"; titleColor = "#ffffff";
 
 } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
     // UPAŁ
-    mysl = "☀️ Gorąco jak w polu karnym w 90. minucie! Pamiętaj o nawodnieniu, żeby dotrwać do końcowego gwizdka bez zadyszki. 🥤⚽";
+    mysl = "☀️ Gorąco jak w polu karnym w 90. minucie przy remisie! Afrykańskie powietrze robi swoje. Pamiętaj o twardym nawodnieniu, żeby dotrwać do końcowego gwizdka bez zadyszki. 🥤⚽";
     cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
 
 } else if (currentData.main.temp > 25) {
     // CIEPŁO
-    let timeGreeting = isNight ? "Wieczór idealny na odpoczynek przy piłkarskich analizach!" : "Idealne ciepełko! Pogoda stworzona do kibicowania na zewnątrz.";
-    mysl = `😎 ${timeGreeting} Łap dobrą formę! 🏟️☀️`;
+    let timeGreeting = isNight ? "Wieczór idealny na odpoczynek przy piłkarskich analizach!" : "Mundialowa gorączka trwa! Unikaj pełnego słońca.";
+    mysl = `😎 ${timeGreeting} Ładuj akumulatory i trzymaj formę na kolejne mecze! 🏟️☀️`;
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
 
 } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
     // PRZYJEMNIE
-    let timeGreeting = isNight ? "Wieczorna aura idealna na analizy taktyczne!" : "Świetny dzień na mały spacer przed wieczornym meczem!";
+    let timeGreeting = isNight ? "Wieczorna aura idealna na analizy taktyczne!" : "Świetne okno transferowe na krótki spacer przed mundialowym wieczorem!";
     mysl = `🌤️ Pogoda mistrzowska, idealne 20+ stopni! Piłka sama niesie się po murawie. ${timeGreeting} 🚶‍♂️⚽`;
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
 
 } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
     // RZEŚKO
-    let timeGreeting = isNight ? "Rześki wieczór – w sam raz na wieczorny stream!" : "Trochę rześko, ale do biegania w sam raz!";
-    mysl = `🍂 ${timeGreeting} Idealna temperatura na ostry pressing. Załóż dresik i bądź gotowy do akcji! 🏃‍♂️💨`;
+    let timeGreeting = isNight ? "Rześki wieczór – w sam raz na wieczorny stream z Mundialu!" : "Trochę rześko, idealnie na ostry pressing!";
+    mysl = `🍂 ${timeGreeting} Załóż dresik i bądź gotowy do akcji! 🏃‍♂️💨`;
     cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
     textColor = isNight ? "#e2e8f0" : "#000000";
     titleColor = isNight ? "#38bdf8" : "#000000";
 
 } else if (currentData.main.temp < 5) {
     // ZIMNO
-    mysl = "🥶 Zimno jak na ławce rezerwowych w grudniu! Trener radzi: gorąca herbata, ciepły kocyk i mecz w telewizorze to jedyna słuszna taktyka na dziś! ☕❄️";
+    mysl = "🥶 Zimno jak na ławce rezerwowych! Trener radzi: gorąca herbata, ciepły kocyk i mundialowy maraton w TV to jedyna słuszna taktyka na dziś! ☕❄️";
     cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
 }
 
