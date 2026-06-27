@@ -115,8 +115,26 @@
 
     .mixcloud-box {
         border-color: rgba(56, 189, 248, 0.6) !important;
+        
     }
-    
+     .imgw-radar-container {
+        box-sizing: border-box; /* Nasz bezpiecznik wymiarów */
+        width: 100%;
+        max-width: 600px; /* Zabezpieczenie, żeby wideo nie było na pół pokoju na dużym ekranie */
+        margin: 20px auto; /* Zewnętrzny odstęp - odpycha od innych kart i centruje (auto) */
+        padding: 10px; /* Wewnętrzny oddech - ramka wokół wideo */
+        background-color: #1a1a1a; /* Ciemne tło dla kontrastu */
+        border-radius: 12px; /* Zaokrąglone krawędzie kontenera */
+        border: 5px solid #ff3b30; /* Czerwona ramka ostrzegawcza */
+        box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4); /* Efekt jarzenia (poświata cieplna) */
+    }
+
+    /* STYL SAMEGO WIDEO W ŚRODKU */
+    .imgw-radar-container video {
+        width: 100%; /* Rozciąga wideo idealnie na szerokość wewnętrzną kontenera (bez wychodzenia za padding) */
+        border-radius: 6px; /* Lekkie zaokrąglenie samego nagrania */
+        display: block; /* Usuwa uciążliwy, domyślny margines pod obrazkami/wideo w HTML */
+    }
 </style>  
     
     
@@ -140,7 +158,11 @@
             </div>
             
         </div>
-
+<!-- KONTENER RADARU POGODOWEGO IMGW -->
+<div class="imgw-radar-container">
+    <!-- Łącznik z lokalnym plikiem wideo. Zabezpieczenia: autoplay, loop, muted -->
+    <video src="INCA_T2M_1782563075.mp4" autoplay loop muted playsinline></video>
+</div>
 
 
         <div id="radar-wiadomosci" class="wiadomosci">
