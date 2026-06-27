@@ -291,25 +291,26 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ==========================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
     const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-   const alertIMGW = `🔴 OFICJALNE ALERTY IMGW NA  (SOBOTA, 27 CZERWCA 2026) 🔴
+   const alertIMGW =`🔴 OFICJALNE ALERTY IMGW NA (NIEDZIELA, 28 CZERWCA 2026) 🔴
 
 [ KRAKÓW I MAŁOPOLSKA ]
-⚠️ OSTRZEŻENIE: Upał – Stopień 2 (Alert pomarańczowy)
-• Szczegóły: Wzrost temperatury maksymalnej od 30°C do 33°C. Noce wyjątkowo ciepłe, od 16°C do 19°C (lokalnie w centrach do 20°C).
-• Ważność: Do soboty (27.06) do godz. 10:00 (z zapowiedzią przedłużenia na weekend).
-• Prawdopodobieństwo: 80% - 90%
+⚠️ OSTRZEŻENIE: Upał – Stopień 3 (Alert Czerwony) + Ryzyko Burz
+• Szczegóły: Kulminacja fali upałów. Temp. 37°C - 38°C w cieniu. Wieczorem wysokie ryzyko gwałtownych burz.
+• Ważność: Obowiązuje 28.06.
+• Prawdopodobieństwo: 95% (Upał), 80% (Burze wieczorne)
 
 [ CAŁA POLSKA ]
-⚠️ OSTRZEŻENIE METEO: Upał – Stopień 2 i 1
-• Stopień 2 (Pomarańczowy): Zachód, centrum, Mazowsze, Lubelszczyzna, Śląsk i Małopolska (30°C – 34°C, lokalnie na zachodzie do 35°C).
-• Stopień 1 (Żółty): Pas północny (Mazury, Pomorze) i rejony górskie (29°C - 30°C).
-🌊 OSTRZEŻENIE HYDROLOGICZNE: Susza (Dorzecze Wisły i Odry). Poziom wód spada poniżej stanów niskich.
+⚠️ OSTRZEŻENIE METEO: Upał – Stopień 3 (Czerwony)
+• Stopień 3 (Czerwony): Fala upałów trwa (do 41°C w regionach zachodnich).
+• Burze: Późnym popołudniem i wieczorem rozwój gwałtownych burz frontowych (Pomorze, zachód, Karpaty).
+🌊 OSTRZEŻENIE HYDROLOGICZNE: Susza hydrologiczna (Dorzecze Wisły i Odry).
 
 🛡️ ZALECENIA BEZPIECZEŃSTWA IMGW:
-1. Regularnie pij duże ilości wody (unikaj napojów słodzonych).
-2. Ogranicz przebywanie na słońcu w godzinach 11:00 - 16:00.
-3. Chroń głowę, noś okulary przeciwsłoneczne i stosuj filtry UV.
-4. Pod żadnym pozorem nie zostawiaj dzieci ani zwierząt w aucie.`;
+1. Ekstremalne nawadnianie (min. 3-4 litry wody).
+2. Unikaj słońca 11:00 - 18:00 (szczyt promieniowania UV).
+3. Zabezpiecz przedmioty na balkonach/tarasach (wiatr w czasie burz do 90 km/h).
+4. Obowiązkowa ochrona UV i nakrycie głowy.
+5. W razie burzy schroń się w budynku – nie parkuj pod drzewami.`;
     // 🚀 START SYSTEMU
     window.onload = function() {
         pokazAlertPowitalny(); 
@@ -335,36 +336,41 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         }
 
       const TYTUL = 'RAPORT STRATEGICZNY'; 
-const GODZINA = '18:15'; 
-const tresc = ` 🥵  CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY (WIECZORNY)  🥵  
-📅 SOBOTA, 27 CZERWCA 2026 | STATUS: GODZINA 18:10
+const GODZINA = '20:15'; 
+const tresc = ` 🥵  CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY (AKTUALIZACJA 20:15)  🥵   
+📅 SOBOTA, 27 CZERWCA 2026 | STATUS: SESJA NOCNA
 
-🔥 STATUS: Efekt „Betonowego Piekarnika” w pełnym rozkwicie! Słońce opada, ale mury miast oddają zgromadzone przez cały dzień ciepło. Powietrze stoi i paruje.
+🔥 STATUS: Efekt „Betonowego Piekarnika” trwa. Mury oddają ciepło, noc tropikalna nieuchronna.
 
-📍 KRAKÓW I POŁUDNIE POLSKI:
-• 🌡️ Aktualny stan: Około 30°C. Słońce jest już nisko, UV spada, ale temperatura odczuwalna wciąż wysoka przez silną radiację z budynków i asfaltu.
-• 🌙 Noc (ALERT): NADCHODZI NOC TROPIKALNA! Termometry mogą nie spaść poniżej 20-21°C. Szykujcie wentylatory, chłodzenie organizmu będzie kluczowe.
-• 🌬️ Wiatr: Cisza absolutna. Powietrze jest "gęste" i ciężkie.
-• 💧 Nawodnienie: To nie jest prośba, to wymóg systemowy. Pij wodę, chłodź organizm!
+📍 KRAKÓW I MAŁOPOLSKA (NOC 27/28.06):
+• 🌡️ Temp. Min: 20°C - 24°C (Noc Tropikalna).
+• 🌬️ Wiatr: Słaby, południowy (4-6 km/h).
+• ☁️ Niebo: Bezchmurnie. Brak opadów.
 
-🇵🇱 SYTUACJA W CAŁEJ POLSCE (ALERTY KRAJOWE):
-• 🔴 CZERWONY ALERT IMGW (3. STOPIEŃ): Najwyższy stopień zagrożenia upałami rozszerzony na większość kraju. 
-• 📱 OGÓLNOPOLSKI ALERT RCB: Rozesłane oficjalne ostrzeżenia – bezwzględny nakaz unikania pełnego słońca i uzupełniania płynów.
-• ⚠️ Zachód i Centrum: Ekstremalny żar – prognozy na weekend wskazują lokalne maksima dochodzące nawet do 39-42°C. Potężna akumulacja ciepła w aglomeracjach.
-• 🚗 Paraliż Logistyczny: Służby drogowe w gotowości, awaryjne otwieranie bramek na autostradzie A1 ze względu na gigantyczne zatory w upale.
-• 🌩️ Front Burzowy: Zaczyna się formować od zachodu! Niedziela przyniesie gwałtowne starcie mas powietrza – wysokie ryzyko agresywnych superkomórek burzowych, ulew i gradu.
+📍 KRAKÓW I MAŁOPOLSKA (DZIEŃ 28.06):
+• 🌡️ Temp. Max: 37°C - 38°C (Cień).
+• ☢️ Indeks UV: 7.0 (Wysoki).
+• 💧 Wilgotność: Ekstremalnie niska (26-35%).
+• ☀️ Warunki: Pełne słońce, minimalne ryzyko opadów (<10%).
 
-⚠️ OSTRZEŻENIA (NOC / NIEDZIELA):
-• 🔴 NOC TROPIKALNA: Otwierajcie okna dopiero, gdy temperatura na zewnątrz będzie wyraźnie niższa niż wewnątrz pomieszczeń. Brak regeneracji dla organizmu.
-• ⚡ GWAŁTOWNE NAWAŁNICE: Front uderzy z pełną siłą w niedzielę. Możliwe porywy wiatru przekraczające 85-90 km/h.
-• 🏜️ SUSZA: Sytuacja hydrologiczna krytyczna. Oszczędzajcie wodę!
+🇵🇱 SYTUACJA W POLSCE (ALERTY KRAJOWE):
+• 🔴 CZERWONY ALERT IMGW (3. STOPIEŃ): Najwyższy stopień zagrożenia upałami.
+• 📱 ALERT RCB: Ekstremalne zagrożenie pożarowe. Ogranicz przebywanie na słońcu!
+• 📈 EKSTREMALNE MAKSIMA (28.06):
+   - Wrocław/Zielona Góra: 41°C
+   - Warszawa/Poznań/Łódź/Opole/Toruń/Gorzów: 40°C
+   - Bydgoszcz/Kielce/Lublin: 39°C
+   - Kraków/Katowice/Olsztyn/Rzeszów: 38°C
+   - Wybrzeże/Podhale: ok. 31°C
+
+⚠️ ZAGROŻENIA WIECZORNE (28.06):
+• ⚡ FRONT BURZOWY: Gwałtowne burze (Pomorze, zachód, Karpaty).
+• 💨 WIATR: Porywy 80-90 km/h w czasie burz.
 
 📊 NAJWAŻNIEJSZE PARAMETRY SYSTEMOWE:
-• ☢️ Indeks UV: Bezpieczny (słońce nisko).
-• 🌡️ Radiacja Cieplna: EKSTREMALNA (beton parzy).
-• 💧 STATUS MIGRACJI: Baza danych SkyCast Pro zaktualizowana pomyślnie.
+• ☢️ Radiacja Cieplna: EKSTREMALNA.
+• 💧 STATUS MIGRACJI: Baza danych SkyCast Pro zaktualizowana (27.06 20:15).
 ==================================================`;
-        
         okienko.innerHTML = `
             <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
                  🥵 POLSKA: ${TYTUL} <br>
