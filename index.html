@@ -343,28 +343,31 @@ Uwaga! Zrzuty z radarów pogodowych oraz raporty z frontu burzowego będą publi
         }
 
       const TYTUL = 'RAPORT STRATEGICZNY'; 
-const GODZINA = '15:38'; 
-const tresc = ` 🥵  CENTRUM OPERACYJNE SKYCAST PRO – RAPORT POGODOWY (AKTUALIZACJA 28.06 15:38)  🥵   
-📅 NIEDZIELA, 28 CZERWCA 2026 | STATUS: KULMINACJA FALI UPAŁÓW
+const GODZINA = '17:34'; 
+const tresc = `🔴 SYSTEM SKYCAST PRO: ALERT METEO [STAN: 17:34] 🔴
 
-🔥 STATUS: "Piekarnik Narodowy". Kulminacja fali upałów. Ekstremalne ryzyko zdrowotne.
+⚠️ STATUS: MAX ZAGROŻENIE (POZIOM 3) - FAZA KRYTYCZNA
+Region: Wielkopolska / Zachodniopomorskie
 
-📍 KRAKÓW I MAŁOPOLSKA (STAN NA 15:38):
-• 🌡️ Temp. Max: 34°C - 35°C (w cieniu, słońce drastycznie zawyża odczuwalną).
-• ☢️ Indeks UV: Ekstremalnie wysoki. Unikać ekspozycji!
-• ☀️ Warunki: Bezchmurnie, palące słońce, brak cyrkulacji powietrza. 
-• 🌙 Noc Tropikalna: Temperatury nocne nie spadną poniżej 20°C-25°C.
+⛈️ ANALIZA RADAROWA:
+Układ wchodzi w fazę dojrzałą. Systemy burzowe organizują się w liniowy układ szkwałowy z ryzykiem "Bow Echo" (wygięcie linii burzowej), co oznacza niszczycielskie prądy zstępujące.
 
-🇵🇱 SYTUACJA W POLSCE (SKRAJNE ALERTY):
-• 🔴 CZERWONY ALERT IMGW (3. STOPIEŃ): UPAŁ. Południe, centrum, wschód (w tym Małopolska).
-• 🟠 POMARAŃCZOWY ALERT IMGW (2. STOPIEŃ): BURZE. Z zachodu i północy wkracza gwałtowny front.
-• 💨 ZAGROŻENIA NA FRONCIE: Porywy wiatru 80-100 km/h, gradobicia, nawalne ulewy.
+🚨 GŁÓWNE ZAGROŻENIA:
+🌪️ WIND: Porywy 110–125 km/h (Ryzyko zniszczeń, trąby powietrzne).
+🧊 HAIL: Duży grad 4–6 cm (Destrukcja mienia).
+🌊 FLOOD: Flash Flooding (nawalny opad 50 mm/h).
 
-🇪🇺 EUROPA: KOPUŁA UPAŁÓW (HEAT DOME)
-Ekstremalne obciążenie termiczne w Europie Środkowej i Południowej.
-- Rzym (37°C), Berlin (36°C) – najwyższe stopnie alertów zdrowotnych.
-- Alpy / Niemcy: Rozwój potężnych burz superkomórkowych.
-==================================================`;
+📍 TRAJEKTORIA I ZAGROŻENIA LOKALNE:
+• ZACHODNIOPOMORSKIE (Myślibórz, Choszczno, Wałcz): Uderzenie frontu w toku. Spadek temp. o 15°C.
+• WIELKOPOLSKA (Czarnków, Międzychód, Nowy Tomyśl): Front wkracza do powiatów. 
+• POZNAŃ: Znajduje się w strefie "beczki prochu" (akumulacja CAPE 40°C) – uderzenie w najbliższych 60-120 min.
+
+🛡️ PROTOKÓŁ BEZPIECZEŃSTWA (OBOWIĄZKOWY):
+1. NATYCHMIASTOWE SCHRONIENIE w trwałym budynku.
+2. ODŁĄCZ ELEKTRONIKĘ od sieci (ryzyko przepięć).
+3. UNIKAJ PARKINGÓW POD DRZEWAMI.
+--------------------------------------------------------------------------------
+📡 ⛈️ KOLEJNA AKTUALIZACJA SYSTEMOWA: ZA 2 GODZINY ⚠️`; 
         
         okienko.innerHTML = `
             <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
