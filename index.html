@@ -354,23 +354,26 @@ function pokazAlertPowitalny() {
 
         // Wstrzyknięcie danych do okienka
        okienko.innerHTML = `
-    <h2 style="margin: 0 0 10px 0; color: #fff;">${TYTUL}</h2>
-    <div style="font-weight: bold; margin-bottom: 10px; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 5px;">Aktualizacja: ${GODZINA}</div>
-    <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4;">${tresc}</pre>
+   <div style="width: 100%; max-width: 450px; box-sizing: border-box; background: #1e1e1e; padding: 20px; border-radius: 12px; margin: 0 auto;">
     
-    <!-- POTĘŻNY KONTENER FLEXBOX DLA PRZYCISKÓW -->
-    <div style="width: 100%; max-width: 450px; box-sizing: border-box; background: #1e1e1e; padding: 20px; border-radius: 12px;">
+    <h2 style="margin: 0 0 10px 0; color: #fff;">🔴 OFICJALNE ALERTY IMGW</h2>
+    <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4; color: #fff;">${tresc}</pre>
     
-    <h2>🔴 OFICJALNE ALERTY IMGW</h2>
-    <pre>${tresc}</pre>
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100; gap: 10px;">
-        <button style="background: #facc15; ...">🧲💨 ROZUMIEM I MONITORUJĘ ⛈️</button>
-        <button style="background: #ef4444; ...">🥅 URUCHOM SKYCAST MUNDIAL ⚽</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
+        
+        <button onclick="this.parentElement.parentElement.remove()" style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #facc15; color: #fff; font-size: 16px;">
+            🧲💨 ROZUMIEM I MONITORUJĘ ⛈️
+        </button>
+        
+        <a href="https://skycast-pro-mundial.vercel.app" style="text-decoration: none;">
+            <button style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #ef4444; color: #fff; font-size: 16px;">
+                🥅 URUCHOM SKYCAST MUNDIAL ⚽
+            </button>
+        </a>
+        
     </div>
 
 </div>
-`;
 
         document.body.appendChild(okienko);
     }
