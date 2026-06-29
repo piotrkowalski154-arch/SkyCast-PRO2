@@ -309,7 +309,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     if (!document.getElementById('skycast-animations')) {
         const style = document.createElement('style');
         style.id = 'skycast-animations';
-        style.innerHTML = `
+        style.cssText = `
             @keyframes alert-border-pulse {
                 0% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
                 50% { border-color: #ef4444; box-shadow: 0 0 30px #ef4444; }
@@ -341,43 +341,38 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 }
 
       const TYTUL = 'RAPORT BURZOWY ⚠️⚡'; 
-const GODZINA = '17:20'; 
-const tresc = `🔴 OFICJALNE ALERTY IMGW NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
+const GODZINA = '19:55'; 
+const tresc =`🔴 OFICJALNE ALERTY IMGW NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
 
-📡 SYSTEM MONITORINGU LIVE: 
-Uwaga! Zrzuty z radarów pogodowych oraz raporty z frontu burzowego będą publikowane w tym miejscu równo co 2 godziny. Śledźcie Mnie na bieżąco!
+📡 SYSTEM MONITORINGU LIVE (Aktualizacja: 19:50):
+Uwaga! Sytuacja jest ekstremalnie dynamiczna. Front zderza się z upałem – burze wchodzą w fazę niszczycielską.
 
 [ KRAKÓW I MAŁOPOLSKA ]
-⚠️ OSTRZEŻENIE: Upał – Stopień 3 (Alert Czerwony) + Ryzyko Burz
-• Szczegóły: Maksymalnie do 37°C w cieniu. W godzinach 15:00-17:00 wysokie ryzyko rozwoju gwałtownych burz z gradem.
-⚡ ALERT RADAROWY (SYTUACJA ROZWOJOWA): Systemy wykrywają punkty konwekcyjne na linii zbieżności. Komórki mogą lokalnie szybko przybierać na sile. Zalecana czujność!
-• Ważność: Obowiązuje 29.06.
-• Prawdopodobieństwo: 95% (Upał), 80% (Burze popołudniowe)
+⚠️ OSTRZEŻENIE: Upał – Stopień 3 (Alert Czerwony) + Ryzyko Burz Inwazyjnych
+• Szczegóły: Temperatura w cieniu 34°C - 35°C. Odczuwalna ok. 37°C.
+⚡ ALERT RADAROWY: W samym mieście detektory jeszcze nie notują uderzeń, ale burza inwazyjna może uderzyć w ciągu 1-3 godzin.
+• Ważność: Noc z 29.06 na 30.06.
+• Prognoza nocna: Noc tropikalna (26°C - 27°C o północy). Wysokie ryzyko gradu i wiatru do 90 km/h.
 
 [ CAŁA POLSKA ]
-⚠️ OSTRZEŻENIE METEO: Upał – Stopień 3 (Czerwony)
-• Szczegóły: Ekstremalna fala upałów zwrotnikowych trwa. Maksimum krajowe do 39°C (Centrum, Mazowsze, Lubelszczyzna). Noc tropikalna przyniesie od 20°C do 24°C.
-• Pustynia gorąca (pory dnia): Rano (08:00) -> 28°C | Południe (12:00) -> 34°C | Popołudnie (15:00) -> 36°C - 39°C.
-• Wybrzeże Bałtyku: Odczuwalna ulga, od 22°C do 29°C.
-• Burze: Po południu i wieczorem gwałtowne burze frontowe na linii zbieżności (południowy zachód, centrum oraz Karpaty). Suma opadów 20-30 mm, miejscami grad.
-🌊 OSTRZEŻENIE HYDROLOGICZNE: Głęboka susza hydrologiczna w dorzeczu Wisły i Odry.
+⚠️ OSTRZEŻENIE METEO: Apogeum Nawałnic (Stopień 2 i 3)
+• Polska Zachodnia i Południowo-Zachodnia: Rozwijają się najbardziej niszczycielskie strefy burzowe. Superkomórki generują nawalne opady, grad 3-5 cm oraz wiatr do 100 km/h.
+• Pogranicze ze Słowacją: Ryzyko powodzi błyskawicznych.
+• Polska Centralna/Wschodnia: Upał do 33°C, burze dotrą w głąb lądu nad ranem.
 
-🛡️ ZALECENIA BEZPIECZEŃSTWA IMGW:
-1. Unikaj przebywania na bezpośrednim słońcu w godzinach 10:00 - 17:00 (Indeks UV wynosi 7 - wysokie zagrożenie oparzeniami).
-2. Absolutne minimum to 3-4 litry płynów (najlepiej czysta woda mineralna).
-3. Zabezpiecz zwierzęta przed przegrzaniem i zapewnij im stały dostęp do świeżej wody.
-4. Stosuj kremy z filtrem SPF oraz nakrycie głowy.
-5. Osoby uczulone na trawy i pokrzywy powinny ograniczyć wietrzenie mieszkań w ciągu upalnego dnia (apogeum pylenia).
-6. Zabezpiecz luźne przedmioty na balkonach i tarasach (porywy wiatru w burzach od 70 km/h do 95 km/h).
+🛡️ ZALECENIA BEZPIECZEŃSTWA (PROTOKÓŁ RCB):
+1. Zostań w domu, nie wychodź, jeśli nie musisz.
+2. Zamknij okna i zabezpiecz przedmioty na balkonach.
+3. Podczas burzy odłącz zbędną elektronikę.
+4. Śledź ruch nawałnic na radarze IMGW i Polskich Łowcach Burz.
 
-🚨 DANE Z EUROPY I ALERT MEDYCZNY:
-• Francuskie elektrownie jądrowe vs. Upały: Krytyczny wzrost temperatur rzek wymusił ograniczenie mocy reaktorów, by uniknąć katastrofy ekologicznej.
-• Uwaga Alergicy (Astma Burzowa): Gwałtowny wzrost wilgoci tuż przed nawałnicą powoduje pękanie ziaren pyłków traw i uwalnianie silnych alergenów. Unikaj przebywania na zewnątrz bezpośrednio przed burzą!
+🚨 ALERT MEDYCZNY:
+• Astma Burzowa: Unikaj otwartych okien bezpośrednio przed burzą – nagła wilgoć uwalnia alergeny!
 
 🌪️ GŁÓWNE ZAGROŻENIA DLA KRAJU:
-• PORYWY WIATRU: Od 70 km/h do 95 km/h.
-• OPADY: Nawalne ulewy, lokalny grad.
-• ZAGROŻENIE POŻAROWE: Ekstremalny stopień zagrożenia w lasach w całym kraju.
+• PORYWY WIATRU: Do 100 km/h.
+• OPADY: Nawalne ulewy, ryzyko powodzi błyskawicznych (do 100 mm lokalnie).
+• GRAD: Lokalnie do 3-5 cm.
 --------------------------------------------------------------------------------
 📡 ⛈️ KOLEJNA AKTUALIZACJA SYSTEMOWA: ZA 1h GODZIN ⚠️`;
         
