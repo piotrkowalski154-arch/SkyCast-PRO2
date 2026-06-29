@@ -300,30 +300,26 @@ const alertIMGW = "IMGW RAPORT 21:52 (29.06.2026) | POLSKA: Ekstremalny podział
 
 // 1. ZMIENNE GLOBALNE (Tutaj trzymamy dane raportu)
 const TYTUL = '🚨 KRYTYCZNA AKTUALIZACJA: STRUKTURA BOW ECHO!'; 
-const GODZINA = '22:00'; 
-const tresc = `🔴 OFICJALNE ALERTY IMGW NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
-
+const GODZINA = '22:50'; 
+const tresc = `🔴 OFICJALNE ALERTY SKY CAST NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
 📡 MONITORING LIVE: 
-UWAGA! System MCS wykazuje cechy sygnatury BOW ECHO (wybrzuszenie linii szkwału na radarze). Oznacza to drastyczny wzrost siły uderzeniowej wiatru przed czołem burzy!
+Front szkwałowy z sygnaturą BOW ECHO uderza w zachodnie powiaty Małopolski i bezpośrednio napiera na Kraków! Strefa burzowa ma potężne zasilanie energetyczne. Nad Śląskiem (Rybnik, Katowice) front zrywa już linie energetyczne i łamie drzewa!
 
-[ ŚLĄSK ]
-⚠️ STATUS: BEZPOŚREDNIE UDERZENIE
-• System aktualnie dewastuje południowe krańce. Ściana deszczu (40-60 mm/h) i wiatr szkwałowy.
+[ KRAKÓW – STATUS PRZEDUDERZENIOWY ]
+⚠️ ALERT KRYTYCZNY: WEJŚCIE STREFY ZERO (23:00 – 01:00)
+• Telemetria: Temperatura spadła minimalnie do 29°C – 30°C, ale wilgotność przekroczyła 65%. Odczuwalna to wciąż piekielne 33°C. Powietrze stoi – absolutna cisza przed burzą.
+• Zagrożenie liniowe: W ciągu najbliższych minut oczekiwane jest gwałtowne uderzenie wiatru (do 90 km/h), nawalny opad (30–40 mm) mogący zalewać ulice oraz lokalny grad. 
 
-[ KRAKÓW I MAŁOPOLSKA ]
-⚠️ ALERT KRYTYCZNY: Uderzenie między 22:00 a 24:00!
-• Sytuacja: W mieście wciąż 30°C (odczuwalna 36°C). Powietrze stoi, ale atmosfera jest skrajnie naładowana.
-• Zagrożenie: Główna strefa burzowa zasilana energią znad Czech uderzy w nocy. Oczekiwana jest fala uderzeniowa wiatru (75-85 km/h, punktowo więcej), ulewy do 30 mm i lokalny grad.
+[ ŚLĄSK & CZECHY ]
+⚠️ STATUS: DEWASTACJA I SEPARATOR FRONTOWY
+• Główny rdzeń nawałnic przeszedł znad Czech (Ostrawa) przez aglomerację śląską. Generuje masowe wyładowania i szkwały. System przesuwa się na północny wschód.
 
 🛡️ PROTOKÓŁ BEZPIECZEŃSTWA (MAX):
-1. ZAMKNIJ OKNA – formacja Bow Echo uderza nagle, bez ostrzeżenia.
-2. Odłącz cenną elektronikę od gniazdek (ryzyko wyładowań i skoków napięcia).
-3. Naładuj telefon i miej pod ręką latarkę (wysokie ryzyko zerwania linii energetycznych).
-4. Nie obserwuj burzy z balkonu w momencie uderzenia szkwału!
+1. ZARYGLUJ OKNA – wiatr liniowy uderzy z potężną siłą w ułamek sekundy.
+2. ABSOLUTNE ODCIĘCIE – wyciągnij wtyczki cennej elektroniki z gniazdek.
+3. CHROMEBOOK OFFLINE – bateria na 100%, odepnij kabel, pracuj bezpiecznie.
+4. ZAKAZ WYCHODZENIA – nie ryzykuj zdrowia na balkonie czy zewnątrz.
 
-🌪️ GŁÓWNE ZAGROŻENIA:
-• Wiatr: Ekstremalne uderzenie liniowe (szkwał).
-• Opady: Nawalne ulewy grożące zalaniami ulic.
 --------------------------------------------------------------------------------
 📡 ⛈️ KOLEJNA AKTUALIZACJA: ZA 1h ⚠️`;
 
@@ -371,12 +367,28 @@ function pokazAlertPowitalny() {
         `;
 
         // Wstrzyknięcie danych do okienka
-        okienko.innerHTML = `
-            <h2 style="margin: 0 0 10px 0; color: #fff;">${TYTUL}</h2>
-            <div style="font-weight: bold; margin-bottom: 10px; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 5px;">Aktualizacja: ${GODZINA}</div>
-            <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4;">${tresc}</pre>
-            <button onclick="this.parentElement.remove()" style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #fff; color: #ef4444; font-size: 16px;">ROZUMIEM I MONITORUJĘ</button>
-        `;
+       okienko.innerHTML = `
+    <h2 style="margin: 0 0 10px 0; color: #fff;">${TYTUL}</h2>
+    <div style="font-weight: bold; margin-bottom: 10px; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 5px;">Aktualizacja: ${GODZINA}</div>
+    <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4;">${tresc}</pre>
+    
+    <!-- POTĘŻNY KONTENER FLEXBOX DLA PRZYCISKÓW -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
+        
+        <!-- Przycisk 1 (Po lewej): Zamknięcie alertu -->
+        <button onclick="this.parentElement.parentElement.remove()" style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #fff; color: #ef4444; font-size: 16px;">
+          🧲💨 ROZUMIEM I MONITORUJĘ ⛈️
+        </button>
+        
+        <!-- Przycisk 2 (Po prawej): Przekierowanie do SkyCast za pomocą tagu kotwicy <a> -->
+        <a href="https://skycast-pro-mundial.vercel.app" style="text-decoration: none;">
+            <button style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #ef4444; color: #fff; font-size: 16px;">
+               🥅 URUCHOM SKYCAST MUNDIAL ⚽
+            </button>
+        </a>
+        
+    </div>
+`;
 
         document.body.appendChild(okienko);
     }
