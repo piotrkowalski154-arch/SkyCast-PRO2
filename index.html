@@ -309,7 +309,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     if (!document.getElementById('skycast-animations')) {
         const style = document.createElement('style');
         style.id = 'skycast-animations';
-        style.cssText = `
+        style.innerHTML = `
             @keyframes alert-border-pulse {
                 0% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
                 50% { border-color: #ef4444; box-shadow: 0 0 30px #ef4444; }
