@@ -292,94 +292,86 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ==========================================
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
     // ==========================================
-    const API_KEY = "6def6302b0a9b722144968390f4b8522";
-const dniTygodnia = ['Niedziela', 'Ponie🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+   const API_KEY = "6def6302b0a9b722144968390f4b8522";
+const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 
-// ✅ STAŁY ALERT IMGW
-const alertIMGW = `🚨 ALERT RCB & IMGW (30.06.2026) 🚨
+const alertIMGW = `🚨 ALERT RCB I IMGW (II STOPIEŃ - POMARAŃCZOWY) 🚨
+Ekstremalny skwar! Upały w Krakowie i całej południowo-wschodniej Polsce (32°C - 35°C). Zachowajcie czujność – po południu i wieczorem istnieje potężne ryzyko stacjonarnych, nawalnych burz z gradem do 5 cm i wiatrem do 110 km/h. Ryzyko powodzi błyskawicznych! Trzymajcie gardę wysoko!`;
 
-🔺 KRAKÓW & MAŁOPOLSKA
-• UPAŁ: Do 34°C w cieniu. Noc tropikalna (>20°C). Skrajny pożar w lasach!
-• BURZE: Stacjonarne nawałnice, grad do 5 cm, wiatr 85 km/h. Ryzyko podtopień!
-
-📱 ALERTY RCB (KRYTYCZNE SMS)
-1. Wichury, ulewy i grad. Możliwe nagłe przerwy w dostawie prądu!
-2. Upał blokuje ciąg kominowy w piecykach! Wietrz mieszkanie – ryzyko czadu!
-
-🛡️ SZYBKA OCHRONA
-• Zamknij okna. Przeparkuj auto z dala od drzew.
-• Unikaj słońca (11-16). Pij 3L wody. Nie zostawiaj nikogo w aucie!`;
-// 2. LOGIKA SYSTEMOWA
+// 🚀 START SYSTEMU
 window.onload = function() {
     pokazAlertPowitalny();
-    
-    // Zabezpieczenie: Sprawdzamy czy funkcje istnieją, zanim je uruchomimy
-    if (typeof uruchomProtokolGPS === 'function') uruchomProtokolGPS();
-    if (typeof pobierzWiadomosci === 'function') pobierzWiadomosci();
-    if (typeof uruchomZlotySkaner === 'function') uruchomZlotySkaner();
+    uruchomProtokolGPS(); 
+    pobierzWiadomosci();
+    uruchomZlotySkaner(); // NAPRAWA: Złoty Skaner uruchamia się automatycznie!
 };
 
 function pokazAlertPowitalny() {
-    // Wstrzyknięcie stylów
-    if (!document.getElementById('skycast-animations')) {
-        const style = document.createElement('style');
-        style.id = 'skycast-animations';
-        style.innerHTML = `
-            @keyframes alert-border-pulse {
-                0% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
-                50% { border-color: #ef4444; box-shadow: 0 0 30px #ef4444; }
-                100% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
     let okienko = document.getElementById('skycast-welcome-alert');
     if (!okienko) {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
-        
         okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
             background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); 
-            border: 4px solid #38bdf8;
+            backdrop-filter: blur(15px); border: 4px solid #ffffff;
             border-radius: 25px; padding: 25px; z-index: 9999;
-            color: white; 
-            box-shadow: 0 0 15px #38bdf8;
+            color: white; box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
             overflow-y: auto; display: flex; flex-direction: column;
-            animation: alert-border-pulse 2s infinite ease-in-out;
-            font-family: sans-serif;
         `;
-
-        // Wstrzyknięcie danych do okienka
-       okienko.innerHTML = `
-   <div style="width: 100%; max-width: 450px; box-sizing: border-box; background: #1e1e1e; padding: 20px; border-radius: 12px; margin: 0 auto;">
-    
-    <h2 style="margin: 0 0 10px 0; color: #fff;">🔴 OFICJALNE ALERTY IMGW</h2>
-    <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4; color: #fff;">${tresc}</pre>
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
-        
-        <button onclick="this.parentElement.parentElement.remove()" style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #facc15; color: #fff; font-size: 16px;">
-            🧲💨 ROZUMIEM I MONITORUJĘ ⛈️
-        </button>
-        
-        <a href="https://skycast-pro-mundial.vercel.app" style="text-decoration: none;">
-            <button style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #ef4444; color: #fff; font-size: 16px;">
-                🥅 URUCHOM SKYCAST MUNDIAL ⚽
-            </button>
-        </a>
-        
-    </div>
-
-</div>
-
         document.body.appendChild(okienko);
     }
-}
 
-// ✅ ALERT 1 — PROSTY ALERT POWITALNO-OSTRZEGAWCZY
+    const TYTUL = '⚡RAPORT BURZOWY⚡';
+    const GODZINA = '01:10';
+    
+    // NOWA, SKONDENSOWANA TREŚĆ NA WTOREK
+    const tresc = `⚡ CENTRUM  SKYCAST PRO – RAPORT POGODOWY ⚡
+
+📅 WTOREK, 30 CZERWCA 2026 | BIEŻĄCA ANALIZA FRONTU
+
+Słuchaj, wchodzimy w morderczy wtorek. Polska podzielona: ekstremalne, afrykańskie południe i chłodniejsza, bezpieczna północ (22°C-26°C). Gdzie zderzą się te masy, tam wybuchną niszczące komórki burzowe!
+
+📍 POGODA DLA KRAKOWA (PROGNOZA NA DZIŚ)
+• Apogeum Upału (14:00-17:00): Termometry eksplodują do 34°C w cieniu. Bardzo wysoki indeks UV (7). Powietrze rzadkie i stojące.
+• Wieczór: Rośnie ryzyko (40%) izolowanych burz termicznych. Możliwy gwałtowny opad i grad.
+• Noc: Kolejna ciężka noc tropikalna (nie spadnie poniżej 20°C).
+
+🌍 POGODA DLA POLSKI (KONTRAST)
+• Południe i Wschód (Kraków, Rzeszów): Piekło na ziemi. Do 35°C w cieniu.
+• Centrum i Zachód: Skwar, ale z potężnym uderzeniem szkwału z zachodu wieczorem i w nocy (wiatr do 110 km/h, ulewy do 50 mm/m²).
+• Północ (Wybrzeże i Mazury): Ulga. Umiarkowane zachmurzenie i przyjemne 22°C-26°C.
+
+⚠️ OSTRZEŻENIA I KOMUNIKATY
+🚨 Dla regionu Krakowa i Podhala obowiązuje pomarańczowy alert przed ekstremalnym upałem. W przypadku wyjścia burz orograficznych w górach wiatr osiągnie 85 km/h, a grad 4 cm. System monitoruje parametry!
+
+==================================================
+MÓJ SYSTEM JEST GOTOWY. WYBIERZ MODUŁ:`;
+
+    okienko.innerHTML = `
+        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+            ⚡ POLSKA: ${TYTUL} <br>
+            <small style="font-size:0.8rem;">Aktualizacja: 30.06.2026, ${GODZINA}</small>
+        </h2>
+        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
+            ${tresc}
+        </p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                ⛈️ ŚLEDŹ BURZĘ W MOJEJ APLIKACJI
+            </button>
+            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                ⚽ PRZEJDŹ DO MOJEGO MUNDIALU
+            </button>
+        </div>
+    `;
+
+    document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
+    document.getElementById('btnMundial').addEventListener('click', () => {
+        okienko.remove();
+        window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+    });
+}
 
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
