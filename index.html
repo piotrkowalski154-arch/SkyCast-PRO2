@@ -293,19 +293,131 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
     // ==========================================
     const API_KEY = "6def6302b0a9b722144968390f4b8522";
-    const dniTygodnia = ['Niedziela','Ech😂🤷☕', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-   const alertIMGW =  "IMGW RAPORT 17:30 (29.06.2026) | POLSKA: Ekstremalny podział kraju. W centrum, na wschodzie i południu obowiązuje III stopień alarmu przed upałami do 35-39°C. Od zachodu przez południe przechodzą gwałtowne burze (alert II i III stopnia) z nawałnicami, gradem i wiatrem do 90-115 km/h. MAŁOPOLSKA / KRAKÓW: Aktywne dwa alerty. III stopień przed upałem do 39°C (ważny do 20:00) oraz II stopień przed burzami z ulewami 30-55 mm i gradem (ważny do rana). Rządowe Centrum Bezpieczeństwa wydało ALERT RCB ostrzegający przed przerwami w dostawie prądu.";
-   
-    // 🚀 START SYSTEMU
-    window.onload = function() {
-        pokazAlertPowitalny(); 
-        uruchomProtokolGPS();  
-        pobierzWiadomosci(); 
-        uruchomZlotySkaner(); // NAPRAWA: Złoty Skaner uruchamia się automatycznie!
-    };
+const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 
-    function pokazAlertPowitalny() {
-    // 1. Wstrzykujemy animację do head, jeśli jeszcze jej nie ma
+// ✅ STAŁY ALERT IMGW
+const alertIMGW = "IMGW RAPORT 17:30 (29.06.2026) | POLSKA: Ekstremalny podział kraju. W centrum, na wschodzie i południu obowiązuje III stopień alarmu przed upałami do 35-39°C. Od zachodu przez południe przechodzą gwałtowne burze (alert II i III stopnia) z nawałnicami, gradem i wiatrem do 90-115 km/h. MAŁOPOLSKA / KRAKÓW: Aktywne dwa alerty. III stopień przed upałem do 39°C (ważny do 20:00) oraz II stopień przed burzami z ulewami 30-55 mm i gradem (ważny do rana). Rządowe Centrum Bezpieczeństwa wydało ALERT RCB ostrzegający przed przerwami w dostawie prądu.";
+
+// 🚀 START SYSTEMU
+window.onload = function() {
+    pokazAlertPowitalny(); 
+    uruchomProtokolGPS();  
+    pobierzWiadomosci(); 
+    uruchomZlotySkaner();
+};
+
+// ✅ ALERT 1 — PROSTY ALERT POWITALNO-OSTRZEGAWCZY
+function pokazAlertPowitalny() {
+    if (!document.getElementById('skycast-welcome-alert')) {
+        const okienko = document.createElement('div');
+        okienko.id = 'skycast-welcome-alert';
+        
+        okienko.style.cssText = `
+            position: fixed; top: 5%; left: 5%; width: 90%; max-width: 600px;
+            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+            backdrop-filter: blur(15px); 
+            border: 4px solid #38bdf8;
+            border-radius: 25px; padding: 25px; z-index: 9999;
+            color: white; 
+            box-shadow: 0 0 15px #38bdf8;
+            overflow-y: auto;
+            animation: alert-border-pulse 2s infinite ease-in-out;
+        `;
+
+        okienko.innerHTML = `
+            <h2 style="margin: 0 0 15px 0; text-align: center;">🔴 SYSTEM SKYCAST ALERT</h2>
+            <p style="font-size: 16px; text-align: center; white-space: pre-wrap;">${alertIMGW}</p>
+            <button onclick="document.getElementById('skycast-welcome-alert').remove()" 
+                    style="width: 100%; padding: 12px; margin-top: 15px; background: #0f172a; color: white; 
+                           border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                ZROZUMIAŁEM
+            </button>
+        `;
+
+        document.body.appendChild(okienko);
+        dodajAnimacje();
+    }
+}
+
+// ✅ ALERT 2 — RAPORT BURZOWY DETAILOWANY
+function pokazRaportBurzowy() {
+    if (!document.getElementById('skycast-weather-report')) {
+        const okienko = document.createElement('div');
+        okienko.id = 'skycast-weather-report';
+        
+        const TYTUL = 'RAPORT BURZOWY ⚠️⚡'; 
+        const GODZINA = '20:05';
+        const tresc = `🔴 OFICJALNE ALERTY IMGW NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
+
+${alertIMGW}
+
+📡 SYSTEM MONITORINGU LIVE (Aktualizacja: 20:06):
+Uwaga! Sytuacja jest ekstremalnie dynamiczna. Front zderza się z upałem – burze wchodzą w fazę niszczycielską.
+
+[ KRAKÓW I MAŁOPOLSKA ]
+⚠️ OSTRZEŻENIE: Upał – Stopień 3 (Alert Czerwony) + Ryzyko Burz Inwazyjnych
+- Szczegóły: Temperatura w cieniu 34°C - 35°C. Odczuwalna ok. 37°C.
+⚡ ALERT RADAROWY: Burza inwazyjna może uderzyć w ciągu 1-3 godzin.
+- Ważność: Noc z 29.06 na 30.06.
+- Prognoza nocna: Noc tropikalna (26°C - 27°C o północy). Grad i wiatr do 90 km/h.
+
+🛡️ ZALECENIA BEZPIECZEŃSTWA:
+1. Zostań w domu
+2. Zamknij okna, zabezpiecz balkon
+3. Odłącz elektronikę
+4. Śledź radarowe IMGW`;
+
+        okienko.style.cssText = `
+            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 85vh;
+            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+            backdrop-filter: blur(15px); 
+            border: 4px solid #ef4444;
+            border-radius: 20px; padding: 20px; z-index: 9998;
+            color: #0f172a; 
+            box-shadow: 0 0 20px #ef4444;
+            overflow-y: auto;
+            animation: alert-border-pulse 2s infinite ease-in-out;
+        `;
+
+        okienko.innerHTML = `
+            <h2 style="margin: 0 0 15px 0; font-size: 1.3rem; text-align: center;">
+                🥵 POLSKA: ${TYTUL} <br>
+                <small style="font-size: 0.8rem;">Aktualizacja: 29.06.2026, ${GODZINA}</small>
+            </h2>
+            <p style="white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; font-weight: 600;">
+                ${tresc}
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button id="btnMeteo" style="flex: 1; padding: 12px; background: #0ea5e9; color: white; 
+                       border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                    🥵 ŚLEDŹ UPAŁ
+                </button>
+                <button id="btnMundial" style="flex: 1; padding: 12px; background: #d4ac0d; color: black; 
+                       border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                    ⚽ MUNDIAL
+                </button>
+                <button id="btnZamknij" style="flex: 1; padding: 12px; background: #6b7280; color: white; 
+                       border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                    ✖ ZAMKNIJ
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(okienko);
+
+        document.getElementById('btnMeteo').onclick = () => okienko.remove();
+        document.getElementById('btnMundial').onclick = () => {
+            okienko.remove();
+            window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+        };
+        document.getElementById('btnZamknij').onclick = () => okienko.remove();
+
+        dodajAnimacje();
+    }
+}
+
+// ✅ FUNKCJA POMOCNICZA — DODAJ ANIMACJE
+function dodajAnimacje() {
     if (!document.getElementById('skycast-animations')) {
         const style = document.createElement('style');
         style.id = 'skycast-animations';
@@ -318,93 +430,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         `;
         document.head.appendChild(style);
     }
-
-    let okienko = document.getElementById('skycast-welcome-alert');
-    if (!okienko) {
-        okienko = document.createElement('div');
-        okienko.id = 'skycast-welcome-alert';
-        
-        // 2. Stylizacja z animacją
-        okienko.style.cssText = `
-            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); 
-            border: 4px solid #38bdf8;
-            border-radius: 25px; padding: 25px; z-index: 9999;
-            color: white; 
-            box-shadow: 0 0 15px #38bdf8;
-            overflow-y: auto; display: flex; flex-direction: column;
-            animation: alert-border-pulse 2s infinite ease-in-out;
-        `;
-
-        // 3. TUTAJ BYŁ BRAK! Dodajemy treść, żeby okienko nie było puste
-        okienko.innerHTML = `
-            <h2 style="margin: 0 0 15px 0;">🔴 SYSTEM SKYCAST ALERT</h2>
-            <p style="font-size: 16px;">Wykryto niestabilność! Monitoruj sytuację pogodową w Twoim rejonie.</p>
-            <button onclick="this.parentElement.remove()" style="margin-top: 15px; padding: 10px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold;">ZROZUMIAŁEM</button>
-        `;
-
-        document.body.appendChild(okienko);
-    }
 }
-
-      const TYTUL = 'RAPORT BURZOWY ⚠️⚡'; 
-const GODZINA = '20:05'; 
-const tresc =`🔴 OFICJALNE ALERTY IMGW NA (PONIEDZIAŁEK, 29 CZERWCA 2026) 🔴
-
-📡 SYSTEM MONITORINGU LIVE (Aktualizacja: 20:06):
-Uwaga! Sytuacja jest ekstremalnie dynamiczna. Front zderza się z upałem – burze wchodzą w fazę niszczycielską.
-
-[ KRAKÓW I MAŁOPOLSKA ]
-⚠️ OSTRZEŻENIE: Upał – Stopień 3 (Alert Czerwony) + Ryzyko Burz Inwazyjnych
-• Szczegóły: Temperatura w cieniu 34°C - 35°C. Odczuwalna ok. 37°C.
-⚡ ALERT RADAROWY: W samym mieście detektory jeszcze nie notują uderzeń, ale burza inwazyjna może uderzyć w ciągu 1-3 godzin.
-• Ważność: Noc z 29.06 na 30.06.
-• Prognoza nocna: Noc tropikalna (26°C - 27°C o północy). Wysokie ryzyko gradu i wiatru do 90 km/h.
-
-[ CAŁA POLSKA ]
-⚠️ OSTRZEŻENIE METEO: Apogeum Nawałnic (Stopień 2 i 3)
-• Polska Zachodnia i Południowo-Zachodnia: Rozwijają się najbardziej niszczycielskie strefy burzowe. Superkomórki generują nawalne opady, grad 3-5 cm oraz wiatr do 100 km/h.
-• Pogranicze ze Słowacją: Ryzyko powodzi błyskawicznych.
-• Polska Centralna/Wschodnia: Upał do 33°C, burze dotrą w głąb lądu nad ranem.
-
-🛡️ ZALECENIA BEZPIECZEŃSTWA (PROTOKÓŁ RCB):
-1. Zostań w domu, nie wychodź, jeśli nie musisz.
-2. Zamknij okna i zabezpiecz przedmioty na balkonach.
-3. Podczas burzy odłącz zbędną elektronikę.
-4. Śledź ruch nawałnic na radarze IMGW i Polskich Łowcach Burz.
-
-🚨 ALERT MEDYCZNY:
-• Astma Burzowa: Unikaj otwartych okien bezpośrednio przed burzą – nagła wilgoć uwalnia alergeny!
-
-🌪️ GŁÓWNE ZAGROŻENIA DLA KRAJU:
-• PORYWY WIATRU: Do 100 km/h.
-• OPADY: Nawalne ulewy, ryzyko powodzi błyskawicznych (do 100 mm lokalnie).
-• GRAD: Lokalnie do 3-5 cm.
---------------------------------------------------------------------------------
-📡 ⛈️ KOLEJNA AKTUALIZACJA SYSTEMOWA: ZA 1h GODZIN ⚠️`;
-        
-        okienko.innerHTML = `
-            <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-                 🥵 POLSKA: ${TYTUL} <br>
-                <small style="font-size:0.8rem;">Aktualizacja: 29.06.2026, ${GODZINA}</small>
-            </h2>
-            <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #0f172a; font-weight: 600; font-family: sans-serif;">
-                ${tresc}
-            </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;"> ŚLEDŹ UPAŁ 🥵 ☀️ W MOJEJ APLIKACJI</button>
-                <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">⚽ PRZEJDŹ DO MOJEGO MUNDIALU</button>
-            </div>
-        `;
-
-        document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
-        document.getElementById('btnMundial').addEventListener('click', () => {
-            okienko.remove();
-            window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-        });
-    }
-
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
         // ==========================================
