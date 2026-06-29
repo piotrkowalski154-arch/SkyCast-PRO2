@@ -373,21 +373,17 @@ function pokazAlertPowitalny() {
     <pre style="white-space: pre-line; font-family: inherit; font-size: 14px; margin: 0 0 20px 0; line-height: 1.4;">${tresc}</pre>
     
     <!-- POTĘŻNY KONTENER FLEXBOX DLA PRZYCISKÓW -->
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
-        
-        <!-- Przycisk 1 (Po lewej): Zamknięcie alertu -->
-               <button style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #facc15; color: #fff; font-size: 16px;">
-          🧲💨 ROZUMIEM I MONITORUJĘ ⛈️
-        </button>
-        
-        <!-- Przycisk 2 (Po prawej): Przekierowanie do SkyCast za pomocą tagu kotwicy <a> -->
-        <a href="https://skycast-pro-mundial.vercel.app" style="text-decoration: none;">
-            <button style="padding: 15px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #ef4444; color: #fff; font-size: 16px;">
-               🥅 URUCHOM SKYCAST MUNDIAL ⚽
-            </button>
-        </a>
-        
+    <div style="width: 100%; max-width: 450px; box-sizing: border-box; background: #1e1e1e; padding: 20px; border-radius: 12px;">
+    
+    <h2>🔴 OFICJALNE ALERTY IMGW</h2>
+    <pre>${tresc}</pre>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100; gap: 10px;">
+        <button style="background: #facc15; ...">🧲💨 ROZUMIEM I MONITORUJĘ ⛈️</button>
+        <button style="background: #ef4444; ...">🥅 URUCHOM SKYCAST MUNDIAL ⚽</button>
     </div>
+
+</div>
 `;
 
         document.body.appendChild(okienko);
