@@ -324,7 +324,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         
-        // 2. Dodajemy animację do cssText
+        // 2. Stylizacja z animacją
         okienko.style.cssText = `
             position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
             background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
@@ -336,10 +336,17 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
             overflow-y: auto; display: flex; flex-direction: column;
             animation: alert-border-pulse 2s infinite ease-in-out;
         `;
+
+        // 3. TUTAJ BYŁ BRAK! Dodajemy treść, żeby okienko nie było puste
+        okienko.innerHTML = `
+            <h2 style="margin: 0 0 15px 0;">🔴 SYSTEM SKYCAST ALERT</h2>
+            <p style="font-size: 16px;">Wykryto niestabilność! Monitoruj sytuację pogodową w Twoim rejonie.</p>
+            <button onclick="this.parentElement.remove()" style="margin-top: 15px; padding: 10px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold;">ZROZUMIAŁEM</button>
+        `;
+
         document.body.appendChild(okienko);
     }
 }
-
 
       const TYTUL = 'RAPORT BURZOWY ⚠️⚡'; 
 const GODZINA = '20:05'; 
