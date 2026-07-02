@@ -292,22 +292,19 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
    const API_KEY = "6def6302b0a9b722144968390f4b8522";
 const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+ const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PIĄTEK (3 LIPCA 2026 R.)
 
-const alertIMGW = `🚨 SKYCAST PRO: ZAKTUALIZOWANE ALERTY IMGW I RCB 🚨
+🌊 POLSKA PÓŁNOCNA (STREFA ZAGROŻENIA):
+• Alert 1. stopnia przed silnym wiatrem (woj. pomorskie i zachodniopomorskie): W pasie nadmorskim prognozowany jest silny, porywisty wiatr z kierunków zachodnich. W porywach nad samym morzem może on osiągać od 75 do 85 km/h.
+• Ostrzeżenie przed sztormem: Dotyczy wschodniej i południowej części akwenu Morza Bałtyckiego.
+• Alert burzowy (Wybrzeże): Na samej północy kraju, w strefie dynamicznego wiatru, mogą lokalnie rozwijać się przelotne burze z opadami deszczu do 10–20 mm.
 
-⚠️ OSTRZEŻENIA WAŻNE DO 03:00 (CZWARTEK) ⚠️
-Strefa najgroźniejszych nawałnic powoli przesuwa się na wschód kraju, ale ostrzeżenia przed burzami zachowują swoją ważność do godziny 03:00 w czwartek. 
+🟢 KRAKÓW I RESZTA KRAJU (STREFA BEZPIECZNA):
+• Kraków i Małopolska: Całkowity brak alertów IMGW. Czeka nas spokojny dzień z umiarkowanym zachmurzeniem i temperaturą do 22°C, bez zagrożeń nawałnicowych czy upałów.
+• Polska Środkowa i Południowa: Wszystkie groźne układy MCS i fronty burzowe ostatecznie opuściły terytorium kraju. Pogoda będzie stabilna i w pełni bezpieczna.
 
-🏙️ KRAKÓW I MAŁOPOLSKA (STAN ZAGROŻENIA)
-• Alert 2. stopnia (Pomarańczowy): Obejmuje Kraków i niemal całe województwo małopolskie. Zagrożenie: gwałtowne burze, ulewne opady deszczu (35-55 mm), porywy wiatru 100 km/h (lokalnie do 115 km/h) oraz grad.
-• Alert 3. stopnia (Czerwony): Południowe powiaty (tatrzański, nowotarski, suski). Sumy opadów burzowych mogą lokalnie sięgać ekstremalnych 60–100 mm, stwarzając bezpośrednie ryzyko podtopień.
-• Alert RCB: "Uwaga! Dziś i jutro (1.07–2.07) prawdopodobne intensywne opady deszczu, silny wiatr i burze. Możliwe przerwy w dostawie prądu. Unikaj otwartych przestrzeni".
+🔗 WERYFIKACJA SYSTEMOWA: Aktualny stan wyładowań oraz ostrzeżeń na kolejne godziny można zweryfikować bezpośrednio na Mapie Ostrzeżeń METEO IMGW-PIB.`;
 
-🇵🇱 STAN ALERTÓW DLA RESZTY POLSKI
-Front burzowy przemieszcza się przez pas środkowy i wschodni, dzieląc kraj na strefy zagrożenia:
-🔴 Alert 3. stopnia (Najwyższe zagrożenie): Województwo lubelskie (poza południem), południowe mazowieckie, południowe śląskie (żywiecki, cieszyński, bielski) i południowe małopolskie. Ekstremalne nawałnice, wiatr niszczący do 115 km/h, ulewy do 100 mm i grad.
-🟠 Alert 2. stopnia (Zagrożenie wysokie): Podlaskie, podkarpackie, świętokrzyskie, wschodnie łódzkie, wschodnie opolskie oraz pozostałe rejony mazowieckiego, lubelskiego i śląskiego. Burze z gradem, opady do 50 mm, porywy wiatru do 100 km/h.
-🟢 Strefa bezpieczna (Brak alertów): Polska zachodnia i północno-zachodnia (Lubuskie, Zachodniopomorskie, Pomorskie, Wielkopolska, Dolny Śląsk). Tam pogoda już się ustabilizowała i napłynęło bezpieczne, chłodniejsze powietrze.
 
 📡 BIEŻĄCY MONITORING:
 Bieżący rozwój sytuacji i ruch komórek konwekcyjnych możesz śledzić bezpośrednio przez całą dobę na żywo na Mapie dynamicznej METEO IMGW-PIB.`;
@@ -355,34 +352,35 @@ function pokazAlertPowitalny() {
         document.body.appendChild(okienko);
     }
 
-   const TYTUL = '⚡RAPORT BURZOWY⚡';
-const GODZINA = '23:30';
+ const TYTUL = '⚡RAPORT BURZOWY⚡';
+const GODZINA = '23:45';
 
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅 ŚRODA / CZWARTEK, 1-2 LIPCA 2026 | AKTUALIZACJA NOCNA FRONTU     
+📅 PIĄTEK, 3 LIPCA 2026 | AKTUALIZACJA DOBOWA FRONTU     
 
-🚨 Główne pasmo nawałnicowe i układ MCS opuszczają właśnie Polskę centralną, przesuwając się na wschód. W nocy czeka nas załagodzenie aury, a w czwartek (2 lipca) oczekiwane, głębokie ochłodzenie w całym kraju! Podpinamy stabilny klin wyżowy znad Atlantyku.
+🚨 Kraj oficjalnie odpoczywa po niebezpiecznych burzach i upałach! Większość Polski przechodzi pod wpływ stabilnego klina wyżowego znad Atlantyku, gwarantującego bezpieczną pogodę. W Małopolsce całkowity brak alertów meteo. Jedynym wyjątkiem jest strefa nadmorska.
 
-🏙️ KRAKÓW: ULTRA-DOKŁADNA PROGNOZA (NOC I DZIEŃ)
-W Krakowie przechodzimy w fazę uspokojenia. Gorące, zwrotnikowe powietrze zostaje ostatecznie wyparte przez rześką masę polarno-morską.
+🏙️ KRAKÓW: ULTRA-DOKŁADNA PROGNOZA GODZINOWA
+Czeka nas spokojny, zdecydowanie chłodniejszy dzień z dominacją rześkiej masy polarno-morskiej. Idealne warunki do nauki i regeneracji!
 
-🌌 NOC (Środa/Czwartek):
-• 23:00 – 02:00: Temperatura spada do 18°C. Główne pasmo chmur odsuwa się na wschód. Możliwy jeszcze lekki, zanikający deszcz (opad <0.5 mm) oraz odległe błyski. Wiatr z północnego zachodu osłabnie do 10-15 km/h.
-• 02:00 – 05:00: Temperatura minimalna wyniesie 15°C - 16°C. Niebo zaczyna się rozrywać i oczyszczać. Ciśnienie stabilnie rośnie do 1017 hPa. Uwaga: przez wilgotność >90% rano w dolinach pojawią się lokalne zamglenia!
+🌌 NOC (Czwartek/Piątek):
+• 00:00 – 06:00: Bardzo komfortowa, rześka noc. Temperatura spada do 13°C - 14°C. Zachmurzenie umiarkowane, wiatr słaby z kierunków zachodnich.
 
-☀️ DZIEŃ – Czwartek (2 lipca):
-• Poranek (06:00-12:00): Rześki, słoneczny i przyjemny start (16°C -> 21°C). Idealne warunki do jazdy.
-• Popołudnie (12:00-16:00): Maksimum termiczne to komfortowe 24°C - 25°C w cieniu. Na niebie tylko niegroźne cumulusy. Szansa na opad: 0%. Wreszcie jest czym oddychać!
-• Wieczór (16:00-22:00): Piękny, bezdeszczowy czas. Temperatura łagodnie opada do 19°C. Wiatr słaby do 12 km/h.
+☀️ DZIEŃ – Piątek (3 lipca):
+• Poranek (06:00 - 12:00): Słoneczny start z powoli rosnącą ilością nieszkodliwych chmur piętra średniego. Temperatura wzrasta od 14°C do 19°C.
+• Popołudnie (12:00 - 16:00): Maksimum termiczne to zaledwie 22°C w cieniu (odczuwalna ok. 21°C). Zachmurzenie umiarkowane. Istnieje minimalne prawdopodobieństwo (25-35%) na symboliczny, przelotny opad (<0.3 mm).
+• Wieczór (16:00 - 24:00): Szybkie rozpogodzenia. Temperatura łagodnie opada do 16°C o zmierzchu. Wiatr słaby, północno-zachodni do 12 km/h.
 
-🌍 POLSKA: SYTUACJA W REGIONACH (CZWARTEK)
-• Pas Południowo-Wschodni (Podkarpacie, Lubelszczyzna, Roztocze): W pierwszej połowie nocy jeszcze niebezpiecznie (zanikające burze, ulewy do 30 mm, wiatr do 70 km/h). W dzień resztkowe chmury i lekki deszcz (5-10 mm), ale już bez burz. Temperatura: 21°C - 23°C.
-• Centrum i Zachód (Warszawa, Poznań, Wrocław, Łódź): Pełne słońce, bezchmurnie i ultra-komfortowo. Termometry pokażą idealne 24°C do 26°C. Wiatr umiarkowany z północnego zachodu.
-• Wybrzeże Bałtyku: Przeważnie słonecznie, ale z chłodniejszą morską bryzą. Maksymalnie rześkie 19°C - 21°C.
+🌍 POLSKA: SYTUACJA ATMOSFERYCZNA W REGIONACH (3 LIPCA)
+
+[ Wybrzeże / Bałtyk ]            |    [ Centrum, Południe i Wschód ]
+• Silny wiatr (w porywach 75-85 km/h) |    • Całkowity brak alertów meteorologicznych
+• ALERT IMGW (Wiatr i Sztorm)     |    • Mnóstwo słońca przeplatanego z chmurami
+• Temperatura: 18°C - 21°C        |    • Komfortowe, czyste powietrze: 21°C - 23°C
 
 ==================================================
-SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7. TRZYMAJCIE GARDĘ! ⚡`;
+SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
 
     okienko.innerHTML = `
         <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
