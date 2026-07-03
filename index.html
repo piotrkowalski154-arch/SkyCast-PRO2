@@ -507,7 +507,11 @@ SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
         }
        function tlumaczPogodeTeraz(iconCode, description) {
     let icon = "☁️";
-    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.4em;">${icon}</span>` };
+    
+    // 🔥 Zmienna z efektem 3D: pogrubiony rozmiar, inline-block do animacji i kinowy Drop Shadow!
+    const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+
+    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
     
     const hour = new Date().getHours();
     const isNight = (hour >= 21 || hour < 6);
@@ -519,7 +523,7 @@ SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
     
     // --- TU JEST KLUCZOWA ZMIANA ---
     else if (iconCode.startsWith("11")) { 
-        icon = "⚡"; 
+        icon = "⛈️"; // Zaktualizowana, potężniejsza ikona!
         description = "Burza"; // WYMUSZENIE: Nawet jak API wyśle co innego, Ty ustawiasz "Burza"
     }
     // --------------------------------
@@ -527,12 +531,16 @@ SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
     else if (iconCode.startsWith("13")) icon = "❄️"; 
     else if (iconCode.startsWith("50")) icon = "🌫️"; 
     
-    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+}
 
-        }
-        function tlumaczPogodePrognoza(iconCode, description) {
+function tlumaczPogodePrognoza(iconCode, description) {
     let icon = "☁️";
-    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+    
+    // 🔥 Wersja 3D dla prognozy (minimalnie mniejsza czcionka 1.3em, żeby pasowała do mniejszych kafelków)
+    const style3D = 'font-size: 1.3em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+
+    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
     
     const isNightAPI = iconCode.endsWith("n");
     
@@ -540,16 +548,18 @@ SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+    
     // ZMIANA TUTAJ:
     else if (iconCode.startsWith("11")) { 
-        icon = "⚡"; 
+        icon = "⛈️"; 
         description = "Burza"; // Nadpisujesz parametr funkcji
     }
     // KONIEC ZMIANY
+    
     else if (iconCode.startsWith("13")) icon = "❄️"; 
     else if (iconCode.startsWith("50")) icon = "🌫️"; 
     
-    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="font-size: 1.2em;">${icon}</span>` };
+    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
 }
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
