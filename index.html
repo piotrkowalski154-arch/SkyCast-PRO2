@@ -292,18 +292,16 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
    const API_KEY = "6def6302b0a9b722144968390f4b8522";
 const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
- const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PIĄTEK (3 LIPCA 2026 R.)
+ const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – SOBOTA (4 LIPCA 2026 R.)
 
-🌊 POLSKA PÓŁNOCNA (STREFA ZAGROŻENIA):
-• Alert 1. stopnia przed silnym wiatrem (woj. pomorskie i zachodniopomorskie): W pasie nadmorskim prognozowany jest silny, porywisty wiatr z kierunków zachodnich. W porywach nad samym morzem może on osiągać od 75 do 85 km/h.
-• Ostrzeżenie przed sztormem: Dotyczy wschodniej i południowej części akwenu Morza Bałtyckiego.
-• Alert burzowy (Wybrzeże): Na samej północy kraju, w strefie dynamicznego wiatru, mogą lokalnie rozwijać się przelotne burze z opadami deszczu do 10–20 mm.
+🌊 POLSKA PÓŁNOCNA (STREFA PODWYŻSZONEGO RYZYKA):
+• Alert 1. i 2. stopnia (woj. pomorskie i zachodniopomorskie): Silny wiatr i wichury. W porywach nad samym morzem prędkość wiatru może osiągać nawet do 90 km/h.
+• Alert 1. stopnia (woj. podlaskie i warmińsko-mazurskie): Prognozowane intensywne opady deszczu oraz towarzyszące im lokalne, słabsze burze.
 
-🟢 KRAKÓW I RESZTA KRAJU (STREFA BEZPIECZNA):
-• Kraków i Małopolska: Całkowity brak alertów IMGW. Czeka nas spokojny dzień z umiarkowanym zachmurzeniem i temperaturą do 22°C, bez zagrożeń nawałnicowych czy upałów.
-• Polska Środkowa i Południowa: Wszystkie groźne układy MCS i fronty burzowe ostatecznie opuściły terytorium kraju. Pogoda będzie stabilna i w pełni bezpieczna.
+🟢 KRAKÓW I MAŁOPOLSKA (STREFA STABILNA):
+• Kraków i Małopolska: Całkowity brak alertów IMGW. Po gwałtownych zjawiskach z początku tygodnia, sytuacja jest w pełni stabilna. Ciśnienie ustabilizowało się, a warunki pogodowe są idealne na weekend.
 
-🔗 WERYFIKACJA SYSTEMOWA: Aktualny stan wyładowań oraz ostrzeżeń na kolejne godziny można zweryfikować bezpośrednio na Mapie Ostrzeżeń METEO IMGW-PIB.`;
+🔗 WERYFIKACJA SYSTEMOWA: Bieżąca mapa zagrożeń hydro-meteorologicznych dostępna na serwisie Meteo IMGW-PIB.`;
 
 
 
@@ -350,40 +348,46 @@ function pokazAlertPowitalny() {
         document.body.appendChild(okienko);
     }
 
- const TYTUL = '⚡RAPORT BURZOWY⚡';
-const GODZINA = '23:45';
+const TYTUL = '⚡WEEKENDOWY RAPORT METEO – SKYCAST PRO⚡';
+const GODZINA = '22:35';
 
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅 PIĄTEK, 3 LIPCA 2026 | AKTUALIZACJA DOBOWA FRONTU     
+📅 SOBOTA, 4 LIPCA 2026 | WEEKENDOWY RESET FRONTU
 
-🚨 Kraj oficjalnie odpoczywa po niebezpiecznych burzach i upałach! Większość Polski przechodzi pod wpływ stabilnego klina wyżowego znad Atlantyku, gwarantującego bezpieczną pogodę. W Małopolsce całkowity brak alertów meteo. Jedynym wyjątkiem jest strefa nadmorska.
+🚨 Wytchnienie od upałów! Polska przechodzi w fazę umiarkowanych temperatur (18-22°C). To idealne warunki na regenerację i aktywności outdoorowe.
 
-🏙️ KRAKÓW: ULTRA-DOKŁADNA PROGNOZA GODZINOWA
-Czeka nas spokojny, zdecydowanie chłodniejszy dzień z dominacją rześkiej masy polarno-morskiej. Idealne warunki do nauki i regeneracji!
+🏙️ KRAKÓW: STATUS – "PRZYJEMNY CHŁÓD"
+Stabilna aura, doskonała do nauki i regeneracji.
+• Temperatura dzień/noc: 22°C / 12°C
+• Wiatr: Zachodni, 14 km/h
+• UV: 5 (Umiarkowany)
+• Opady: 0.0 mm (Brak)
+• Temp. odczuwalna: 19°C
 
-🌌 NOC (Czwartek/Piątek):
-• 00:00 – 06:00: Bardzo komfortowa, rześka noc. Temperatura spada do 13°C - 14°C. Zachmurzenie umiarkowane, wiatr słaby z kierunków zachodnich.
+🌍 POLSKA: SYTUACJA W REGIONACH (4 LIPCA)
 
-☀️ DZIEŃ – Piątek (3 lipca):
-• Poranek (06:00 - 12:00): Słoneczny start z powoli rosnącą ilością nieszkodliwych chmur piętra średniego. Temperatura wzrasta od 14°C do 19°C.
-• Popołudnie (12:00 - 16:00): Maksimum termiczne to zaledwie 22°C w cieniu (odczuwalna ok. 21°C). Zachmurzenie umiarkowane. Istnieje minimalne prawdopodobieństwo (25-35%) na symboliczny, przelotny opad (<0.3 mm).
-• Wieczór (16:00 - 24:00): Szybkie rozpogodzenia. Temperatura łagodnie opada do 16°C o zmierzchu. Wiatr słaby, północno-zachodni do 12 km/h.
+[ Strefa Stabilna: Brak opadów ]
+• Gdańsk: 21°C/14°C (Wiatr do 31 km/h)
+• Bydgoszcz: 21°C/14°C
+• Gorzów Wlkp.: 21°C/16°C
+• Katowice: 21°C/12°C (Wysoki indeks UV: 6)
+• Kielce: 20°C/12°C
+• Łódź: 20°C/13°C
+• Lublin: 20°C/13°C
 
-🌍 POLSKA: SYTUACJA ATMOSFERYCZNA W REGIONACH (3 LIPCA)
-
-[ Wybrzeże / Bałtyk ]            |    [ Centrum, Południe i Wschód ]
-• Silny wiatr (w porywach 75-85 km/h) |    • Całkowity brak alertów meteorologicznych
-• ALERT IMGW (Wiatr i Sztorm)     |    • Mnóstwo słońca przeplatanego z chmurami
-• Temperatura: 18°C - 21°C        |    • Komfortowe, czyste powietrze: 21°C - 23°C
+[ Strefa Ostrzegawcza: Opady ]
+• Białystok: 18°C/11°C | ALERT: 80% szans na deszcz!
 
 ==================================================
-SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.⚡`;
+SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.
+Początek lipca to chłodniejszy oddech – upały wracają dopiero w drugiej połowie tygodnia. ⚡`;
+
 
     okienko.innerHTML = `
         <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
             ⚡ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">💦 Aktualizacja: 2.07.2026 ⚡, ${GODZINA}</small>
+            <small style="font-size:0.8rem;">💦 Aktualizacja: 3.07.2026 ⚡, ${GODZINA}</small>
         </h2>
         <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
     ${tresc}
