@@ -292,14 +292,16 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
    const API_KEY = "6def6302b0a9b722144968390f4b8522";
 const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
- const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – SOBOTA (4 LIPCA 2026 R.)
+ const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – NIEDZIELA (5 LIPCA 2026 R.)
 
 🌊 POLSKA PÓŁNOCNA (STREFA PODWYŻSZONEGO RYZYKA):
-• Alert 1. i 2. stopnia (woj. pomorskie i zachodniopomorskie): Silny wiatr i wichury. W porywach nad samym morzem prędkość wiatru może osiągać nawet do 90 km/h.
-• Alert 1. stopnia (woj. podlaskie i warmińsko-mazurskie): Prognozowane intensywne opady deszczu oraz towarzyszące im lokalne, słabsze burze.
+• Alert 1. i 2. stopnia (głównie Pomorze, Wybrzeże oraz Mazury): Silny wiatr osiągający nad morzem w porywach do 75–90 km/h. Lokalnie mogą występować tam również burze 1. stopnia z opadami deszczu do 20–25 mm oraz gradem.
 
 🟢 KRAKÓW I MAŁOPOLSKA (STREFA STABILNA):
-• Kraków i Małopolska: Całkowity brak alertów IMGW. Po gwałtownych zjawiskach z początku tygodnia, sytuacja jest w pełni stabilna. Ciśnienie ustabilizowało się, a warunki pogodowe są idealne na weekend.
+• Kraków i Małopolska: Całkowity brak alertów IMGW. Pogoda w pełni bezpieczna, choć odczuwalnie chłodniejsza. Temperatura maksymalna wyniesie około 19°C – 20°C. Zachmurzenie umiarkowane do dużego z szansą na przelotne, słabe opady deszczu. Wiatr umiarkowany, zachodni, bez gwałtownych porywów.
+
+💨 RESZTA KRAJU (CENTRUM, ZACHÓD, WSCHÓD):
+• Strefa przejściowa: Bez poważniejszych ostrzeżeń meteorologicznych. W całym kraju zaznaczy się wyraźne ochłodzenie po przejściu frontu. Okresami porywisty wiatr osiągający prędkość do 40–60 km/h, który nie stwarza bezpośredniego zagrożenia.
 
 🔗 WERYFIKACJA SYSTEMOWA: Bieżąca mapa zagrożeń hydro-meteorologicznych dostępna na serwisie Meteo IMGW-PIB.`;
 
@@ -349,45 +351,44 @@ function pokazAlertPowitalny() {
     }
 
 const TYTUL = '⚡WEEKENDOWY RAPORT METEO – SKYCAST PRO⚡';
-const GODZINA = '22:35';
+const GODZINA = '21:03';
 
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅 SOBOTA, 4 LIPCA 2026 | WEEKENDOWY RESET FRONTU
+📅 NIEDZIELA, 5 LIPCA 2026 | WEEKENDOWY RESET FRONTU
 
-🚨 Wytchnienie od upałów! Polska przechodzi w fazę umiarkowanych temperatur (18-22°C). To idealne warunki na regenerację i aktywności outdoorowe.
+🚨 W całej Polsce utrzyma się chłodniejszy i wietrzny trend z umiarkowanymi temperaturami rzędu 18–24°C, a w wielu regionach wystąpią przelotne opady deszczu.[span_0](start_span)[span_0](end_span)
 
-🏙️ KRAKÓW: STATUS – "PRZYJEMNY CHŁÓD"
-Stabilna aura, doskonała do nauki i regeneracji.
-• Temperatura dzień/noc: 22°C / 12°C
-• Wiatr: Zachodni, 14 km/h
-• UV: 5 (Umiarkowany)
-• Opady: 0.0 mm (Brak)
-• Temp. odczuwalna: 19°C
+🏙️ KRAKÓW: STATUS – "POLEPSZENIE AURY"
+Stopniowa poprawa pogody.[span_1](start_span)[span_1](end_span)
+• Temperatura dzień/noc: 22°C / 14°C[span_2](start_span)[span_2](end_span)
+• Wiatr: Północno-zachodni, porywy do 55 km/h[span_3](start_span)[span_3](end_span)
+• Opady: Rano duże zachmurzenie i słabe opady, po południu wyraźne rozpogodzenia i zanik opadów[span_4](start_span)[span_4](end_span)
 
-🌍 POLSKA: SYTUACJA W REGIONACH (4 LIPCA)
+🌍 POLSKA: SYTUACJA W REGIONACH (5 LIPCA)
 
-[ Strefa Stabilna: Brak opadów ]
-• Gdańsk: 21°C/14°C (Wiatr do 31 km/h)
-• Bydgoszcz: 21°C/14°C
-• Gorzów Wlkp.: 21°C/16°C
-• Katowice: 21°C/12°C (Wysoki indeks UV: 6)
-• Kielce: 20°C/12°C
-• Łódź: 20°C/13°C
-• Lublin: 20°C/13°C
+[ Strefa Umiarkowana / Przelotne Opady ]
+• Warszawa: 23°C | Zachmurzenie umiarkowane, możliwe słabe opady na północy.[span_5](start_span)[span_5](end_span)
+• Rzeszów: 23°C | Początkowo deszczowo, później duże rozpogodzenia.[span_6](start_span)[span_6](end_span)
+• Wrocław: 22°C | Po południu możliwe przelotne opady deszczu.[span_7](start_span)[span_7](end_span)
+• Poznań: 22°C | Zachmurzenie umiarkowane, porywy wiatru do 65 km/h.[span_8](start_span)[span_8](end_span)
+• Białystok: 22°C | Zachmurzenie duże z lokalnymi opadami.[span_9](start_span)[span_9](end_span)
 
-[ Strefa Ostrzegawcza: Opady ]
-• Białystok: 18°C/11°C | ALERT: 80% szans na deszcz!
+[ Strefa Ostrzegawcza: Silny Wiatr / Chłód ]
+• Gdańsk (Bałtyk): 19°C | Chłodno, duże zachmurzenie z przelotnym deszczem. Porywy wiatru nad morzem do 90 km/h[span_10](start_span)[span_10](end_span)!
+• Zakopane (Góry): 19°C | Silny wiatr do 65 km/h. Na szczytach Tatr zaledwie 9°C[span_11](start_span)[span_11](end_span)!
 
 ==================================================
 SYSTEM ZABETONOWANY. STATUS: OPERACYJNY 24/7.
-Początek lipca to chłodniejszy oddech – upały wracają dopiero w drugiej połowie tygodnia. ⚡`;
+Polska znajduje się pod wpływem chłodniejszego powietrza polarnego morskiego ⚡`;
+
+
 
 
     okienko.innerHTML = `
         <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
             ⚡ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">💦 Aktualizacja: 3.07.2026 ⚡, ${GODZINA}</small>
+            <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026 ⚡, ${GODZINA}</small>
         </h2>
         <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
     ${tresc}
