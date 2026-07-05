@@ -6,203 +6,200 @@
     <title>SkyCast PRO - Alert Burzowy ⚡☔</title>
     <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
-  <style>
-    :root {
-        /* Letni Vibe - arbuz, brzoskwinia, ciepłe słońce, mięta i czyste niebo */
-        --bg: linear-gradient(135deg, #ff8a80 0%, #ffb74d 25%, #fff176 50%, #81c784 75%, #64b5f6 100%);
-    }
-    body {
-        background: var(--bg);
-        background-attachment: fixed;
-        min-height: 100vh;
-        margin: 0;
-        padding: 15px; 
-    }
-    
-    body.night-mode {
-        /* Letni Zmierzch - ostatnie promienie słońca przechodzące w nocną głębię */
-        --bg: linear-gradient(135deg, #db2777 0%, #7e22ce 30%, #3730a3 60%, #1e1b4b 85%, #0f172a 100%);
-        --glass: rgba(15, 23, 42, 0.6); 
-        --glass-border: rgba(255, 255, 255, 0.10); 
-        --text: #cbd5e1; 
-        --main-title: #ffffff; 
-        --blue: #38bdf8; 
-        --purple: #d8b4fe; 
-        --card-text: #f8fafc;
-    }
-
-    /* 🌙 NAPRAWA CZYTELNOŚCI RADARU W TRYBIE NOCNYM */
-    body.night-mode #alert24hText {
-        color: #f8fafc !important; 
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important; 
-    }
-
-    body.night-mode #alert24hCard h4 {
-        color: #fca5a5 !important; 
-    }
-    
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { display: flex; justify-content: center; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
-    
-    .app-container { max-width: 400px; width: 100%; margin: 0 auto; padding: 15px; box-sizing: border-box; }
-    .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; }
-    input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; outline: none; color: var(--text); }
-    .scan-btn { flex-shrink: 0; height: 55px; padding: 0 24px; border-radius: 20px; background: #00bfff; color: #333333; border: 2px solid #2563eb; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s ease; }
-    
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
-    .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    
-    /* ✅ NAPRAWKA: Dodana brakująca animacja */
-    @keyframes neonowyPuls {
-        0% { 
-            border-color: #38bdf8; 
-            box-shadow: 0 0 15px #38bdf8;
+    <style>
+        :root {
+            /* Letni Vibe - arbuz, brzoskwinia, ciepłe słońce, mięta i czyste niebo */
+            --bg: linear-gradient(135deg, #ff8a80 0%, #ffb74d 25%, #fff176 50%, #81c784 75%, #64b5f6 100%);
         }
-        50% { 
-            border-color: #ef4444; 
-            box-shadow: 0 0 30px #ef4444;
+        body {
+            background: var(--bg);
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px; 
         }
-        100% { 
-            border-color: #38bdf8; 
-            box-shadow: 0 0 15px #38bdf8;
+        
+        body.night-mode {
+            /* Letni Zmierzch - ostatnie promienie słońca przechodzące w nocną głębię */
+            --bg: linear-gradient(135deg, #db2777 0%, #7e22ce 30%, #3730a3 60%, #1e1b4b 85%, #0f172a 100%);
+            --glass: rgba(15, 23, 42, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.10); 
+            --text: #cbd5e1; 
+            --main-title: #ffffff; 
+            --blue: #38bdf8; 
+            --purple: #d8b4fe; 
+            --card-text: #f8fafc;
         }
-    }
-    
-    .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 15px; }
-    .main-hero { text-align: center; transition: all 0.5s ease; }
-    .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
-    .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
-    body.night-mode .temp { color: #ffffff; text-shadow: 0 0 10px rgba(255, 159, 67, 0.5); }
-    .hero-icon { font-size: 5rem; }
-    
-    .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); margin-top: 15px; }
-    .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
-    .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
-    .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
-    .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
-    .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-top: 3px; }
-    .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
-    body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
-    .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px;}
-    .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
-    body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
-    
-    .d-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 19px 20px; border-radius: 20px; margin-bottom: 10px; }
-    .d-day { font-size: 1.30rem; font-weight: 800; width: 45%; text-align: left; white-space: nowrap; overflow: hidden; letter-spacing: -0.5px; }
-    .d-icon { font-size: 1.8rem; width: 15%; text-align: center; }
-    .d-temp { font-size: 1.25rem; font-weight: 900; width: 40%; text-align: right; color: var(--blue); }
-    body.night-mode .d-row { background: rgba(0,0,0,0.3); }
-    body.night-mode .d-temp { color: #38bdf8; }
-    .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
-    .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
-    body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
-  
-  @keyframes neonPulse {
-        0%   { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
-        50%  { box-shadow: 0 0 35px rgba(250, 204, 21, 0.8); border-color: #facc15; }
-        100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
-    }
 
-    /* 1. GŁÓWNA KARTA (Zewnętrzna ramka ma pulsowanie i letni, morski błękit!) */
-    .dj-main-card {
-        border: 2px solid #38bdf8;
-        backdrop-filter: none !important; 
-        
-        /* Taki lekko ciemno-niebieski, letni vibe (śródziemnomorski wieczór) */
-        background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%) !important;
-        
-        /* Wjazd z dołu, a po 0.5s płynne przejście w pulsowanie */
-        animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
-    }
+        /* 🌙 NAPRAWA CZYTELNOŚCI RADARU W TRYBIE NOCNYM */
+        body.night-mode #alert24hText {
+            color: #f8fafc !important; 
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important; 
+        }
 
-    /* 2. ODTWARZACZ WEWNĘTRZNY (Czysty, stabilny, bez animacji) */
-    .player-container {
-        margin-top: 15px;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 2px solid #7dd3fc;
+        body.night-mode #alert24hCard h4 {
+            color: #fca5a5 !important; 
+        }
         
-        /* Ciemniejsze, lekko prześwitujące tło pod sam odtwarzacz, żeby ładnie siedział */
-        background: rgba(15, 23, 42, 0.4); 
-    }
-
-    .mixcloud-box {
-        border-color: rgba(56, 189, 248, 0.6) !important;
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { display: flex; justify-content: center; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
         
-    }
-     .imgw-radar-container {
-        box-sizing: border-box;
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #1a1a1a;
-        border-radius: 12px;
-        border: 7px solid #00d4ff;
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); 
-    }
+        .app-container { max-width: 400px; width: 100%; margin: 0 auto; padding: 15px; box-sizing: border-box; }
+        .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; }
+        input { flex: 1; min-width: 0; height: 55px; padding: 0 20px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); font-size: 1.1rem; font-weight: 700; outline: none; color: var(--text); }
+        .scan-btn { flex-shrink: 0; height: 55px; padding: 0 24px; border-radius: 20px; background: #00bfff; color: #333333; border: 2px solid #2563eb; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s ease; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
+        .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* ✅ NAPRAWKA: Dodana animacja pulsowania */
+        @keyframes neonowyPuls {
+            0% { 
+                border-color: #38bdf8; 
+                box-shadow: 0 0 15px #38bdf8;
+            }
+            50% { 
+                border-color: #ef4444; 
+                box-shadow: 0 0 30px #ef4444;
+            }
+            100% { 
+                border-color: #38bdf8; 
+                box-shadow: 0 0 15px #38bdf8;
+            }
+        }
+        
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 15px; }
+        .main-hero { text-align: center; transition: all 0.5s ease; }
+        .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
+        .temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
+        body.night-mode .temp { color: #ffffff; text-shadow: 0 0 10px rgba(255, 159, 67, 0.5); }
+        .hero-icon { font-size: 5rem; }
+        
+        .badge { background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; display: inline-block; color: var(--main-title); margin-top: 15px; }
+        .atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
+        .atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
+        .atm-icon { font-size: 1.8rem; margin-bottom: 5px; }
+        .atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
+        .atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-top: 3px; }
+        .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+        body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px;}
+        .h-box { min-width: 85px; display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 15px 5px; border-radius: 22px; }
+        body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
+        
+        .d-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 19px 20px; border-radius: 20px; margin-bottom: 10px; }
+        .d-day { font-size: 1.30rem; font-weight: 800; width: 45%; text-align: left; white-space: nowrap; overflow: hidden; letter-spacing: -0.5px; }
+        .d-icon { font-size: 1.8rem; width: 15%; text-align: center; }
+        .d-temp { font-size: 1.25rem; font-weight: 900; width: 40%; text-align: right; color: var(--blue); }
+        body.night-mode .d-row { background: rgba(0,0,0,0.3); }
+        body.night-mode .d-temp { color: #38bdf8; }
+        .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
+        .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
+        body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
+      
+        @keyframes neonPulse {
+            0%   { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+            50%  { box-shadow: 0 0 35px rgba(250, 204, 21, 0.8); border-color: #facc15; }
+            100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+        }
 
-    /* STYL SAMEGO WIDEO W ŚRODKU */
-    .imgw-radar-container img {
-        display: block;
-        width: 110%;
-        max-width: 100%;
-        height: auto;
-        border-radius: 7px; 
-        box-sizing: border-box;
-    }
-  </style>  
+        /* 1. GŁÓWNA KARTA (Zewnętrzna ramka ma pulsowanie i letni, morski błękit!) */
+        .dj-main-card {
+            border: 2px solid #38bdf8;
+            backdrop-filter: none !important; 
+            
+            /* Taki lekko ciemno-niebieski, letni vibe (śródziemnomorski wieczór) */
+            background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%) !important;
+            
+            /* Wjazd z dołu, a po 0.5s płynne przejście w pulsowanie */
+            animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+        }
+
+        /* 2. ODTWARZACZ WEWNĘTRZNY (Czysty, stabilny, bez animacji) */
+        .player-container {
+            margin-top: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #7dd3fc;
+            
+            /* Ciemniejsze, lekko prześwitujące tło pod sam odtwarzacz, żeby ładnie siedział */
+            background: rgba(15, 23, 42, 0.4); 
+        }
+
+        .mixcloud-box {
+            border-color: rgba(56, 189, 248, 0.6) !important;
+        }
+
+        .imgw-radar-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            border: 7px solid #00d4ff;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); 
+        }
+
+        /* STYL SAMEGO WIDEO W ŚRODKU */
+        .imgw-radar-container img {
+            display: block;
+            width: 110%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 7px; 
+            box-sizing: border-box;
+        }
+    </style>  
 </head>
 <body>
-       <div class="app-container">
+    <div class="app-container">
         
         <div class="card dj-main-card">
-    <h3 style="text-align: center; color: #38bdf8; font-weight: 900; margin-bottom: 15px; text-shadow: 0px 2px 5px rgba(0,0,0,0.6);">
-        🎧 TOP 1 PIOTRKA 🎶🎧⚡😎😁🥃
-    </h3>
+            <h3 style="text-align: center; color: #38bdf8; font-weight: 900; margin-bottom: 15px; text-shadow: 0px 2px 5px rgba(0,0,0,0.6);">
+                🎧 TOP 1 PIOTRKA 🎶🎧⚡😎😁🥃
+            </h3>
 
             <div class="player-container">
                 <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2FDefectedrecords%2Fdefected-radio-show-ibiza-special-hosted-by-sam-divine-260626%2F" frameborder="0"></iframe>
             </div>
-            
         </div>
-<!-- KONTENER RADARU POGODOWEGO IMGW -->
-<div class="imgw-radar-container">
-    <!-- Łącznik z lokalnym plikiem wideo. Zabezpieczenia: autoplay, loop, muted -->
-   <img src="TEMP_ODCZ_1782587741.webp" alt="Opis Twojego pliku">
-</div>
 
+        <div class="imgw-radar-container">
+            <img src="TEMP_ODCZ_1782587741.webp" alt="Opis Twojego pliku">
+        </div>
 
         <div id="radar-wiadomosci" class="wiadomosci">
             <p style="text-align: center; color: var(--main-title); font-weight: bold; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
         </div>
 
-      <div style="width: 100%; margin: 0 auto 35px auto; background: #0b0f19; border: 2px solid #ff7e5f; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 8px 32px rgba(255, 126, 95, 0.15);">
-    <div onclick="toggleRadio()" style="background: linear-gradient(45deg, #ff7e5f, #feb47b); padding: 15px; color: #0b0f19; cursor: pointer;">
-        <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio ▾</h3>
-    </div>
-    <div id="radioContent" style="display: none; padding: 20px;">
-        <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: block;">Wybierz letnią stację...</span>
-        <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background: rgba(15, 23, 42, 0.9); color: #feb47b; border: 1px dashed #ff7e5f; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 1rem; margin-bottom: 20px; outline: none;">
-            <option value="">-- Wybierz Radio --</option>
-            <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">📻🔴 RADIO ZET 🔴📻</option>
-            <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX 🔥🚀</option>
-            <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA ⚡🎶</option>
-            <option value="http://ml.cdn.eurozet.pl/mel-krk.mp3">MELORADIO (Alt) 📻✨</option>
-             <option value="https://ic2.smcdn.pl/3990-1.mp3">VOX FM (dla Hubiego!) 📻🔥</option>
-        </select>
-        <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg);"></audio>
-        <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
-    </div>
-</div>
+        <div style="width: 100%; margin: 0 auto 35px auto; background: #0b0f19; border: 2px solid #ff7e5f; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 8px 32px rgba(255, 126, 95, 0.15);">
+            <div onclick="toggleRadio()" style="background: linear-gradient(45deg, #ff7e5f, #feb47b); padding: 15px; color: #0b0f19; cursor: pointer;">
+                <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio ▾</h3>
+            </div>
+            <div id="radioContent" style="display: none; padding: 20px;">
+                <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: block;">Wybierz letnią stację...</span>
+                <select id="selectCyber" onchange="cyberZmiana()" style="width: 100%; background: rgba(15, 23, 42, 0.9); color: #feb47b; border: 1px dashed #ff7e5f; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 1rem; margin-bottom: 20px; outline: none;">
+                    <option value="">-- Wybierz Radio --</option>
+                    <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac">📻🔴 RADIO ZET 🔴📻</option>
+                    <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX 🔥🚀</option>
+                    <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA ⚡🎶</option>
+                    <option value="http://ml.cdn.eurozet.pl/mel-krk.mp3">MELORADIO (Alt) 📻✨</option>
+                     <option value="https://ic2.smcdn.pl/3990-1.mp3">VOX FM (dla Hubiego!) 📻🔥</option>
+                </select>
+                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg);"></audio>
+                <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
+            </div>
+        </div>
 
-<div class="search-row">
-    <input type="text" id="cityIn" value="Kraków">
-    <button class="scan-btn" onclick="uruchomZlotySkaner()">SKANUJ</button>
-</div>
+        <div class="search-row">
+            <input type="text" id="cityIn" value="Kraków">
+            <button class="scan-btn" onclick="uruchomZlotySkaner()">SKANUJ</button>
+        </div>
         
         <div class="card main-hero animate" id="heroCard">
             <div style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Wyszukiwanie bezpieczne aktywne</div>
@@ -296,12 +293,12 @@
         </div>
     </div>
 
-<script>
-    // ==========================================
-    // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
-   const API_KEY = "6def6302b0a9b722144968390f4b8522";
-const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
- const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PONIEDZIAŁEK (6 LIPCA 2026 R.)
+    <script>
+        // ==========================================
+        // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
+        const API_KEY = "6def6302b0a9b722144968390f4b8522";
+        const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+        const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PONIEDZIAŁEK (6 LIPCA 2026 R.)
 
 🟢 KRAKÓW I MAŁOPOLSKA (PEŁNA STABILIZACJA):
 - Brak jakichkolwiek alertów meteorologicznych. Nocne i niedzielne porywy wiatru ustały, a poniedziałek upłynie pod znakiem spokojnej, choć miejscami pochmurnej aury. Pełne bezpieczeństwo operacyjne dla całego regionu.
@@ -315,38 +312,37 @@ const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek
 ==================================================
 🔗 WERYFIKACJA SYSTEMOWA: Bieżąca mapa zagrożeń hydro-meteorologicznych dostępna na serwisie Meteo IMGW-PIB.`;
 
+        window.onload = function() {
+            pokazAlertPowitalny();
+            uruchomProtokolGPS(); 
+            pobierzWiadomosci();
+            uruchomZlotySkaner();
+        };
 
-window.onload = function() {
-    pokazAlertPowitalny();
-    uruchomProtokolGPS(); 
-    pobierzWiadomosci();
-    uruchomZlotySkaner();
-};
+        function pokazAlertPowitalny() {
+            let okienko = document.getElementById('skycast-welcome-alert');
+            if (!okienko) {
+                // 1. ZEWNĘTRZNA TARCZA (Zabezpiecza 100% ekranu i trzyma środek)
+                okienko = document.createElement('div');
+                okienko.id = 'skycast-welcome-alert';
+                okienko.style.cssText = `
+                    position: fixed; 
+                    top: 0; 
+                    left: 0; 
+                    width: 100%; 
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7); /* Elegancko przyciemnia tło */
+                    z-index: 9999;
+                    display: flex; 
+                    align-items: center; /* Trzyma środek w pionie */
+                    justify-content: center; /* Trzyma środek w poziomie */
+                    padding: 15px; 
+                    box-sizing: border-box;
+                `;
 
-function pokazAlertPowitalny() {
-    let okienko = document.getElementById('skycast-welcome-alert');
-    if (!okienko) {
-        // 1. ZEWNĘTRZNA TARCZA (Zabezpiecza 100% ekranu i trzyma środek)
-        okienko = document.createElement('div');
-        okienko.id = 'skycast-welcome-alert';
-        okienko.style.cssText = `
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Elegancko przyciemnia tło */
-            z-index: 9999;
-            display: flex; 
-            align-items: center; /* Trzyma środek w pionie */
-            justify-content: center; /* Trzyma środek w poziomie */
-            padding: 15px; 
-            box-sizing: border-box;
-        `;
-
-        const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
-        const GODZINA = '18:54';
-        const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
+                const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
+                const GODZINA = '18:54';
+                const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
 📅 PONIEDZIAŁEK, 6 LIPCA 2026 | STABILIZACJA I CHWILA ODDECHU
 
@@ -372,52 +368,53 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 - Gdańsk: 18°C | Chłodno, porywisty wiatr.
 - Zakopane: 16°C | Najchłodniejszy region.`;
 
-        // 2. WEWNĘTRZNA SZAFECZKA (Siedzi bezpiecznie wewnątrz tarczy)
-        okienko.innerHTML = `
-            <div style="
-                width: 100%; 
-                max-width: 380px; 
-                max-height: 85vh; 
-                background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-                border: 4px solid #ffffff;
-                border-radius: 25px; 
-                padding: 25px; 
-                color: white; 
-                box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-                overflow-y: auto; 
-                display: flex; 
-                flex-direction: column;
-                box-sizing: border-box; 
-                animation: neonowyPuls 2s infinite ease-in-out;
-            ">
-                <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-                    ⚡ POLSKA: ${TYTUL} <br>
-                    <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
-                </h2>
-                <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
-                    ${tresc}
-                </p>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                        ⛈️ ŚLEDŹ BURZĘ
-                    </button>
-                    <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                        ⚽ MUNDIAL
-                    </button>
-                </div>
-            </div>
-        `;
+                // 2. WEWNĘTRZNA SZAFECZKA (Siedzi bezpiecznie wewnątrz tarczy)
+                okienko.innerHTML = `
+                    <div style="
+                        width: 100%; 
+                        max-width: 380px; 
+                        max-height: 85vh; 
+                        background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+                        border: 4px solid #ffffff;
+                        border-radius: 25px; 
+                        padding: 25px; 
+                        color: white; 
+                        box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+                        overflow-y: auto; 
+                        display: flex; 
+                        flex-direction: column;
+                        box-sizing: border-box; 
+                        animation: neonowyPuls 2s infinite ease-in-out;
+                    ">
+                        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                            ⚡ POLSKA: ${TYTUL} <br>
+                            <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
+                        </h2>
+                        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
+                            ${tresc}
+                        </p>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                                ⛈️ ŚLEDŹ BURZĘ
+                            </button>
+                            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                                ⚽ MUNDIAL
+                            </button>
+                        </div>
+                    </div>
+                `;
 
-        document.body.appendChild(okienko);
+                document.body.appendChild(okienko);
 
-        // Mechanika Przycisków
-        document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
-        document.getElementById('btnMundial').addEventListener('click', () => {
-            okienko.remove();
-            window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-        });
-    }
-}
+                // Mechanika Przycisków
+                document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
+                document.getElementById('btnMundial').addEventListener('click', () => {
+                    okienko.remove();
+                    window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+                });
+            }
+        }
+
         function toggleRadio() {
             const x = document.getElementById("radioContent");
             if (x.style.display === "none") {
@@ -452,7 +449,7 @@ Status: Umiarkowanie ciepło, przewaga chmur.
             if (!kontener) return;
 
             const rssInteria = 'https://wydarzenia.interia.pl/feed';
-         const rssPolsat = 'https://sport.interia.pl/pilka-nozna/feed';
+            const rssPolsat = 'https://sport.interia.pl/pilka-nozna/feed';
 
             function aktualizuj() {
                 let html = `
@@ -511,52 +508,54 @@ Status: Umiarkowanie ciepło, przewaga chmur.
                 navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
             }
         }
-       function tlumaczPogodeTeraz(iconCode, description) {
-    let icon = "☁️";
-    
-    const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
 
-    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
-    
-    const hour = new Date().getHours();
-    const isNight = (hour >= 21 || hour < 6);
-    
-    if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
-    else if (iconCode.startsWith("04")) icon = "☁️"; 
-    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-    else if (iconCode.startsWith("11")) { 
-        icon = "⛈️";
-        description = "Burza";
-    }
-    else if (iconCode.startsWith("13")) icon = "❄️"; 
-    else if (iconCode.startsWith("50")) icon = "🌫️"; 
-    
-    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
-}
+        function tlumaczPogodeTeraz(iconCode, description) {
+            let icon = "☁️";
+            
+            const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
 
-function tlumaczPogodePrognoza(iconCode, description) {
-    let icon = "☁️";
-    
-    const style3D = 'font-size: 1.3em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+            
+            const hour = new Date().getHours();
+            const isNight = (hour >= 21 || hour < 6);
+            
+            if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
+            else if (iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("11")) { 
+                icon = "⛈️";
+                description = "Burza";
+            }
+            else if (iconCode.startsWith("13")) icon = "❄️"; 
+            else if (iconCode.startsWith("50")) icon = "🌫️"; 
+            
+            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+        }
 
-    if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
-    
-    const isNightAPI = iconCode.endsWith("n");
-    
-    if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
-    else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
-    else if (iconCode.startsWith("04")) icon = "☁️"; 
-    else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-    else if (iconCode.startsWith("11")) { 
-        icon = "⛈️"; 
-        description = "Burza";
-    }
-    else if (iconCode.startsWith("13")) icon = "❄️"; 
-    else if (iconCode.startsWith("50")) icon = "🌫️"; 
-    
-    return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
-}
+        function tlumaczPogodePrognoza(iconCode, description) {
+            let icon = "☁️";
+            
+            const style3D = 'font-size: 1.3em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+
+            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+            
+            const isNightAPI = iconCode.endsWith("n");
+            
+            if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
+            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
+            else if (iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("11")) { 
+                icon = "⛈️"; 
+                description = "Burza";
+            }
+            else if (iconCode.startsWith("13")) icon = "❄️"; 
+            else if (iconCode.startsWith("50")) icon = "🌫️"; 
+            
+            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+        }
+
         function ocenaPowietrza(aqi) {
             if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
             if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
@@ -810,6 +809,7 @@ function tlumaczPogodePrognoza(iconCode, description) {
                 dL.innerHTML = htmlWydruk;
             }
         }
+
         function zainstalujAplikacje() {
             alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki'.\n2. Wybierz 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania.\n2. Wybierz 'Do ekranu początkowego'.");
         }
