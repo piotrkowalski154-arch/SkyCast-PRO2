@@ -294,17 +294,18 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
    const API_KEY = "6def6302b0a9b722144968390f4b8522";
 const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
- const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – NIEDZIELA (5 LIPCA 2026 R.)
+ const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PONIEDZIAŁEK (6 LIPCA 2026 R.)
 
-🌊 POLSKA PÓŁNOCNA (STREFA PODWYŻSZONEGO RYZYKA):
-• Alert 1. i 2. stopnia (głównie Pomorze, Wybrzeże oraz Mazury): Silny wiatr osiągający nad morzem w porywach do 75–90 km/h. Lokalnie mogą występować tam również burze 1. stopnia z opadami deszczu do 20–25 mm oraz gradem.
+🟢 KRAKÓW I MAŁOPOLSKA (PEŁNA STABILIZACJA):
+• Brak jakichkolwiek alertów meteorologicznych. Nocne i niedzielne porywy wiatru ustały, a poniedziałek upłynie pod znakiem spokojnej, choć miejscami pochmurnej aury. Pełne bezpieczeństwo operacyjne dla całego regionu.
 
-🟢 KRAKÓW I MAŁOPOLSKA (STREFA STABILNA):
-• Kraków i Małopolska: Całkowity brak alertów IMGW. Pogoda w pełni bezpieczna, choć odczuwalnie chłodniejsza. Temperatura maksymalna wyniesie około 19°C – 20°C. Zachmurzenie umiarkowane do dużego z szansą na przelotne, słabe opady deszczu. Wiatr umiarkowany, zachodni, bez gwałtownych porywów.
+🟢 RESZTA KRAJU (ZIELONA MAPA METEO):
+• Brak ostrzeżeń. Dynamiczny front atmosferyczny, który w weekend przynosił wichury, całkowicie opuścił granice Polski. Wygaszeniu uległy również silne wiatry na północy i w pasie centralnym. Kolejne dynamiczne zjawiska (fala upałów) system przewiduje dopiero na czwartek i piątek.
 
-💨 RESZTA KRAJU (CENTRUM, ZACHÓD, WSCHÓD):
-• Strefa przejściowa: Bez poważniejszych ostrzeżeń meteorologicznych. W całym kraju zaznaczy się wyraźne ochłodzenie po przejściu frontu. Okresami porywisty wiatr osiągający prędkość do 40–60 km/h, który nie stwarza bezpośredniego zagrożenia.
+⚠️ STAŁE KOMUNIKATY HYDROLOGICZNE:
+• Zlewnie rzeczne (południe i wschód): Z uwagi na wcześniejszą falę upałów utrzymują się długoterminowe ostrzeżenia przed suszą hydrologiczną (niskie stany wód). Nie stanowią one nagłego zagrożenia pogodowego.
 
+==================================================
 🔗 WERYFIKACJA SYSTEMOWA: Bieżąca mapa zagrożeń hydro-meteorologicznych dostępna na serwisie Meteo IMGW-PIB.`;
 
 
@@ -352,34 +353,34 @@ function pokazAlertPowitalny() {
         document.body.appendChild(okienko);
     }
 
-const TYTUL = '⚡WEEKENDOWY RAPORT METEO – SKYCAST PRO⚡';
-const GODZINA = '21:03';
+const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
+const GODZINA = '18:54'; // Zaktualizowana na bieżący czas operacyjny
 
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅 NIEDZIELA, 5 LIPCA 2026 | WEEKENDOWY RESET FRONTU
+📅 PONIEDZIAŁEK, 6 LIPCA 2026 | STABILIZACJA I CHWILA ODDECHU
 
 🌪️ SYTUACJA SYNOPTYCZNA: 
-Polska znajduje się pod bezpośrednim wpływem chłodniejszej masy powietrza polarno-morskiego. W całym kraju utrzyma się chłodniejszy i wietrzny trend z umiarkowanymi temperaturami rzędu 18–24°C, a w wielu regionach wystąpią punktowe, przelotne opady deszczu.
+Polska w całości znajduje się pod wpływem chłodniejszej, stabilnej masy powietrza. Wkraczamy w tydzień bez gwałtownych zjawisk burzowych. Czeka nas chwilowy oddech z umiarkowanymi temperaturami rzędu 16–24°C, zanim pod koniec tygodnia (ok. 8-9 lipca) uderzy w nas kolejna, potężna fala upałów. 
 
 🟢 KRAKÓW I MAŁOPOLSKA (STREFA STABILIZACJI)
-Status: Wyraźna poprawa aury.
-🌡️ Temperatura: 22°C (w dzień) / 14°C (w nocy).
-💨 Wiatr: Północno-zachodni, umiarkowany, porywy maksymalnie do 55 km/h.
-🌦️ Opady: W godzinach porannych duże zachmurzenie z ryzykiem słabych opadów. W drugiej połowie dnia systemy chmurowe ustąpią, gwarantując szerokie i stabilne rozpogodzenia.
+Status: Umiarkowanie ciepło, przewaga chmur.
+🌡️ Temperatura: 21°C (maksimum w dzień) / 14°C (noc i chłodny poranek).
+💨 Wiatr: Zachodni, łagodny i umiarkowany (do 18 km/h).
+🌦️ Opady: Bardzo niskie ryzyko (10-20%). Systemy radarowe wskazują jedynie na możliwość wystąpienia słabej, przelotnej mżawki w godzinach przedpołudniowych i późnym popołudniem. 
 
 🌍 PRZEKRÓJ KRAJOWY (POZOSTAŁE REGIONY)
 
-[ 🌤️ Strefa Umiarkowana / Przelotna Konwekcja ]
-• 🏢 Warszawa: 23°C | Zachmurzenie zmienne, możliwe słabe opady na północnych krańcach.
-• ✈️ Rzeszów: 23°C | Poranny front deszczowy, po południu dominacja słońca i duże rozpogodzenia.
-• 🌉 Wrocław: 22°C | W godzinach popołudniowych możliwa lokalna konwekcja i przelotne opady.
-• 🥐 Poznań: 22°C | Zachmurzenie umiarkowane, odczuwalne porywy wiatru do 65 km/h.
-• 🌲 Białystok: 22°C | Przewaga dużego zachmurzenia z punktowymi opadami deszczu.
+[ 🌤️ Strefa Przejaśnień / Zachód i Centrum ]
+• 🏢 Warszawa: 22°C | Zachmurzenie umiarkowane, przejaśnienia, bez opadów.
+• 🌉 Wrocław: 23°C | Stabilna aura, więcej słońca, ciśnienie w normie.
+• 🥐 Poznań: 22°C | Umiarkowane zachmurzenie, suche powietrze, brak większych opadów.
 
-[ 🔴 Strefa Podwyższonego Ryzyka / Silny Wiatr ]
-• 🌊 Gdańsk (Bałtyk): 19°C | Chłodno, duże zachmurzenie z przelotnym deszczem. Uwaga: porywy sztormowe nad samym morzem do 90 km/h!
-• ⛰️ Zakopane (Góry): 19°C | Silny wiatr do 65 km/h. Drastyczne ochłodzenie w wyższych partiach (na szczytach Tatr zaledwie 9°C!).
+[ 🌧️ Strefa Chmur i Wiatru / Wschód i Północ ]
+• ✈️ Rzeszów: 23°C | Zwiększona ilość chmur, możliwa lokalna mżawka.
+• 🌲 Białystok: 22°C | Duże zachmurzenie, miejscami słaby deszcz.
+• 🌊 Gdańsk (Bałtyk): 18°C | Chłodno, odczuwalny porywisty wiatr z północnego zachodu, możliwe przelotne opady.
+• ⛰️ Zakopane (Góry): 16°C | Najchłodniejszy region w kraju, rześki wiatr i gruba warstwa chmur.
 
 ==================================================
 🔗 STATUS SYSTEMU: MODUŁ OPERACYJNY 24/7.`;
