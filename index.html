@@ -324,17 +324,20 @@ function pokazAlertPowitalny() {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         
-        // 🛡️ TARCZA - ZAMRAŻA EKRAN I CENTRUJE
+        // 🛡️ TARCZA - WERSJA ZAMROŻONA (100dvh = brak skakania przy starcie)
         okienko.style.cssText = `
             position: fixed; 
             inset: 0; 
-            background: rgba(0, 0, 0, 0.8); 
+            width: 100vw;
+            height: 100dvh;
+            background: rgba(0, 0, 0, 0.85); 
             z-index: 999999; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             padding: 15px; 
             box-sizing: border-box;
+            margin: 0;
         `;
 
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
@@ -365,12 +368,12 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 - Gdańsk: 18°C | Chłodno, porywisty wiatr.
 - Zakopane: 16°C | Najchłodniejszy region.`;
 
-        // 📦 SZAFECZKA - DODANY MARGIN: AUTO JAKO DRUGI BEZPIECZNIK
+        // 📦 SZAFECZKA - ZABEZPIECZONA PRZED ROZPYCHANIEM
         okienko.innerHTML = `
-           <div style="
-                width: 90%; 
+            <div style="
+                width: 100%; 
                 max-width: 400px; 
-                max-height: 90vh; 
+                max-height: 85dvh; 
                 background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
                 backdrop-filter: blur(15px); 
                 border: 4px solid #ffffff;
