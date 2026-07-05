@@ -324,7 +324,7 @@ function pokazAlertPowitalny() {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         
-        // 🛡️ TARCZA - WERSJA ZAMROŻONA (100dvh = brak skakania przy starcie)
+        // 🛡️ TARCZA - ZAMRAŻA EKRAN I CENTRUJE
         okienko.style.cssText = `
             position: fixed; 
             inset: 0; 
@@ -368,7 +368,7 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 - Gdańsk: 18°C | Chłodno, porywisty wiatr.
 - Zakopane: 16°C | Najchłodniejszy region.`;
 
-        // 📦 SZAFECZKA - ZABEZPIECZONA PRZED ROZPYCHANIEM
+        // 📦 SZAFECZKA - NAPRAWIONE WSTRZYKIWANIE TREŚCI
         okienko.innerHTML = `
             <div style="
                 width: 100%; 
@@ -391,7 +391,7 @@ Status: Umiarkowanie ciepło, przewaga chmur.
                     ⚡ RAPORT METEO SKYCAST PRO ⚡
                 </h2>
                 <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
-                    Polska stabilna, brak alertów w regionie. System gotowy do pracy.
+                    ${tresc}
                 </p>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
