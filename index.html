@@ -135,7 +135,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     width: 110%;           /* Zmusza obrazek do szerokości kontenera */
     max-width: 100%;       /* To jest klucz: mówi "nigdy nie bądź szerszy niż kontener" */
     height: auto;          /* Dzięki temu zachowa proporcje, nie będzie się rozciągał w pionie */
-    border-radius: 6px; 
+    border-radius: 7px; 
     
    box-sizing: border-box;
 }
@@ -318,25 +318,36 @@ function pokazAlertPowitalny() {
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
         position: fixed; 
-        top: 5%; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        width: 90%; 
-        max-width: 400px; 
-        max-height: 90vh;
-        background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-        backdrop-filter: blur(15px); 
-        border: 5px solid #38bdf8;
-        border-radius: 25px; 
-        padding: 25px; 
-        z-index: 9999;
-        color: white; 
-        overflow-y: auto; 
-        display: flex; 
-        flex-direction: column;
-        animation: neonowyPuls 2s infinite ease-in-out; 
-        box-sizing: border-box;
-        margin: auto;
+            
+            /* KOTWICA OSTATECZNA - Zamiast top, używamy inset i margin auto */
+            inset: 0; 
+            margin: auto;
+            
+            /* Rozmiary */
+            width: 90%; 
+            max-width: 350px; 
+            max-height: 80vh;
+            
+            /* Wygląd */
+            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+            backdrop-filter: blur(15px); 
+            border: 4px solid #ffffff;
+            border-radius: 25px; 
+            padding: 25px; 
+            z-index: 9999;
+            color: white; 
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+            
+            /* Układ wewnętrzny */
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column;
+            
+            /* Bezpieczniki */
+            box-sizing: border-box; 
+            
+            /* Animacja */
+            animation: neonowyPuls 2s infinite ease-in-out; 
         `;
         document.body.appendChild(okienko);
     }
