@@ -328,37 +328,21 @@ function pokazAlertPowitalny() {
     if (!okienko) {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
+        
+        // 🛡️ 1. ZEWNĘTRZNA TARCZA (Zabezpiecza 100% ekranu i blokuje zooma)
         okienko.style.cssText = `
-     position: fixed; 
-            
-            /* 1. TWARDA KOTWICA OSTATECZNA (Zastępuje top, left i transform) */
-            inset: 0; 
-            margin: auto;
-            
-            /* 2. ZABETONOWANE WYMIARY */
-            width: 90%; 
-            max-width: 350px; 
-            height: fit-content; 
-            max-height: 80vh;
-            
-            /* 3. PANCERZ WIZUALNY */
-            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); 
-            border: 4px solid #ffffff;
-            border-radius: 25px; 
-            padding: 25px; 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Lekko przyciemnia tło aplikacji */
             z-index: 9999;
-            color: white; 
-            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-            
-            /* 4. MECHANIKA WEWNĘTRZNA */
-            overflow-y: auto; 
             display: flex; 
-            flex-direction: column;
-            box-sizing: border-box; 
-            
-            /* 5. ANIMACJA */
-            animation: neonowyPuls 2s infinite ease-in-out; 
+            align-items: center; /* Betonuje środek w pionie! */
+            justify-content: center; /* Betonuje środek w poziomie! */
+            padding: 15px; /* Ochrona przed dotknięciem krawędzi telefonu */
+            box-sizing: border-box;
         `;
         
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
@@ -389,26 +373,45 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 - Gdańsk: 18°C | Chłodno, porywisty wiatr.
 - Zakopane: 16°C | Najchłodniejszy region.`;
 
+        // 📦 2. WEWNĘTRZNA SZAFECZKA (Trzymana w imadle tarczy)
         okienko.innerHTML = `
-            <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-                ⚡ POLSKA: ${TYTUL} <br>
-                <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
-            </h2>
-            <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
-                ${tresc}
-            </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                    ⛈️ ŚLEDŹ BURZĘ
-                </button>
-                <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                    ⚽ MUNDIAL
-                </button>
+            <div style="
+                width: 100%; 
+                max-width: 380px; 
+                max-height: 85vh; 
+                background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+                border: 4px solid #ffffff;
+                border-radius: 25px; 
+                padding: 25px; 
+                color: white; 
+                box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+                overflow-y: auto; 
+                display: flex; 
+                flex-direction: column;
+                box-sizing: border-box; 
+                animation: neonowyPuls 2s infinite ease-in-out;
+            ">
+                <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                    ⚡ POLSKA: ${TYTUL} <br>
+                    <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
+                </h2>
+                <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
+                    ${tresc}
+                </p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                        ⛈️ ŚLEDŹ BURZĘ
+                    </button>
+                    <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                        ⚽ MUNDIAL
+                    </button>
+                </div>
             </div>
         `;
 
         document.body.appendChild(okienko);
 
+        // Zamykanie i przejścia
         document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
         document.getElementById('btnMundial').addEventListener('click', () => {
             okienko.remove();
@@ -416,7 +419,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
         });
     }
 }
-
         function toggleRadio() {
             const x = document.getElementById("radioContent");
             if (x.style.display === "none") {
