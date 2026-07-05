@@ -55,6 +55,22 @@
     .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     
+    /* ✅ NAPRAWKA: Dodana brakująca animacja */
+    @keyframes neonowyPuls {
+        0% { 
+            border-color: #38bdf8; 
+            box-shadow: 0 0 15px #38bdf8;
+        }
+        50% { 
+            border-color: #ef4444; 
+            box-shadow: 0 0 30px #ef4444;
+        }
+        100% { 
+            border-color: #38bdf8; 
+            box-shadow: 0 0 15px #38bdf8;
+        }
+    }
+    
     .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 15px; }
     .main-hero { text-align: center; transition: all 0.5s ease; }
     .cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
@@ -102,27 +118,12 @@
         animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
     }
 
-@keyframes neonowyPuls {
-    0% { 
-        border-color: #38bdf8; 
-        box-shadow: 0 0 15px #38bdf8;
-    }
-    50% { 
-        border-color: #ef4444; 
-        box-shadow: 0 0 30px #ef4444;
-    }
-    100% { 
-        border-color: #38bdf8; 
-        box-shadow: 0 0 15px #38bdf8;
-    }
-
-      
     /* 2. ODTWARZACZ WEWNĘTRZNY (Czysty, stabilny, bez animacji) */
     .player-container {
         margin-top: 15px;
         border-radius: 12px;
         overflow: hidden;
-        border: 2px solid #7dd3fc; /* Jasnobłękitna ramka dla ładnego odcięcia wewnątrz */
+        border: 2px solid #7dd3fc;
         
         /* Ciemniejsze, lekko prześwitujące tło pod sam odtwarzacz, żeby ładnie siedział */
         background: rgba(15, 23, 42, 0.4); 
@@ -133,28 +134,27 @@
         
     }
      .imgw-radar-container {
-        box-sizing: border-box; /* Nasz bezpiecznik wymiarów */
+        box-sizing: border-box;
         width: 100%;
-        max-width: 600px; /* Zabezpieczenie, żeby wideo nie było na pół pokoju na dużym ekranie */
-        margin: 20px auto; /* Zewnętrzny odstęp - odpycha od innych kart i centruje (auto) */
-        padding: 10px; /* Wewnętrzny oddech - ramka wokół wideo */
-        background-color: #1a1a1a; /* Ciemne tło dla kontrastu */
-        border-radius: 12px; /* Zaokrąglone krawędzie kontenera */
-        border: 7px solid #00d4ff; /* Twój nowy niebieski */
-box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); 
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #1a1a1a;
+        border-radius: 12px;
+        border: 7px solid #00d4ff;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); 
     }
 
     /* STYL SAMEGO WIDEO W ŚRODKU */
     .imgw-radar-container img {
-    display: block;        /* Usuwa margines pod spodem */
-    width: 110%;           /* Zmusza obrazek do szerokości kontenera */
-    max-width: 100%;       /* To jest klucz: mówi "nigdy nie bądź szerszy niż kontener" */
-    height: auto;          /* Dzięki temu zachowa proporcje, nie będzie się rozciągał w pionie */
-    border-radius: 7px; 
-    
-   box-sizing: border-box;
-}
-</style>  
+        display: block;
+        width: 110%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 7px; 
+        box-sizing: border-box;
+    }
+  </style>  
 </head>
 <body>
        <div class="app-container">
@@ -300,17 +300,17 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     // ==========================================
     // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
    const API_KEY = "6def6302b0a9b722144968390f4b8522";
-const dniTygodnia = ['Niedziela', 'Ponie🚨🚀', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
  const alertIMGW = `🚨 OFICJALNE ALERTY IMGW – PONIEDZIAŁEK (6 LIPCA 2026 R.)
 
 🟢 KRAKÓW I MAŁOPOLSKA (PEŁNA STABILIZACJA):
-• Brak jakichkolwiek alertów meteorologicznych. Nocne i niedzielne porywy wiatru ustały, a poniedziałek upłynie pod znakiem spokojnej, choć miejscami pochmurnej aury. Pełne bezpieczeństwo operacyjne dla całego regionu.
+- Brak jakichkolwiek alertów meteorologicznych. Nocne i niedzielne porywy wiatru ustały, a poniedziałek upłynie pod znakiem spokojnej, choć miejscami pochmurnej aury. Pełne bezpieczeństwo operacyjne dla całego regionu.
 
 🟢 RESZTA KRAJU (ZIELONA MAPA METEO):
-• Brak ostrzeżeń. Dynamiczny front atmosferyczny, który w weekend przynosił wichury, całkowicie opuścił granice Polski. Wygaszeniu uległy również silne wiatry na północy i w pasie centralnym. Kolejne dynamiczne zjawiska (fala upałów) system przewiduje dopiero na czwartek i piątek.
+- Brak ostrzeżeń. Dynamiczny front atmosferyczny, który w weekend przynosił wichury, całkowicie opuścił granice Polski. Wygaszeniu uległy również silne wiatry na północy i w pasie centralnym. Kolejne dynamiczne zjawiska (fala upałów) system przewiduje dopiero na czwartek i piątek.
 
 ⚠️ STAŁE KOMUNIKATY HYDROLOGICZNE:
-• Zlewnie rzeczne (południe i wschód): Z uwagi na wcześniejszą falę upałów utrzymują się długoterminowe ostrzeżenia przed suszą hydrologiczną (niskie stany wód). Nie stanowią one nagłego zagrożenia pogodowego.
+- Zlewnie rzeczne (południe i wschód): Z uwagi na wcześniejszą falę upałów utrzymują się długoterminowe ostrzeżenia przed suszą hydrologiczną (niskie stany wód). Nie stanowią one nagłego zagrożenia pogodowego.
 
 ==================================================
 🔗 WERYFIKACJA SYSTEMOWA: Bieżąca mapa zagrożeń hydro-meteorologicznych dostępna na serwisie Meteo IMGW-PIB.`;
@@ -320,13 +320,10 @@ window.onload = function() {
     pokazAlertPowitalny();
     uruchomProtokolGPS(); 
     pobierzWiadomosci();
-    uruchomZlotySkaner(); // NAPRAWA: Złoty Skaner uruchamia się automatycznie!
+    uruchomZlotySkaner();
 };
 
 function pokazAlertPowitalny() {
-    // ---------------------------------------------------------
-    // KROK 1: INSTALACJA SILNIKA ANIMACJI W SEKCJI <HEAD>
-    // ---------------------------------------------------------
     let okienko = document.getElementById('skycast-welcome-alert');
     if (!okienko) {
         okienko = document.createElement('div');
@@ -337,13 +334,11 @@ function pokazAlertPowitalny() {
             left: 50%;
             transform: translate(-50%, -50%);
             
-            /* Rozmiary */
             width: 90%; 
             max-width: 350px;
             height: fit-content;
             max-height: 80vh;
             
-            /* Wygląd */
             background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
             backdrop-filter: blur(15px); 
             border: 4px solid #ffffff;
@@ -353,19 +348,15 @@ function pokazAlertPowitalny() {
             color: white; 
             box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
             
-            /* Układ wewnętrzny */
             overflow-y: auto; 
             display: flex; 
             flex-direction: column;
             
-            /* Bezpieczniki */
             box-sizing: border-box; 
             
-            /* Animacja */
             animation: neonowyPuls 2s infinite ease-in-out; 
         `;
         
-        // RAPORT METEOROLOGICZNY
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
         const GODZINA = '18:54';
         const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
@@ -422,9 +413,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
     }
 }
 
-        // ==========================================
-        // 📻 RADIO / WIADOMOŚCI
-        // ==========================================
         function toggleRadio() {
             const x = document.getElementById("radioContent");
             if (x.style.display === "none") {
@@ -513,9 +501,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
             setInterval(aktualizuj, 30000); 
         }
 
-        // ==========================================
-        // 🛠️ FUNKCJE POMOCNICZE POGODY
-        // ==========================================
         function uruchomProtokolGPS() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
@@ -524,7 +509,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
        function tlumaczPogodeTeraz(iconCode, description) {
     let icon = "☁️";
     
-    // 🔥 Zmienna z efektem 3D: pogrubiony rozmiar, inline-block do animacji i kinowy Drop Shadow!
     const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
 
     if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
@@ -536,14 +520,10 @@ Status: Umiarkowanie ciepło, przewaga chmur.
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-    
-    // --- TU JEST KLUCZOWA ZMIANA ---
     else if (iconCode.startsWith("11")) { 
-        icon = "⛈️"; // Zaktualizowana, potężniejsza ikona!
-        description = "Burza"; // WYMUSZENIE: Nawet jak API wyśle co innego, Ty ustawiasz "Burza"
+        icon = "⛈️";
+        description = "Burza";
     }
-    // --------------------------------
-    
     else if (iconCode.startsWith("13")) icon = "❄️"; 
     else if (iconCode.startsWith("50")) icon = "🌫️"; 
     
@@ -553,7 +533,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 function tlumaczPogodePrognoza(iconCode, description) {
     let icon = "☁️";
     
-    // 🔥 Wersja 3D dla prognozy (minimalnie mniejsza czcionka 1.3em, żeby pasowała do mniejszych kafelków)
     const style3D = 'font-size: 1.3em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
 
     if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
@@ -564,14 +543,10 @@ function tlumaczPogodePrognoza(iconCode, description) {
     else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
     else if (iconCode.startsWith("04")) icon = "☁️"; 
     else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
-    
-    // ZMIANA TUTAJ:
     else if (iconCode.startsWith("11")) { 
         icon = "⛈️"; 
-        description = "Burza"; // Nadpisujesz parametr funkcji
+        description = "Burza";
     }
-    // KONIEC ZMIANY
-    
     else if (iconCode.startsWith("13")) icon = "❄️"; 
     else if (iconCode.startsWith("50")) icon = "🌫️"; 
     
@@ -585,9 +560,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
             return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
         }
 
-        // ==========================================
-        // 🚀 ZŁOTY SKANER Z DUAL ENGINE (AUTOPILOT)
-        // ==========================================
         async function uruchomZlotySkaner() {
             let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
             const btn = document.querySelector('.scan-btn');
@@ -597,7 +569,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
             if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
             
             try { 
-                // Silnik 1: OpenWeather API
                 const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`);
                 if (!currentRes.ok) throw new Error("Błąd miasta");
                 const currentData = await currentRes.json();
@@ -605,22 +576,19 @@ function tlumaczPogodePrognoza(iconCode, description) {
                 const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${currentData.coord.lat}&lon=${currentData.coord.lon}&appid=${API_KEY}&units=metric&lang=pl`);
                 const forecastData = await forecastRes.json();
                 
-                // Silnik 2: Open-Meteo AQI
                 let aqiData = null;
                 try {
                     const aqiRes = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=european_aqi`);
                     aqiData = await aqiRes.json();
                 } catch(e) { console.log("Moduł AQI offline"); }
 
-                // Silnik 3 (Dual Engine): Open-Meteo Cloud Radar
                 let openMeteoData = null;
                 try {
                     const omRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=cloud_cover`);
                     openMeteoData = await omRes.json();
-                    console.log("📡 Drugi Radar zgłasza gotowość, zachmurzenie:", openMeteoData.current.cloud_cover + "%");
                 } catch(e) { console.log("Zapasowy radar offline"); }
 
-                renderUI(currentData, forecastData, aqiData, currentData.name, openMeteoData); // Dodany 5 parametr!
+                renderUI(currentData, forecastData, aqiData, currentData.name, openMeteoData);
                 if (btn) btn.innerText = "SKANUJ";
             } catch (error) {
                 if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
@@ -631,9 +599,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
             }
         }
 
-        // ==========================================
-        // 🖥️ RENDER UI I WERYFIKACJA DANYCH
-        // ==========================================
         function renderUI(currentData, forecastData, aqiData, nazwaMiasta, openMeteoData) {
             const currentHour = new Date().getHours();
             const isNight = currentHour >= 21 || currentHour < 5;
@@ -646,22 +611,17 @@ function tlumaczPogodePrognoza(iconCode, description) {
             let pogodaTeraz = tlumaczPogodeTeraz(weatherObj.icon, weatherObj.description);
             let aktywnySilnikText = "🛡️ Silnik OpenWeather PRO: Aktywny";
 
-            // 🧠 LOGIKA DUAL ENGINE (AUTOPILOT KORYGUJĄCY CHMURY)
             if (openMeteoData && openMeteoData.current) {
                 aktywnySilnikText = "🛡️ Hybryda: OpenWeather + Open-Meteo";
-                const cloudCover = openMeteoData.current.cloud_cover; // Poziom chmur 0-100%
+                const cloudCover = openMeteoData.current.cloud_cover;
 
-                // Jeśli OpenWeather kłamie o chmurach (ikony 03, 04), a Open-Meteo mówi, że chmur jest mało (<25%):
                 if (cloudCover <= 25 && (weatherObj.icon.startsWith("03") || weatherObj.icon.startsWith("04"))) {
-                    console.log("Dual Engine Override: Wymuszam słońce/czyste niebo!");
                     pogodaTeraz = {
                         desc: "Bezchmurnie (Korekta Radaru)",
                         icon: isNight ? `<span class="anim-float" style="font-size: 1.4em;">🌙</span>` : `<span class="anim-float" style="font-size: 1.4em;">☀️</span>`
                     };
                 } 
-                // Jeśli OpenWeather mówi, że jest pochmurno, a chmur jest do 50%:
                 else if (cloudCover > 25 && cloudCover <= 50 && weatherObj.icon.startsWith("04")) {
-                    console.log("Dual Engine Override: Wymuszam lekkie zachmurzenie!");
                     pogodaTeraz = {
                         desc: "Lekkie zachmurzenie (Korekta Radaru)",
                         icon: isNight ? `<span class="anim-float" style="font-size: 1.4em;">☁️</span>` : `<span class="anim-float" style="font-size: 1.4em;">⛅</span>`
@@ -669,7 +629,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
                 }
             }
 
-            // Wstrzyknięcie poprawnego stanu do plakietki z silnikiem
             const engineBadge = document.getElementById('engineBadge');
             if (engineBadge) engineBadge.innerText = aktywnySilnikText;
 
@@ -692,9 +651,6 @@ function tlumaczPogodePrognoza(iconCode, description) {
                 if (document.getElementById('aqiIcon')) document.getElementById('aqiIcon').innerText = stan.ikona;
             }
 
-            // ========================================================
-            // 🚨 RADAR 24H - OBSŁUGA RĘCZNEGO ALERTU IMGW
-            // ========================================================
             const alert24Card = document.getElementById('alert24hCard');
             const alert24Text = document.getElementById('alert24hText');
             
@@ -705,77 +661,54 @@ function tlumaczPogodePrognoza(iconCode, description) {
                 if (alert24Card) alert24Card.style.display = "none";
             }
 
-            // ========================================================
-            // 🧠 MYŚL PIOTRKA – WAKACYJNY HUMOR
-            // ========================================================
             const widget = document.getElementById('thesisWidget');
-if (widget) widget.style.display = 'block';
+            if (widget) widget.style.display = 'block';
 
-// Domyślne wartości
-let mysl = "Pogoda stabilna jak wynik 0:0 do przerwy. Idealny czas na kawkę i sprawdzenie, kto dzisiaj gra na Mundialu! ☕⚽";
-let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
-let textColor = isNight ? "#e2e8f0" : "#000000"; 
-let titleColor = isNight ? "#38bdf8" : "#000000";
+            let mysl = "Pogoda stabilna jak wynik 0:0 do przerwy. Idealny czas na kawkę i sprawdzenie, kto dzisiaj gra na Mundialu! ☕⚽";
+            let cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
+            let textColor = isNight ? "#e2e8f0" : "#000000"; 
+            let titleColor = isNight ? "#38bdf8" : "#000000";
 
-if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-    // BURZA
-    mysl = "⚡ Piorunujące uderzenie! Pogoda szaleje jak sędzia z żółtymi kartkami. Lepiej zostań na kanapie, odpal klimę i bezpiecznie analizuj mecze Mundialu w TV! 📺⚽";
-    cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
-    textColor = "#ffffff"; titleColor = "#ffffff";
-
-} else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-    // DESZCZ
-    mysl = "🌧️ Leje! Murawa śliska jak w finale Ligi Mistrzów. Idealna wymówka, żeby skryć się przed afrykańskim słońcem, odpalić mundialowy hit i paczkę czipsów! 🍿⚽";
-    cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
-    textColor = "#ffffff"; titleColor = "#ffffff";
-
-} else if (weatherObj.id === 800 && isNight) {
-    // NOC (Czyste niebo)
-    mysl = "🌙 Czyste niebo, włączone jupitery i wreszcie chłodniej! Kto gra nocne mecze na Mundialu, ten wie, że to najlepszy klimat. Odpoczywaj przed jutrzejszym skwarem i kolejnymi starciami! 🏟️";
-    cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
-    textColor = "#ffffff"; titleColor = "#38bdf8";
-
-} else if (weatherObj.id === 800 && !isNight) {
-    // DZIEŃ (Czyste niebo)
-    mysl = "☀️ Bezchmurne niebo i pełne słońce! Pogoda na finał Mundialu, ale uważaj na patelnię na zewnątrz. Zamiast kopać, lepiej wypić zimne piwko w cieniu i oglądać, jak inni biegają! 🍺⚽";
-    cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
-
-} else if (currentData.main.temp > 34) {
-    // UPAŁ EKSTREMALNY
-    mysl = "🔥 Upał jak na stadionach w Katarze! Sędzia zarządza przerwę na wodę, a VAR potwierdza: mamy czerwony alert. Schowaj się w cieniu, odpal wiatrak i oszczędzaj siły na wieczorny seans! 🥵💦";
-    cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
-    textColor = "#ffffff"; titleColor = "#ffffff";
-
-} else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
-    // UPAŁ
-    mysl = "☀️ Gorąco jak w polu karnym w 90. minucie przy remisie! Afrykańskie powietrze robi swoje. Pamiętaj o twardym nawodnieniu, żeby dotrwać do końcowego gwizdka bez zadyszki. 🥤⚽";
-    cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
-
-} else if (currentData.main.temp > 25) {
-    // CIEPŁO
-    let timeGreeting = isNight ? "Wieczór idealny na odpoczynek przy piłkarskich analizach!" : "Mundialowa gorączka trwa! Unikaj pełnego słońca.";
-    mysl = `😎 ${timeGreeting} Ładuj akumulatory i trzymaj formę na kolejne mecze! 🏟️☀️`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
-
-} else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
-    // PRZYJEMNIE
-    let timeGreeting = isNight ? "Wieczorna aura idealna na analizy taktyczne!" : "Świetne okno transferowe na krótki spacer przed mundialowym wieczorem!";
-    mysl = `🌤️ Pogoda mistrzowska, idealne 20+ stopni! Piłka sama niesie się po murawie. ${timeGreeting} 🚶‍♂️⚽`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
-
-} else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
-    // RZEŚKO
-    let timeGreeting = isNight ? "Rześki wieczór – w sam raz na wieczorny stream z Mundialu!" : "Trochę rześko, idealnie na ostry pressing!";
-    mysl = `🍂 ${timeGreeting} Załóż dresik i bądź gotowy do akcji! 🏃‍♂️💨`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
-    textColor = isNight ? "#e2e8f0" : "#000000";
-    titleColor = isNight ? "#38bdf8" : "#000000";
-
-} else if (currentData.main.temp < 5) {
-    // ZIMNO
-    mysl = "🥶 Zimno jak na ławce rezerwowych! Trener radzi: gorąca herbata, ciepły kocyk i mundialowy maraton w TV to jedyna słuszna taktyka na dziś! ☕❄️";
-    cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
-}
+            if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+                mysl = "⚡ Piorunujące uderzenie! Pogoda szaleje jak sędzia z żółtymi kartkami. Lepiej zostań na kanapie, odpal klimę i bezpiecznie analizuj mecze Mundialu w TV! 📺⚽";
+                cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(76, 29, 149, 0.5))";
+                textColor = "#ffffff"; titleColor = "#ffffff";
+            } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+                mysl = "🌧️ Leje! Murawa śliska jak w finale Ligi Mistrzów. Idealna wymówka, żeby skryć się przed afrykańskim słońcem, odpalić mundialowy hit i paczkę czipsów! 🍿⚽";
+                cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(29, 78, 216, 0.5))";
+                textColor = "#ffffff"; titleColor = "#ffffff";
+            } else if (weatherObj.id === 800 && isNight) {
+                mysl = "🌙 Czyste niebo, włączone jupitery i wreszcie chłodniej! Kto gra nocne mecze na Mundialu, ten wie, że to najlepszy klimat. Odpoczywaj przed jutrzejszym skwarem i kolejnymi starciami! 🏟️";
+                cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(2, 6, 23, 0.8))";
+                textColor = "#ffffff"; titleColor = "#38bdf8";
+            } else if (weatherObj.id === 800 && !isNight) {
+                mysl = "☀️ Bezchmurne niebo i pełne słońce! Pogoda na finał Mundialu, ale uważaj na patelnię na zewnątrz. Zamiast kopać, lepiej wypić zimne piwko w cieniu i oglądać, jak inni biegają! 🍺⚽";
+                cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.6))";
+            } else if (currentData.main.temp > 34) {
+                mysl = "🔥 Upał jak na stadionach w Katarze! Sędzia zarządza przerwę na wodę, a VAR potwierdza: mamy czerwony alert. Schowaj się w cieniu, odpal wiatrak i oszczędzaj siły na wieczorny seans! 🥵💦";
+                cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.6))";
+                textColor = "#ffffff"; titleColor = "#ffffff";
+            } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
+                mysl = "☀️ Gorąco jak w polu karnym w 90. minucie przy remisie! Afrykańskie powietrze robi swoje. Pamiętaj o twardym nawodnieniu, żeby dotrwać do końcowego gwizdka bez zadyszki. 🥤⚽";
+                cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.6))";
+            } else if (currentData.main.temp > 25) {
+                let timeGreeting = isNight ? "Wieczór idealny na odpoczynek przy piłkarskich analizach!" : "Mundialowa gorączka trwa! Unikaj pełnego słońca.";
+                mysl = `😎 ${timeGreeting} Ładuj akumulatory i trzymaj formę na kolejne mecze! 🏟️☀️`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.2)"; 
+            } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
+                let timeGreeting = isNight ? "Wieczorna aura idealna na analizy taktyczne!" : "Świetne okno transferowe na krótki spacer przed mundialowym wieczorem!";
+                mysl = `🌤️ Pogoda mistrzowska, idealne 20+ stopni! Piłka sama niesie się po murawie. ${timeGreeting} 🚶‍♂️⚽`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)"; 
+            } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
+                let timeGreeting = isNight ? "Rześki wieczór – w sam raz na wieczorny stream z Mundialu!" : "Trochę rześko, idealnie na ostry pressing!";
+                mysl = `🍂 ${timeGreeting} Załóż dresik i bądź gotowy do akcji! 🏃‍♂️💨`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.4)" : "rgba(255, 255, 255, 0.15)";
+                textColor = isNight ? "#e2e8f0" : "#000000";
+                titleColor = isNight ? "#38bdf8" : "#000000";
+            } else if (currentData.main.temp < 5) {
+                mysl = "🥶 Zimno jak na ławce rezerwowych! Trener radzi: gorąca herbata, ciepły kocyk i mundialowy maraton w TV to jedyna słuszna taktyka na dziś! ☕❄️";
+                cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.4), rgba(56, 189, 248, 0.5))";
+            }
 
             if (widget) {
                 widget.style.background = cardBg;
@@ -802,9 +735,6 @@ if (weatherObj.id >= 200 && weatherObj.id <= 232) {
                 thesisTitle.style.color = titleColor;
             }
 
-            // ========================================================
-            // 🕒 PROGNOZA GODZINOWA
-            // ========================================================
             const hourlyCard = document.getElementById('hourlyCard');
             if (hourlyCard) hourlyCard.style.display = 'block';
             const hL = document.getElementById('hList');
@@ -827,7 +757,6 @@ if (weatherObj.id >= 200 && weatherObj.id <= 232) {
                 }
             }
 
-            // 📅 LOGIKA PROGNOZY 5 DNI
             const dailyCard = document.getElementById('dailyCard');
             if (dailyCard) dailyCard.style.display = 'block';
             const dL = document.getElementById('dList');
