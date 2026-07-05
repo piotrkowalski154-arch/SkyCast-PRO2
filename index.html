@@ -317,7 +317,7 @@ function pokazAlertPowitalny() {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
-        position: fixed; 
+            position: fixed; 
             
             /* KOTWICA OSTATECZNA - Zamiast top, używamy inset i margin auto */
             inset: 0; 
@@ -325,7 +325,8 @@ function pokazAlertPowitalny() {
             
             /* Rozmiary */
             width: 90%; 
-            max-width: 350px; 
+            max-width: 350px;
+            height: fit-content;
             max-height: 80vh;
             
             /* Wygląd */
@@ -349,8 +350,22 @@ function pokazAlertPowitalny() {
             /* Animacja */
             animation: neonowyPuls 2s infinite ease-in-out; 
         `;
+        
+        okienko.innerHTML = `
+            <h2 style="margin: 0 0 15px 0; text-align: center;">🔴 SYSTEM SKYCAST ALERT</h2>
+            <p style="font-size: 16px; text-align: center; white-space: pre-wrap; color: #0f172a; font-weight: 600;">
+                ${alertIMGW}
+            </p>
+            <button onclick="document.getElementById('skycast-welcome-alert').remove()" 
+                    style="width: 100%; padding: 12px; margin-top: 15px; background: #0f172a; color: white; 
+                           border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                ZROZUMIAŁEM
+            </button>
+        `;
+        
         document.body.appendChild(okienko);
     }
+
 
 
 
