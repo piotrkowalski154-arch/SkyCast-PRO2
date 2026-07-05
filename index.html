@@ -327,17 +327,17 @@ function pokazAlertPowitalny() {
         // 🛡️ TARCZA - WERSJA OSTATECZNA (Zamrożona co do piksela)
         okienko.style.cssText = `
             position: fixed; 
-            inset: 0; 
+            top: 0; 
+            left: 0; 
             width: 100%;
-            height: 100dvh; 
+            height: 100%; 
             background: rgba(0, 0, 0, 0.8); 
             z-index: 999999; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             padding: 15px;
-            box-sizing: border-box; 
-            margin: 0;
+            box-sizing: border-box;
         `;
 
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
