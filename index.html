@@ -318,10 +318,9 @@ function pokazAlertPowitalny() {
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
             position: fixed; 
-            
-            /* KOTWICA OSTATECZNA - Zamiast top, używamy inset i margin auto */
-            inset: 0; 
-            margin: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             
             /* Rozmiary */
             width: 90%; 
@@ -351,81 +350,62 @@ function pokazAlertPowitalny() {
             animation: neonowyPuls 2s infinite ease-in-out; 
         `;
         
-        okienko.innerHTML = `
-            <h2 style="margin: 0 0 15px 0; text-align: center;">🔴 SYSTEM SKYCAST ALERT</h2>
-            <p style="font-size: 16px; text-align: center; white-space: pre-wrap; color: #0f172a; font-weight: 600;">
-                ${alertIMGW}
-            </p>
-            <button onclick="document.getElementById('skycast-welcome-alert').remove()" 
-                    style="width: 100%; padding: 12px; margin-top: 15px; background: #0f172a; color: white; 
-                           border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
-                ZROZUMIAŁEM
-            </button>
-        `;
-        
-        document.body.appendChild(okienko);
-    }
-
-
-
-
-const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
-const GODZINA = '18:54'; // Zaktualizowana na bieżący czas operacyjny
-
-const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
+        // RAPORT METEOROLOGICZNY
+        const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
+        const GODZINA = '18:54';
+        const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
 📅 PONIEDZIAŁEK, 6 LIPCA 2026 | STABILIZACJA I CHWILA ODDECHU
 
 🌪️ SYTUACJA SYNOPTYCZNA: 
-Polska w całości znajduje się pod wpływem chłodniejszej, stabilnej masy powietrza. Wkraczamy w tydzień bez gwałtownych zjawisk burzowych. Czeka nas chwilowy oddech z umiarkowanymi temperaturami rzędu 16–24°C, zanim pod koniec tygodnia (ok. 8-9 lipca) uderzy w nas kolejna, potężna fala upałów. 
+Polska w całości znajduje się pod wpływem chłodniejszej, stabilnej masy powietrza. Wkraczamy w tydzień bez gwałtownych zjawisk burzowych. Czeka nas chwilowy oddech z umiarkowanymi temperaturami rzędu 16–24°C.
 
-🟢 KRAKÓW I MAŁOPOLSKA (STREFA STABILIZACJI)
+🟢 KRAKÓW I MAŁOPOLSKA
 Status: Umiarkowanie ciepło, przewaga chmur.
-🌡️ Temperatura: 21°C (maksimum w dzień) / 14°C (noc i chłodny poranek).
-💨 Wiatr: Zachodni, łagodny i umiarkowany (do 18 km/h).
-🌦️ Opady: Bardzo niskie ryzyko (10-20%). Systemy radarowe wskazują jedynie na możliwość wystąpienia słabej, przelotnej mżawki w godzinach przedpołudniowych i późnym popołudniem. 
+🌡️ Temperatura: 21°C (max) / 14°C (noc).
+💨 Wiatr: Zachodni, łagodny (do 18 km/h).
+🌦️ Opady: Bardzo niskie ryzyko (10-20%).
 
-🌍 PRZEKRÓJ KRAJOWY (POZOSTAŁE REGIONY)
+🌍 PRZEKRÓJ KRAJOWY
 
-[ 🌤️ Strefa Przejaśnień / Zachód i Centrum ]
-• 🏢 Warszawa: 22°C | Zachmurzenie umiarkowane, przejaśnienia, bez opadów.
-• 🌉 Wrocław: 23°C | Stabilna aura, więcej słońca, ciśnienie w normie.
-• 🥐 Poznań: 22°C | Umiarkowane zachmurzenie, suche powietrze, brak większych opadów.
+[ 🌤️ Zachód i Centrum ]
+- Warszawa: 22°C | Zachmurzenie umiarkowane, bez opadów.
+- Wrocław: 23°C | Stabilna aura, więcej słońca.
+- Poznań: 22°C | Umiarkowane zachmurzenie.
 
-[ 🌧️ Strefa Chmur i Wiatru / Wschód i Północ ]
-• ✈️ Rzeszów: 23°C | Zwiększona ilość chmur, możliwa lokalna mżawka.
-• 🌲 Białystok: 22°C | Duże zachmurzenie, miejscami słaby deszcz.
-• 🌊 Gdańsk (Bałtyk): 18°C | Chłodno, odczuwalny porywisty wiatr z północnego zachodu, możliwe przelotne opady.
-• ⛰️ Zakopane (Góry): 16°C | Najchłodniejszy region w kraju, rześki wiatr i gruba warstwa chmur.
+[ 🌧️ Wschód i Północ ]
+- Rzeszów: 23°C | Możliwa lokalna mżawka.
+- Białystok: 22°C | Duże zachmurzenie.
+- Gdańsk: 18°C | Chłodno, porywisty wiatr.
+- Zakopane: 16°C | Najchłodniejszy region.`;
 
-==================================================
-🔗 STATUS SYSTEMU: MODUŁ OPERACYJNY 24/7.`;
+        okienko.innerHTML = `
+            <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                ⚡ POLSKA: ${TYTUL} <br>
+                <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
+            </h2>
+            <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
+                ${tresc}
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                    ⛈️ ŚLEDŹ BURZĘ
+                </button>
+                <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
+                    ⚽ MUNDIAL
+                </button>
+            </div>
+        `;
 
-    okienko.innerHTML = `
-        <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-            ⚡ POLSKA: ${TYTUL} <br>
-            <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026 ⚡, ${GODZINA}</small>
-        </h2>
-        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
-    ${tresc}
-</p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                ⛈️ ŚLEDŹ BURZĘ W MOJEJ APLIKACJI
-            </button>
-            <button id="btnMundial" style="padding: 15px; flex: 1; background: #d4ac0d; color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
-                ⚽ PRZEJDŹ DO MOJEGO MUNDIALU
-            </button>
-        </div>
-    `;
+        document.body.appendChild(okienko);
 
-    document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
-    document.getElementById('btnMundial').addEventListener('click', () => {
-        okienko.remove();
-        window.open('https://skycast-pro-mundial.vercel.app', '_blank');
-    });
+        document.getElementById('btnMeteo').addEventListener('click', () => okienko.remove());
+        document.getElementById('btnMundial').addEventListener('click', () => {
+            okienko.remove();
+            window.open('https://skycast-pro-mundial.vercel.app', '_blank');
+        });
+    }
 }
-
 
         // ==========================================
         // 📻 RADIO / WIADOMOŚCI
