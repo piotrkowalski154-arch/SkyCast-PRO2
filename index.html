@@ -137,13 +137,9 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     height: auto;          /* Dzięki temu zachowa proporcje, nie będzie się rozciągał w pionie */
     border-radius: 6px; 
     
-   box-sizing: border-box
+   box-sizing: border-box;
 }
-    }
 </style>  
-    
-    
-
 </head>
 <body>
        <div class="app-container">
@@ -154,10 +150,6 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     </h3>
 
             <div class="player-container">
-                <iframe
-                    width="100%"
-                    height="120"
-                   
                 <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2FDefectedrecords%2Fdefected-radio-show-ibiza-special-hosted-by-sam-divine-260626%2F" frameborder="0"></iframe>
             </div>
             
@@ -185,7 +177,7 @@ box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
             <option value="https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48">RMF MAXX 🔥🚀</option>
             <option value="https://ic1.smcdn.pl/2130-1.mp3">RADIO ESKA ⚡🎶</option>
             <option value="http://ml.cdn.eurozet.pl/mel-krk.mp3">MELORADIO (Alt) 📻✨</option>
-             <option value="https://ic2.smcdn.pl/3990-1.mp3">VOX FM (dla Hubiego!) 📻🔥</option>>
+             <option value="https://ic2.smcdn.pl/3990-1.mp3">VOX FM (dla Hubiego!) 📻🔥</option>
         </select>
         <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg);"></audio>
         <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic;">Oczekuję na sygnał...</span>
@@ -342,13 +334,25 @@ function pokazAlertPowitalny() {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         okienko.style.cssText = `
-            position: fixed; top: 5%; left: 5%; width: 90%; max-height: 90vh;
-           background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); border: 4px solid #38bdf8;
-            border-radius: 25px; padding: 25px; z-index: 9999;
+            position: fixed; 
+            top: 5%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 90%; 
+            max-width: 400px; 
+            max-height: 90vh;
+            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+            backdrop-filter: blur(15px); 
+            border: 4px solid #38bdf8;
+            border-radius: 25px; 
+            padding: 25px; 
+            z-index: 9999;
             color: white; 
-            overflow-y: auto; display: flex; flex-direction: column;
-            animation: neonowyPuls 2s infinite ease-in-out; /* ODPALENIE NEONU */
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column;
+            animation: neonowyPuls 2s infinite ease-in-out; 
+            box-sizing: border-box;
         `;
         document.body.appendChild(okienko);
     }
@@ -384,10 +388,6 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 
 ==================================================
 🔗 STATUS SYSTEMU: MODUŁ OPERACYJNY 24/7.`;
-
-
-
-
 
     okienko.innerHTML = `
         <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
