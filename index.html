@@ -331,18 +331,30 @@ function pokazAlertPowitalny() {
         
         // 🛡️ 1. ZEWNĘTRZNA TARCZA (Zabezpiecza 100% ekranu i blokuje zooma)
         okienko.style.cssText = `
-            position: fixed; 
-            top: 0; 
-            left: 0;
-            width: 100%; 
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Lekko przyciemnia tło aplikacji */
-            z-index: 9999;
-            display: flex; 
-            align-items: center; /* Betonuje środek w pionie! */
-            justify-content: center; /* Betonuje środek w poziomie! */
-            padding: 15px; /* Ochrona przed dotknięciem krawędzi telefonu */
-            box-sizing: border-box;
+           position: fixed;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 90%;
+    max-width: 350px;
+    height: fit-content;
+    max-height: 75vh;
+    
+    background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+    backdrop-filter: blur(15px);
+    border: 4px solid #ffffff;
+    border-radius: 25px;
+    padding: 25px;
+    z-index: 99999;
+    color: white;
+    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+    
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    
+    box-sizing: border-box;
         `;
         
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
