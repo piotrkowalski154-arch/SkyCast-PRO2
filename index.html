@@ -328,21 +328,19 @@ function pokazAlertPowitalny() {
         
             okienko.style.cssText = `
     position: fixed; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0; 
-    height: 100dvh; 
-    background: rgba(0, 0, 0, 0.8); 
-    z-index: 999999; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 15px;
-    box-sizing: border-box; 
-    margin: 0;
-    overflow: hidden; 
-    overscroll-behavior: contain;
+            top: 0; 
+            left: 0; 
+            width: 100%;       /* Zmieniamy z 100vw na 100% */
+            height: 100dvh; 
+            background: rgba(0, 0, 0, 0.8); 
+            z-index: 999999; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-sizing: border-box; 
+            margin: 0;
+            overflow: hidden; 
+            overscroll-behavior: contain;
 `;
 
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
@@ -389,7 +387,7 @@ Status: Umiarkowanie ciepło, przewaga chmur.
                 display: flex; 
                 flex-direction: column;
                 box-sizing: border-box;
-                 justify-content: center; 
+            
                 animation: neonowyPuls 2s infinite ease-in-out;
             ">
                 <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
