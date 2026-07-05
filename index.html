@@ -324,28 +324,17 @@ function pokazAlertPowitalny() {
         okienko = document.createElement('div');
         okienko.id = 'skycast-welcome-alert';
         
-        // 🛡️ TARCZA - WERSJA OSTATECZNA (Zamrożona co do piksela)
-        
-           okienko.style.cssText = `
-            width: 90%; 
-            max-width: 350px;
-            height: fit-content;
-            max-height: 75dvh;
-            
-            background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
-            backdrop-filter: blur(15px); 
-            border: 4px solid #ffffff;
-            border-radius: 25px; 
-            padding: 25px; 
-            color: white; 
-            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-            
-            overflow-y: auto; 
+        // 🛡️ TARCZA - ZAMRAŻA EKRAN I CENTRUJE
+        okienko.style.cssText = `
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0, 0, 0, 0.8); 
+            z-index: 999999; 
             display: flex; 
-            flex-direction: column;
-            box-sizing: border-box; 
-            
-            animation: neonowyPuls 2s infinite ease-in-out;
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            box-sizing: border-box;
         `;
 
         const TYTUL = '⚡OTWARCIE TYGODNIA – RAPORT METEO SKYCAST PRO⚡';
@@ -378,11 +367,12 @@ Status: Umiarkowanie ciepło, przewaga chmur.
 
         // 📦 SZAFECZKA - DODANY MARGIN: AUTO JAKO DRUGI BEZPIECZNIK
         okienko.innerHTML = `
-            <div style="
-                width: 100%; 
-                max-width: 380px; 
-                max-height: 85vh; 
+           <div style="
+                width: 90%; 
+                max-width: 400px; 
+                max-height: 90vh; 
                 background: linear-gradient(135deg, #38bdf8 0%, #facc15 100%);
+                backdrop-filter: blur(15px); 
                 border: 4px solid #ffffff;
                 border-radius: 25px; 
                 padding: 25px; 
@@ -392,15 +382,13 @@ Status: Umiarkowanie ciepło, przewaga chmur.
                 display: flex; 
                 flex-direction: column;
                 box-sizing: border-box;
-            
                 animation: neonowyPuls 2s infinite ease-in-out;
             ">
                 <h2 style="color: #ffffff; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-                    ⚡ POLSKA: ${TYTUL} <br>
-                    <small style="font-size:0.8rem;">💦 Aktualizacja: 4.07.2026, ${GODZINA}</small>
+                    ⚡ RAPORT METEO SKYCAST PRO ⚡
                 </h2>
                 <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #ffffff; font-weight: 600; font-family: sans-serif;">
-                    ${tresc}
+                    Polska stabilna, brak alertów w regionie. System gotowy do pracy.
                 </p>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button id="btnMeteo" style="padding: 15px; flex: 1; background: #0ea5e9; color: #fff; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase;">
