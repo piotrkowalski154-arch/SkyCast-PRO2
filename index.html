@@ -2,15 +2,23 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast PRO - Alert Burzowy ⚡☔</title>
     <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
+    <link <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
     <style>
         :root {
             /* Letni Vibe - arbuz, brzoskwinia, ciepłe słońce, mięta i czyste niebo */
             --bg: linear-gradient(135deg, #ff8a80 0%, #ffb74d 25%, #fff176 50%, #81c784 75%, #64b5f6 100%);
         }
+        
+        /* 🛡️ BOCZNY RIGIEL: html i body dostają zakaz jakiegokolwiek ruchu w lewo/prawo */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         body {
             background: var(--bg);
             background-attachment: fixed;
@@ -43,6 +51,7 @@
         
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
         body { display: flex; justify-content: center; color: var(--text); overflow-x: hidden; transition: background 1s ease; }
         
         .app-container { max-width: 400px; width: 100%; margin: 0 auto; padding: 15px; box-sizing: border-box; }
@@ -55,20 +64,10 @@
         .animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* ✅ NAPRAWKA: Dodana animacja pulsowania */
         @keyframes neonowyPuls {
-            0% { 
-                border-color: #38bdf8; 
-                box-shadow: 0 0 15px #38bdf8;
-            }
-            50% { 
-                border-color: #ef4444; 
-                box-shadow: 0 0 30px #ef4444;
-            }
-            100% { 
-                border-color: #38bdf8; 
-                box-shadow: 0 0 15px #38bdf8;
-            }
+            0% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
+            50% { border-color: #ef4444; box-shadow: 0 0 30px #ef4444; }
+            100% { border-color: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
         }
         
         .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 22px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 15px; }
@@ -106,62 +105,47 @@
             100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
         }
 
-        /* 1. GŁÓWNA KARTA (Zewnętrzna ramka ma pulsowanie i letni, morski błękit!) */
         .dj-main-card {
             border: 2px solid #38bdf8;
             backdrop-filter: none !important; 
-            
-            /* Taki lekko ciemno-niebieski, letni vibe (śródziemnomorski wieczór) */
             background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%) !important;
-            
-            /* Wjazd z dołu, a po 0.5s płynne przejście w pulsowanie */
             animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
         }
 
-        /* 2. ODTWARZACZ WEWNĘTRZNY (Czysty, stabilny, bez animacji) */
         .player-container {
             margin-top: 15px;
             border-radius: 12px;
             overflow: hidden;
             border: 2px solid #7dd3fc;
-            
-            /* Ciemniejsze, lekko prześwitujące tło pod sam odtwarzacz, żeby ładnie siedział */
             background: rgba(15, 23, 42, 0.4); 
         }
 
         .mixcloud-box {
             border-color: rgba(56, 189, 248, 0.6) !important;
         }
-/* KONTENER RADARU - Tarcza trzymająca całość */
-.imgw-radar-container {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 390px; /* Dopasowane do Twojej aplikacji */
-    margin: 20px auto;
-    padding: 0;       /* Usunąłem padding, żeby obrazek był od krawędzi do krawędzi */
-    background-color: transparent; 
-    border-radius: 20px;
-    border: 3px solid #00d4ff;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
-    
-    /* 🔥 KLUCZ DO SUKCESU: */
-    overflow: hidden;  
-    
-    animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
-}
 
-/* OBRAZEK W ŚRODKU */
-.imgw-radar-container img {
-    display: block;
-    width: 100%;     /* Rozciąga się dokładnie na szerokość kontenera */
-    height: auto;
-    box-sizing: border-box;
-    /* Nie potrzebujesz tu border-color ani żadnych ramek, bo kontener załatwia sprawę */
-}
-     
-   
-  
-} 
+        /* KONTENER RADARU - Tarcza trzymająca całość */
+        .imgw-radar-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 390px; 
+            margin: 20px auto;
+            padding: 0;       
+            background-color: transparent; 
+            border-radius: 20px;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
+            overflow: hidden;  /* 🔥 NASZ MISTRZOWSKI POLICJANT: Nic nie wyjdzie poza szafeczkę! */
+            animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+        }
+
+        /* OBRAZEK W ŚRODKU */
+        .imgw-radar-container img {
+            display: block;
+            width: 100%;     
+            height: auto;
+            box-sizing: border-box;
+        }
     </style>  
 </head>
 <body>
