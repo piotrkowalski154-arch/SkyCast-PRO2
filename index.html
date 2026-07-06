@@ -210,8 +210,9 @@
     border-radius: 12px; 
     padding: 20px; 
     box-shadow: 0 6px 20px rgba(239, 68, 68, 0.13);
-    transition: all 0.4s ease-out;
-    min-width: 0;        
+    margin: 15px auto; /* Centrowanie karty wewnątrz aplikacji */
+    max-width: 100%;   /* Blokada szerokości */
+    box-sizing: border-box; /* Klucz do sukcesu! */
 ">
     <h4 style="
         font-size: 0.85rem; 
@@ -220,29 +221,35 @@
         font-weight: 900; 
         margin-bottom: 15px; 
         letter-spacing: 1.5px;
-        min-width: 0;
     ">
         🚨 RADAR 24H
     </h4>
     
-    <div style="display: flex; align-items: center; gap: 15px;">
+    <div style="
+        display: flex; 
+        align-items: flex-start; 
+        gap: 15px; 
+        width: 100%;
+        box-sizing: border-box;
+    ">
         <div id="alert24hIcon" style="
-            font-size: 3rem; 
+            font-size: 2.5rem; 
             filter: drop-shadow(0 0 10px rgba(239,68,68,0.4));
+            flex-shrink: 0; /* Ikona nie może się ściskać */
         ">
-            🌡️🌞🚿
+            🌡️
         </div>
         
         <div id="alert24hText" style="
             flex: 1;
+            min-width: 0; /* 🛡️ To jest klucz! Nie pozwala tekstowi rozepchać kontenera */
             white-space: pre-wrap;
-            word-break: break-word;
+            word-wrap: break-word; /* Długie słowa łamią się do nowej linii */
             font-size: 1.04rem; 
             font-weight: 800; 
             color: #0f172a; 
             line-height: 1.5; 
             text-shadow: 0 1px 1px rgba(255,255,255,0.5);
-            min-width: 0;
         ">
             Skanowanie przestrzeni...
         </div>
