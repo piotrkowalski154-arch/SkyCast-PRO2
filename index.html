@@ -175,7 +175,7 @@
             <p style="text-align: center; color: var(--main-title); font-weight: bold; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
         </div>
 
-        <div style="width: 100%; max-width: 500px; margin: 0 auto 35px auto; background: #0b0f19; border: 2px solid #ff7e5f; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 8px 32px rgba(255, 126, 95, 0.15); box-sizing: border-box; min-width: 0;">
+        <div style="width: 100%; max-width: 500px; margin: 0 auto 35px auto;animation: slideUp 0.5s ease-out forwards, neonPulse 2s ease-in-out infinite 0.5s; background: #0b0f19; border: 2px solid #ff7e5f; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 8px 32px rgba(255, 126, 95, 0.15); box-sizing: border-box; min-width: 0;">
     
     <div onclick="toggleRadio()" style="background: linear-gradient(45deg, #ff7e5f, #7b84fe); padding: 15px; color: #0b0f19; cursor: pointer;">
         <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">📻 SkyCast PRO Radio ▾</h3>
@@ -187,27 +187,27 @@
         <div style="background: rgba(15, 23, 42, 0.9); border: 1px dashed #ff7e5f; border-radius: 10px; margin-bottom: 20px; overflow: hidden; display: flex; flex-direction: column;">
             
             <div onclick="odpalStacje('https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac', 'RADIO ZET')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
-                <img src="radio.zet.png" alt="ZET" style="width: 45px; height: 45px; border-radius: 10px; opacity: 0.3; margin-right: 15px; object-fit: cover;">
+                <img src="radio.zet.png" alt="ZET" style="width: 45px; object-fit: contain;flex-shrink: 0; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">📻🔴 RADIO ZET 🔴📻</span>
             </div>
 
             <div onclick="odpalStacje('https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48', 'RMF MAXX')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
-                <img src="rmf.max.png" alt="RMF" style="width: 45px; height: 45px; border-radius: 10px; opacity: 0.3; margin-right: 15px; object-fit: cover;">
+                <img src="rmf.max.png" alt="RMF" style="width:   45px;  flex-shrink: 0; object-fit: contain;   height: 45px;flex-shrink: 0; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">RMF MAXX 🔥🚀</span>
             </div>
 
             <div onclick="odpalStacje('https://ic1.smcdn.pl/2130-1.mp3', 'RADIO ESKA')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
-                <img src="radio.eska.png" alt="ESKA" style="width: 45px; height: 45px; border-radius: 10px; opacity: 0.3; margin-right: 15px; object-fit: cover;">
+                <img src="radio.eska.png" alt="ESKA" style="width: 45px; height: 45px;flex-shrink: 0; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">RADIO ESKA ⚡🎶</span>
             </div>
 
             <div onclick="odpalStacje('http://ml.cdn.eurozet.pl/mel-krk.mp3', 'MELORADIO')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
-                <img src="melo.radio.png" alt="MELO" style="width: 45px; height: 45px; border-radius: 10px; opacity: 0.3; margin-right: 15px; object-fit: cover;">
+                <img src="melo.radio.png" alt="MELO" style="width: 45px; height: 45px;flex-shrink: 0; object-fit: contain; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">MELORADIO (Alt) 📻✨</span>
             </div>
 
             <div onclick="odpalStacje('https://ic2.smcdn.pl/3990-1.mp3', 'VOX FM')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid transparent; cursor: pointer; min-width: 0;">
-                <img src="Vox.fm.png" alt="VOX" style="width: 45px; height: 45px; border-radius: 10px; opacity: 0.3; margin-right: 15px; object-fit: cover;">
+                <img src="Vox.fm.png" alt="VOX" style="width: 45px; height: 45px;flex-shrink: 0; object-fit: contain ; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">VOX FM (dla Hubiego!) 📻🔥</span>
             </div>
             
