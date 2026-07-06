@@ -132,30 +132,33 @@
         .mixcloud-box {
             border-color: rgba(56, 189, 248, 0.6) !important;
         }
-
-       .imgw-radar-container {
+/* KONTENER RADARU - Tarcza trzymająca całość */
+.imgw-radar-container {
     box-sizing: border-box;
     width: 100%;
-    max-width: 466px; /* 🔥 POTĘŻNA ZMIANA: Teraz obrazek ma miejsce, żeby rozwinąć skrzydła na telefonie! */
+    max-width: 360px; /* Dopasowane do Twojej aplikacji */
     margin: 20px auto;
-    padding: 0px; /* Zmniejszony, żeby dać max przestrzeni dla obrazka */
-    background-color: #0f172a; /* 🔥 CIEMNE TŁO: Czysty letni zmierzch, idealny pod radar */
-    border-radius: 20px; /* 🔥 DOPASOWANIE ROGÓW: Zaokrąglone szafeczki pasujące do reszty aplikacji */
-    border: 3px solid #00d4ff; /* 🔥 ODCHUDZONY BORDER: Elegancka, neonowa linia zamiast grubego kloca */
+    padding: 0;       /* Usunąłem padding, żeby obrazek był od krawędzi do krawędzi */
+    background-color: transparent; 
+    border-radius: 20px;
+    border: 3px solid #00d4ff;
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
     
-    /* ⚡ TWOJA MAGIA: Automatyczny wjazd z dołu + płynne przejście w neonowe pulsowanie! */
+    /* 🔥 KLUCZ DO SUKCESU: */
+    overflow: hidden;  
+    
     animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
 }
 
-/* STYL SAMEGO OBRAZKA W ŚRODKU */
+/* OBRAZEK W ŚRODKU */
 .imgw-radar-container img {
     display: block;
-    width: 100%; /* Rozciąga się idealnie na 100% dostępnej szafeczki */
+    width: 100%;     /* Rozciąga się dokładnie na szerokość kontenera */
     height: auto;
-     /* Ładne, wewnętrzne zaokrąglenie dopasowane do szafeczki */
-    bborder-color: rgba(56, 189, 248, 0.6) !important;
     box-sizing: border-box;
+    /* Nie potrzebujesz tu border-color ani żadnych ramek, bo kontener załatwia sprawę */
+}
+     
    
   
 } 
