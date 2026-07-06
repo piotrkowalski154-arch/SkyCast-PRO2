@@ -203,46 +203,49 @@
             <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie satelitarne...</div>
             <div class="badge" id="engineBadge">🛡️ Silnik OpenWeather PRO: Aktywny</div>
         </div>
-        
         <div class="card animate" id="alert24hCard" style="
-            display: none; 
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05)); 
-            border-left: 6px solid #ef4444; 
-            border-radius: 12px; 
-            padding: 20px; 
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.13);
-            transition: all 0.4s ease-out;
+    display: none; 
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05)); 
+    border-left: 6px solid #ef4444; 
+    border-radius: 12px; 
+    padding: 20px; 
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.13);
+    transition: all 0.4s ease-out;
+">
+    <h4 style="
+        font-size: 0.85rem; 
+        color: #ef4444; 
+        text-transform: uppercase; 
+        font-weight: 900; 
+        margin-bottom: 15px; 
+        letter-spacing: 1.5px;
+    ">
+        🚨 RADAR 24H
+    </h4>
+    
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div id="alert24hIcon" style="
+            font-size: 3rem; 
+            filter: drop-shadow(0 0 10px rgba(239,68,68,0.4));
         ">
-            <h4 style="
-                font-size: 0.85rem; 
-                color: #ef4444; 
-                text-transform: uppercase; 
-                font-weight: 900; 
-                margin-bottom: 15px; 
-                letter-spacing: 1.5px;
-            ">
-                🚨 RADAR 24H
-            </h4>
-            
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div id="alert24hIcon" style="
-                    font-size: 3rem; 
-                    filter: drop-shadow(0 0 10px rgba(239,68,68,0.4));
-                ">
-                    🌡️🌞🚿
-                </div>
-                
-                <div id="alert24hText" style="
-                    font-size: 1.04rem; 
-                    font-weight: 800; 
-                    color: #0f172a; 
-                    line-height: 1.5; 
-                    text-shadow: 0 1px 1px rgba(255,255,255,0.5);
-                ">
-                    Skanowanie przestrzeni...
-                </div>
-            </div>
+            🌡️🌞🚿
         </div>
+        
+        <div id="alert24hText" style="
+            flex: 1;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-size: 1.04rem; 
+            font-weight: 800; 
+            color: #0f172a; 
+            line-height: 1.5; 
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        ">
+            Skanowanie przestrzeni...
+        </div>
+    </div>
+</div>
+       
 
         <div class="card animate" id="atmCard" style="display: none;">
             <span class="label">Szczegóły Atmosferyczne</span>
