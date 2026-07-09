@@ -238,24 +238,27 @@
             <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie satelitarne...</div>
             <div class="badge" id="engineBadge">🛡️ Silnik OpenWeather PRO: Aktywny</div>
         </div>
+
+       
         <div class="card animate" id="alert24hCard" style="
     display: none; 
     background: linear-gradient(45deg, #ff7e5f, hsl(201, 98%, 74%));
-    border-left: 2px solid #93fda8; 
+    border-left: 5px solid #93fda8; /* 🛡️ Grubszy, pancerny pas bezpieczeństwa */
     border-radius: 12px; 
     padding: 20px; 
-    box-shadow: 0 8px 32px #14becad9;
-    margin: 15px auto; /* Centrowanie karty wewnątrz aplikacji */
-    max-width: 100%;   /* Blokada szerokości */
-    box-sizing: border-box; /* Klucz do sukcesu! */
+    box-shadow: 0 8px 32px rgba(20, 190, 202, 0.45); /* Subtelniejszy, profesjonalny neon */
+    margin: 15px auto; 
+    max-width: 100%;   
+    box-sizing: border-box; 
+    transition: all 0.4s ease-in-out; /* 🌊 Płynna animacja przy zmianie stanów */
 ">
     <h4 style="
         font-size: 0.85rem; 
-        color: #adecf1; 
+        color: rgba(23, 33, 57, 0.75); /* 🎯 Wyraźny kontrast, idealny dla oka */
         text-transform: uppercase; 
         font-weight: 900; 
-        margin-bottom: 15px; 
-        letter-spacing: 1.5px;
+        margin-bottom: 12px; 
+        letter-spacing: 2px; /* Większy oddech między literami */
     ">
         🚨 RADAR 24H
     </h4>
@@ -269,27 +272,29 @@
     ">
         <div id="alert24hIcon" style="
             font-size: 2.5rem; 
-            flex-shrink: 0; /* Ikona nie może się ściskać */
-            filter: contrast(200%);
+            flex-shrink: 0; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); /* Cień pod ikoną */
         ">
             🌡️
         </div>
         
         <div id="alert24hText" style="
             flex: 1;
-            min-width: 0; /* 🛡️ To jest klucz! Nie pozwala tekstowi rozepchać kontenera */
+            min-width: 0; 
             white-space: pre-wrap;
-            word-wrap: break-word; /* Długie słowa łamią się do nowej linii */
-            font-size: 1.04rem; 
+            word-wrap: break-word; 
+            font-size: 1.05rem; 
             font-weight: 800; 
             color: #172139; 
             line-height: 1.5; 
-            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
         ">
             Skanowanie przestrzeni...
         </div>
     </div>
 </div>
+
+
+       
 
         <div class="card animate" id="atmCard" style="display: none;">
             <span class="label">Szczegóły Atmosferyczne</span>
