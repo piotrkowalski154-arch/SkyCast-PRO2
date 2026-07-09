@@ -337,18 +337,18 @@
         // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-        const alertIMGW = `🚨 OFICJALNE ALERTY I PROGNOZY IMGW – Czwartek, 9 lipca 2026 roku. 🚨
+        const strescAlertIMGW = `⚡ SKAN SKYCAST PRO – SKRÓT RAPORTU IMGW ⚡
 
-🟢 KRAKÓW I MAŁOPOLSKA (PEŁNA STABILIZACJA):
-- Brak aktywnych ostrzeżeń meteorologicznych dla Krakowa. Poprzednie alerty burzowe dla regionu już wygasły.
-- Na czwartek, 9 lipca 2026 roku, Instytut Meteorologii i Gospodarki Wodnej (IMGW-PIB) nie wydał żadnych aktywnych alertów meteorologicznych dla Krakowa i województwa małopolskiego. Gwałtowne burze i ulewy całkowicie ustąpiły.
+🟢 KRAKÓW I MAŁOPOLSKA: PEŁNE BEZPIECZEŃSTWO
+- Brak aktywnych alertów. Stabilny wyż, sytuacja w 100% bezpieczna.
 
-🟡 ALERTY I OSTRZEŻENIA IMGW DLA RESZTY POLSKI (9 LIPCA):
-- Ostrzeżenia przed burzami (Stopień I): Obowiązują dla wschodniej i północno-wschodniej Polski (głównie województwa: podlaskie, lubelskie, wschodnia część mazowieckiego i warmińsko-mazurskiego). Prognozowane są tam opady deszczu do 15 mm oraz porywy wiatru w czasie burz do 65 km/h.
-- Ostrzeżenia przed silnym wiatrem: Niż i towarzyszące mu porywy słabną w porównaniu do niszczycielskich uderzeń z środy (kiedy cyklon Ulf przynosił wiatr do 120 km/h). W czwartek lokalne alerty pierwszego stopnia mogą dotyczyć jeszcze rejonu Zatoki Gdańskiej oraz Mierzei Wiślanej, gdzie wiatr w porywach osiągnie do 65-70 km/h.
-- Alerty hydrologiczne: Obowiązują ostrzeżenia przed gwałtownymi wzrostami stanów wody (z możliwością lokalnych podtopień w rejonach zurbanizowanych) na mniejszych rzekach w zlewniach we wschodniej oraz południowo-wschodniej Polsce.
+🟡 STREFA ALERTÓW (WAŻNE DO 18:00):
+- Regiony: Warmińsko-mazurskie, podlaskie, wschodnie Mazowsze, północne Lubelskie.
+- Zagrożenia: Gwałtowne burze, ulewy 25-40 mm (lokalnie do 60 mm), porywy wiatru do 65 km/h, drobny grad.
 
-Sytuacja pogodowa stabilizuje się z godziny na godzinę.`;
+🌊 HYDROLOGIA:
+- Sytuacja stabilna w całym kraju. Brak przekroczeń stanów alarmowych.
+- Notowana lekka cofka (wiatr wpycha wodę do zatok) na 3 stacjach morskich.`;
 
         window.onload = function() {
             pokazAlertPowitalny();
@@ -378,55 +378,43 @@ function pokazAlertPowitalny() {
     margin: 0;    
         `;   
         
-const TYTUL = '⚡ UDERZENIE FRONTU – RAPORT METEO SKYCAST PRO ⚡';
-const GODZINA = '23:00';
+const TYTUL = '⚡ CYKLON ULF DZIELI POLSKĘ – RAPORT METEO SKYCAST PRO ⚡';
+const GODZINA = '00:41'; // <-- Twój start na Chromebooku, bracie!
+
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅  CZWARTEK (9 LIPCA 2026) | DYNAMICZNE OCHŁODZENIE
+📅 PIĄTEK (10 LIPCA 2026) | POLSKA PODZIELONA PRZEZ CYKLON ULF
 
 🌬️ SYTUACJA SYNOPTYCZNA:
-Polska znajduje się pod wpływem chłodnego frontu atmosferycznego. Upalna aura tymczasowo ustępuje miejsca bardziej rześkiemu, atlantyckiemu powietrzu. Czeka nas dynamiczne ochłodzenie, porywisty wiatr oraz przelotne opady deszczu. System bezpieczeństwa aktywowany!
+Polska została wyraźnie rozcięta pogodowo przez układ niżowy – cyklon Ulf znad Łotwy. Nad kraj napływa chłodniejsze powietrze polarne morskie znad Atlantyku. Zachód kraju łapie piękną, słoneczną aurę, podczas gdy centrum, wschód i północny wschód walczą z chmurami, ulewami i burzami. IMGW uruchamia żółte alerty!
 
 🟢 KRAKÓW I MAŁOPOLSKA
-Status: Zauważalna zmiana aury, rześko i wietrznie.
-🌡️ Temperatura: Odczuwalny spadek do 20°C w dzień / 12°C w nocy.
-💨 Wiatr: Umiarkowany, z porywami do 24 km/h.
-🌧️ Środa (8.07): Przejaśnienia, okresami chmury. Niskie ryzyko opadów (10%).
-🌦️ Czwartek (9.07): Zachmurzenie umiarkowane, wyższa szansa na przelotne opady (45%).
+Status: Strefa przejściowa między pogodnym zachodem a deszczowym centrum.
+🌡️ Temperatura maksymalna: 21°C do 23°C w najcieplejszym momencie dnia (odczuwalna ok. 20°C).
+📉 Temperatura minimalna (Noc pt/sob): Spadek do 13°C – 14°C, niebo czyste i bez opadów.
+💨 Wiatr: Słaby, z kierunków zachodnich i północno-zachodnich (ok. 9–12 km/h).
+🌧️ Opady: Ryzyko bardzo niskie (poniżej 20%). Dominować będzie zachmurzenie umiarkowane z dużą ilością słońca.
+☀️ Indeks UV: Umiarkowany (wyniesie 4). Przy braku niskich chmur pamiętaj o ochronie przy dłuższym pobycie na zewnątrz!
 
-🌦️ DOKŁADNA PROGNOZA GODZINOWA DLA KRAKOWA (9 LIPCA)
-Czwartek przyniesie umiarkowane warunki termiczne bez upałów, z dominacją chmur, zza których okresowo będzie przebijać się słońce.
-- Temperatura maksymalna: 19°C – 21°C w cieniu (między 13:00 a 18:00).
-- Temperatura minimalna (w nocy/nad ranem): 12°C – 13°C.
+🌍 SZCZEGÓŁOWY PRZEKRÓJ KRAJOWY – PODZIAŁ NA REGIONY:
 
-[ 🕒 Przebieg dnia krok po kroku ]
-- 06:00 – 08:00: Rano dość chłodno (ok. 13°C - 16°C), zachmurzenie umiarkowane, bez opadów.
-- 09:00 – 11:00: Wzrost zachmurzenia. Pojawi się 35% szans na przelotne, słabe opady deszczu lub mżawkę.
-- 12:00 – 16:00: Słupki rtęci osiągną maksimum (ok. 19°C). Niebo częściowo zachmurzone, z przewagą przejaśnień. Ryzyko opadu spada do 10-20%.
-- 17:00 – 20:00: Bardziej słoneczne późne popołudnie i wieczór, temperatura zacznie powoli spadać do 18°C.
-- Wiatr: Umiarkowany, z kierunku północno-zachodniego (ok. 10–11 km/h).
-- Wilgotność: 61% – 78% | Indeks UV: Umiarkowany (maksymalnie 6 około południa).
+[ 🗺️ Skaner Regionalny - Aura i Temperatury ]
+- Polska Zachodnia (Wrocław 25°C, Poznań 24°C, Szczecin 23°C, Zielona Góra): Najlepsze warunki w kraju! Masa słońca, zachmurzenie małe, stały wzrost temperatur do 24–26°C. Całkowity brak deszczu.
+- Polska Centralna (Warszawa, Łódź 20°C): Zachmurzenie umiarkowane do dużego. Termometry wskażą 18–21°C. Przelotne, okresami bardzo intensywne opady deszczu (lokalnie spadnie 20–25 mm wody na m²).
+- Polska Północno-Wschodnia i Wschodnia (Suwałki 18°C, Białystok 17°C, Lublin, Rzeszów 19°C): Najchłodniejsza i najbardziej niebezpieczna strefa. Zaledwie 16–18°C, ulewne deszcze oraz lokalne burze z drobnym gradem.
+- Wybrzeże (Gdańsk 19°C, Koszalin): Słońce przeplatane z chmurami, temperatura 18–21°C. Porywisty wiatr od morza osiągający w rejonie Zatoki Gdańskiej do 65 km/h.
+- Tereny podgórskie i góry (Tatry, Karkonosze): Zimno, zaledwie 14–17°C. W wyższych partiach gór porywy wiatru uderzają do 60 km/h.
 
-🌍 PRZEKRÓJ KRAJOWY – ŚRODA (8.07)
+⚠️ STATUS BEZPIECZEŃSTWA – OBOWIĄZUJĄCE ALERTY IMGW:
+W mocy pozostają żółte ostrzeżenia 1. stopnia przed silnym deszczem i burzami. Alerty obowiązują do godziny 18:00 w województwach:
+- Warmińsko-mazurskim
+- Podlaskim
+- Mazowieckim (głównie północ i wschód)
+- Lubelskim (powiaty północne: bialski, lubartowski, parczewski)
+ZAGROŻENIE: Suma opadów w burzach lokalnie od 25 do 45 l/mkw., a porywy wiatru do 65 km/h!
 
-[ ⛅ Temperatury i Aura ]
-- Zachód i Południowy Zachód (Wrocław, Poznań, Szczecin): Najcieplej, do 22°C – 23°C. Stabilna, bezdeszczowa pogoda.
-- Centrum i Wybrzeże (Warszawa, Łódź): Około 18°C – 20°C.
-- Północny Wschód (Suwalszczyzna): Najchłodniej, zaledwie 14°C.
-
-[ 🌧️ Opady i Burze ]
-- Przelotny deszcz w większości kraju.
-- Najmocniej popada na północnym wschodzie (nawet do 25 mm). Możliwe lokalne burze!
-- Wyładowania atmosferyczne mogą pojawić się również miejscami na południu.
-
-[ ⚠️ Niebezpieczny Wiatr ]
-- Centrum i Południe: Porywy do 70 km/h.
-- Północ i Północny Wschód: Porywy do 80 km/h.
-- Wybrzeże: Bardzo niebezpiecznie, uderzenia wiatru lokalnie aż do 100 km/h!
-
-- Front burzowy przesuwa się na wschód. W centrum i na zachodzie powolne wypogodzenia.
-- Wiatr zacznie słabnąć, choć nad Bałtykiem wciąż utrzyma się silna cyrkulacja z porywami do 55-70 km/h.
-- Powrót prawdziwych, letnich upałów powyżej 30°C prognozowany jest w całym kraju dopiero w okolicach drugiej połowy lipca.`;
+📈 TRENDY I PROGNOZA DŁUGOTERMINOWA:
+Chłodny front szybko odpuści. Od weekendu nad Polskę wchodzi klin wyżu atlantyckiego. Już w niedzielę na zachodzie termometry pokażą 28°C. Prawdziwa bomba termiczna wybuchnie we wtorek (14 lipca) – nadciąga potężna fala afrykańskich upałów, która wywinduje słupki rtęci od 32°C do nawet 38°C w cieniu!`;
 
         // 📦 SZAFECZKA - NAPRAWIONE WSTRZYKIWANIE TREŚCI
         okienko.innerHTML = `
