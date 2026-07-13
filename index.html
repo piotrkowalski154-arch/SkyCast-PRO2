@@ -348,24 +348,27 @@
         // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-       const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW (12 LIPCA) ⚡
+       const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW (13 LIPCA) ⚡
 
-🟢 KRAKÓW I MAŁOPOLSKA: PEŁNE BEZPIECZEŃSTWO
-- Aktualnie brak aktywnych alertów meteorologicznych dla regionu.
-- Mimo przelotnych opadów deszczu, sytuacja jest w 100% stabilna i nie stwarza zagrożenia.
+🟢 KRAKÓW I MAŁOPOLSKA: BEZPIECZNIE, ALE CZUJNIE
+- Brak aktywnych ostrzeżeń meteo i hydro dla Krakowa.
+- Temperatura maksymalna: ok. 23°C.
+- UWAGA: We wschodnich powiatach województwa małopolskiego mogą wystąpić lokalne burze z przelotnymi opadami.
 
-🟢 STREFA METEO – POLSKA (STAN BEZPIECZNY):
-- Brak gwałtownych burz i nawałnic na terenie całego kraju. Sytuacja uległa wyraźnemu uspokojeniu.
-- UWAGA GÓRY: Mimo braku oficjalnych alertów, na szczytach Sudetów porywy wiatru sięgają dziś 70-75 km/h. Zalecamy ostrożność na szlakach.
+⚠️ STREFA METEO – POLSKA (ALERT 1. STOPNIA):
+IMGW wydał oficjalną prognozę zagrożeń (żółte alerty) przed burzami, lokalnym gradem oraz porywistym wiatrem do 60 km/h dla następujących regionów:
+- woj. podlaskie
+- woj. lubelskie
+- woj. podkarpackie
+- wschodnia część woj. mazowieckiego
+- wschodnia część woj. świętokrzyskiego
 
-🌊 OSTRZEŻENIA HYDROLOGICZNE (2. STOPIEŃ):
-- Region: Województwo warmińsko-mazurskie (górny bieg rzek Ełk oraz Lega).
-- Zagrożenie: Po intensywnych opadach konwekcyjnych poziomy wody utrzymują się w strefie stanów wysokich. Możliwe lokalne przekroczenia stanów ostrzegawczych.
+☀️ STREFA WYŻU (BEZ OSTRZEŻEŃ):
+- Zachód Polski (woj. dolnośląskie, lubuskie, wielkopolskie) pozostaje pod wpływem wyżu.
+- Aura słoneczna, brak burz, temperatury lokalnie do 29–30°C.
 
-⚠️ RADAR ZAGROŻEŃ (PROGNOZA NA PONIEDZIAŁEK 13.07):
-Spokój przed burzą! Od jutra pogoda drastycznie się zmienia:
-- Zachód kraju (lubuskie, dolnośląskie, wielkopolskie) wchodzi w strefę upałów (ponad 30°C) – spodziewane alerty temperaturowe.
-- Centrum, północ i wschód – dynamiczny rozwój chmur burzowych (ryzyko gradu, ulew i silnego wiatru). System SKYCAST pozostaje w gotowości!`;
+🌊 MONITORING:
+- Sytuacja dynamiczna – ruch komórek burzowych można śledzić na radarach IMGW oraz dynamicznej mapie ostrzeżeń powiatowych.`;
         window.onload = function() {
             pokazAlertPowitalny();
             uruchomProtokolGPS(); 
