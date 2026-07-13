@@ -348,27 +348,24 @@
         // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
         const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-       const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW (13 LIPCA) ⚡
+       const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW I RCB (14 LIPCA) ⚡
 
-🟢 KRAKÓW I MAŁOPOLSKA: BEZPIECZNIE, ALE CZUJNIE
-- Brak aktywnych ostrzeżeń meteo i hydro dla Krakowa.
-- Temperatura maksymalna: ok. 23°C.
-- UWAGA: We wschodnich powiatach województwa małopolskiego mogą wystąpić lokalne burze z przelotnymi opadami.
+🔴 KRAKÓW I MAŁOPOLSKA: BARDZO DYNAMICZNA SYTUACJA I ALERTY
+- Kraków i zachodnia Małopolska (Ostrzeżenie 1. stopnia): Prognozowane są opady deszczu, lokalny grad i porywy wiatru do 65–70 km/h.
+- Wschodnia Małopolska (Ostrzeżenie 2. stopnia): Prognozowane są długotrwałe ulewy, a suma opadów może wynieść od 40 mm do nawet 60–80 mm. Istnieje realne ryzyko lokalnych podtopień.
 
-⚠️ STREFA METEO – POLSKA (ALERT 1. STOPNIA):
-IMGW wydał oficjalną prognozę zagrożeń (żółte alerty) przed burzami, lokalnym gradem oraz porywistym wiatrem do 60 km/h dla następujących regionów:
-- woj. podlaskie
-- woj. lubelskie
-- woj. podkarpackie
-- wschodnia część woj. mazowieckiego
-- wschodnia część woj. świętokrzyskiego
+⚠️ STREFA METEO – POLSKA (ALERTY IMGW I RCB):
+Instytut Meteorologii i Gospodarki Wodnej oraz RCB wydały oficjalne ostrzeżenia przed intensywnymi ulewami i burzami z gradem obejmujące południową, wschodnią oraz centralną część kraju.
+- POMARAŃCZOWY (2. stopień): woj. podkarpackie, świętokrzyskie, wschód małopolskiego, południe mazowieckiego. Zagrożenia: Ulewy do 60-80 mm, podtopienia, lokalny grad.
+- ŻÓŁTY (1. stopień): woj. śląskie, łódzkie, lubelskie, podlaskie, reszta małopolskiego. Zagrożenia: Burze, opady do 30 mm, porywy wiatru do 65-70 km/h.
+- ALERT RCB (SMS): Został uruchomiony dla mieszkańców województw: podkarpackiego, świętokrzyskiego oraz części łódzkiego, lubelskiego, mazowieckiego i małopolskiego. Służby apelują: "Prognozowane intensywne opady deszczu i burze. Możliwe podtopienia. Nie zbliżaj się do wezbranych rzek".
 
 ☀️ STREFA WYŻU (BEZ OSTRZEŻEŃ):
-- Zachód Polski (woj. dolnośląskie, lubuskie, wielkopolskie) pozostaje pod wpływem wyżu.
-- Aura słoneczna, brak burz, temperatury lokalnie do 29–30°C.
+- Najspokojniejsza sytuacja bez alertów IMGW panuje na północy, północnym zachodzie (woj. zachodniopomorskie, pomorskie) oraz częściowo w pasie zachodnim kraju, gdzie rozbudowuje się klin wyżu.
 
 🌊 MONITORING:
-- Sytuacja dynamiczna – ruch komórek burzowych można śledzić na radarach IMGW oraz dynamicznej mapie ostrzeżeń powiatowych.`;
+- Aktualną mapę ostrzeżeń i sytuację radarową na żywo możesz monitorować bezpośrednio na oficjalnym portalu IMGW-PIB.`;
+aktualizacja 
         window.onload = function() {
             pokazAlertPowitalny();
             uruchomProtokolGPS(); 
@@ -397,32 +394,32 @@ function pokazAlertPowitalny() {
     margin: 0;    
         `;   
         
-const TYTUL = '☀️⛈️ FALA UPAŁÓW UDERZA W ZACHÓD – RAPORT METEO SKYCAST PRO ☀️⛈️';
-const GODZINA = '22:25'; // Zaktualizowany czas operacyjny
+const TYTUL = '⚠️⛈️ MARATON NAWAŁNIC I WZROST TEMPERATUR – RAPORT METEO SKYCAST PRO ⚠️⛈️';
+const GODZINA = '19:30'; // Zaktualizowany czas operacyjny
 
 const tresc = `⚡ CENTRUM SKYCAST PRO – RAPORT POGODOWY ⚡
 
-📅 PONIEDZIAŁEK (13 LIPCA 2026) | POLSKA PODZIELONA – START UPAŁÓW I FRONT BURZOWY!
+📅 WTOREK (14 LIPCA 2026) | DYNAMICZNE ZDERZENIE – MARATON NAWAŁNIC I LOKALNY GRAD!
 
 🌬️ SYTUACJA SYNOPTYCZNA:
-Poniedziałek przynosi wyraźny zwrot pogodowy. Z zachodu zaczyna wlewać się do nas fala gorąca, jednak fronty atmosferyczne brutalnie dzielą Polskę na dwie strefy: słoneczny i upalny zachód oraz deszczowy, burzowy wschód i centrum.
+Wtorek przynosi bardzo niespokojną i dynamiczną aurę nad całą Polską. Obserwujemy systematyczny wzrost temperatur, który w połączeniu z wilgotnym powietrzem generuje doskonałe warunki do rozwoju burz. Instytut Meteorologii i Gospodarki Wodnej wydał ostrzeżenia – przez kraj przetoczy się dziś maraton nawałnic!
 
 🟢 KRAKÓW I MAŁOPOLSKA
-Status: Ocieplenie, ale wciąż niestabilnie. Zachmurzenie umiarkowane do dużego, z możliwymi przelotnymi opadami i lokalnymi burzami.
-🌡️ Temperatura: W ciągu dnia od +24°C do maksymalnie +25°C.
-📉 Temperatura minimalna (Noc pon/wt): Przyjemne +17°C.
-💨 Wiatr i parametry: Wiatr słaby, w granicach 6 km/h, wiejący z kierunków północnych.
+Status: Ciepło, duszno i bardzo burzowo. Zachmurzenie umiarkowane rosnące do dużego. Spodziewamy się przelotnych opadów i silnych wyładowań – lokalnie mogą wystąpić intensywne uderzenia deszczu, szczególnie we wschodniej części regionu.
+🌡️ Temperatura: W ciągu dnia do maksymalnie +26°C.
+📉 Temperatura minimalna (Noc wt/śr): W granicach +16°C – +17°C.
+💨 Wiatr i parametry: Wiatr z kierunków północnych, w czasie burz porywy mogą osiągać do 65 km/h!
 
 🌍 SZCZEGÓŁOWY PRZEKRÓJ KRAJOWY – PODZIAŁ NA REGIONY:
 
 [ 🗺️ Skaner Regionalny - Aura i Temperatury ]
-- Polska Zachodnia (np. Zielona Góra): Słonecznie, gorąco i sucho. Rozpoczyna się uderzenie upałów – na termometrach od +29°C do nawet ponad +30°C.
-- Centrum kraju (np. Warszawa): Bardzo dynamicznie. Temperatury rzędu +25°C do +26°C, przeplatane przelotnym deszczem i lokalnymi burzami.
-- Polska Wschodnia (np. Białystok): Ciepło (+24°C do +25°C), ale niebezpiecznie. Możliwe intensywne ulewy z sumą opadów do 30 mm oraz porywami wiatru do 60-65 km/h.
-- Polska Północna (np. Gdańsk): Strefa oddechu. Zdecydowanie chłodniej (+21°C do +22°C) i spore przejaśnienia.
+- Południowy Wschód i Wschód (np. Rzeszów, Białystok +25°C): Strefa najwyższego zagrożenia. Możliwe najsilniejsze ulewy (nawet do 30 mm wody) i burze z gradem.
+- Centrum (np. Warszawa +25°C, Katowice +25°C): Bardzo niespokojnie. Przelotny deszcz i punktowe burze (opady do 15 mm). Wymagana czujność na drogach.
+- Zachód (np. Poznań +26°C, Szczecin +26°C, Wrocław +25°C): Gorąco, termometry idą w górę, ale tu również mogą pojawić się zjawiska burzowe.
+- Północ (np. Gdańsk +21°C): Strefa oddechu. Najchłodniej w kraju. Po południu na Pomorzu opady zaczną zanikać i pojawi się najwięcej przejaśnień.
 
 🔥 RADAR NA KOLEJNE DNI:
-Od wtorku afrykańska bomba termiczna rozlewa się na cały kraj. W drugiej połowie tygodnia systemy wskazują uderzenie gorąca rzędu +32°C do +35°C w cieniu!`;
+To dopiero początek termicznego rollercoastera. W kolejnych dniach tygodnia systemy wskazują na jeszcze silniejsze uderzenie upałów. Monitorujcie radary na żywo!`;
         // 📦 SZAFECZKA - NAPRAWIONE WSTRZYKIWANIE TREŚCI
         okienko.innerHTML = `
             <div style="
