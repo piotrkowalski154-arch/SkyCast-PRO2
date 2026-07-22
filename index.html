@@ -355,26 +355,27 @@
         // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
         const API_KEY = "6def6302b0a9b722144968390f4b8522";
     const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
- const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW I RCB ⚡
+    const alertIMGW = `⚡ SKAN SKYCAST PRO – RAPORT ALERTÓW IMGW I RCB ⚡
 
-🔴 KRAKÓW I MAŁOPOLSKA: SYTUACJA METEO (WTOREK, 21 LIPCA)
-- W Krakowie i województwie małopolskim sytuacja ulega stabilizacji po przejściu frontów. Gwałtowne burze odpuszczają.
-- Zjawiska: Wyraźne ochłodzenie (maksymalnie 19°C - 20°C). Zachmurzenie duże z przejaśnieniami.
-- Opady: Prognozowane są jedynie przelotne opady deszczu, z największą szansą (ok. 30-35%) w godzinach popołudniowych i wieczownych (17:00–19:00).
-- Wiatr: Umiarkowany, z kierunków zachodnich (ok. 20-25 km/h), momentami nieco bardziej porywisty.
+⛈️ BIEŻĄCE OSTRZEŻENIA (ŚRODA, 22 LIPCA):
+• Północ i Północny Zachód (woj. zachodniopomorskie, pomorskie, kujawsko-pomorskie, północne Mazowsze):
+  - Alert 1. stopnia przed burzami!
+  - Opady deszczu od 20 mm do 30 mm, porywy wiatru do 65 km/h oraz lokalnie drobny grad.
+• Centrum i Południe (w tym Kraków):
+  - Brak aktywnych alertów na środowe popołudnie. Sytuacja stabilna, możliwe jedynie lokalne, słabe wyładowania bez kryterium ostrzegawczego (wiatr do 50–60 km/h).
 
-⚠️ STREFA METEO – POLSKA (ALERTY KRAJOWE):
-- Głównym dyktatorem pogody jest teraz układ niżowy przemieszczający się nad północno-wschodnią Polską.
-- Wybrzeże i Bałtyk (Alerty silnego wiatru): Duże różnice ciśnienia wywołają wichury. W porywach wiatr osiągnie do 70 km/h, a na Bałtyku prognozowany jest sztorm (8-9 stopni w skali Beauforta).
-- Północny Wschód (Podlasie, Mazury): IMGW ostrzega przed możliwością wystąpienia lokalnych burz.
+🕒 ALERTY NOCNE I PROGNOZA NA CZWARTEK (NOC 22/23 LIPCA ORAZ 23 LIPCA):
+• Wielkopolska (północne powiaty, m.in. pilski, czarnkowsko-trzcianecki, złotowski, chodzieski):
+  - Oficjalny alert 1. stopnia przed burzami obowiązuje w czwartek od godz. 1:00 do 8:00 rano.
+• Kraków, Małopolska oraz Polska Południowa i Wschodnia (Czwartek, 23 lipca):
+  - IMGW planuje rozszerzenie alertów 1. stopnia! Front przyniesie uderzenie burzowe, grad, intensywne opady do 30–35 mm oraz porywy wiatru do 70 km/h.
 
-🛡️ ZALECENIA SŁUŻB I BEZPIECZEŃSTWO:
-- Wybrzeże: Bezwzględna ostrożność na wodzie i w rejonach nadmorskich ze względu na sztorm i wichury.
-- Ogólne: Służby przypominają o dostosowaniu ubioru do radykalnego ochłodzenia – temperatury w kraju wyniosą przeważnie od 17°C do 21°C.
-
-📡 MONITORING NA ŻYWO:
-- Dynamiczne zmiany wiatru na północy oraz przelotne strefy opadów na południu można śledzić w czasie rzeczywistym, korzystając z oficjalnych radarów opadów i wiatru.`;
-    window.onload = function() {
+🛡️ ZALECENIA SŁUŻB I MONITORING:
+- W Małopolsce przygotowujemy się na zmianę aury w czwartek.
+- Śledź radary opadów i wyładowań w czasie rzeczywistym bezpośrednio w naszej aplikacji SkyCast PRO!`;
+   
+       
+       window.onload = function() {
         pokazAlertPowitalny();
         
         // Zabezpieczenie przed wysypaniem, gdyby te funkcje nie były jeszcze zadeklarowane w kodzie:
@@ -404,22 +405,21 @@
             box-sizing: border-box;   
             margin: 0;    
         `;   
-        const TYTUL_WTOREK = '‼️ POGODA NA WTOREK (21 LIPCA) – OCHŁODZENIE I WIATR 🌩️';
-        const GODZINA_WTOREK = '00:00';
+        const TYTUL_Środa = '🌤️ POGODA NA ŚRODĘ I CZWARTEK (22–23 LIPCA) – FRONT I ALERTI IMGW ⚡';
+        const GODZINA_Środa = '14:00';
 
-        const tresc = `🌦️ POGODA W KRAKOWIE (WTOREK, 21 LIPCA)
+        const tresc = `🌦️ POGODA W KRAKOWIE I POLSCE (22–23 LIPCA 2026 r.)
 
-Czeka nas dynamiczna, zdecydowanie chłodniejsza pogoda spowodowana przemieszczającym się układem niżowym.
+🌤️ ŚRODA, 22 LIPCA:
+• Kraków i Małopolska: Maksymalnie 23°C w cieniu, noc z środy na czwartek około 13°C–15°C. Stabilna, letnia aura, duże przejaśnienia, brak opadów (0 mm).
+• Cała Polska: Najchłodniej na wschodzie i w centrum (12°C–20°C) z zachmurzeniem i opadami. Najcieplej na zachodzie (do 24°C). Wieczorem i w nocy od północnego zachodu nadciągnie front z burzami (opady 20–30 mm, wiatr w porywach do 65 km/h).
 
-🌡️ Temperatura: Maksymalnie 19°C do 20°C w ciągu dnia. Oznacza to wyraźne ochłodzenie, a w nocy słupki rtęci spadną do 13°C.
-🌧️ Opady: Zachmurzenie będzie duże z większymi przejaśnieniami. W ciągu dnia, a zwłaszcza w godzinach 17:00–19:00, prognozowane są przelotne opady deszczu, z szansą wynoszącą ok. 30–35%.
-💨 Wiatr: Umiarkowany i momentami porywisty, z kierunków zachodnich z prędkością około 20–25 km/h.
+⛈️ CZWARTEK, 23 LIPCA – UDERZENIE FRONTU CHŁODNEGO:
+• Kraków i Małopolska: Ochłodzenie do 18°C–19°C. Całkowite zachmurzenie, 100% szans na opady deszczu i burze. Żółte alerty ostrzegawcze IMGW.
+• Cała Polska: Ochłodzenie w całym kraju (16°C–21°C). Przejście frontu chłodnego z intensywnymi ulewami (punktowo w centrum do 35 mm) oraz porywistym wiatrem do 70 km/h. Wysoko w Tatrach możliwy deszcz ze śniegiem!
 
-🇵🇱 POGODA W POLSCE – PRZEGLĄD REGIONALNY:
-
-- Wybrzeże / Północ: Bliskość niżu barycznego wywoła duże różnice ciśnienia. Na wybrzeżu wiatr w porywach może osiągać do 70 km/h, a na Bałtyku prognozowany jest sztorm do 8–9 stopni w skali Beauforta.
-- Temperatury: Będzie przeważnie chłodno jak na lipiec, a temperatura maksymalna w większości regionów wyniesie od 17°C do maksymalnie 21°C.
-- Zjawiska: W większości województw pojawi się przelotny deszcz. Lokalne burze spodziewane są głównie na północnym wschodzie Polski, m.in. na Podlasiu i Mazurach.`;
+🇵🇱 ALERTY IMGW:
+Żółte ostrzeżenia przed burzami obejmują pas od zachodniopomorskiego, przez centrum (Mazowsze, Łódzkie), aż po południe i południowy wschód (Małopolska, Podkarpacie).`;
 
         // 📦 SZAFECZKA - WSTRZYKIWANIE TREŚCI
         okienko.innerHTML = `
@@ -441,7 +441,7 @@ Czeka nas dynamiczna, zdecydowanie chłodniejsza pogoda spowodowana przemieszcza
                 animation: neonowyPuls 2s infinite ease-in-out;
             ">
                 <h2 style="color: #fbbf24; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-                    ${TYTUL_WTOREK}
+                    ${TYTUL_Środa}
                 </h2>
                 <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #1e293b; font-weight: 600; font-family: sans-serif;">
                     ${tresc}
