@@ -24,41 +24,41 @@
     align-items: center; 
     background: rgba(255, 255, 255, 0.25); 
     border: 1px solid var(--glass-border); 
-    padding: 10px 8px; /* 🔥 Zdejmujemy padding z 15px na 8px */
+    padding: 10px 12px; 
     border-radius: 18px; 
     margin-bottom: 8px; 
+    box-sizing: border-box;
 }
 
-/* DZIEŃ - DOSŁOWNE ŚCIŚNIĘCIE LITER */
+/* DZIEŃ TYGODNIA */
 .d-day { 
     font-size: 0.95rem; 
     font-weight: 800; 
-    letter-spacing: -0.6px; /* 🔥 TO JEST TWOJE ŚCIŚNIĘCIE - litery stają bliżej siebie */
+    letter-spacing: -0.4px; 
     text-align: left; 
     white-space: nowrap; 
-    width: auto;
-    flex: 1; 
+    flex: 1; /* Zajmuje lewą stronę */
 }
 
-/* IKONA - ZABIERAMY ZBĘDNY LUZ */
+/* IKONA POGODY */
 .d-icon { 
-    font-size: 0.5rem; 
+    font-size: 1.3rem; /* 🔥 Naprawione z 0.5rem na właściwy rozmiar */
     text-align: center; 
-    padding: 0 2px; /* 🔥 Minimalny odstęp */
-    width: auto;
+    padding: 0 10px;   /* 🔥 Daje ładny, bezpieczny odstęp między dniem a temperaturą */
     flex-shrink: 0; 
 }
 
-/* TEMPERATURA - LEKKO ZMNIEJSZONA */
+/* TEMPERATURA */
 .d-temp { 
     font-size: 1.0rem; 
     font-weight: 900; 
     text-align: right; 
     color: var(--blue); 
     white-space: nowrap; 
-    width: auto;
-    flex-shrink: 0; 
+    flex-shrink: 0; /* 🔥 Wyczyszczony dopisek z pytaniem */
 }
+       
+
 /* 🛡️ BOCZNY RIGIEL */
 html, body {
     max-width: 100%;
