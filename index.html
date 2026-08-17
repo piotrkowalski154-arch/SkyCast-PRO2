@@ -217,12 +217,55 @@ body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
 }
 body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
 
-.d-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); padding: 18px 19px; border-radius: 20px; margin-bottom: 10px; }
-.d-day { font-size: 1.1rem; font-weight: 800; width: 45%; text-align: left; white-space: nowrap; overflow: hidden; letter-spacing: -0.4px;}
-.d-icon { font-size: 1.1rem ; width: 15%; text-align: center ; padding: 0 2px; }
-.d-temp { font-size: 1.25rem; font-weight: 900; width: 40%; text-align: right; color: var(--blue); }
-body.night-mode .d-row { background: rgba(0,0,0,0.3); }
-body.night-mode .d-temp { color: #38bdf8; }
+.d-row { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: rgba(255, 255, 255, 0.25); 
+    border: 1px solid var(--glass-border); 
+    padding: 14px 16px; /* Zbalansowany, elegancki odstęp */
+    border-radius: 20px; 
+    margin-bottom: 10px; 
+    box-sizing: border-box; /* Zabezpieczenie przed rozpychaniem ekranu */
+}
+
+.d-day { 
+    font-size: 1.05rem; 
+    font-weight: 800; 
+    width: 42%; 
+    text-align: left; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; /* Dodaje ładne "..." przy długich nazwach */
+    letter-spacing: -0.4px;
+}
+
+.d-icon { 
+    font-size: 1.2rem; 
+    width: 16%; 
+    text-align: center; 
+    padding: 0; 
+    flex-shrink: 0;
+}
+
+.d-temp { 
+    font-size: 1.15rem; 
+    font-weight: 900; 
+    width: 42%; 
+    text-align: right; 
+    color: var(--blue); 
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+body.night-mode .d-row { 
+    background: rgba(0, 0, 0, 0.3); 
+}
+
+body.night-mode .d-temp { 
+    color: #38bdf8; 
+}
+       
 
 .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
 .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
