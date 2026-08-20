@@ -927,14 +927,17 @@ Szczegółowy rozkład godzinowy dla Krakowa:
             }
 
             const alert24Card = document.getElementById('alert24hCard');
-            const alert24Text = document.getElementById('alert24hText');
-            
-            if (alertIMGW && alertIMGW.trim() !== "") {
-                if (alert24Card) alert24Card.style.display = "block";
-                if (alert24Text) alert24Text.innerText = alertIMGW;
-            } else {
-                if (alert24Card) alert24Card.style.display = "none";
-            }
+            const alert24Card = document.getElementById('alert24hCard');
+const alert24Text = document.getElementById('alert24hText');
+
+// Zabezpieczony warunek - sprawdzamy czy zmienna w ogóle istnieje
+if (typeof alertIMGW !== 'undefined' && alertIMGW.trim() !== "") {
+    if (alert24Card) alert24Card.style.display = "block";
+    if (alert24Text) alert24Text.innerText = alertIMGW;
+} else {
+    if (alert24Card) alert24Card.style.display = "none";
+}
+           
 
             const widget = document.getElementById('thesisWidget');
             if (widget) widget.style.display = 'block';
