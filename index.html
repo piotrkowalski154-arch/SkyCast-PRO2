@@ -44,7 +44,7 @@
 .d-icon { 
     font-size: 1.2rem; 
     text-align: center; 
-    padding: 0 6px; /* 🔥 Minimalny odstęp */
+    padding: 0 8px; /* 🔥 Minimalny odstęp */
     width: auto;
     flex-shrink: 0; 
 }
@@ -226,7 +226,7 @@ body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.
     display: inline-flex; 
     align-items: center; 
     justify-content: center; 
-    padding: 0 4px; 
+    padding: 0 5px; 
     flex-shrink: 0; 
 }
        
@@ -351,7 +351,7 @@ body.night-mode .wiadomosci { background-color: #0f172a !important; border-color
         
         <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid hsl(175, 100%, 69%); animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s; border-radius: 10px; margin-bottom: 20px; overflow: hidden; display: flex; flex-direction: column;">
             
-            <div onclick="odpalStacje('https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZETAAC.aac', 'RADIO ZET')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+            <div onclick="odpalStacje('http://zet090-02.cdn.eurozet.pl:8404/', 'RADIO ZET')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
                 <img src="radio.zet.png" alt="ZET" style="width: 90px; object-fit: contain;flex-shrink: 0; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">📻🔴 RADIO ZET 🔴📻</span>
             </div>
@@ -366,10 +366,18 @@ body.night-mode .wiadomosci { background-color: #0f172a !important; border-color
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">RADIO ESKA ⚡🎶</span>
             </div>
 
-            <div onclick="odpalStacje('https://ml01.cdn.eurozet.pl/mel-krk.mp3', 'MELORADIO')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+            <div onclick="odpalStacje('https://ml01.cdn.eurozet.pl/mel-net.mp3', 'MELORADIO')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
                 <img src="melo.radio.png" alt="MELO" style="width: 99px; height: 45px;flex-shrink: 0; object-fit: contain; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
                 <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">MELORADIO (Alt) 📻✨</span>
             </div>
+
+                                      
+
+
+
+                                      
+                                      
+                                 
 
             <div onclick="odpalStacje('https://ic2.smcdn.pl/3990-1.mp3', 'VOX FM')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid transparent; cursor: pointer; min-width: 0;">
                 <img src="Vox.fm.png" alt="VOX" style="width: 99px; height: 45px;flex-shrink: 0; object-fit: contain ; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover;">
