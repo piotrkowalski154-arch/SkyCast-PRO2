@@ -29,16 +29,18 @@
     margin-bottom: 8px; 
 }
 
-/* DZIEŃ - DOSŁOWNE ŚCIŚNIĘCIE LITER */
+/* NOWY, PANCERNY KOD BEZ UCINANIA: */
 .d-day { 
-    font-size: 0.95rem; 
+    flex: 1;                    /* Samodzielnie dopasowuje szerokość do napisu */
+    font-size: 1.2rem;          /* Minimalnie zgrabniejsza czcionka */
     font-weight: 800; 
-    letter-spacing: -0.18px; /* 🔥 TO JEST TWOJE ŚCIŚNIĘCIE - litery stają bliżej siebie */
     text-align: left; 
     white-space: nowrap; 
-    width: auto;
-    flex: 1; 
+    overflow: visible;          /* 🔥 Zdejmuje gilotynę – cała emotka jest widoczna */
+    letter-spacing: -0.4px; 
 }
+
+
 
 /* IKONA - ZABIERAMY ZBĘDNY LUZ */
 .d-icon { 
