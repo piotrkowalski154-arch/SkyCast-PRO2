@@ -28,43 +28,33 @@
     border-radius: 18px; 
     margin-bottom: 8px; 
 }
-
-/* NOWY, PANCERNY KOD BEZ UCINANIA: */
 .d-day { 
-    flex: 1;                    /* Samodzielnie dopasowuje szerokość do napisu */
-    font-size: 1.2rem;          /* Minimalnie zgrabniejsza czcionka */
-    font-weight: 800; 
+    flex: 1;                /* Zabiera całe wolne miejsce po lewej stronie */
     text-align: left; 
-    white-space: nowrap; 
-    overflow: visible;          /* 🔥 Zdejmuje gilotynę – cała emotka jest widoczna */
-    letter-spacing: -0.4px; 
-   
-}
-
-
-
-/* IKONA - ZABIERAMY ZBĘDNY LUZ */
-.d-icon { 
     font-size: 1.2rem; 
-    text-align: center; 
-    padding: 0 18px; /* 🔥 Minimalny odstęp */
-    width: auto;
-    
-}
-
-
-
-/* TEMPERATURA - LEKKO ZMNIEJSZONA */
-.d-temp { 
-    font-size: 1.05rem; 
-    font-weight: 900; 
-    text-align: right; 
-    color: var(--blue); 
+    font-weight: 800; 
     white-space: nowrap; 
-    width: auto;
-    flex-shrink: 0; 
-   padding: 0 18px
+    overflow: visible;      /* Emotki są bezpieczne przed gilotyną */
 }
+
+.d-icon { 
+    width: 60px;            /* 🔥 SZTYWNA KOLUMNA: Ikony stoją w idealnym pionie */
+    text-align: center;     /* Wyśrodkowanie ikony w jej własnej klatce */
+    font-size: 1.4rem; 
+    flex-shrink: 0;         /* Tarcza przed zgniataniem ikony */
+}
+
+.d-temp { 
+    width: 90px;            /* 🔥 SZTYWNA KOLUMNA: Zarezerwowane miejsce na cyfry */
+    text-align: right;      /* Dociągnięcie temperatur do prawej krawędzi */
+    font-size: 1.1rem; 
+    font-weight: 900; 
+    flex-shrink: 0;         /* Tarcza przed zgniataniem temperatur */
+}
+       
+       
+
+
 /* 🛡️ BOCZNY RIGIEL */
 html, body {
     max-width: 100%;
