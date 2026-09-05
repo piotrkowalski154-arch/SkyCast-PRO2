@@ -601,37 +601,39 @@ Szczegółowy rozkład godzinowy dla Krakowa (Gorący Poniedziałek, 7 września
 
 
         // 📦 SZAFECZKA - WSTRZYKIWANIE TREŚCI
-        okienko.innerHTML = `
-     <div style="
-    width: 100%; 
-    max-width: 1007px; 
-    max-height: 85dvh; 
-    
-    /* === TUTAJ WCHODZI TWOJE TŁO Z GITHUB/ASSETS === */
-    background-image: url('Gemini_Generated_Image_qztal4qztal4qzta.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* ============================================== */
+        Okienko.innerHTML = `
+    <div style="
+        width: 100%; 
+        max-width: 1007px; 
+        max-height: 85dvh; 
+        
+        /* 🔥 KELCZ: Łączymy ciemny, półprzezroczysty filtr z Twoim obrazkiem w tle */
+        background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('Gemini_Generated_Image_qztal4qztal4qzta.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
-    backdrop-filter: blur(15px);
-background: rgba(15, 23, 42, 0.75); /* 🔥 KLUCZ: Ciemna, półprzezroczysta baza (efekt szronionego szkła) */
-border: 4px solid #ffffff;
-border-radius: 22px; 
-padding: 21px; 
-color: #ffffff; 
-box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
-overflow-y: auto; 
-display: flex; 
-flex-direction: column;
-box-sizing: border-box;
-animation: neonowyPuls 2s infinite ease-in-out;
-}
-
-/* Zabezpieczenie, żeby nagłówki w środku nie były czarne/ciemne */
-pudełko * {
-    color: #ffffff !important; 
-}
+        backdrop-filter: blur(15px);
+        border: 4px solid #ffffff;
+        border-radius: 22px; 
+        padding: 21px; 
+        color: #ffffff; /* Główne wymuszenie bieli dla tekstu */
+        box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+        overflow-y: auto; 
+        display: flex; 
+        flex-direction: column;
+        box-sizing: border-box;
+        animation: neonowyPuls 2s infinite ease-in-out;
+    ">
+        <!-- Wewnętrzny kontener z uniwersalnym wymuszeniem białego koloru dla nagłówków i paragrafów -->
+        <div style="color: #ffffff !important;">
+            <h2 style="color: #ffffff !important; margin-top: 0;">PROGNOZA: UDERZENIE GORĄCA...</h2>
+            <p style="color: #ffffff !important;">Cześć! Zanim przejdziesz do dzisiejszej prognozy...</p>
+            <!-- Tutaj wchodzi reszta Twojej wygenerowanej treści -->
+        </div>
+    </div>
+`;
+       
 
 
             ">
