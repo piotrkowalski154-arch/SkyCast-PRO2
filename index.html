@@ -45,12 +45,14 @@
 }
 
 .d-temp { 
-    width: 90px;            /* 🔥 SZTYWNA KOLUMNA: Zarezerwowane miejsce na cyfry */
-    text-align: right;      /* Dociągnięcie temperatur do prawej krawędzi */
+    width: 95px;            /* Poszerzamy pudełko o 5px dla bezpieczeństwa */
+    white-space: nowrap;    /* 🔥 KATEGORYCZNY ZAKAZ ŁAMANIA LINII */
+    text-align: right; 
     font-size: 1.1rem; 
     font-weight: 900; 
-    flex-shrink: 0;         /* Tarcza przed zgniataniem temperatur */
+    flex-shrink: 0;         /* Tarcza przeciw zgniataniu */
 }
+       
        
        
 
