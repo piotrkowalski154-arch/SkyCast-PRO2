@@ -87,23 +87,24 @@ body {
     flex-direction: column;
     align-items: center;
     color: var(--text);
-    transition: background 1s ease;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    transition: background 1s ease, box-shadow 1s ease;
+    /* Zmieniono zimny błękit na ciepłą, jesienną poświatę */
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
 }
 
 body.night-mode {
-        --bg: linear-gradient(135deg, #9a3412 0%, #78350f 30%, #451a03 60%, #1c1917 85%, #0c0a09 100%);
-    --glass: rgba(15, 23, 42, 0.65); 
-    --glass-border: rgba(245, 158, 11, 0.35); 
+    --bg: linear-gradient(135deg, #9a3412 0%, #78350f 30%, #451a03 60%, #1c1917 85%, #0c0a09 100%);
+    --glass: rgba(28, 25, 23, 0.75); 
+    --glass-border: rgba(245, 158, 11, 0.4); 
     --text: #fef3c7; 
     --main-title: #fbbf24; 
     --orange: #f97316; 
     --amber: #f59e0b; 
     --card-text: #fef3c7;
-    border: 3px solid rgba(245, 158, 11, 0.8);
-    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5), inset 0 0 15px rgba(245, 158, 11, 0.2);
-   
+    border: 3px solid rgba(245, 158, 11, 0.85);
+    box-shadow: 0 0 35px rgba(249, 115, 22, 0.55), inset 0 0 15px rgba(245, 158, 11, 0.25);
 }
+       
 
 /* NAPRAWA CZYTELNOŚCI RADARU W TRYBIE NOCNYM */
 body.night-mode #alert24hText {
