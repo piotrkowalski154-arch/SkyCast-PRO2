@@ -728,7 +728,7 @@ animation: neonowyPuls 2s infinite ease-in-out;
             if (!kontener) return;
 
             const rssInteria = 'https://www.rmf24.pl/fakty/feed';    
-            const rssPolsat = 'https://sportowefakty.wp.pl/rss.xml';
+            const rssPolsat = 'https://www.polsatsport.pl/rss/wszystkie.xml';
 
             function aktualizuj() {
                 let html = `
@@ -742,7 +742,7 @@ animation: neonowyPuls 2s infinite ease-in-out;
                 ])
                 .then(([daneInteria, danePolsat]) => {
                     if (daneInteria.status === 'ok' && daneInteria.items) {
-                        const limit = Math.min(daneInteria.items.length, 4);
+                        const limit = Math.min(daneInteria.items.length, 5);
                         for (let i = 0; i < limit; i++) {
                         html += `
 <div style="background: linear-gradient(135deg, #fef08a 0%, #bae6fd 100%); border-left: 6px solid #0284c7; border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);">
@@ -758,7 +758,7 @@ animation: neonowyPuls 2s infinite ease-in-out;
                     }
 
                     if (danePolsat.status === 'ok' && danePolsat.items) {
-                        const limit = Math.min(danePolsat.items.length, 4);
+                        const limit = Math.min(danePolsat.items.length, 5);
                         for (let i = 0; i < limit; i++) {
                             html += `
 <div style="background: linear-gradient(135deg, #fef08a 0%, #bae6fd 100%); border-left: 6px solid #f59e0b; border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);">
