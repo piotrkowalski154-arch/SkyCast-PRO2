@@ -136,12 +136,12 @@ body.night-mode #alert24hCard h4 {
 
 /* KONTENERY I ELEMENTY INTERFEJSU */
 .app-container { 
-    max-width: 400px; 
-    width: 100%; 
-    margin: 0 auto; 
-    padding: 15px; 
-    box-sizing: border-box; 
-}
+  width: 94%;            /* rozszerza kafelki prawie do samych krawędzi */
+  max-width: 440px;      /* pozwala im urosnąć na ekranie telefonu */
+  margin: 0 auto 16px;   /* centruje kafelki na środku */
+  padding: 16px;         /* wewnętrzny oddech w kafelku */
+}  
+
 
 .search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; }
 input { 
@@ -308,6 +308,7 @@ body.night-mode .wiadomosci { background-color: #0f172a !important; border-color
     width: 100%;     
     height: auto;
     box-sizing: border-box; 
+   transform: scale(1.02); 
 
 
 }
