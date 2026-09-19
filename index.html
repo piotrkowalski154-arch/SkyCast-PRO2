@@ -260,18 +260,23 @@ body.night-mode .d-temp { color: #38bdf8; }
 body.night-mode .wiadomosci { background-color: #0f172a !important; border-color: #38bdf8; }
 
 .dj-main-card {
-    /* Ognista, jesienna ramka z Twoich nowych zmiennych */
-    border: 2px solid var(--accent-orange);
-    backdrop-filter: none !important; 
+    /* 1. Usuwamy lity kolor i podpinamy Twoją zmienną z mrocznym szkłem */
+    background: var(--glass) !important;
     
-    /* Mega jesienny gradient: od ciemnego drewna do złotego bursztynu */
-    background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #d97706 100%) !important;
+    /* 2. Włączamy efekt rozmycia tła (szron na szkle) */
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important; /* Ważne dla iPhone'ów */
     
+    /* 3. Ramka, która korzysta z Twojej półprzezroczystej zmiennej */
+    border: 2px solid var(--glass-border) !important;
+    
+    /* 4. Twoja animacja wjazdu i pulsowania zostaje nietknięta */
     animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
     
-    /* Dodatkowy detal: lekki wewnętrzny blask, żeby podbić klimat premium */
-    box-shadow: inset 0 0 16px rgba(234, 88, 12, 0.2);
+    /* 5. Zmieniony cień: głęboka czerń na zewnątrz (odcina kartę) + miedziany blask w środku */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 0 16px rgba(234, 88, 12, 0.2) !important;
 }
+       
        
 
 .player-container {
