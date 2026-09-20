@@ -685,65 +685,70 @@ animation: neonowyPuls 2s infinite ease-in-out;
     ${tresc}
 </p>
 
-                <button id="btnMeteo" style="
-                    flex: 1; 
-                    padding: 15px; 
-                    background: linear-gradient(90deg, #0284c7 0%, #111827 50%, #b48608 100%); 
-                    color: #ffffff; 
-                    border: 2px solid #ffffff; 
-                    border-radius: 12px; 
-                    font-weight: 900; 
-                    font-size: 1.1rem;
-                    cursor: pointer; 
-                    text-transform: uppercase; 
-                    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
-                    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-                    justify-content: space-between;
-                    margin-bottom: 10px;
-                ">
-                    Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
-                    
+                                    <button id="btnMeteo" style="
+                        flex: 1; 
+                        padding: 15px; 
+                        background: linear-gradient(90deg, #0284c7 0%, #111827 50%, #b48608 100%); 
+                        color: #ffffff; 
+                        border: 2px solid #ffffff; 
+                        border-radius: 12px; 
+                        font-weight: 900; 
+                        font-size: 1.1rem;
+                        cursor: pointer; 
+                        text-transform: uppercase; 
+                        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
+                        text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+                        margin-bottom: 10px;
+                        display: block;
+                        width: 100%;
+                    ">
+                        Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
+                    </button>
 
-                                <button id="btnSkycastFootball" style="
-                    flex: 1; 
-                    padding: 15px; 
-                    background: linear-gradient(135deg, #10b981, #047857, #10b981);
-                    color: #ffffff; 
-                    border: 2px solid #34d399; 
-                    border-radius: 12px; 
-                    font-weight: 900; 
-                    font-size: 1.1rem;
-                    cursor: pointer; 
-                    text-transform: uppercase; 
-                    box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
-                    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-                ">
-                    🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
-                </button>
-            </div>
-            
-        `;
-        document.body.appendChild(okienko);
+                    <button id="btnSkycastFootball" style="
+                        flex: 1; 
+                        padding: 15px; 
+                        background: linear-gradient(135deg, #10b981, #047857, #10b981);
+                        color: #ffffff; 
+                        border: 2px solid #34d399; 
+                        border-radius: 12px; 
+                        font-weight: 900; 
+                        font-size: 1.1rem;
+                        cursor: pointer; 
+                        text-transform: uppercase; 
+                        box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
+                        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+                        display: block;
+                        width: 100%;
+                    ">
+                        🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(okienko);
 
-        // Poprawne czyszczenie z drzewa DOM przy zamknięciu
-        document.getElementById('btnMeteo').addEventListener('click', function() {
-            okienko.remove(); 
-            if (typeof uruchomZlotySkaner === "function") {
-                uruchomZlotySkaner();
+            // Obsługa kliknięcia w pogodę
+            const btnMeteo = document.getElementById('btnMeteo');
+            if (btnMeteo) {
+                btnMeteo.addEventListener('click', function() {
+                    okienko.remove(); 
+                    if (typeof uruchomZlotySkaner === "function") {
+                        uruchomZlotySkaner();
+                    }
+                });
             }
-        });
 
-                // Obsługa przycisku modułu piłkarskiego
-        const btnFootball = document.getElementById('btnSkycastFootball');
-        if (btnFootball) {
-            btnFootball.addEventListener('click', function() {
-                okienko.remove();
-                // Otwiera aplikację piłkarską w nowej karcie:
-                window.open('https://sky-cast-pro-football.vercel.app', '_blank');
-            });
+            // Obsługa kliknięcia w moduł piłkarski (otwiera w nowej karcie)
+            const btnFootball = document.getElementById('btnSkycastFootball');
+            if (btnFootball) {
+                btnFootball.addEventListener('click', function() {
+                    okienko.remove();
+                    window.open('https://sky-cast-pro-football.vercel.app', '_blank');
+                });
+            }
         }
-    }
-}
+   }
+       
 
         
 } // <-- Ta klamra ratuje cały plik!
