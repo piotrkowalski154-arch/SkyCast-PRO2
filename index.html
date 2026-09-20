@@ -579,16 +579,16 @@ body.night-mode .wiadomosci { background-color: #0f172a !important; border-color
     'Sobota '         // Dzień 6
 ];
 
-window.onload = function() {
-        pokazAlertPowitalny();
-        
-        // Zabezpieczenie przed wysypaniem, gdyby te funkcje nie były jeszcze zadeklarowane w kodzie:
-        if (typeof uruchomProtokolGPS === "function") uruchomProtokolGPS(); 
-        if (typeof pobierzWiadomosci === "function") pobierzWiadomosci();
-        if (typeof uruchomZlotySkaner === "function") uruchomZlotySkaner();
-    };
+       window.onload = function() {
+    pokazAlertPowitalny();
+    
+    // Zabezpieczenie przed wysypaniem, gdyby te funkcje nie były jeszcze zadeklarowane w kodzie:
+    if (typeof uruchomProtokolGPS === "function") uruchomProtokolGPS(); 
+    if (typeof pobierzWiadomosci === "function") pobierzWiadomosci();
+    if (typeof uruchomZlotySkaner === "function") uruchomZlotySkaner();
+};
 
-   function pokazAlertPowitalny() {
+function pokazAlertPowitalny() {
     let okienko = document.getElementById('skycast-welcome-alert');
     if (!okienko) {
         okienko = document.createElement('div');
@@ -610,10 +610,10 @@ window.onload = function() {
             margin: 0;    
         `;   
 
-       const TYTUL_WEEKEND = 'PROGNOZA: UDERZENIE CHŁODNEGO FRONTU I RAPORT MURAWSKI (20.09 – 22.09)';
-const GODZINA_WEEKEND = '20:45';
+        const TYTUL_WEEKEND = 'PROGNOZA: UDERZENIE CHŁODNEGO FRONTU I RAPORT MURAWSKI (20.09 – 22.09)';
+        const GODZINA_WEEKEND = '20:45';
 
-const tresc = `Siemanko! Wczesnojesienne ciepło ustępuje miejsca potężnemu uderzeniu chłodnego frontu atmosferycznego! 🌧️❄️🍁 Sprawdźcie najświeższy rozkład jazdy dla Małopolski, całego kraju oraz parametry murawy pod mecze na nadchodzące dni:
+        const tresc = `Siemanko! Wczesnojesienne ciepło ustępuje miejsca potężnemu uderzeniu chłodnego frontu atmosferycznego! 🌧️❄️🍁 Sprawdźcie najświeższy rozkład jazdy dla Małopolski, całego kraju oraz parametry murawy pod mecze na nadchodzące dni:
 
 🌡️ PROGNOZA DLA KRAKOWA I POLSKI (NIEDZIELA – WTOREK, 20 – 22 WRZEŚNIA 2026) 🍂
 
@@ -647,107 +647,98 @@ Szczegółowy rozkład na niedzielne popołudnie przed frontem w Krakowie (Niedz
 ⏱️ 13:00 – 16:00: Szczyt ciepła! Nawet 22°C – 23°C, idealne warunki na spacer.
 ⏱️ 17:00 – 20:00: Widoczny wzrost zachmurzenia od zachodu, wiatr zaczyna przybierać na sile.
 ⏱️ 21:00 – 00:00: Wejście frontu, początek przelotnych opadów deszczu, temperatura spada do ok. 14°C.`;
-       
 
         // 📦 SZAFECZKA - WSTRZYKIWANIE TREŚCI
         okienko.innerHTML = `
-<div style="
-    width: 100%; 
-    max-width: 1007px; 
-    max-height: 85dvh; 
-    
-    /* === TUTAJ WCHODZI TWOJE TŁO Z GITHUB/ASSETS === */
-    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url('Gemini_Generated_Image_qztal4qztal4qzta.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* ============================================== */
-backdrop-filter: blur(13px); 
-border: 2px solid rgba(245, 158, 11, 0.65);
-border-radius: 22px; 
-padding: 21px; 
-color: #fef3c7; 
-box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
-overflow-y: auto; 
-display: flex; 
-flex-direction: column;
-box-sizing: border-box;
-animation: neonowyPuls 2s infinite ease-in-out;
+            <div style="
+                width: 100%; 
+                max-width: 1007px; 
+                max-height: 85dvh; 
+                background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url('Gemini_Generated_Image_qztal4qztal4qzta.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                backdrop-filter: blur(13px); 
+                border: 2px solid rgba(245, 158, 11, 0.65);
+                border-radius: 22px; 
+                padding: 21px; 
+                color: #fef3c7; 
+                box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
+                overflow-y: auto; 
+                display: flex; 
+                flex-direction: column;
+                box-sizing: border-box;
+                animation: neonowyPuls 2s infinite ease-in-out;
+            ">
+                <h2 style="color: #fef3c7; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                    ${TYTUL_WEEKEND} <br><span style="font-size: 0.85rem; color: rgba(254, 243, 199, 0.75);">⏱️ ${GODZINA_WEEKEND}</span>
+                </h2>
+                <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #fef3c7; font-weight: 600; font-family: sans-serif;">
+                    ${tresc}
+                </p>
 
-    
+                <button id="btnMeteo" style="
+                    width: 100%; 
+                    padding: 15px; 
+                    background: linear-gradient(90deg, #0284c7 0%, #111827 50%, #b48608 100%); 
+                    color: #ffffff; 
+                    border: 2px solid #ffffff; 
+                    border-radius: 12px; 
+                    font-weight: 900; 
+                    font-size: 1.1rem;
+                    cursor: pointer; 
+                    text-transform: uppercase; 
+                    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
+                    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+                    margin-bottom: 12px;
+                    display: block;
+                ">
+                    Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
+                </button>
 
-        ">
-            
-           <h2 style="color: #fef3c7; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
-    ${TYTUL_WEEKEND} <br><span style="font-size: 0.85rem; color: rgba(254, 243, 199, 0.75);">⏱️ ${GODZINA_WEEKEND}</span>
-</h2>
-<p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #fef3c7; font-weight: 600; font-family: sans-serif;">
-    ${tresc}
-</p>
+                <button id="btnSkycastFootball" style="
+                    width: 100%; 
+                    padding: 15px; 
+                    background: linear-gradient(135deg, #10b981, #047857, #10b981);
+                    color: #ffffff; 
+                    border: 2px solid #34d399; 
+                    border-radius: 12px; 
+                    font-weight: 900; 
+                    font-size: 1.1rem;
+                    cursor: pointer; 
+                    text-transform: uppercase; 
+                    box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
+                    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+                    display: block;
+                ">
+                    🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
+                </button>
+            </div>
+        `;
+        document.body.appendChild(okienko);
 
-                                    <button id="btnMeteo" style="
-                        flex: 1; 
-                        padding: 15px; 
-                        background: linear-gradient(90deg, #0284c7 0%, #111827 50%, #b48608 100%); 
-                        color: #ffffff; 
-                        border: 2px solid #ffffff; 
-                        border-radius: 12px; 
-                        font-weight: 900; 
-                        font-size: 1.1rem;
-                        cursor: pointer; 
-                        text-transform: uppercase; 
-                        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
-                        text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-                        margin-bottom: 10px;
-                        display: block;
-                        width: 100%;
-                    ">
-                        Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
-                    </button>
-
-                    <button id="btnSkycastFootball" style="
-                        flex: 1; 
-                        padding: 15px; 
-                        background: linear-gradient(135deg, #10b981, #047857, #10b981);
-                        color: #ffffff; 
-                        border: 2px solid #34d399; 
-                        border-radius: 12px; 
-                        font-weight: 900; 
-                        font-size: 1.1rem;
-                        cursor: pointer; 
-                        text-transform: uppercase; 
-                        box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
-                        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-                        display: block;
-                        width: 100%;
-                    ">
-                        🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
-                    </button>
-                </div>
-            `;
-            document.body.appendChild(okienko);
-
-            // Obsługa kliknięcia w pogodę
-            const btnMeteo = document.getElementById('btnMeteo');
-            if (btnMeteo) {
-                btnMeteo.addEventListener('click', function() {
-                    okienko.remove(); 
-                    if (typeof uruchomZlotySkaner === "function") {
-                        uruchomZlotySkaner();
-                    }
-                });
-            }
-
-            // Obsługa kliknięcia w moduł piłkarski (otwiera w nowej karcie)
-            const btnFootball = document.getElementById('btnSkycastFootball');
-            if (btnFootball) {
-                btnFootball.addEventListener('click', function() {
-                    okienko.remove();
-                    window.open('https://sky-cast-pro-football.vercel.app', '_blank');
-                });
-            }
+        // Poprawne czyszczenie z drzewa DOM przy zamknięciu
+        const btnMeteo = document.getElementById('btnMeteo');
+        if (btnMeteo) {
+            btnMeteo.addEventListener('click', function() {
+                okienko.remove(); 
+                if (typeof uruchomZlotySkaner === "function") {
+                    uruchomZlotySkaner();
+                }
+            });
         }
-   }
+
+        // Obsługa przycisku modułu piłkarskiego
+        const btnFootball = document.getElementById('btnSkycastFootball');
+        if (btnFootball) {
+            btnFootball.addEventListener('click', function() {
+                okienko.remove();
+                window.open('https://sky-cast-pro-football.vercel.app', '_blank');
+            });
+        }
+    }
+}
+
        
 
         
