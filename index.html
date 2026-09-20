@@ -704,8 +704,7 @@ animation: neonowyPuls 2s infinite ease-in-out;
                     Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
                     
 
-                </button>
-                <button id="btnSkycastFootball" style="
+                                <button id="btnSkycastFootball" style="
                     flex: 1; 
                     padding: 15px; 
                     background: linear-gradient(135deg, #10b981, #047857, #10b981);
@@ -719,9 +718,10 @@ animation: neonowyPuls 2s infinite ease-in-out;
                     box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
                     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
                 ">
-                    🚀 JUŻ WKRÓTCE: MÓJ NOWY PROJEKT SKYCAST PRO FOOTBALL ⚽
+                    🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
                 </button>
             </div>
+            
         `;
         document.body.appendChild(okienko);
 
@@ -733,15 +733,19 @@ animation: neonowyPuls 2s infinite ease-in-out;
             }
         });
 
-        // Obsługa drugiego, nowego przycisku
+                // Obsługa przycisku modułu piłkarskiego
         const btnFootball = document.getElementById('btnSkycastFootball');
         if (btnFootball) {
             btnFootball.addEventListener('click', function() {
                 okienko.remove();
-                alert("Projekt SkyCast Pro Football startuje już wkrótce! ⚽");
+                // Otwiera aplikację piłkarską w nowej karcie:
+                window.open('https://sky-cast-pro-football.vercel.app', '_blank');
             });
         }
     }
+}
+
+        
 } // <-- Ta klamra ratuje cały plik!
         function toggleRadio() {
             const x = document.getElementById("radioContent");
