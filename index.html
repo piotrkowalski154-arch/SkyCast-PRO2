@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast PRO - Alert Burzowy ⚡☔</title>
+    <link rel="icon" type="image/png" sizes="128x128" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/2134/2134677.png">
+    <style>
+:root {
+  /* 🍁 JESIENNY VIBE - Obrazek w tle */
+  --bg: url('1789843586522.png') center/cover no-repeat fixed;
+  
+  /* Szklane efekty (Glassmorphism) */
+  --glass: rgba(255, 247, 237, 0.22);
+  --glass-border: rgba(255, 237, 213, 0.35);
+  
+  /* Kolory tekstów i akcentów */
+  --text: #1c1917;
+  --main-title: #0c0a09;
+  --accent-orange: #ea580c;
+  --accent-gold: #b45309;
+  --card-text: #44403c;
+}
+
+.d-row { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: rgba(255, 255, 255, 0.25); 
+    border: 1px solid var(--glass-border); 
+    padding: 10px 8px; 
+    border-radius: 18px; 
+    margin-bottom: 8px; 
+}
+
+/* DZIEŃ - DOSŁOWNE ŚCIŚNIĘCIE LITER */
+.d-day { 
+    font-size: 0.95rem; 
+    font-weight: 800; 
+    letter-spacing: -0.6px; 
+    text-align: left; 
+    white-space: nowrap; 
+    width: auto;
+    flex: 1; 
+}
+
+/* IKONA - ZABIERAMY ZBĘDNY LUZ */
+.d-icon { 
+    font-size: 2.2rem; 
+    width: 95px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; 
+}
+
+/* TEMPERATURA - LEKKO ZMNIEJSZONA */
+.d-temp { 
+    font-size: 1.05rem; 
+    font-weight: 900; 
+    text-align: right; 
+    color: var(--blue); 
+    white-space: nowrap; 
+    width: auto;
+    flex-shrink: 0; 
+}
+
+/* 🛡️ BOCZNY RIGIEL */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Inter', sans-serif; 
+    -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+    background: var(--bg);
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 15px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text);
+    transition: background 1s ease, box-shadow 1s ease;
+    box-shadow: inset 0 0 60px rgba(154, 52, 18, 0.4);
+}
+
+body.night-mode {
+    --bg: url('1789847965727.png') center/cover no-repeat fixed;
+    --glass: rgba(28, 20, 15, 0.80);
+    --glass-border: rgba(217, 119, 6, 0.45);
+    --text: #fed7aa;
+    --main-title: #f59e0b;
+    --orange: #c2410c;
+    --amber: #d97706;
+    --leaf-red: #b91c1c;
+    --leaf-gold: #eab308;
+    --card-text: #fed7aa;
+    border: 3px solid rgba(217, 119, 6, 0.9);
+    box-shadow: 0 0 40px rgba(194, 65, 12, 0.5), inset 0 0 20px rgba(217, 119, 6, 0.3);
+}
+
+/* NAPRAWA CZYTELNOŚCI RADARU W TRYBIE NOCNYM */
+body.night-mode #alert24hText {
+    color: hsl(0, 0%, 21%) !important; 
+    text-shadow: 1px 1px 2px pink;
+    overflow-wrap: break-word;
+}
+
+body.night-mode #alert24hCard h4 {
+    color: #fca5a5 !important; 
+}
+
+/* ANIMACJE */
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes neonPulse {
+    0%   { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+    50%  { box-shadow: 0 0 35px rgba(250, 204, 21, 0.8); border-color: #facc15; }
+    100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+}
+
+.anim-float { display: inline-block; animation: float 3s ease-in-out infinite; }
+.animate { animation: slideUp 0.5s ease-out forwards; opacity: 0; }
+
+.app-container { 
+    max-width: 400px; 
+    width: 100%; 
+    margin: 0 auto; 
+    padding: 15px; 
+    box-sizing: border-box; 
+} /* KONTENERY I ELEMENTY INTERFEJSU */
+
+.search-row { display: flex; gap: 8px; width: 100%; align-items: center; box-sizing: border-box; }
+input { 
+    flex: 1; 
+    min-width: 0; 
+    height: 55px; 
+    padding: 0 20px; 
+    border-radius: 20px; 
+    border: 1px solid var(--glass-border); 
+    background: var(--glass); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    outline: none; 
+    color: var(--text); 
+}
+
+.scan-btn { 
+    flex-shrink: 0; 
+    height: 55px; 
+    padding: 0 24px; 
+    border-radius: 20px; 
+    background: #00bfff; 
+    color: #333333; 
+    border: 2px solid #2563eb; 
+    font-weight: 900; 
+    font-size: 0.9rem; 
+    letter-spacing: 1px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
+
+.card { 
+    background: var(--glass); 
+    backdrop-filter: blur(20px); 
+    border: 1px solid var(--glass-border); 
+    border-radius: 28px; 
+    padding: 22px; 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+    margin-top: 15px; 
+}
+
+.main-hero { text-align: center; transition: all 0.5s ease; }
+.cityName { font-size: 2.6rem; font-weight: 900; color: var(--main-title); text-transform: capitalize; }
+.temp { font-size: 6.5rem; font-weight: 900; letter-spacing: -5px; color: var(--main-title); }
+body.night-mode .temp { color: hsl(47, 100%, 71%); text-shadow: 0 0 10px rgba(179, 255, 80, 0.5); }
+.hero-icon { font-size: 5rem; }
+
+.badge { 
+    background: rgba(255,255,255,0.3); 
+    border: 1px solid var(--glass-border); 
+    padding: 8px 15px; 
+    border-radius: 15px; 
+    font-size: 0.8rem; 
+    font-weight: 800; 
+    display: inline-block; 
+    color: var(--main-title); 
+    margin-top: 15px; 
+}
+
+.atm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-top: 5px; }
+.atm-box { background: rgba(255,255,255,0.25); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px 5px; }
+.atm-icon { font-size: 1.2rem; margin-bottom: 5px; }
+.atm-val { font-size: 1.1rem; font-weight: 900; color: var(--main-title); }
+.atm-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-top: 3px; }
+.label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
+body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
+
+/* POPRAWIONA SEKCJA POGODY GODZINOWEJ */
+.h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; }
+.h-box { 
+    min-width: 85px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    background: rgba(255,255,255,0.25); 
+    border: 1px solid var(--glass-border); 
+    padding: 15px 5px; 
+    border-radius: 22px; 
+}
+body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
+
+.manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
+.wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
+body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important; border-color: #38bdf8; }
+
+.dj-main-card {
+    background: var(--glass) !important;
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 2px solid var(--glass-border) !important;
+    animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 0 16px rgba(234, 88, 12, 0.2) !important;
+}
+
+.player-container {
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #7dd3fc;
+    background: rgba(15, 23, 42, 0.4); 
+}
+
+.mixcloud-box {
+    border-color: rgba(56, 189, 248, 0.6) !important;
+}
+
+/* KONTENER RADARU */
+.imgw-radar-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 0;       
+    background-color: transparent; 
+    border-radius: 20px;
+    border: 3px solid #00d4ff;
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+    transform: scale(1.02);
+}
+
+.imgw-radar-container img {
+    display: block;
+    width: 100%;     
+    height: auto;
+    box-sizing: border-box; 
+    transform: scale(1.02);
+}
+
+.imgw-radar-container2 {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 0;       
+    background-color: transparent; 
+    border-radius: 20px;
+    border: 3px solid #00d4ff;
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+}
+   
+.imgw-radar-container2 img {    
+    display: block;
+    width: 100%;     
+    height: auto;
+    box-sizing: border-box; 
+    transform: scale(1.02); 
+}
+
+#twoj-id-tytulu {
+  color: #00d4ff !important;
+  text-shadow: none !important;
+  font-weight: 700;
+}
+
+/* =========================================
+   RADAR RSS 2.0 - SZKLANA TAŚMA KAFELKOWA (POGODA)
+   ========================================= */
+#radar-wiadomosci.wiadomosci { padding: 15px 0; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
+.rss-container { width: 100%; overflow: hidden; position: relative; box-sizing: border-box; }
+.rss-track { display: inline-flex; gap: 16px; animation: scrollRadarRss 55s linear infinite; align-items: center; width: max-content; padding: 0 16px; margin: 0; will-change: transform; }
+.rss-container:hover .rss-track, .rss-container:active .rss-track { animation-play-state: paused; }
+@keyframes scrollRadarRss { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.rss-card { display: inline-flex; align-items: center; gap: 12px; min-width: 290px; max-width: 320px; height: 68px; padding: 8px 12px; background: rgba(15, 23, 42, 0.75); border: 1px solid var(--glass-border); border-radius: 12px; text-decoration: none; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease, border-color 0.2s ease; box-sizing: border-box; }
+.rss-card:hover { transform: translateY(-2px) scale(1.02); border-color: #38bdf8; }
+body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgba(56, 189, 248, 0.5); }
+.rss-thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.15); background: #0f172a; }
+.rss-body { display: flex; flex-direction: column; justify-content: center; gap: 3px; overflow: hidden; white-space: normal; }
+.rss-tag { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px; }
+.rss-title { color: #ffffff; font-size: 0.78rem; font-weight: 600; line-height: 1.25; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+    </style>  
+</head>
+<body>
+    <div class="app-container">
+        <div class="card dj-main-card">
+            <h3 style="text-align: center; color: #38bdf8; font-weight: 900; margin-bottom: 15px; text-shadow: 0px 2px 5px rgba(0,0,0,0.6);">
+                🎧 TOP 1 PIOTRKA 🎶🎧⚡😎😁🥃
+            </h3>
+
+            <div class="player-container">
+                <iframe 
+                    width="100%" 
+                    height="120" 
+                    src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2FArminvanBuuren%2F538-dance-department-by-armin-van-buuren-september-12-2026-incl-hotmix-by-hugel%2F"
+                    frameborder="0" 
+                    sandbox="allow-scripts allow-same-origin">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="imgw-radar-container">
+            <img src="TEMP_ODCZ_1782587741.webp" alt="Opis Twojego pliku">
+        </div>
+
+        <!-- ================= SEKCJA: RADAR WIADOMOŚCI 2.0 ================= -->
+        <div id="radar-wiadomosci" class="wiadomosci">
+            <p id="radar-loading" style="text-align: center; color: var(--main-title); font-weight: bold; margin: 20px 0;">Skanowanie radarów informacyjnych...</p>
+        </div>
+        <!-- ================================================================ -->
+
+        <div style="width: 100%; max-width: 500px; margin: 0 auto 35px auto; animation: slideUp 0.5s ease-out forwards, neonPulse 2s ease-in-out infinite 0.5s; background: #0b0f19; border: 2px solid #ff7e5f; border-radius: 20px; overflow: hidden; text-align: center; box-shadow: 0 8px 32px rgba(255, 126, 95, 0.15); box-sizing: border-box; min-width: 0;">
+            <div onclick="toggleRadio()" style="background: linear-gradient(45deg, #ff7e5f, hsl(201, 98%, 74%)); padding: 15px; color: #0b0f19; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <h3 style="margin: 0; font-weight: 900; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+                    📻 SkyCast PRO Radio <span style="font-size: 0.9rem; font-weight: 700; color: #0b0f19; padding: 2px 8px;">🎶Kliknij🎧👆</span> 
+                </h3>
+            </div>
+            
+            <div id="radioContent" style="display: none; padding: 20px; box-sizing: border-box; min-width: 0;">
+                <span id="statusEkranu" style="color: #FFFFFF; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: block; word-break: break-word; text-shadow: 0 0 10px #ff7e5f;">Wybierz letnią stację...</span>
+                
+                <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid hsl(175, 100%, 69%); animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s; border-radius: 10px; margin-bottom: 20px; overflow: hidden; display: flex; flex-direction: column;">
+                    <div onclick="odpalStacje('http://zt01.cdn.eurozet.pl/zet-old.mp3?redirected=01', 'RADIO ZET')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+                        <img src="radio.zet.png" alt="ZET" style="width: 90px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">📻🔴 RADIO ZET 🔴📻</span>
+                    </div>
+
+                    <div onclick="odpalStacje('https://rs7-krk2-cyfronet.rmfstream.pl/RMFMAXXX48', 'RMF MAXX')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+                        <img src="rmf.max.png" alt="RMF" style="width: 90px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">RMF MAXX 🔥🚀</span>
+                    </div>
+
+                    <div onclick="odpalStacje('https://ic1.smcdn.pl/2130-1.mp3', 'RADIO ESKA')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+                        <img src="radio.eska.png" alt="ESKA" style="width: 90px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">RADIO ESKA ⚡🎶</span>
+                    </div>
+
+                    <div onclick="odpalStacje('https://ml01.cdn.eurozet.pl/mel-krk.mp3', 'MELORADIO')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255, 126, 95, 0.3); cursor: pointer; min-width: 0;">
+                        <img src="melo.radio.png" alt="MELO" style="width: 99px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: contain; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">MELORADIO (Alt) 📻✨</span>
+                    </div>
+
+                    <div onclick="odpalStacje('https://ic2.smcdn.pl/3990-1.mp3', 'VOX FM')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid transparent; cursor: pointer; min-width: 0;">
+                        <img src="Vox.fm.png" alt="VOX" style="width: 99px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: contain; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">VOX FM (dla Hubiego!) 📻🔥</span>
+                    </div>
+
+                    <div onclick="odpalStacje('https://artemis.streamerr.co/listen/bouncebackup/streamhd', 'Bounce Radio')" style="display: flex; align-items: center; padding: 12px; border-bottom: 1px solid transparent; cursor: pointer; min-width: 0;">
+                        <img src="elko.png" alt="Bounce Radio" style="width: 99px; height: 45px; border-radius: 10px; opacity: 0.8; margin-right: 15px; object-fit: cover; flex-shrink: 0;">
+                        <span style="color: #feb47b; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; word-break: break-word; text-align: left;">Bounce .fm 📻🔥</span>
+                    </div>
+                </div>
+
+                <audio id="cyberAudio" controls style="width: 100%; display: none; filter: invert(1) hue-rotate(180deg); margin-bottom: 10px;"></audio>
+                <span id="audioPlaceholder" style="color: rgba(255,255,255,0.4); font-size: 0.9rem; font-style: italic; word-break: break-word;">Oczekuję na sygnał...</span>
+            </div>
+        </div>
+
+        <div class="search-row">
+            <input type="text" id="cityIn" value="Kraków">
+            <button class="scan-btn" onclick="uruchomZlotySkaner()">SKANUJ</button>
+        </div>
+        
+        <div class="card main-hero animate" id="heroCard">
+            <div style="font-size: 0.7rem; font-weight: 900; color: var(--purple); text-transform: uppercase;">Wyszukiwanie bezpieczne aktywne</div>
+            <div class="cityName" id="cityName">Kraków</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <div class="temp" id="valT">--°</div>
+                <div class="hero-icon" id="mainIcon"></div>
+            </div>
+            <div id="valD" style="font-size: 1.3rem; font-weight: 700; color: var(--purple); text-transform: capitalize;">Ładowanie satelitarne...</div>
+            <div class="badge" id="engineBadge">🛡️ Silnik OpenWeather PRO: Aktywny</div>
+        </div>
+
+        <div class="imgw-radar-container2">
+            <img src="Gemini_Generated_Image_wvciv0wvciv0wvci.jpeg" alt="Opis Twojego pliku">
+        </div>
+
+        <div class="card animate" id="alert24hCard" style="
+            display: none; 
+            background: linear-gradient(45deg, #ff7e5f, hsl(201, 98%, 74%));
+            border-left: 5px solid #fdc893; 
+            border-radius: 12px; 
+            padding: 20px; 
+            box-shadow: 0 8px 32px rgba(20, 190, 202, 0.45); 
+            margin: 15px auto; 
+            max-width: 100%;   
+            box-sizing: border-box; 
+            transition: all 0.4s ease-in-out;
+        ">
+            <h4 style="
+                font-size: 0.85rem; 
+                color: rgba(23, 33, 57, 0.75); 
+                text-transform: uppercase; 
+                font-weight: 900; 
+                margin-bottom: 12px; 
+                letter-spacing: 2px;
+            ">
+                🚨 RADAR 24H
+            </h4>
+            
+            <div style="display: flex; align-items: flex-start; gap: 15px; width: 100%; box-sizing: border-box;">
+                <div id="alert24hIcon" style="font-size: 2.5rem; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                    🌡️
+                </div>
+                
+                <div id="alert24hText" style="flex: 1; min-width: 0; white-space: pre-wrap; word-wrap: break-word; font-size: 1.05rem; font-weight: 800; color: #172139; line-height: 1.5;">
+                    Skanowanie przestrzeni...
+                </div>
+            </div>
+        </div>
+
+        <div class="card animate" id="atmCard" style="display: none;">
+            <span class="label">Szczegóły Atmosferyczne</span>
+            <div class="atm-grid">
+                <div class="atm-box"><div class="atm-icon">💨</div><div class="atm-val" id="valWind">--</div><div class="atm-label">Wiatr</div></div>
+                <div class="atm-box"><div class="atm-icon">🧭</div><div class="atm-val" id="valPress">--</div><div class="atm-label">Ciśnienie</div></div>
+                <div class="atm-box"><div class="atm-icon" id="aqiIcon">🍃</div><div class="atm-val" id="valAqi">--</div><div class="atm-label">Powietrza</div></div>
+            </div>
+        </div>
+        
+        <div class="card animate" id="thesisWidget" style="display: none; background: linear-gradient(135deg, rgba(255, 222, 89, 0.85), rgba(255, 145, 77, 0.85)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); padding: 24px;">
+            <h4 style="font-size: 0.85rem; color: #9a3412; text-transform: uppercase; font-weight: 900; margin-bottom: 12px; letter-spacing: 0.5px; text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.8);">🧠 Myśl Piotrka</h4>
+            <p id="thesisP" style="font-size: 1.15rem; line-height: 1.6; font-style: italic; font-weight: 700; color: #000000; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.9); -webkit-font-smoothing: antialiased; margin: 0;">Przetwarzam dane...</p>
+        </div>
+        
+        <div class="card animate" id="hourlyCard" style="display: none;">
+            <span class="label">Skan Godzinowy</span><div class="h-scroll" id="hList"></div>
+        </div>
+        
+        <div class="card animate" id="dailyCard" style="display: none;">
+            <span class="label">Prognoza na 5 dni</span><div id="dList"></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px; margin-bottom: 25px;" class="animate">
+            <button onclick="zainstalujAplikacje()" style="background: linear-gradient(135deg, #38bdf8, #2563eb); color: white; border: none; padding: 14px 28px; border-radius: 50px; font-size: 1.1rem; font-weight: 900; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); text-transform: uppercase; cursor: pointer;">📲 Zainstaluj Aplikację</button>
+        </div>
+        
+        <div class="card manifest animate" style="border-left: 4px solid var(--orange); background: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h2 style="font-size: 1.4rem; font-weight: bold; margin-bottom: 12px; color: #fff;">Cześć! Tu Piotrek 👋</h2>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
+                Przez 10 lat stałem przy gorącym piecu jako pizzaiolo. Znam smak ciężkiej pracy i wiem, co to znaczy działać na pełnych obrotach. Ale w życiu każdego faceta przychodzi taki moment, że trzeba coś zmienić i pójść za tym, co zawsze siedziało w głowie.
+            </p>
+            <p style="font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px;">
+                Dlatego postawiłem wszystko na jedną kartę. Zamieniłem piec na klawiaturę i wkręciłem się w IT. Uczę się cyberbezpieczeństwa, testuję sztuczną inteligencję i buduję własne systemy (jak mój projekt pogodowy SkyCast PRO). Małymi krokami, ale cały czas do przodu. 
+            </p>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 6px; padding: 12px; font-size: 0.85rem; color: #aaa; border-left: 2px solid var(--orange);">
+                ☕ Jeśli podoba Ci się to, co robię, albo po prostu chcesz zbić piątkę za wytrwałość, możesz postawić mi wirtualną kawę:<br>
+                <strong style="color: #fff; font-size: 1rem; display: inline-block; margin-top: 5px;">33 2910 0006 2469 8002 1032</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // ⚙️ GŁÓWNE ZMIENNE SYSTEMOWE
+        const API_KEY = "6def6302b0a9b722144968390f4b8522";
+        let alertIMGW = ""; 
+        const dniTygodnia = [
+            'Niedziela',     
+            'Pon🐪☕',  
+            'Wtorek',        
+            'Środa ',         
+            'Czwartek',      
+            'Piątek',     
+            'Sobota '         
+        ];
+
+        window.onload = function() {
+            pokazAlertPowitalny();
+            
+            if (typeof uruchomProtokolGPS === "function") uruchomProtokolGPS(); 
+            if (typeof pobierzWiadomosci === "function") pobierzWiadomosci();
+            if (typeof uruchomZlotySkaner === "function") uruchomZlotySkaner();
+        };
+
+        function pokazAlertPowitalny() {
+            let okienko = document.getElementById('skycast-welcome-alert');
+            if (!okienko) {
+                okienko = document.createElement('div');
+                okienko.id = 'skycast-welcome-alert';
+                
+                okienko.style.cssText = `
+                    position: fixed; 
+                    inset: 0; 
+                    width: 100%;
+                    height: 100dvh; 
+                    background: rgba(0, 0, 0, 0.85); 
+                    z-index: 999999; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    padding: 20px;            
+                    box-sizing: border-box;   
+                    margin: 0;    
+                `;   
+         const TYTUL_WEEKEND = 'PROGNOZA: JESIENNA ZMIENNOŚĆ I WEEKENDOWE OCIEPLENIE (24.09 – 26.09)';
+        const GODZINA_WEEKEND = '18:45';
+
+        const tresc = `Siemanko! Za oknami typowa jesienna karuzela – przed nami dwa chłodniejsze, wilgotne dni, a zaraz po nich mocny, wyżowy przełom na weekend! 🌧️➡️☀️ Sprawdźcie najświeższy rozkład pogody dla Małopolski i całego kraju:
+
+🌡️ PROGNOZA DLA KRAKOWA I POLSKI (CZWARTEK – SOBOTA, 24 – 26 WRZEŚNIA 2026) 🍂
+
+🌧️ CZWARTEK (24 WRZEŚNIA) – CHŁÓD POLARNY I PRZELOTNE OPADY: 🍁
+• Kraków: Zachmurzenie umiarkowane do dużego z okresowymi przejaśnieniami. Miejscami możliwe przelotne opady deszczu. W dzień około 16–17°C, w nocy temperatura spadnie do 8–9°C. Wiatr słaby do umiarkowanego.
+• Polska: Napływ chłodnego powietrza polarnego morskiego. W całym kraju zmienne zachmurzenie i przelotny deszcz. Na północnym wschodzie i południowym zachodzie lokalnie możliwe burze, a wysoko w Tatrach deszcz ze śniegiem i śnieg. Temperatura od 12–13°C na północy do 15–17°C w centrum i na zachodzie.
+
+🌧️ PIĄTEK (25 WRZEŚNIA) – SZARÓWKA, DESZCZ I NOCNE MGŁY: 🍂
+• Kraków: Przewaga chmur na niebie i okresowe słabe opady deszczu. Termometry w najcieplejszym momencie dnia pokażą maksymalnie 14–15°C, nocą około 8–10°C.
+• Polska: Kontynuacja jesiennej, wilgotnej aury. Najwięcej opadów deszczu wystąpi na północy (Pomorze, Kujawy). Temperatura w dzień od 10–13°C na Podhalu do 14–18°C na nizinach. W nocy uwaga na gęste mgły ograniczające widzialność!
+
+☀️ SOBOTA (26 WRZEŚNIA) – WYŻOWY PRZEŁOM I POWRÓT SŁOŃCA: 🍁
+• Kraków: Znakomita poprawa aury! Dużo błękitu i słońca, zachmurzenie małe, opady całkowicie zanikną. Temperatura w dzień wzrośnie do przyjemnych 18–20°C, w nocy około 9°C.
+• Polska: Klin wyżowy przyniesie wyraźne ocieplenie i stabilizację w przeważającej części kraju. Termometry wskażą od 17–19°C na północy do nawet 20–22°C w centrum oraz na południu. Słaby deszcz możliwy jedynie lokalnie na krańcach północno-wschodnich.
+
+⚠️ Wskazówka meteo: Czwartek i piątek wymagają cieplejszych kurtek i parasoli w pogotowiu, ale w sobotę planujcie czas na świeżym powietrzu – wraca piękne babie lato! 🍂🧥
+
+📻 SKYCAST PRO RADIO – DŹWIĘK NA JESIENNĄ AURĘ:
+Deszcz bębni w szyby, a w domu pachnie ciepłą kawą? Odpal wbudowany player w SkyCast PRO – klimatyczne klubowe sety idealnie wypełnią przestrzeń i rozgrzeją głośniki w te chłodniejsze dni! 🎧🌧️☕📻
+
+---
+
+Szczegółowy rozkład na czwartek w Krakowie (Czwartek, 24 września): 🍁
+
+⏱️ 06:00 – 10:00: Rześki, wilgotny poranek z temperaturą w okolicach 10°C – 12°C.
+⏱️ 10:00 – 14:00: Wzrost temperatury do 15°C – 17°C, zmienne zachmurzenie z przelotnym deszczem.
+⏱️ 14:00 – 18:00: Utrzymujące się chmury z przejaśnieniami, termometry w granicach 15°C.
+⏱️ 18:00 – 23:00: Wieczorny spadek do 9°C – 11°C, spokojna, chłodna jesienna noc.`;
+        
+                
+                okienko.innerHTML = `
+                    <div style="
+                        width: 100%; 
+                        max-width: 1007px; 
+                        max-height: 85dvh; 
+                        background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url('Gemini_Generated_Image_qztal4qztal4qzta.png');
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        backdrop-filter: blur(13px); 
+                        border: 2px solid rgba(245, 158, 11, 0.65);
+                        border-radius: 22px; 
+                        padding: 21px; 
+                        color: #fef3c7; 
+                        box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
+                        overflow-y: auto; 
+                        display: flex; 
+                        flex-direction: column;
+                        box-sizing: border-box;
+                        animation: neonowyPuls 2s infinite ease-in-out;
+                    ">
+                        <h2 style="color: #fef3c7; margin: 0 0 15px 0; font-size: 1.3rem; text-align: center; font-family: sans-serif;">
+                            ${TYTUL_WEEKEND} <br><span style="font-size: 0.85rem; color: rgba(254, 243, 199, 0.75);">⏱️ ${GODZINA_WEEKEND}</span>
+                        </h2>
+                        <p style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; color: #fef3c7; font-weight: 600; font-family: sans-serif;">
+                            ${tresc}
+                        </p>
+
+                        <button id="btnMeteo" style="
+                            width: 100%; 
+                            padding: 15px; 
+                            background: linear-gradient(90deg, #0284c7 0%, #111827 50%, #b48608 100%); 
+                            color: #ffffff; 
+                            border: 2px solid #ffffff; 
+                            border-radius: 12px; 
+                            font-weight: 900; 
+                            font-size: 1.1rem;
+                            cursor: pointer; 
+                            text-transform: uppercase; 
+                            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
+                            text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+                            margin-bottom: 12px;
+                            display: block;
+                        ">
+                            Status: 🍁 SPRAWDŹ SZCZEGÓŁOWĄ POGODĘ 🍁  
+                        </button>
+
+                        <button id="btnSkycastFootball" style="
+                            width: 100%; 
+                            padding: 15px; 
+                            background: linear-gradient(135deg, #10b981, #047857, #10b981);
+                            color: #ffffff; 
+                            border: 2px solid #34d399; 
+                            border-radius: 12px; 
+                            font-weight: 900; 
+                            font-size: 1.1rem;
+                            cursor: pointer; 
+                            text-transform: uppercase; 
+                            box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.4);
+                            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+                            display: block;
+                        ">
+                            🚀 ODPAL SKYCAST PRO FOOTBALL ⚽
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(okienko);
+
+                const btnMeteo = document.getElementById('btnMeteo');
+                if (btnMeteo) {
+                    btnMeteo.addEventListener('click', function() {
+                        okienko.remove(); 
+                        if (typeof uruchomZlotySkaner === "function") {
+                            uruchomZlotySkaner();
+                        }
+                    });
+                }
+
+                const btnFootball = document.getElementById('btnSkycastFootball');
+                if (btnFootball) {
+                    btnFootball.addEventListener('click', function() {
+                        okienko.remove();
+                        window.open('https://sky-cast-pro-football.vercel.app', '_blank');
+                    });
+                }
+            }
+        }
+
+        function toggleRadio() {
+            const x = document.getElementById("radioContent");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+        
+        function odpalStacje(url, nazwa) {
+            var audio = document.getElementById("cyberAudio");
+            var status = document.getElementById("statusEkranu");
+            var placeholder = document.getElementById("audioPlaceholder");
+            
+            audio.src = url;
+            audio.style.display = "block";
+            placeholder.style.display = "none";
+            audio.play();
+            status.innerText = "GRA TERAZ: " + nazwa;
+        }
+
+        // ==========================================
+        // SILNIK RSS Z PANCERNYM POBIERANIEM KAFELKÓW
+        // ==========================================
+        function znajdzZdjecie(art, domyslnyHerb) {
+            if (art.enclosure && art.enclosure.link) return art.enclosure.link;
+            if (art.thumbnail && art.thumbnail.startsWith('http')) return art.thumbnail;
+            if (art.description) {
+                const dopasowanie = art.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+                if (dopasowanie && dopasowanie[1]) return dopasowanie[1];
+            }
+            return domyslnyHerb;
+        }
+
+        async function bezpiecznyFetchRSS(url) {
+            try {
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+                if (!res.ok) return null;
+                const data = await res.json();
+                return (data && data.status === 'ok') ? data : null;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        async function pobierzWiadomosci() {
+            const kontener = document.getElementById('radar-wiadomosci');
+            const loading = document.getElementById('radar-loading');
+            if (!kontener) return;
+
+            const rssInteria = 'http://rss.gazeta.pl/pub/rss/wiadomosci.xml';    
+            const rssPolsat = 'https://www.polsatsport.pl/rss/wszystkie.xml';
+
+            const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
+            const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
+
+            try {
+                const [daneInteria, danePolsat] = await Promise.all([
+                    bezpiecznyFetchRSS(rssInteria),
+                    bezpiecznyFetchRSS(rssPolsat)
+                ]);
+
+                if (loading) loading.style.display = 'none';
+                kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
+
+                let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
+                    POLSKA & ŚWIAT 🇵🇱🌍 SPORT ⚽🎾
+                </h3>`;
+
+                // 1. Taśma: Polska i Świat (Wiadomości)
+                if (daneInteria && daneInteria.items && daneInteria.items.length > 0) {
+                    const items = daneInteria.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgPolska);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgPolska}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
+
+                // 2. Taśma: Sport
+                if (danePolsat && danePolsat.items && danePolsat.items.length > 0) {
+                    const items = danePolsat.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgSport);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSport}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
+
+                if (html !== '') kontener.innerHTML = html;
+            } catch (error) {
+                if (loading) loading.innerText = 'Brak połączenia z radarem RSS.';
+            }
+        }
+        
+        // Zegar odświeżania wiadomości co 5 minut
+        setInterval(pobierzWiadomosci, 300000);
+
+        function uruchomProtokolGPS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
+            }
+        }
+
+        function tlumaczPogodeTeraz(iconCode, description) {
+            let icon = "☁️";
+            const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+
+            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+            
+            const hour = new Date().getHours();
+            const isNight = (hour >= 21 || hour < 6);
+            
+            if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
+            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
+            else if (iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("11")) { 
+                icon = "⛈️";
+                description = "Burza";
+            }
+            else if (iconCode.startsWith("13")) icon = "❄️"; 
+            else if (iconCode.startsWith("50")) icon = "🌫️"; 
+            
+            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+        }
+
+        function tlumaczPogodePrognoza(iconCode, description) {
+            let icon = "☁️";
+            const style3D = 'font-size: 1.3em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
+
+            if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+            
+            const isNightAPI = iconCode.endsWith("n");
+            
+            if (iconCode.startsWith("01")) icon = isNightAPI ? "🌙" : "☀️"; 
+            else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNightAPI ? "☁️" : "⛅"; 
+            else if (iconCode.startsWith("04")) icon = "☁️"; 
+            else if (iconCode.startsWith("09") || iconCode.startsWith("10")) icon = "🌧️"; 
+            else if (iconCode.startsWith("11")) { 
+                icon = "⛈️"; 
+                description = "Burza";
+            }
+            else if (iconCode.startsWith("13")) icon = "❄️"; 
+            else if (iconCode.startsWith("50")) icon = "🌫️"; 
+            
+            return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
+        }
+
+        function ocenaPowietrza(aqi) {
+            if (aqi <= 20) return { tekst: "Bardzo Dobra", ikona: "🟢", kolor: "var(--green)" };
+            if (aqi <= 40) return { tekst: "Dobra", ikona: "🟡", kolor: "#84cc16" };
+            if (aqi <= 60) return { tekst: "Umiarkowana", ikona: "🟠", kolor: "var(--orange)" };
+            if (aqi <= 80) return { tekst: "Zła", ikona: "🔴", kolor: "var(--red)" };
+            return { tekst: "Fatalna!", ikona: "🟤", kolor: "#7f1d1d" };
+        }
+
+        async function uruchomZlotySkaner() {
+            let miastoInput = document.getElementById('cityIn')?.value.trim() || "Kraków";
+            const btn = document.querySelector('.scan-btn');
+            if (btn) btn.innerText = "SKANOWANIE...";
+            
+            let statusEl = document.getElementById('valD');
+            if(statusEl) statusEl.innerText = "Analiza... (Złoty Skaner pracuje 🔥)";
+            
+            try { 
+                const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(miastoInput)}&appid=${API_KEY}&units=metric&lang=pl`);
+                if (!currentRes.ok) throw new Error("Błąd miasta");
+                const currentData = await currentRes.json();
+                
+                const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${currentData.coord.lat}&lon=${currentData.coord.lon}&appid=${API_KEY}&units=metric&lang=pl`);
+                const forecastData = await forecastRes.json();
+                
+                let aqiData = null;
+                try {
+                    const aqiRes = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=european_aqi`);
+                    aqiData = await aqiRes.json();
+                } catch(e) { console.log("Moduł AQI offline"); }
+
+                let openMeteoData = null;
+                try {
+                    const omRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=cloud_cover`);
+                    openMeteoData = await omRes.json();
+                } catch(e) { console.log("Zapasowy radar offline"); }
+
+                renderUI(currentData, forecastData, aqiData, currentData.name, openMeteoData);
+                if (btn) btn.innerText = "SKANUJ";
+            } catch (error) {
+                if(statusEl) statusEl.innerText = "Błąd połączenia z satelitą...";
+                if (btn) {
+                    btn.innerText = "BŁĄD";
+                    setTimeout(() => btn.innerText = "SKANUJ", 2000);
+                }
+            }
+        }
+
+        function renderUI(currentData, forecastData, aqiData, nazwaMiasta, openMeteoData) {
+            const currentHour = new Date().getHours();
+            const isNight = currentHour >= 21 || currentHour < 5;
+            
+            if (isNight) document.body.classList.add('night-mode');
+            else document.body.classList.remove('night-mode');
+            
+            const tempCaly = Math.round(currentData.main.temp);
+            const weatherObj = currentData.weather[0];
+            let pogodaTeraz = tlumaczPogodeTeraz(weatherObj.icon, weatherObj.description);
+            let aktywnySilnikText = "🛡️ Silnik OpenWeather PRO: Aktywny";
+
+            if (openMeteoData && openMeteoData.current) {
+                aktywnySilnikText = "🛡️ Hybryda: OpenWeather + Open-Meteo";
+                const cloudCover = openMeteoData.current.cloud_cover;
+
+                if (cloudCover <= 25 && (weatherObj.icon.startsWith("03") || weatherObj.icon.startsWith("04"))) {
+                    pogodaTeraz = {
+                        desc: "Bezchmurnie (Korekta Radaru)",
+                        icon: isNight ? `<span class="anim-float" style="font-size: 1.4em;">🌙</span>` : `<span class="anim-float" style="font-size: 1.4em;">☀️</span>`
+                    };
+                } 
+                else if (cloudCover > 25 && cloudCover <= 50 && weatherObj.icon.startsWith("04")) {
+                    pogodaTeraz = {
+                        desc: "Lekkie zachmurzenie (Korekta Radaru)",
+                        icon: isNight ? `<span class="anim-float" style="font-size: 1.4em;">☁️</span>` : `<span class="anim-float" style="font-size: 1.4em;">⛅</span>`
+                    };
+                }
+            }
+
+            const engineBadge = document.getElementById('engineBadge');
+            if (engineBadge) engineBadge.innerText = aktywnySilnikText;
+
+            if (document.getElementById('cityName')) document.getElementById('cityName').innerText = nazwaMiasta;
+            if (document.getElementById('valT')) document.getElementById('valT').innerText = `${tempCaly}°`;
+            if (document.getElementById('mainIcon')) document.getElementById('mainIcon').innerHTML = pogodaTeraz.icon;
+            if (document.getElementById('valD')) document.getElementById('valD').innerText = pogodaTeraz.desc;
+            
+            const wiatrKm = Math.round(currentData.wind.speed * 3.6);
+            if (document.getElementById('atmCard')) document.getElementById('atmCard').style.display = 'block';
+            if (document.getElementById('valWind')) document.getElementById('valWind').innerText = wiatrKm;
+            if (document.getElementById('valPress')) document.getElementById('valPress').innerText = Math.round(currentData.main.pressure);
+            
+            if (aqiData && aqiData.current) {
+                const stan = ocenaPowietrza(aqiData.current.european_aqi);
+                if (document.getElementById('valAqi')) {
+                    document.getElementById('valAqi').innerText = stan.tekst;
+                    document.getElementById('valAqi').style.color = stan.kolor;
+                }
+                if (document.getElementById('aqiIcon')) document.getElementById('aqiIcon').innerText = stan.ikona;
+            }
+
+            const alert24Card = document.getElementById('alert24hCard');
+            const alert24Text = document.getElementById('alert24hText');
+            
+            if (alertIMGW && alertIMGW.trim() !== "") {
+                if (alert24Card) alert24Card.style.display = "block";
+                if (alert24Text) alert24Text.innerText = alertIMGW;
+            } else {
+                if (alert24Card) alert24Card.style.display = "none";
+            }
+
+            const widget = document.getElementById('thesisWidget');
+            if (widget) widget.style.display = 'block';
+
+            let mysl = "Pogoda stabilna, a wrzesień wita nas rześkim klimatem! Łap spokojny rytm dnia, głęboki beat w głośnikach i ciepłą kawę na start! 🍂☕🎧";
+            let cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
+            let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
+            let titleColor = isNight ? "#ffffff" : "#000000";
+
+            if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+                mysl = "⚡ Wrześniowe wyładowania! Grzmoty nad miastem tłuką jak drop w mocnym secie. Baza zabezpieczona, zrób ciepłą herbatę, podkręć głośność w SkyCast Radio i przeczekaj front w cieple! ⛈️☕🎧";
+                cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
+                textColor = "#ffffff"; 
+                titleColor = "#c084fc";
+            } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+                mysl = "🌧️ Wrześniowy deszcz bębni w parapet! Idealny moment na domowy azyl i regenerację. Zwiń się w fotelu, odpal Deep House i ciesz się spokojnym popołudniem z dobrą nutą w tle! 🌧️🛋️🎶";
+                cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
+                textColor = "#ffffff"; 
+                titleColor = "#60a5fa";
+            } else if (weatherObj.id === 800 && isNight) {
+                mysl = "🌙 Czyste, rozgwieżdżone niebo i chłodna wrześniowa noc! Temperatura spada, ale w bazie grzejnik i soczysty groove trzymają klimat. Dobre brzmienie w słuchawkach i ładujemy baterie! 🌌🎧✨";
+                cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
+                textColor = "#ffffff"; 
+                titleColor = "#38bdf8";
+            } else if (weatherObj.id === 800 && !isNight) {
+                mysl = "☀️ Złoty wrzesień w pełnej krasie! Czyste niebo i przyjemne słońce nad Krakowem. Wskakuj w wygodne buty, łap witaminę D i ruszaj w teren z ulubioną stacją na uszach! 🍂😎🎵";
+                cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
+                textColor = "#1e293b"; 
+                titleColor = "#0f172a";
+            } else if (currentData.main.temp > 34) {
+                mysl = "🔥 Wrześniowa anomalia termiczna! Afrykański żar uderza w miasto. Chowaj się w cieniu, klimatyzacja na pełną moc, litry wody i spokojny chillout w tle – tego nikt się we wrześniu nie spodziewał! 🥵💧🎶";
+                cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
+                textColor = "#ffffff"; 
+                titleColor = "#fca5a5";
+            } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
+                mysl = "☀️ Gorąco jak przy piecu! Ostatnie mocne podrygi lata w środku września. Chłodny napój, radio na full i korzystaj ze słońca, bo niedługo wyciągniemy grube bluzy! 🕶️🥤🎧";
+                cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.7))";
+                textColor = "#ffffff"; 
+                titleColor = "#fdba74";
+            } else if (currentData.main.temp > 25) {
+                let timeGreeting = isNight 
+                    ? "Ciepły wrześniowy wieczór – idealny na relaks przy dobrym bicie!" 
+                    : "Złote babie lato! Przyjemne ciepło, idealna przejrzystość powietrza i zero spiny.";
+                mysl = `😎 ${timeGreeting} Ładuj akumulatory, korzystaj z września i łap dobrą energię! 🍂☀️🎧`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.25)"; 
+                textColor = isNight ? "#e2e8f0" : "#0f172a";
+                titleColor = isNight ? "#38bdf8" : "#0284c7";
+            } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
+                let timeGreeting = isNight 
+                    ? "Rześki wieczór – w sam raz na reset w fotelu przy klubowych dźwiękach!" 
+                    : "Perfekcyjne warunki! Idealna temperatura na spacer, trening i czyszczenie głowy przy dobrej nucie.";
+                mysl = `⛅ Komfortowe 20+ stopni! Ani potu, ani chłodu. ${timeGreeting} Wrzesień w najlepszym wydaniu! 🚶‍♂️☕🎧`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
+                textColor = isNight ? "#e2e8f0" : "#0f172a";
+                titleColor = isNight ? "#38bdf8" : "#0284c7";
+            } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
+                let timeGreeting = isNight 
+                    ? "Chłodny wrześniowy wieczór – czas na wygodny dres, gorącą herbatę i chill w bazie!" 
+                    : "Rześki powiew jesieni – zarzuć ulubioną bluzę z kapturem i ruszaj w miasto z energetycznym bitem!";
+                mysl = `🍂 ${timeGreeting} Czujesz ten rześki klimat? Wrzesień przypomina o cieplejszej garderobie! 🧥☕💥`;
+                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)";
+                textColor = isNight ? "#e2e8f0" : "#0f172a";
+                titleColor = isNight ? "#38bdf8" : "#0284c7";
+            } else if (currentData.main.temp < 5) {
+                mysl = "🥶 Przymrozek w natarciu! Ktoś włączył tryb zimowy za wcześnie – przecież to dopiero wrzesień! Grzejnik w bazie na maksa, parująca kawa i mocne basy, żeby nie dać się jesiennej szarówce! ☕❄️🎧";
+                cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.5), rgba(56, 189, 248, 0.6))";
+                textColor = "#0f172a"; 
+                titleColor = "#0369a1";
+            }
+
+            if (widget) {
+                widget.style.background = cardBg;
+                widget.style.backdropFilter = "blur(20px)";
+                widget.style.webkitBackdropFilter = "blur(20px)";
+                widget.style.border = isNight ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(255, 255, 255, 0.4)";
+                widget.style.borderRadius = "24px"; 
+                widget.style.borderLeft = "none"; 
+                widget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.05)";
+
+                const tytul = widget.querySelector("h3") || widget.querySelector(".tytul-mysl") || widget.querySelector("strong");
+                if (tytul) {
+                    tytul.style.color = "#000000";
+                    tytul.style.textShadow = "none";
+                }
+            }
+
+            const thesisP = document.getElementById('thesisP');
+            if (thesisP) {
+                thesisP.innerText = mysl;
+                thesisP.style.color = textColor;
+                thesisP.style.fontWeight = "600"; 
+                if (isNight || textColor === "#ffffff" || textColor === "#e2e8f0") {
+                    thesisP.style.textShadow = "0px 1px 4px rgba(0, 0, 0, 0.8)";
+                } else {
+                    thesisP.style.textShadow = "0px 1px 2px rgba(255, 255, 255, 0.9)";
+                }
+            }
+
+            const thesisTitle = widget ? widget.querySelector('h4') : null;
+            if (thesisTitle) {
+                thesisTitle.style.color = "#000000";
+                thesisTitle.style.textShadow = "none";
+            }
+
+            const hourlyCard = document.getElementById('hourlyCard');
+            if (hourlyCard) hourlyCard.style.display = 'block';
+            const hL = document.getElementById('hList');
+            if (hL) {
+                hL.innerHTML = '';
+                for (let i = 0; i < 8; i++) {
+                    const item = forecastData.list[i];
+                    if (item) {
+                        const czas = item.dt_txt.slice(11, 16);
+                        const tempH = Math.round(item.main.temp);
+                        const ikonaH = tlumaczPogodePrognoza(item.weather[0].icon, item.weather[0].description).icon;
+                        
+                        hL.innerHTML += `
+                        <div class="h-box">
+                            <div style="font-size: 0.85rem; font-weight: 600; color: #111; text-shadow: 0 1px 1px rgba(255,255,255,0.10);">${czas}</div>
+                            <div style="font-size: 1.9rem; margin: 5px 0; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.15));">${ikonaH}</div>
+                            <div style="font-size: 1.15rem; font-weight: 900; color: #000; text-shadow: 0 1px 2px rgba(255,255,255,0.10);">${tempH}°</div>
+                        </div>`;
+                    }
+                }
+            }
+
+            const dailyCard = document.getElementById('dailyCard');
+            if (dailyCard) dailyCard.style.display = 'block';
+            const dL = document.getElementById('dList');
+            
+            if (dL) {
+                const dniMap = {};
+                const dzisiejszaData = new Date().toDateString();
+                
+                forecastData.list.forEach(item => {
+                    const dataDnia = new Date(item.dt * 1000);
+                    const kluczDnia = dataDnia.toDateString();
+                    
+                    if (kluczDnia === dzisiejszaData) return; 
+                    
+                    const obecnaTemp = item.main.temp;
+                    
+                    if (!dniMap[kluczDnia]) {
+                        dniMap[kluczDnia] = { minTemp: obecnaTemp, maxTemp: obecnaTemp, wpisIkony: item };
+                    } else {
+                        if (obecnaTemp < dniMap[kluczDnia].minTemp) dniMap[kluczDnia].minTemp = obecnaTemp;
+                        if (obecnaTemp > dniMap[kluczDnia].maxTemp) dniMap[kluczDnia].maxTemp = obecnaTemp;
+                        if (item.dt_txt.includes("12:00:00")) {
+                            dniMap[kluczDnia].wpisIkony = item; 
+                        }
+                    }
+                });
+
+                let htmlWydruk = '';
+                const dniKlucze = Object.keys(dniMap);
+                
+                dniKlucze.forEach(klucz => {
+                    const daneDnia = dniMap[klucz];
+                    const dataObiekt = new Date(daneDnia.wpisIkony.dt * 1000);
+                    const nazwaDnia = dniTygodnia[dataObiekt.getDay()]; 
+                    const tMax = Math.round(daneDnia.maxTemp);
+                    const tMin = Math.round(daneDnia.minTemp);
+                    const czystaIkonaDzienna = daneDnia.wpisIkony.weather[0].icon.replace('n', 'd');
+                    const ikonaD = tlumaczPogodePrognoza(czystaIkonaDzienna, daneDnia.wpisIkony.weather[0].description).icon;
+                    
+                    htmlWydruk += `
+                        <div class="d-row">
+                            <div class="d-day">${nazwaDnia}</div>
+                            <div class="d-icon">${ikonaD}</div>
+                            <div class="d-temp">${tMax}° <span>/ ${tMin}°</span></div>
+                        </div>`;
+                });
+                dL.innerHTML = htmlWydruk;
+            }
+        }
+
+        function zainstalujAplikacje() {
+            alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki'.\n2. Wybierz 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania.\n2. Wybierz 'Do ekranu początkowego'.");
+        }
+        
+        setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
+    </script>
+</body>
+</html>
