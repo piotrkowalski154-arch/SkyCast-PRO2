@@ -700,33 +700,42 @@ Szczegółowy rozkład na czwartek w Krakowie (Czwartek, 24 września): 🍁
             }
         }
 
-        async function pobierzWiadomosci() {
+       async function pobierzWiadomosci() {
             const kontener = document.getElementById('radar-wiadomosci');
             const loading = document.getElementById('radar-loading');
             if (!kontener) return;
 
-            const rssInteria = 'http://rss.gazeta.pl/pub/rss/wiadomosci.xml';    
-            const rssPolsat = 'https://www.polsatsport.pl/rss/wszystkie.xml';
+            // 1. ZDEFINIOWANE 3 ŹRÓDŁA RSS (Wiadomości 1, Sport, Wiadomości 2)
+            const rssPolska = 'http://rss.gazeta.pl/pub/rss/wiadomosci.xml';    
+            const rssSport = 'https://www.polsatsport.pl/rss/wszystkie.xml';
+            const rssSwiat = 'https://wydarzenia.interia.pl/feed'; // TRZECI PASEK: Dodatkowe wiadomości
 
+            // IKONY AWARYJNE DLA 3 PASKÓW
             const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
             const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
+            const imgSwiat = 'https://cdn-icons-png.flaticon.com/512/2965/2965306.png'; // Ikona globusu (Newsy)
 
             try {
-                const [daneInteria, danePolsat] = await Promise.all([
-                    bezpiecznyFetchRSS(rssInteria),
-                    bezpiecznyFetchRSS(rssPolsat)
+                // 2. POBIERANIE Z 3 KANAŁÓW JEDNOCZEŚNIE
+                const [danePolska, daneSport, daneSwiat] = await Promise.all([
+                    bezpiecznyFetchRSS(rssPolska),
+                    bezpiecznyFetchRSS(rssSport),
+                    bezpiecznyFetchRSS(rssSwiat)
                 ]);
 
                 if (loading) loading.style.display = 'none';
                 kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
 
+                // GŁÓWNY NAGŁÓWEK
                 let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
-                    POLSKA & ŚWIAT 🇵🇱🌍 SPORT ⚽🎾
+                    WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
                 </h3>`;
 
-                // 1. Taśma: Polska i Świat (Wiadomości)
-                if (daneInteria && daneInteria.items && daneInteria.items.length > 0) {
-                    const items = daneInteria.items.slice(0, 6);
+                // ==========================================
+                // PASEK 1: POLSKA & KRAJ (Niebieski Tag)
+                // ==========================================
+                if (danePolska && danePolska.items && danePolska.items.length > 0) {
+                    const items = danePolska.items.slice(0, 6);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
@@ -744,9 +753,11 @@ Szczegółowy rozkład na czwartek w Krakowie (Czwartek, 24 września): 🍁
                     html += `</div></div>`;
                 }
 
-                // 2. Taśma: Sport
-                if (danePolsat && danePolsat.items && danePolsat.items.length > 0) {
-                    const items = danePolsat.items.slice(0, 6);
+                // ==========================================
+                // PASEK 2: SPORT (Pomarańczowy Tag)
+                // ==========================================
+                if (daneSport && daneSport.items && daneSport.items.length > 0) {
+                    const items = daneSport.items.slice(0, 6);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
@@ -764,6 +775,29 @@ Szczegółowy rozkład na czwartek w Krakowie (Czwartek, 24 września): 🍁
                     html += `</div></div>`;
                 }
 
+                // ==========================================
+                // PASEK 3: WYDARZENIA I ŚWIAT (Czerwony Tag)
+                // ==========================================
+                if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
+                    const items = daneSwiat.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgSwiat);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSwiat}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
+
+                // Wstrzyknięcie wszystkich 3 pasków do aplikacji
                 if (html !== '') kontener.innerHTML = html;
             } catch (error) {
                 if (loading) loading.innerText = 'Brak połączenia z radarem RSS.';
