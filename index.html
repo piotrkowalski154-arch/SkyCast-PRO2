@@ -972,70 +972,72 @@ Szczegółowy rozkład na czwartek w Krakowie (Czwartek, 1 października): 🍁
             const widget = document.getElementById('thesisWidget');
             if (widget) widget.style.display = 'block';
 
-            let mysl = "Pogoda stabilna, a wrzesień wita nas rześkim klimatem! Łap spokojny rytm dnia, głęboki beat w głośnikach i ciepłą kawę na start! 🍂☕🎧";
-            let cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
-            let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
-            let titleColor = isNight ? "#ffffff" : "#000000";
+            let mysl = "Pogoda w sam raz, żeby wyjść z domu i nie pożałować! Łap dobrą kawę i leć podbijać dzień. 😎☕";
+let cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
+let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
+let titleColor = isNight ? "#ffffff" : "#000000";
 
-            if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-                mysl = "⚡ Wrześniowe wyładowania! Grzmoty nad miastem tłuką jak drop w mocnym secie. Baza zabezpieczona, zrób ciepłą herbatę, podkręć głośność w SkyCast Radio i przeczekaj front w cieple! ⛈️☕🎧";
-                cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
-                textColor = "#ffffff"; 
-                titleColor = "#c084fc";
-            } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-                mysl = "🌧️ Wrześniowy deszcz bębni w parapet! Idealny moment na domowy azyl i regenerację. Zwiń się w fotelu, odpal Deep House i ciesz się spokojnym popołudniem z dobrą nutą w tle! 🌧️🛋️🎶";
-                cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
-                textColor = "#ffffff"; 
-                titleColor = "#60a5fa";
-            } else if (weatherObj.id === 800 && isNight) {
-                mysl = "🌙 Czyste, rozgwieżdżone niebo i chłodna wrześniowa noc! Temperatura spada, ale w bazie grzejnik i soczysty groove trzymają klimat. Dobre brzmienie w słuchawkach i ładujemy baterie! 🌌🎧✨";
-                cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
-                textColor = "#ffffff"; 
-                titleColor = "#38bdf8";
-            } else if (weatherObj.id === 800 && !isNight) {
-                mysl = "☀️ Złoty wrzesień w pełnej krasie! Czyste niebo i przyjemne słońce nad Krakowem. Wskakuj w wygodne buty, łap witaminę D i ruszaj w teren z ulubioną stacją na uszach! 🍂😎🎵";
-                cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
-                textColor = "#1e293b"; 
-                titleColor = "#0f172a";
-            } else if (currentData.main.temp > 34) {
-                mysl = "🔥 Wrześniowa anomalia termiczna! Afrykański żar uderza w miasto. Chowaj się w cieniu, klimatyzacja na pełną moc, litry wody i spokojny chillout w tle – tego nikt się we wrześniu nie spodziewał! 🥵💧🎶";
-                cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
-                textColor = "#ffffff"; 
-                titleColor = "#fca5a5";
-            } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
-                mysl = "☀️ Gorąco jak przy piecu! Ostatnie mocne podrygi lata w środku września. Chłodny napój, radio na full i korzystaj ze słońca, bo niedługo wyciągniemy grube bluzy! 🕶️🥤🎧";
-                cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.7))";
-                textColor = "#ffffff"; 
-                titleColor = "#fdba74";
-            } else if (currentData.main.temp > 25) {
-                let timeGreeting = isNight 
-                    ? "Ciepły wrześniowy wieczór – idealny na relaks przy dobrym bicie!" 
-                    : "Złote babie lato! Przyjemne ciepło, idealna przejrzystość powietrza i zero spiny.";
-                mysl = `😎 ${timeGreeting} Ładuj akumulatory, korzystaj z września i łap dobrą energię! 🍂☀️🎧`;
-                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.25)"; 
-                textColor = isNight ? "#e2e8f0" : "#0f172a";
-                titleColor = isNight ? "#38bdf8" : "#0284c7";
-            } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
-                let timeGreeting = isNight 
-                    ? "Rześki wieczór – w sam raz na reset w fotelu przy klubowych dźwiękach!" 
-                    : "Perfekcyjne warunki! Idealna temperatura na spacer, trening i czyszczenie głowy przy dobrej nucie.";
-                mysl = `⛅ Komfortowe 20+ stopni! Ani potu, ani chłodu. ${timeGreeting} Wrzesień w najlepszym wydaniu! 🚶‍♂️☕🎧`;
-                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
-                textColor = isNight ? "#e2e8f0" : "#0f172a";
-                titleColor = isNight ? "#38bdf8" : "#0284c7";
-            } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
-                let timeGreeting = isNight 
-                    ? "Chłodny wrześniowy wieczór – czas na wygodny dres, gorącą herbatę i chill w bazie!" 
-                    : "Rześki powiew jesieni – zarzuć ulubioną bluzę z kapturem i ruszaj w miasto z energetycznym bitem!";
-                mysl = `🍂 ${timeGreeting} Czujesz ten rześki klimat? Wrzesień przypomina o cieplejszej garderobie! 🧥☕💥`;
-                cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)";
-                textColor = isNight ? "#e2e8f0" : "#0f172a";
-                titleColor = isNight ? "#38bdf8" : "#0284c7";
-            } else if (currentData.main.temp < 5) {
-                mysl = "🥶 Przymrozek w natarciu! Ktoś włączył tryb zimowy za wcześnie – przecież to dopiero wrzesień! Grzejnik w bazie na maksa, parująca kawa i mocne basy, żeby nie dać się jesiennej szarówce! ☕❄️🎧";
-                cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.5), rgba(56, 189, 248, 0.6))";
-                textColor = "#0f172a"; 
-                titleColor = "#0369a1";
+if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+    mysl = "⚡ Błyska i grzmi! Jeśli nie jesteś Thorem, lepiej zostań na chacie. Zrób herbatę, odpal serial i przeczekaj ten darmowy pokaz fajerwerków! ⛈️🍿";
+    cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#c084fc";
+} else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+    mysl = "🌧️ Leje jak z cebra! Pogoda mówi: 'zostań pod kocem'. Idealny moment na bezkarne lenistwo i zamówienie pizzy. Z domu wychodzą tylko ci, co muszą! 🌧️🍕🛋️";
+    cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#60a5fa";
+} else if (weatherObj.id === 800 && isNight) {
+    mysl = "🌙 Gwiazdy widać, ale robi się chłodno! Wracaj pod koc albo odkręcaj kaloryfer na pełną moc. Nocne spacery tylko dla odważnych! 🌌🥶✨";
+    cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
+    textColor = "#ffffff"; 
+    titleColor = "#38bdf8";
+} else if (weatherObj.id === 800 && !isNight) {
+    mysl = "☀️ Piękne słońce i zero chmur! Wskakuj w buty, łap witaminę D i ciesz się życiem, bo niedługo zacznie się sezon na 'zimno i ciemno'! 🍂😎🚶‍♂️";
+    cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
+    textColor = "#1e293b"; 
+    titleColor = "#0f172a";
+} else if (currentData.main.temp > 34) {
+    mysl = "🔥 Co tu się dzieje?! Afryka w środku miasta! Klimatyzacja na full, zimne napoje i unikaj słońca jak wampir. Matka Natura chyba pomyliła miesiące! 🥵🧊🧛‍♂️";
+    cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#fca5a5";
+} else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
+    mysl = "☀️ Ktoś zapomniał wyłączyć lato! Łap chłodny napój i korzystaj z tego żaru, bo za chwilę będziemy płakać za słońcem w grubych kurtkach! 🕶️🥤🔥";
+    cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#fdba74";
+} else if (currentData.main.temp > 25) {
+    let timeGreeting = isNight 
+        ? "Ciepły wieczór – idealny na wyjście na miasto albo chill na balkonie bez dreszczy!" 
+        : "Elegancko i cieplutko! Pogoda rozpieszcza, zero spiny, żyć nie umierać.";
+    mysl = `😎 O proszę, jak przyjemnie! ${timeGreeting} Korzystaj z tej luksusowej temperatury! 🍂☀️`;
+    cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.25)"; 
+    textColor = isNight ? "#e2e8f0" : "#0f172a";
+    titleColor = isNight ? "#38bdf8" : "#0284c7";
+} else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
+    let timeGreeting = isNight 
+        ? "Przyjemny wieczór, ani za gorąco, ani za zimno. W sam raz na relaks." 
+        : "W sam raz, żeby nie spocić się na spacerze i nie zmarznąć na przystanku.";
+    mysl = `⛅ Pełen komfort! ${timeGreeting} Pogoda na medal, można śmiało wychodzić! 🚶‍♂️😎`;
+    cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
+    textColor = isNight ? "#e2e8f0" : "#0f172a";
+    titleColor = isNight ? "#38bdf8" : "#0284c7";
+} else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
+    let timeGreeting = isNight 
+        ? "Czas wyciągać ciepłe skarpety i robić zapasy gorącej herbaty!" 
+        : "Rześko! Bez dobrej bluzy albo lekkiej kurtki nawet nie próbuj wychodzić.";
+    mysl = `🍂 ${timeGreeting} Zaczyna się sezon 'gdzie jest moja kurtka?'. Trzymaj się ciepło! 🧥☕`;
+    cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)";
+    textColor = isNight ? "#e2e8f0" : "#0f172a";
+    titleColor = isNight ? "#38bdf8" : "#0284c7";
+} else if (currentData.main.temp < 5) {
+    mysl = "🥶 Epoka lodowcowa nadciąga! Czas odkręcić kaloryfery na maksa. Gorąca zupa, gruby sweter i przetrwamy wszystko. Zimno jak na Syberii! ☕❄️🥶";
+    cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.5), rgba(56, 189, 248, 0.6))";
+    textColor = "#0f172a"; 
+    titleColor = "#0369a1";
+                                                        }
+            
             }
 
             if (widget) {
