@@ -265,6 +265,8 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
     overflow: hidden;
     animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
     transform: scale(1.02);
+    position: relative; /* Zabezpiecza pozycję przy powiększaniu */
+    z-index: 1;
 }
 
 .imgw-radar-container img {
@@ -273,6 +275,13 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
     height: auto;
     box-sizing: border-box; 
     transform: scale(1.02);
+    transition: transform 0.3s ease-in-out; /* Płynne skalowanie */
+    cursor: zoom-in;
+}
+
+/* Powiększenie radaru nr 1 po dotknięciu palcem na smartfonie */
+.imgw-radar-container img:active {
+    transform: scale(1.6); /* Możesz zmienić to na 1.4 lub 1.8 w zależności jak mocno ma powiększać */
 }
 
 .imgw-radar-container2 {
@@ -287,6 +296,8 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
     overflow: hidden;
     animation: slideUp 0.5s ease-out forwards, neonPulse 3s ease-in-out infinite 0.5s;
+    position: relative; /* Zabezpiecza pozycję przy powiększaniu */
+    z-index: 1;
 }
    
 .imgw-radar-container2 img {    
@@ -295,7 +306,16 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
     height: auto;
     box-sizing: border-box; 
     transform: scale(1.02); 
+    transition: transform 0.3s ease-in-out; /* Płynne skalowanie */
+    cursor: zoom-in;
 }
+
+/* Powiększenie radaru nr 2 po dotknięciu palcem na smartfonie */
+.imgw-radar-container2 img:active {
+    transform: scale(1.6);
+}
+        
+ 
 
 #twoj-id-tytulu {
   color: #00d4ff !important;
@@ -341,6 +361,8 @@ body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgb
         <div class="imgw-radar-container">
             <img src="TEMP_ODCZ_1782587741.webp" alt="Opis Twojego pliku">
         </div>
+        
+        
 
         <!-- ================= SEKCJA: RADAR WIADOMOŚCI 2.0 ================= -->
         <div id="radar-wiadomosci" class="wiadomosci">
@@ -533,39 +555,40 @@ body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgb
                     box-sizing: border-box;   
                     margin: 0;    
                     `;  
-const TYTUL_WEEKEND = 'PROGNOZA: WYŻOWA FLAUTA I ZŁOTA JESIEŃ (07.10 – 09.10)';
-const GODZINA_WEEKEND = '17:00';
 
-const tresc = `Siemanko! Prognoza pogody dla Krakowa oraz całej Polski na dni 7, 8 i 9 października 2026 roku przewiduje stabilną, wyżową aurę. Czeka nas klasyczna złota jesień z dużą ilością słońca, chłodnymi porankami oraz przyjemnymi popołudniami. Łapcie szczegóły:
+const TYTUL_WEEKEND = 'PROGNOZA: JESIENNE FRONTY I OCHŁODZENIE (10.10 – 12.10)';
+const GODZINA_WEEKEND = '08:50';
 
-🌡️ PROGNOZA DLA KRAKOWA I POLSKI (ŚRODA – PIĄTEK, 7 – 9 PAŹDZIERNIKA 2026) 🍂
+const tresc = `Siemanko! Prognoza pogody dla Krakowa oraz całej Polski na najbliższy weekend i poniedziałek (10-12 października 2026) zapowiada zmianę aury. Żegnamy wyżową flautę – przez kraj przejdą fronty atmosferyczne, przynosząc jesienne chmury, okresowy deszcz i spadek temperatur. Łapcie szczegóły:
 
-🌤️️ ŚRODA (7 PAŹDZIERNIKA) – SŁOŃCE I CHŁODNE PORANKI: 🍁
-• Kraków: Zachmurzenie małe i umiarkowane z dużą ilością słońca. Temperatura maksymalna w ciągu dnia wyniesie +15°C. W nocy odczuwalny spadek do +6°C.
-• Polska: W całym kraju przewaga słońca. Na zachodzie i południowym zachodzie najcieplej (miejscami nawet powyżej +16°C). Wschodnia połowa kraju oraz kotliny górskie z bardzo zimnymi porankami (+4°C do +5°C) i przygruntowymi przymrozkami.
+🌡️ PROGNOZA DLA KRAKOWA I POLSKI (SOBOTA – PONIEDZIAŁEK, 10 – 12 PAŹDZIERNIKA) 🍂
 
-☀️ CZWARTEK (8 PAŹDZIERNIKA) – NAJCHŁODNIEJSZY DZIEŃ FALI WYŻOWEJ: 📉
-• Kraków: Przez większość dnia bezchmurnie lub zachmurzenie minimalne. Temperatura w najcieplejszym momencie dnia osiągnie +13°C, a w nocy mocne ochłodzenie do +5°C.
-• Polska: Wyżowa flauta trwa. Bardzo stabilna pogoda i wysokie dobowe amplitudy temperatur – zimne poranki i stosunkowo ciepłe popołudnia (od +11°C na wschodzie do +15°C na zachodzie).
+☁️ SOBOTA (10 PAŹDZIERNIKA) – ZMIENNA AURA:
+• Kraków: Zachmurzenie umiarkowane do dużego, ale z szansą na przejaśnienia. Dzień powinien być przeważnie suchy, a termometry wskażą bardzo przyjemne 16–17°C.
+• Polska: Zdecydowanie najbardziej deszczowo w głębi kraju. Na zachodzie najcieplej (15–18°C), natomiast na północy i wschodzie od 12°C do 16°C. Wiatr okresami umiarkowany i porywisty.
 
-⛅ PIĄTEK (9 PAŹDZIERNIKA) – ZAPOWIEDŹ ZMIAN OD ZACHODU: 🍂
-• Kraków: Lekki wzrost temperatury. W dzień termometry wskażą do +14°C, w nocy około +5°C. Pod koniec dnia możliwe stopniowe nasilenie się chmur.
-• Polska: Od północnego zachodu i zachodu wyż zacznie powoli słabnąć. Na Pomorzu i ziemi lubuskiej pojawi się więcej chmur, zwiastujących front deszczowy, ale centrum i południe kraju nadal pozostaną pogodne.
+🌧️ NIEDZIELA (11 PAŹDZIERNIKA) – WIĘCEJ CHMUR I PRZELOTNY DESZCZ:
+• Kraków: Powrót prawdziwej jesieni. Większe zachmurzenie, temperatura spadnie do 15–16°C i trzeba liczyć się z przelotnym deszczem. 
+• Polska: Zmienna pogoda w całym kraju. Wyraźne ochłodzenie w rejonach podgórskich i górskich – na Podhalu termometry wskażą zaledwie 9–13°C.
 
-⚠️ Wskazówka meteo: Wyżowa pogoda oznacza bardzo duże różnice temperatur między nocą a dniem. Uważajcie na drogach o poranku – w Krakowie, kotlinach górskich i na wschodzie kraju mogą formować się gęste mgły oraz przygruntowe przymrozki! 🚗💨
+🌥️ PONIEDZIAŁEK (12 PAŹDZIERNIKA) – POCHMURNO I CHŁODNIEJ:
+• Kraków: Stabilizacja po przejściu frontów, ale będzie zauważalnie chłodniej (13–15°C). Przeważnie pochmurno, szanse na deszcz są na ten moment niewielkie.
+• Polska: W całym kraju odczuwalny spadek temperatury. Na wschodzie i wybrzeżu wartości spadną w granice 10–14°C. 
 
-📻 SKYCAST PRO RADIO – DŹWIĘK NA JESIENNĄ AURĘ:
-Złote liście w słońcu i chłodny, rześki poranek? Odpal wbudowany odtwarzacz w SkyCast PRO – płynąca z głośników świeża elektronika i deep house to perfekcyjna ścieżka dźwiękowa do wyżowej flauty! 🎧☀️☕📻
+⚠️ Wskazówka meteo: W trakcie weekendu wiatr może być porywisty podczas przechodzenia frontów. Jeśli planujecie wyjazd w góry, pamiętajcie, że tam uderzenie chłodu będzie najsilniejsze (w Tatrach poniżej 10°C). 🏔️💨
+
+📻 SKYCAST PRO RADIO – DŹWIĘK NA JESIENNĄ SZARUGĘ:
+Krople deszczu na szybie i porywisty wiatr? Odpal wbudowany odtwarzacz w SkyCast PRO – nastrojowy, głęboki synth-pop i house stworzą idealny klimat na ten chłodniejszy weekend! 🎧☕📻
 
 ---
 
-Szczegółowy rozkład na dziś w Krakowie (Środa, 7 października): 🍁
+Szczegółowy rozkład na sobotę w Krakowie (10 października): 🍁
 
-⏱ 06:00 – 10:00: Bardzo chłodny poranek (od +6°C). Na drogach mogą zalegać lokalne mgły ograniczające widoczność.
-⏱️ 10:00 – 14:00: Słońce przebija się przez chmury, a temperatura stabilnie rośnie w okolicach południa.
-⏱️ 14:00 – 18:00: Najcieplejszy moment dnia – termometry wskażą +15°C. Idealne warunki na popołudniowy spacer.
-⏱️ 18:00 – 23:00: Szybki spadek temperatury po zachodzie słońca w kierunku +6°C.`;
-                    
+⏱ 06:00 – 10:00: Chłodny poranek pod znakiem gęstszych chmur. 
+⏱️ 10:00 – 14:00: Szansa na lokalne przejaśnienia. Temperatura wędruje w stronę 15°C.
+⏱️ 14:00 – 18:00: Najcieplejszy moment dnia – od 16°C do 17°C. Mimo chmur, to najlepsze okienko na popołudniowy spacer.
+⏱️ 18:00 – 23:00: Wieczór bez większych opadów, ale ze stopniowo wzmagającym się, chłodniejszym wiatrem.`;
+        
               
                 
                 okienko.innerHTML = `
