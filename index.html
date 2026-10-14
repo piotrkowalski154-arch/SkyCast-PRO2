@@ -1474,97 +1474,122 @@ allPollOptions.forEach((option) => {
     });
 });
 
-// ==========================================
-// 3. TABLICA MELDUNKÓW LIVE Z MIAST + OGIEŃ 🔥
-// ==========================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBSBTEcdBU1gViYBg-CRqXEn4TEbMg4d08",
+    authDomain: "skycast-pro.firebaseapp.com",
+    databaseURL: "https://skycast-pro-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "skycast-pro",
+    storageBucket: "skycast-pro.firebasestorage.app",
+    messagingSenderId: "1058976714943",
+    appId: "1:1058976714943:web:b7c202483ee61f8596760a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// POBRANIE ELEMENTÓW INTERFEJSU MELDUNKÓW LIVE
 const locInput = document.getElementById('report-location');
 const textInput = document.getElementById('report-text');
 const sendBtn = document.getElementById('send-report-btn');
 const reportsList = document.getElementById('reports-list');
 
-let savedReports = JSON.parse(localStorage.getItem('skycast_live_reports')) || [
-    { 
-        loc: "Kraków", 
-        msg: "Około 8°C, zimny wiatr od Wisły i zamglenia nad miastem. Bez opadów, ale czuć wieczorny chłód!", 
-        likes: 4 
-    },
-    { 
-        loc: "Katowice", 
-        msg: "7°C, duże zachmurzenie i lekka wieczorna mżawka. Drogi robią się śliskie, uważajcie za kółkiem.", 
-        likes: 3 
-    },
-    { 
-        loc: "Gdańsk", 
-        msg: "9°C, porywisty wiatr znad zatoki i przelotny deszcz. Parasol wygina na wszystkie strony!", 
-        likes: 5 
-    }
-];
+// ==========================================
+// 1. WYSYŁANIE NOWEGO MELDUNKU DO FIREBASE
+// ==========================================
+if (sendBtn) {
+    sendBtn.addEventListener('click', () => {
+        const locValue = locInput ? locInput.value.trim() : '';
+        const textValue = textInput ? textInput.value.trim() : '';
 
-function renderReports() {
-    reportsList.innerHTML = '';
+        if (!locValue || !textValue) {
+            alert('Wpisz swoje miasto oraz krótki raport pogodowy!');
+            return;
+        }
 
-    savedReports.forEach((report, index) => {
-        const item = document.createElement('div');
-        item.className = 'report-item';
-        item.innerHTML = `
-            <div class="report-info">
-                <strong class="report-loc">📍 ${report.loc}:</strong>
-                <span class="report-msg">${report.msg}</span>
-            </div>
-            <button class="confirm-btn" data-index="${index}">🔥 <span>${report.likes}</span></button>
-        `;
-        reportsList.appendChild(item);
+        const reportData = {
+            loc: locValue,
+            msg: textValue,
+            likes: 1, // Startujemy od 1 ognia 🔥
+            timestamp: new Date().toLocaleDateString('pl-PL') + ' ' + new Date().toLocaleTimeString('pl-PL', {hour: '2-digit', minute:'2-digit'}),
+            createdAt: Date.now()
+        };
+
+        sendBtn.disabled = true;
+
+        // Wrzucamy do gałęzi 'liveReports' w bazie Firebase
+        push(ref(db, 'liveReports'), reportData)
+            .then(() => {
+                alert('Ogień! Twój meldunek wjechał do bazy na żywo! 🚀');
+                if (locInput) locInput.value = '';
+                if (textInput) textInput.value = '';
+            })
+            .catch((err) => {
+                console.error(err);
+                alert('Błąd zapisu: ' + err.message);
+            })
+            .finally(() => {
+                sendBtn.disabled = false;
+            });
     });
+}
 
-    const confirmBtns = document.querySelectorAll('.confirm-btn');
-    confirmBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const reportIndex = parseInt(btn.getAttribute('data-index'));
-            savedReports[reportIndex].likes++;
-            localStorage.setItem('skycast_live_reports', JSON.stringify(savedReports));
-            renderReports();
+// ==========================================
+// 2. ODBIERANIE MELDUNKÓW NA ŻYWO Z FIREBASE
+// ==========================================
+if (reportsList) {
+    const reportsRef = ref(db, 'liveReports');
+
+    onValue(reportsRef, (snapshot) => {
+        const data = snapshot.val();
+
+        if (!data) {
+            reportsList.innerHTML = '<div style="text-align: center; padding: 15px; color: #94a3b8;">Brak meldunków z terenu. Wyjrzyj przez okno i przetrzyj szlak!</div>';
+            return;
+        }
+
+        // Zamieniamy obiekt z Firebase na tablicę i zachowujemy unikalne klucze (id) wpisów
+        const reportEntries = Object.entries(data).map(([id, val]) => ({ id, ...val }));
+        reportsList.innerHTML = '';
+
+        // Sortujemy od najnowszego i bierzemy np. 10 ostatnich
+        const recentReports = reportEntries.reverse().slice(0, 10);
+
+        recentReports.forEach((report) => {
+            const item = document.createElement('div');
+            item.className = 'report-item';
+            item.innerHTML = `
+                <div class="report-info">
+                    <strong class="report-loc">📍 ${report.loc}:</strong>
+                    <span class="report-msg">${report.msg}</span>
+                    <br><small style="color: #64748b; font-size: 0.75rem;">${report.timestamp || ''}</small>
+                </div>
+                <button class="confirm-btn" data-id="${report.id}">🔥 <span>${report.likes || 0}</span></button>
+            `;
+            reportsList.appendChild(item);
+        });
+
+        // ==========================================
+        // 3. OBSŁUGA PRZYCISKU OGNIU 🔥 (AKTUALIZACJA W BAZIE)
+        // ==========================================
+        const confirmBtns = reportsList.querySelectorAll('.confirm-btn');
+        confirmBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const reportId = btn.getAttribute('data-id');
+                const reportRefPath = ref(db, `liveReports/${reportId}`);
+
+                // Znajdujemy aktualną liczbę lajków i dodajemy +1 w bazie Firebase
+                const currentReport = recentReports.find(r => r.id === reportId);
+                const newLikes = (currentReport ? currentReport.likes : 0) + 1;
+
+                update(reportRefPath, { likes: newLikes })
+                    .catch((err) => console.error("Błąd aktualizacji lajków:", err));
+            });
         });
     });
 }
-
-sendBtn.addEventListener('click', () => {
-    const locValue = locInput.value.trim();
-    const textValue = textInput.value.trim();
-
-    if (locValue === '' || textValue === '') {
-        alert('Wpisz swoje miasto/miejscowość oraz krótki raport pogodowy!');
-        return;
-    }
-
-    savedReports.unshift({
-        loc: locValue,
-        msg: textValue,
-        likes: 1
-    });
-
-    // AUTOMATYCZNY RESET CODZIENNIE RANO (Nowy dzień = czyste raporty!)
-const todayDate = new Date().toLocaleDateString();
-const lastSavedDate = localStorage.getItem('skycast_report_date');
-const today = new Date().toLocaleDateString(); // np. "14.10.2026"
-
-if (lastSavedDate !== todayDate) {
-    // Nowy dzień! Czyścimy wczorajsze głosy i meldunki:
-    localStorage.removeItem('skycast_radar_votes_v2');
-    localStorage.removeItem('skycast_live_reports');
-    localStorage.setItem('skycast_report_date', todayDate);
-}
-
-    localStorage.setItem('skycast_live_reports', JSON.stringify(savedReports));
-    locInput.value = '';
-    textInput.value = '';
-
-    renderReports();
-});
-
-// Odpalamy wszystko na starcie strony!
-toggleDayNightDiv();
-updateRadarUI();
-renderReports();
     </script>
 </body>
 </html>
