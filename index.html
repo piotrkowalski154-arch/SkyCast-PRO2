@@ -1625,33 +1625,45 @@ renderReports();
         // Przykładowe meldunki startowe (klucze zaczynają się od "-0", więc są "starsze" niż nowe wpisy).
       function startReports() {
     return {
-        "-0seed9": {
-            loc: "Warszawa",
-            msg: "15.10, 23:48 – 7°C, niska mgła. Uważajcie na drogach, widoczność może być ograniczona! PS. SkyCast PRO to fajna apka, wszystko czytelnie podane. 🌫️📱",
-            likes: 8,
-            ts: 9
+        "-0seed6": { 
+            loc: "Warszawa", 
+            msg: "15.10, 22:15 – 10°C, bezchmurne niebo, rześka noc w stolicy.", 
+            likes: 6, 
+            ts: 6 
         },
-        "-0seed8": {
-            loc: "Łódź",
-            msg: "15.10, 23:48 – 6°C, pochmurno i mglisto. Kierowcy, zachowajcie ostrożność! PS. Fajnie mieć pogodę zawsze pod ręką. 🌁",
-            likes: 6,
-            ts: 8
+        "-0seed5": { 
+            loc: "Wrocław", 
+            msg: "15.10, 22:15 – 11°C, delikatny wiatr, przyjemny i spokojny wieczór.", 
+            likes: 4, 
+            ts: 5 
         },
-        "-0seed7": {
-            loc: "Poznań",
-            msg: "15.10, 23:48 – 8°C, pochmurna noc. Chłodno, ale spokojnie. PS. SkyCast PRO wygląda naprawdę dobrze, dobra robota! 💙",
-            likes: 7,
-            ts: 7
+        "-0seed4": { 
+            loc: "Poznań", 
+            msg: "15.10, 22:15 – 9°C, lekkie zamglenie, stabilna aura.", 
+            likes: 3, 
+            ts: 4 
         },
-        "-0seed6": {
-            loc: "Wrocław",
-            msg: "15.10, 23:48 – 9°C, pochmurno. Warto założyć coś cieplejszego na wieczorny spacer. PS. Bardzo fajna apka pogodowa! 🌙",
-            likes: 5,
-            ts: 6
+        "-0seed3": { 
+            loc: "Kraków", 
+            msg: "14.10, 21:52 – 9°C, częściowe zachmurzenie, bez opadów. Chłodny wieczór.", 
+            likes: 4, 
+            ts: 3 
         },
+        "-0seed2": { 
+            loc: "Katowice", 
+            msg: "14.10, 21:52 – 8°C, pochmurno, bez opadów. Chłodny, szary wieczór.", 
+            likes: 3, 
+            ts: 2 
+        },
+        "-0seed1": { 
+            loc: "Gdańsk", 
+            msg: "14.10, 21:52 – 12°C, czyste niebo i najcieplej z całej trójki!", 
+            likes: 5, 
+            ts: 1 
         }
     };
       }
+        
 
         // Pokazujemy 30 ostatnich meldunków, od najnowszego.
         const latestReportsQuery = query(reportsRef, limitToLast(30));
