@@ -496,49 +496,64 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
     border-color: #f97316;
 }
 
- /* 1. Stylowanie pola wpisywania miasta */
+ /* 1. Stylowanie pola wpisywania miasta (dopasowane do ciemnego motywu) */
 #traffic-location {
     padding: 14px 18px; 
     font-size: 16px; 
-    border: 2px solid #e0e0e0;
+    background-color: rgba(30, 30, 30, 0.7); /* Ciemne tło */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Jasna, delikatna ramka */
+    color: #ffffff; /* Biały tekst w polu */
     border-radius: 10px; 
     outline: none;
     width: 100%; /* Zajmuje pełną szerokość formularza */
-    margin-bottom: 15px; /* Odstęp od opcji na dole */
+    margin-bottom: 15px; 
     box-sizing: border-box;
     transition: border-color 0.3s ease;
+}
+
+#traffic-location::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Półprzezroczysty placeholder */
 }
 
 #traffic-location:focus {
     border-color: #007BFF; 
 }
 
-/* 2. POPRAWA: Stylowanie nowych widocznych opcji (Radio Buttons) */
+/* 2. Układ kolumnowy dla opcji drogowych (koniec z uciekaniem na boki) */
 .traffic-options {
     display: flex;
-    flex-wrap: wrap; /* Zrzuca opcje do nowej linii, gdy brakuje miejsca */
-    gap: 10px; /* Równe odstępy między przyciskami */
+    flex-direction: column; /* Gwarantuje idealny pionowy rządek */
+    gap: 12px; 
     margin-bottom: 20px;
+    width: 100%; 
 }
 
-/* Wygląd pojedynczej opcji (Twój klikalny kafelek) */
+/* Ciemne, pancerne kafelki (tekst jest wreszcie widoczny) */
 .traffic-options label {
     display: flex;
     align-items: center;
-    gap: 8px; /* Odstęp między kółeczkiem a tekstem */
-    background-color: #f8f9fa; /* Jasnoszare, czyste tło */
-    border: 1px solid #ced4da;
-    padding: 10px 16px; /* Wygodne dla palca (Mobile First) */
-    border-radius: 20px; /* Modne zaokrąglenia w stylu aplikacji mobilnych */
+    gap: 10px; 
+    background-color: rgba(30, 30, 30, 0.7); /* Szkliste, ciemne tło */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    color: #ffffff; /* Czysta biel tekstu */
+    padding: 14px 18px; 
+    border-radius: 15px; 
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
+    width: 100%; 
+    box-sizing: border-box; /* Zatrzymuje element przed wypychaniem ramki */
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Lekkie powiększenie samego kółeczka radia */
+.traffic-options label:hover {
+    background-color: rgba(60, 60, 60, 0.9);
+    border-color: #007BFF;
+}
+
+/* Powiększone kółeczko radia */
 .traffic-options input[type="radio"] {
-    transform: scale(1.2);
+    transform: scale(1.3);
     margin: 0;
     cursor: pointer;
 }
@@ -553,7 +568,7 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width: 100%; /* Potężny przycisk akcji na całą szerokość */
+    width: 100%; 
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
@@ -564,6 +579,7 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
 #send-traffic-btn:active {
     transform: scale(0.97); 
 }
+        
         /* 1. Stylowanie pola wpisywania miasta (Input) */
 
         
