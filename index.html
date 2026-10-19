@@ -496,60 +496,76 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
     border-color: #f97316;
 }
 
-        /* 1. Stylowanie pola wpisywania miasta (Input) */
+ /* 1. Stylowanie pola wpisywania miasta */
 #traffic-location {
-    padding: 14px 18px; /* Duży obszar, żeby łatwo było trafić palcem */
-    font-size: 16px; /* 16px zapobiega automatycznemu przybliżaniu na telefonach (iOS/Android) */
+    padding: 14px 18px; 
+    font-size: 16px; 
     border: 2px solid #e0e0e0;
-    border-radius: 10px; /* Łagodne, nowoczesne rogi */
+    border-radius: 10px; 
     outline: none;
-    flex: 1 1 200px; /* Pozwala mu rosnąć, ale ma minimum 200px szerokości */
+    width: 100%; /* Zajmuje pełną szerokość formularza */
+    margin-bottom: 15px; /* Odstęp od opcji na dole */
+    box-sizing: border-box;
     transition: border-color 0.3s ease;
 }
 
 #traffic-location:focus {
-    border-color: #007BFF; /* Akcent Twojej aplikacji po kliknięciu */
+    border-color: #007BFF; 
 }
 
-/* 2. Stylowanie listy rozwijanej (Select) - Twój traffic-type */
-#traffic-type {
-    padding: 14px 18px;
-    font-size: 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    outline: none;
-    background-color: #ffffff;
+/* 2. POPRAWA: Stylowanie nowych widocznych opcji (Radio Buttons) */
+.traffic-options {
+    display: flex;
+    flex-wrap: wrap; /* Zrzuca opcje do nowej linii, gdy brakuje miejsca */
+    gap: 10px; /* Równe odstępy między przyciskami */
+    margin-bottom: 20px;
+}
+
+/* Wygląd pojedynczej opcji (Twój klikalny kafelek) */
+.traffic-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Odstęp między kółeczkiem a tekstem */
+    background-color: #f8f9fa; /* Jasnoszare, czyste tło */
+    border: 1px solid #ced4da;
+    padding: 10px 16px; /* Wygodne dla palca (Mobile First) */
+    border-radius: 20px; /* Modne zaokrąglenia w stylu aplikacji mobilnych */
     cursor: pointer;
-    flex: 1 1 250px; /* Trochę szersze, bo mieści dłuższe teksty raportów */
-    transition: border-color 0.3s ease;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-#traffic-type:focus {
-    border-color: #007BFF;
+/* Lekkie powiększenie samego kółeczka radia */
+.traffic-options input[type="radio"] {
+    transform: scale(1.2);
+    margin: 0;
+    cursor: pointer;
 }
 
-/* 3. Stylowanie przycisku nadawania raportu (Button) */
+/* 3. Stylowanie przycisku nadawania raportu */
 #send-traffic-btn {
     padding: 14px 24px;
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #007BFF; /* Główny kolor akcji SkyCast PRO */
+    background-color: #007BFF; 
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    flex: 1 1 150px;
+    width: 100%; /* Potężny przycisk akcji na całą szerokość */
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-/* Reakcja przycisku na najechanie myszką i kliknięcie */
 #send-traffic-btn:hover {
     background-color: #0056b3;
 }
 
 #send-traffic-btn:active {
-    transform: scale(0.97); /* Lekkie wgniecenie przy kliknięciu - genialny UX! */
+    transform: scale(0.97); 
 }
+        /* 1. Stylowanie pola wpisywania miasta (Input) */
+
         
 
     </style>  
