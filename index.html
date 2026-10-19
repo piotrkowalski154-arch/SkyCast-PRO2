@@ -365,7 +365,7 @@ body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgb
     color: #cbd5e1;
 }
 
-/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
+E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
 .mode-badge {
     display: inline-block;
     background: rgba(56, 189, 248, 0.15);
@@ -495,6 +495,62 @@ body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgb
     background: rgba(249, 115, 22, 0.3);
     border-color: #f97316;
 }
+
+        /* 1. Stylowanie pola wpisywania miasta (Input) */
+#traffic-location {
+    padding: 14px 18px; /* Duży obszar, żeby łatwo było trafić palcem */
+    font-size: 16px; /* 16px zapobiega automatycznemu przybliżaniu na telefonach (iOS/Android) */
+    border: 2px solid #e0e0e0;
+    border-radius: 10px; /* Łagodne, nowoczesne rogi */
+    outline: none;
+    flex: 1 1 200px; /* Pozwala mu rosnąć, ale ma minimum 200px szerokości */
+    transition: border-color 0.3s ease;
+}
+
+#traffic-location:focus {
+    border-color: #007BFF; /* Akcent Twojej aplikacji po kliknięciu */
+}
+
+/* 2. Stylowanie listy rozwijanej (Select) - Twój traffic-type */
+#traffic-type {
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    outline: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    flex: 1 1 250px; /* Trochę szersze, bo mieści dłuższe teksty raportów */
+    transition: border-color 0.3s ease;
+}
+
+#traffic-type:focus {
+    border-color: #007BFF;
+}
+
+/* 3. Stylowanie przycisku nadawania raportu (Button) */
+#send-traffic-btn {
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007BFF; /* Główny kolor akcji SkyCast PRO */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1 1 150px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Reakcja przycisku na najechanie myszką i kliknięcie */
+#send-traffic-btn:hover {
+    background-color: #0056b3;
+}
+
+#send-traffic-btn:active {
+    transform: scale(0.97); /* Lekkie wgniecenie przy kliknięciu - genialny UX! */
+}
+        
 
     </style>  
 </head>
