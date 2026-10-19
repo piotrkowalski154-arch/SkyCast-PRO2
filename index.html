@@ -613,6 +613,24 @@ body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgb
         <input type="text" id="report-text" placeholder="Krótki raport z okna..." maxlength="80">
         <button id="send-report-btn">Nadaj meldunek 📡</button>
     </div>
+        <div class="traffic-report-form">
+    <!-- Użytkownik wpisuje miasto z palca -->
+    <input type="text" id="traffic-location" placeholder="Wpisz swoje miasto..." maxlength="25">
+    
+    <!-- Szybka lista rozwijana - tylko sytuacje drogowe -->
+    <select id="traffic-type">
+        <option value="" disabled selected>Co się dzieje na drodze?</option>
+        <option value="🚗 Korek / Zator drogowy">🚗 Korek / Zator drogowy</option>
+        <option value="🚨 Wypadek / Utrudnienia">🚨 Wypadek / Utrudnienia</option>
+        <option value="❄️ Ślisko / Przymrozki">❄️ Ślisko / Przymrozki</option>
+        <option value="🌊 Zalana ulica">🌊 Zalana ulica</option>
+        <option value="🚧 Roboty drogowe">🚧 Roboty drogowe</option>
+    </select>
+    
+    <!-- Przycisk wysyłający drogówkę -->
+    <button id="send-traffic-btn">Nadaj meldunek drogowy 📡</button>
+        </div>
+        
 
         
 
@@ -1663,6 +1681,10 @@ renderReports();
         }
     };
       }
+        const miasto = document.getElementById('traffic-location').value;
+const sytuacjaDrogowa = document.getElementById('traffic-type').value; 
+
+// I te dwie zmienne pakujesz do obiektu, który leci do Firebase!
         
     
         
