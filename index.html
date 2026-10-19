@@ -662,25 +662,25 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
     <!-- ========================================== -->
     <div id="reports-list"></div>
 </div>
-
-    
         <div class="traffic-report-form">
     <!-- Użytkownik wpisuje miasto z palca -->
     <input type="text" id="traffic-location" placeholder="Wpisz swoje miasto..." maxlength="25">
     
-    <!-- Szybka lista rozwijana - tylko sytuacje drogowe -->
-    <select id="traffic-type">
-        <option value="" disabled selected>Co się dzieje na drodze?</option>
-        <option value="🚗 Korek / Zator drogowy">🚗 Korek / Zator drogowy</option>
-        <option value="🚨 Wypadek / Utrudnienia">🚨 Wypadek / Utrudnienia</option>
-        <option value="❄️ Ślisko / Przymrozki">❄️ Ślisko / Przymrozki</option>
-        <option value="🌊 Zalana ulica">🌊 Zalana ulica</option>
-        <option value="🚧 Roboty drogowe">🚧 Roboty drogowe</option>
-    </select>
+    <!-- Widoczne opcje zaznaczenia (Radio Buttons) -->
+    <div class="traffic-options">
+        <label><input type="radio" name="traffic-type" value="🚗 Korek / Zator"> 🚗 Korek / Zator</label>
+        <label><input type="radio" name="traffic-type" value="🚨 Wypadek"> 🚨 Wypadek</label>
+        <label><input type="radio" name="traffic-type" value="❄️ Ślisko"> ❄️ Ślisko</label>
+        <label><input type="radio" name="traffic-type" value="🌊 Zalana ulica"> 🌊 Zalana ulica</label>
+        <label><input type="radio" name="traffic-type" value="🚧 Roboty drogowe"> 🚧 Roboty</label>
+    </div>
     
     <!-- Przycisk wysyłający drogówkę -->
     <button id="send-traffic-btn">Nadaj meldunek drogowy 📡</button>
         </div>
+        
+
+    
         
 
         
