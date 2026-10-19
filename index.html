@@ -551,12 +551,16 @@ E3/* Mała odznaka pokazująca czy działa div Dzienny czy Nocny */
     border-color: #007BFF;
 }
 
-/* Powiększone kółeczko radia */
+/* Wymuszony, sztywny rozmiar kółeczka radia (koniec z gigantami!) */
 .traffic-options input[type="radio"] {
-    transform: scale(1.3);
+    width: 22px !important;      /* Sztywna szerokość kółeczka */
+    height: 22px !important;     /* Sztywna wysokość kółeczka */
+    padding: 0 !important;       /* Zerujemy ewentualny padding z innych stylów */
     margin: 0;
     cursor: pointer;
+    flex-shrink: 0;              /* Gwarantuje, że kółeczko się nie spłaszczy */
 }
+        
 
 /* 3. Stylowanie przycisku nadawania raportu */
 #send-traffic-btn {
