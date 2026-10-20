@@ -1104,112 +1104,68 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                     WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
                 </h3>`;
 
-    if (danePolska && danePolska.items && danePolska.items.length > 0) {
-    const items = danePolska.items.slice(0, 6);
-    html += `<div class="rss-container"><div class="rss-track">`;
+     if (danePolska && danePolska.items && danePolska.items.length > 0) {
+                    const items = danePolska.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgPolska);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgPolska}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
 
-    for (let k = 0; k < 2; k++) {
-        items.forEach(art => {
-            const foto = znajdzZdjecie(art, imgPolska) || imgPolska;
+                if (daneSport && daneSport.items && daneSport.items.length > 0) {
+                    const items = daneSport.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgSport);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSport}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
 
-            html += `
-                <a href="${art.link || '#'}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="rss-card">
-                    <img
-                        src="${foto}"
-                        alt="News"
-                        class="rss-thumb"
-                        loading="lazy"
-                        onerror="this.onerror=null;this.src='${imgPolska}'"
-                    >
-                    <div class="rss-body">
-                        <span class="rss-tag" style="color: #38bdf8;">
-                            📰 WIADOMOŚCI
-                        </span>
-                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                    </div>
-                </a>`;
-        });
-    }
-
-    html += `</div></div>`;
-}
-
-if (daneSport && daneSport.items && daneSport.items.length > 0) {
-    const items = daneSport.items.slice(0, 6);
-    html += `<div class="rss-container"><div class="rss-track">`;
-
-    for (let k = 0; k < 2; k++) {
-        items.forEach(art => {
-            const foto = znajdzZdjecie(art, imgSport) || imgSport;
-
-            html += `
-                <a href="${art.link || '#'}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="rss-card">
-                    <img
-                        src="${foto}"
-                        alt="News"
-                        class="rss-thumb"
-                        loading="lazy"
-                        onerror="this.onerror=null;this.src='${imgSport}'"
-                    >
-                    <div class="rss-body">
-                        <span class="rss-tag" style="color: #f59e0b;">
-                            ⚽ SPORT
-                        </span>
-                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                    </div>
-                </a>`;
-        });
-    }
-
-    html += `</div></div>`;
-}
-
-if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
-    const items = daneSwiat.items.slice(0, 6);
-    html += `<div class="rss-container"><div class="rss-track">`;
-
-    for (let k = 0; k < 2; k++) {
-        items.forEach(art => {
-            const foto = znajdzZdjecie(art, imgSwiat) || imgSwiat;
-
-            html += `
-                <a href="${art.link || '#'}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="rss-card">
-                    <img
-                        src="${foto}"
-                        alt="News"
-                        class="rss-thumb"
-                        loading="lazy"
-                        onerror="this.onerror=null;this.src='${imgSwiat}'"
-                    >
-                    <div class="rss-body">
-                        <span class="rss-tag" style="color: #ef4444;">
-                            🌍 ŚWIAT
-                        </span>
-                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                    </div>
-                </a>`;
-        });
-    }
-
-    html += `</div></div>`;
-}
-                
+                if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
+                    const items = daneSwiat.items.slice(0, 6);
+                    html += `<div class="rss-container"><div class="rss-track">`;
+                    for (let k = 0; k < 2; k++) {
+                        items.forEach(art => {
+                            const foto = znajdzZdjecie(art, imgSwiat);
+                            html += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSwiat}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    html += `</div></div>`;
+                }
 
                 if (html !== '') kontener.innerHTML = html;
             } catch (error) {
                 if (loading) loading.innerText = 'Brak połączenia z radarem RSS.';
             }
         }
-        
         setInterval(pobierzWiadomosci, 300000);
 
         function uruchomProtokolGPS() {
@@ -1769,65 +1725,65 @@ if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
         });
 
         // ---------- MELDUNKI ----------
-        function startReports() {
+       function startReports() {
     return {
         "-0seed9": { 
             loc: "DK7 Zakopianka (Libertów – Myślenice)", 
-            msg: "20.10, 20:27 – 🚧 UTRUDNIENIA: Awaryjne zamknięcie prawego pasa jezdni dodatkowej w kier. Krakowa oraz lokalne zwężenia w stronę Myślenic (675. km).", 
-            likes: 16, 
+            msg: "20.10, 22:30 – 🚧 UTRUDNIENIA: Utrzymuje się awaryjne zamknięcie prawego pasa jezdni dodatkowej w kier. Krakowa oraz lokalne zwężenia w stronę Myślenic (675. km). Niewielki ruch nocny.", 
+            likes: 19, 
             ts: 9 
         },
         "-0seed8": { 
-            loc: "Autostrada A4 (w. Brzesko – Tarnów Mościce)", 
-            msg: "20.10, 20:27 – 🚧 ROBOTY DROGOWE: Wieczorne zwężenia i ograniczenia prędkości na odcinkach remontowych. Ruch odbywa się płynnie, bez zatorów.", 
-            likes: 12, 
+            loc: "Autostrada A4 (Kraków – Tarnów)", 
+            msg: "20.10, 22:30 – 🚧 ROBOTY NOCNE: Trwają prace na odcinkach remontowych (m.in. w. Kraków Skawina – Kraków Południe oraz rej. Brzeska). Zwężenia do jednego pasa i limit 80 km/h, ruch odbywa się płynnie.", 
+            likes: 15, 
             ts: 8 
         },
         "-0seed7": { 
             loc: "Trasa S1 (Dąbrowa Górnicza – Tychy)", 
-            msg: "20.10, 20:27 – ⚠️ OGRANICZENIA: Utrudnienia w ruchu i limit prędkości do 90 km/h. Służby drogowe apelują o ostrożność na zwężonym odcinku.", 
-            likes: 9, 
+            msg: "20.10, 22:30 – ⚠️ OGRANICZENIA: Nocne zwężenia jezdni i limit prędkości do 90 km/h. Ruch odbywa się całkowicie na bieżąco, służby apelują o ostrożność.", 
+            likes: 11, 
             ts: 7 
         },
         "-0seed6": { 
             loc: "Kraków", 
-            msg: "20.10, 20:27 – 9°C, spokojny wieczór w stolicy Małopolski, umiarkowane zachmurzenie, w rejonie doliny Wisły zaczynają tworzyć się lekkie zamglenia.", 
-            likes: 14, 
+            msg: "20.10, 22:30 – 8°C (odczuwalna 6°C), spokojna noc w stolicy Małopolski, małe zachmurzenie, w dolinie Wisły gęstnieją lokalne zamglenia. Ciśnienie 1019 hPa.", 
+            likes: 18, 
             ts: 6 
         },
         "-0seed5": { 
             loc: "Nowy Targ", 
-            msg: "20.10, 20:27 – 7°C, małe zachmurzenie na Podhalu (odczuwalne 5°C), słaby wiatr południowo-wschodni (11 km/h) i bardzo dobra jakość powietrza.", 
-            likes: 8, 
+            msg: "20.10, 22:30 – 5°C, pogodna i chłodna noc na Podhalu (odczuwalne 3°C), słaby wiatr południowo-wschodni, przy gruncie możliwy spadek temperatury w okolice 0°C.", 
+            likes: 10, 
             ts: 5 
         },
         "-0seed4": { 
             loc: "Tarnów", 
-            msg: "20.10, 20:27 – 10°C, najcieplejszy punkt w regionie, bezwietrznie i pogodnie, utrzymuje się wysokie ciśnienie atmosferyczne (1020 hPa).", 
-            likes: 6, 
+            msg: "20.10, 22:30 – 9°C, małe zachmurzenie i spokojna aura w regionie, słaby wiatr (15 km/h), utrzymuje się stabilne ciśnienie atmosferyczne (1021 hPa).", 
+            likes: 8, 
             ts: 4 
         },
         "-0seed3": { 
             loc: "Krynica-Zdrój", 
-            msg: "20.10, 20:27 – 6°C, rześki i bezdeszczowy wieczór w Beskidzie Sądeckim, w dolinach możliwy szybki spadek temperatury w kierunku 2°C.", 
-            likes: 5, 
+            msg: "20.10, 22:30 – 4°C, zimna, bezdeszczowa noc w Beskidzie Sądeckim, w dolinach postępuje szybkie wychładzanie powietrza w kierunku 1–2°C.", 
+            likes: 7, 
             ts: 3 
         },
         "-0seed2": { 
             loc: "Kielce", 
-            msg: "20.10, 20:27 – 8°C, umiarkowane zachmurzenie w Górach Świętokrzyskich, spokojna noc z wysoką wilgotnością powietrza.", 
-            likes: 4, 
+            msg: "20.10, 22:30 – 7°C, umiarkowane zachmurzenie w Górach Świętokrzyskich, spokojna noc z wysoką wilgotnością powietrza i lokalnymi mgłami.", 
+            likes: 5, 
             ts: 2 
         },
         "-0seed1": { 
             loc: "Kołobrzeg", 
-            msg: "20.10, 20:27 – 10°C, pochmurno na wybrzeżu środkowym, odczuwalny rześki, umiarkowany wiatr znad Bałtyku, brak opadów.", 
-            likes: 7, 
+            msg: "20.10, 22:30 – 9°C, pochmurno na wybrzeżu środkowym, odczuwalny umiarkowany wiatr znad Bałtyku, noc mija bez opadów.", 
+            likes: 9, 
             ts: 1 
         }
     };
-        }
-        
+}
+
         
         
 
