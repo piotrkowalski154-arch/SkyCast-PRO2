@@ -1104,62 +1104,105 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                     WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
                 </h3>`;
 
-                if (danePolska && danePolska.items && danePolska.items.length > 0) {
-                    const items = danePolska.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgPolska);
-                            html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgPolska}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
-                                        <p class="rss-title">${art.title}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
+    if (danePolska && danePolska.items && danePolska.items.length > 0) {
+    const items = danePolska.items.slice(0, 6);
+    html += `<div class="rss-container"><div class="rss-track">`;
 
-                if (daneSport && daneSport.items && daneSport.items.length > 0) {
-                    const items = daneSport.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSport);
-                            html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSport}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
-                                        <p class="rss-title">${art.title}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
+    for (let k = 0; k < 2; k++) {
+        items.forEach(art => {
+            const foto = znajdzZdjecie(art, imgPolska) || imgPolska;
 
-                if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
-                    const items = daneSwiat.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSwiat);
-                            html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSwiat}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
-                                        <p class="rss-title">${art.title}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
+            html += `
+                <a href="${art.link || '#'}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="rss-card">
+                    <img
+                        src="${foto}"
+                        alt="News"
+                        class="rss-thumb"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='${imgPolska}'"
+                    >
+                    <div class="rss-body">
+                        <span class="rss-tag" style="color: #38bdf8;">
+                            📰 WIADOMOŚCI
+                        </span>
+                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                    </div>
+                </a>`;
+        });
+    }
+
+    html += `</div></div>`;
+}
+
+if (daneSport && daneSport.items && daneSport.items.length > 0) {
+    const items = daneSport.items.slice(0, 6);
+    html += `<div class="rss-container"><div class="rss-track">`;
+
+    for (let k = 0; k < 2; k++) {
+        items.forEach(art => {
+            const foto = znajdzZdjecie(art, imgSport) || imgSport;
+
+            html += `
+                <a href="${art.link || '#'}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="rss-card">
+                    <img
+                        src="${foto}"
+                        alt="News"
+                        class="rss-thumb"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='${imgSport}'"
+                    >
+                    <div class="rss-body">
+                        <span class="rss-tag" style="color: #f59e0b;">
+                            ⚽ SPORT
+                        </span>
+                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                    </div>
+                </a>`;
+        });
+    }
+
+    html += `</div></div>`;
+}
+
+if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
+    const items = daneSwiat.items.slice(0, 6);
+    html += `<div class="rss-container"><div class="rss-track">`;
+
+    for (let k = 0; k < 2; k++) {
+        items.forEach(art => {
+            const foto = znajdzZdjecie(art, imgSwiat) || imgSwiat;
+
+            html += `
+                <a href="${art.link || '#'}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="rss-card">
+                    <img
+                        src="${foto}"
+                        alt="News"
+                        class="rss-thumb"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='${imgSwiat}'"
+                    >
+                    <div class="rss-body">
+                        <span class="rss-tag" style="color: #ef4444;">
+                            🌍 ŚWIAT
+                        </span>
+                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                    </div>
+                </a>`;
+        });
+    }
+
+    html += `</div></div>`;
+}
+                
 
                 if (html !== '') kontener.innerHTML = html;
             } catch (error) {
