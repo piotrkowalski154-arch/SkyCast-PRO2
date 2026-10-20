@@ -1182,7 +1182,7 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
             if (!iconCode) return { desc: description || "Zmienne warunki", icon: `<span class="anim-float" style="${style3D}">${icon}</span>` };
             
             const hour = new Date().getHours();
-            const isNight = (hour >= 21 || hour < 6);
+            const isNight = (hour >= 18 || hour < 6);
             
             if (iconCode.startsWith("01")) icon = isNight ? "🌙" : "☀️"; 
             else if (iconCode.startsWith("02") || iconCode.startsWith("03")) icon = isNight ? "☁️" : "⛅"; 
