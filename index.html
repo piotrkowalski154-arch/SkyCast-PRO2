@@ -1104,18 +1104,19 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                     WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
                 </h3>`;
 
-     if (danePolska && danePolska.items && danePolska.items.length > 0) {
+                // --- PANCERNY BLOK: POLSKA ---
+                if (danePolska && danePolska.items && danePolska.items.length > 0) {
                     const items = danePolska.items.slice(0, 6);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgPolska);
+                            const foto = znajdzZdjecie(art, imgPolska) || imgPolska;
                             html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgPolska}'">
+                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgPolska}'">
                                     <div class="rss-body">
                                         <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
-                                        <p class="rss-title">${art.title}</p>
+                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
                                     </div>
                                 </a>`;
                         });
@@ -1123,18 +1124,19 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                     html += `</div></div>`;
                 }
 
+                // --- PANCERNY BLOK: SPORT ---
                 if (daneSport && daneSport.items && daneSport.items.length > 0) {
                     const items = daneSport.items.slice(0, 6);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSport);
+                            const foto = znajdzZdjecie(art, imgSport) || imgSport;
                             html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSport}'">
+                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSport}'">
                                     <div class="rss-body">
                                         <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
-                                        <p class="rss-title">${art.title}</p>
+                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
                                     </div>
                                 </a>`;
                         });
@@ -1142,18 +1144,19 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                     html += `</div></div>`;
                 }
 
+                // --- PANCERNY BLOK: ŚWIAT ---
                 if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
                     const items = daneSwiat.items.slice(0, 6);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSwiat);
+                            const foto = znajdzZdjecie(art, imgSwiat) || imgSwiat;
                             html += `
-                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.src='${imgSwiat}'">
+                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSwiat}'">
                                     <div class="rss-body">
                                         <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
-                                        <p class="rss-title">${art.title}</p>
+                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
                                     </div>
                                 </a>`;
                         });
