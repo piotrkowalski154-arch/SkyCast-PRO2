@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+www<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -1105,7 +1105,7 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                 </h3>`;
 
                 if (danePolska && danePolska.items && danePolska.items.length > 0) {
-                    const items = danePolska.items.slice(0, 6);
+                    const items = danePolska.items.slice(0, 7);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
@@ -1124,7 +1124,7 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                 }
 
                 if (daneSport && daneSport.items && daneSport.items.length > 0) {
-                    const items = daneSport.items.slice(0, 6);
+                    const items = daneSport.items.slice(0, 7);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
@@ -1143,7 +1143,7 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
                 }
 
                 if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
-                    const items = daneSwiat.items.slice(0, 6);
+                    const items = daneSwiat.items.slice(0, 7);
                     html += `<div class="rss-container"><div class="rss-track">`;
                     for (let k = 0; k < 2; k++) {
                         items.forEach(art => {
@@ -1269,7 +1269,7 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
 
         function renderUI(currentData, forecastData, aqiData, nazwaMiasta, openMeteoData) {
             const currentHour = new Date().getHours();
-            const isNight = currentHour >= 21 || currentHour < 5;
+            const isNight = currentHour >= 18 || currentHour < 6;
             
             if (isNight) document.body.classList.add('night-mode');
             else document.body.classList.remove('night-mode');
