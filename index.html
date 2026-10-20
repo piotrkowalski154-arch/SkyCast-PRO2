@@ -1726,45 +1726,46 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
 
         // ---------- MELDUNKI ----------
         function startReports() {
-            return {
-                "-0seed6": { 
-                    loc: "Warszawa", 
-                    msg: "19.10, 12:06 – 9°C, pochmurno, chłodny jesienny dzień w stolicy.", 
-                    likes: 6, 
-                    ts: 6 
-                },
-                "-0seed5": { 
-                    loc: "Wrocław", 
-                    msg: "19.10, 12:06 – 12°C, duże zachmurzenie, powoli zbierają się chmury na deszcz.", 
-                    likes: 4, 
-                    ts: 5 
-                },
-                "-0seed4": { 
-                    loc: "Poznań", 
-                    msg: "19.10, 12:06 – 11°C, pochmurno z przelotnymi opadami, typowa jesień.", 
-                    likes: 3, 
-                    ts: 4 
-                },
-                "-0seed3": { 
-                    loc: "Kraków", 
-                    msg: "19.10, 12:06 – 10°C, szaro i pochmurno, ale stabilnie. Idealna pogoda na gorącą kawę.", 
-                    likes: 4, 
-                    ts: 3 
-                },
-                "-0seed2": { 
-                    loc: "Katowice", 
-                    msg: "19.10, 12:06 – 9°C, gęste chmury, dość chłodno jak na środek dnia.", 
-                    likes: 3, 
-                    ts: 2 
-                },
-                "-0seed1": { 
-                    loc: "Gdańsk", 
-                    msg: "19.10, 12:06 – 8°C, chłodny wiatr znad morza, pochmurne niebo po porannych mgłach.", 
-                    likes: 5, 
-                    ts: 1 
-                }
-            };
+    return {
+        "-0seed6": { 
+            loc: "Białka Tatrzańska", 
+            msg: "20.10, 11:39 – 10°C, zachmurzenie umiarkowane z przejaśnieniami, chłodny wiatr w rejonach podgórskich.", 
+            likes: 6, 
+            ts: 6 
+        },
+        "-0seed5": { 
+            loc: "Solina", 
+            msg: "20.10, 11:39 – 12°C, pochmurno po porannych mgłach, odczuwalny silniejszy wiatr w Bieszczadach.", 
+            likes: 4, 
+            ts: 5 
+        },
+        "-0seed4": { 
+            loc: "Kazimierz Dolny", 
+            msg: "20.10, 11:39 – 11°C, duże zachmurzenie i zamglenia nad Wisłą, miejscami słaba mżawka.", 
+            likes: 3, 
+            ts: 4 
+        },
+        "-0seed3": { 
+            loc: "Karpacz", 
+            msg: "20.10, 11:39 – 9°C, pochmurno z lokalnymi przejaśnieniami, w Sudetach porywisty wiatr.", 
+            likes: 4, 
+            ts: 3 
+        },
+        "-0seed2": { 
+            loc: "Mikołajki", 
+            msg: "20.10, 11:39 – 10°C, gęste chmury nad jeziorami i przelotne, słabe opady deszczu.", 
+            likes: 3, 
+            ts: 2 
+        },
+        "-0seed1": { 
+            loc: "Łeba", 
+            msg: "20.10, 11:39 – 11°C, duże zachmurzenie, dość silny i porywisty wschodni wiatr znad Bałtyku.", 
+            likes: 5, 
+            ts: 1 
         }
+    };
+        }
+        
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
 
