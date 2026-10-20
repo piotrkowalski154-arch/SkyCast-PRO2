@@ -1728,44 +1728,63 @@ Szczegółowy rozkład na poniedziałek w Krakowie (19 października): 🍁
         // ---------- MELDUNKI ----------
         function startReports() {
     return {
+        "-0seed9": { 
+            loc: "Trasa S8 (w. Łask – Zduńska Wola)", 
+            msg: "20.10, 18:34 – 🚨 UTRUDNIENIA: Rozładowywanie wielokilometrowego zatoru w kier. Wrocławia (199. km) po popołudniowym wypadku ciężarówki.", 
+            likes: 14, 
+            ts: 9 
+        },
+        "-0seed8": { 
+            loc: "DK94 Lubzina (Podkarpackie)", 
+            msg: "20.10, 18:34 – 🚨 WYPADEK: Trasa Dębica – Ropczyce całkowicie zablokowana po zderzeniu dwóch aut osobowych. Służby kierują na objazdy.", 
+            likes: 11, 
+            ts: 8 
+        },
+        "-0seed7": { 
+            loc: "Autostrada A1 (Gliwice Sośnica – Knurów)", 
+            msg: "20.10, 18:34 – 🚧 ROBOTY DROGOWE: Wieczorne zwężenie w kierunku Ostrawy (do godz. 20:00) oraz ograniczenie prędkości do 80 km/h.", 
+            likes: 7, 
+            ts: 7 
+        },
         "-0seed6": { 
-            loc: "Białka Tatrzańska", 
-            msg: "20.10, 11:39 – 10°C, zachmurzenie umiarkowane z przejaśnieniami, chłodny wiatr w rejonach podgórskich.", 
+            loc: "Zakopane", 
+            msg: "20.10, 18:34 – 8°C, wieczorne zachmurzenie umiarkowane, w dolinach bezwietrznie i szybko robi się chłodno.", 
             likes: 6, 
             ts: 6 
         },
         "-0seed5": { 
-            loc: "Solina", 
-            msg: "20.10, 11:39 – 12°C, pochmurno po porannych mgłach, odczuwalny silniejszy wiatr w Bieszczadach.", 
+            loc: "Ustrzyki Dolne", 
+            msg: "20.10, 18:34 – 9°C, pochmurny wieczór w Bieszczadach, wysoka wilgotność powietrza i umiarkowany wiatr z południowego wschodu.", 
             likes: 4, 
             ts: 5 
         },
         "-0seed4": { 
-            loc: "Kazimierz Dolny", 
-            msg: "20.10, 11:39 – 11°C, duże zachmurzenie i zamglenia nad Wisłą, miejscami słaba mżawka.", 
+            loc: "Sandomierz", 
+            msg: "20.10, 18:34 – 11°C, duże zachmurzenie, wieczorne zamglenia w dolinie Wisły, słaby wschodni wiatr.", 
             likes: 3, 
             ts: 4 
         },
         "-0seed3": { 
-            loc: "Karpacz", 
-            msg: "20.10, 11:39 – 9°C, pochmurno z lokalnymi przejaśnieniami, w Sudetach porywisty wiatr.", 
+            loc: "Szklarska Poręba", 
+            msg: "20.10, 18:34 – 7°C, pochmurno i chłodno, w wyższych partiach Karkonoszy odczuwalne silniejsze porywy wiatru.", 
             likes: 4, 
             ts: 3 
         },
         "-0seed2": { 
-            loc: "Mikołajki", 
-            msg: "20.10, 11:39 – 10°C, gęste chmury nad jeziorami i przelotne, słabe opady deszczu.", 
+            loc: "Giżycko", 
+            msg: "20.10, 18:34 – 10°C, gęste chmury nad Wielkimi Jeziorami Mazurskimi, duża wilgotność (ok. 88%), bez opadów.", 
             likes: 3, 
             ts: 2 
         },
         "-0seed1": { 
-            loc: "Łeba", 
-            msg: "20.10, 11:39 – 11°C, duże zachmurzenie, dość silny i porywisty wschodni wiatr znad Bałtyku.", 
+            loc: "Krynica Morska", 
+            msg: "20.10, 18:34 – 12°C, zachmurzenie duże nad Zalewem Wiślanym, umiarkowany wiatr południowo-wschodni znad Bałtyku.", 
             likes: 5, 
             ts: 1 
         }
     };
         }
+        
         
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
