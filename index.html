@@ -322,128 +322,32 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
 /* =========================================
    RADAR RSS 2.0 - SZKLANA TAŚMA KAFELKOWA (POGODA)
    ========================================= */
-.radar-wiadomosci {
-  padding: 15px 0 !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-}
+#radar-wiadomosci.wiadomosci { padding: 15px 0; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
+.rss-container { width: 100%; overflow: hidden; position: relative; box-sizing: border-box; }
+.rss-track { display: inline-flex; gap: 16px; animation: scrollRadarRss 60s linear infinite; align-items: center; width: max-content; margin: 0; will-change: transform; }
+.rss-container:hover .rss-track, .rss-container:active .rss-track { animation-play-state: paused; }
+@keyframes scrollRadarRss { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.rss-card { display: inline-flex; align-items: center; gap: 12px; min-width: 300px; max-width: 300px; height: 68px; padding: 8px 12px; background: rgba(15, 23, 42, 0.75); border: 1px solid var(--glass-border); border-radius: 12px; text-decoration: none; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease, border-color 0.2s ease; box-sizing: border-box; }
+.rss-card:hover { transform: translateY(-2px) scale(1.02); border-color: #38bdf8; }
+body.night-mode .rss-card { background: rgba(15, 23, 42, 0.9); border-color: rgba(56, 189, 248, 0.5); }
+.rss-thumb { width: 80px; height: 64px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.15); background: #0f172a; }
+.rss-body { display: flex; flex-direction: column; justify-content: center; gap: 3px; overflow: hidden; white-space: normal; }
+.rss-tag { font-size: 0.7rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }       
+.rss-title { color: #ffffff; font-size: 0.85rem; font-weight: 600; line-height: 1.25; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
 
-.radar-wiadomosci .rss-container {
-  width: 100% !important;
-  overflow: hidden !important;
-  position: relative !important;
-  box-sizing: border-box !important;
-  margin: 0 0 16px 0 !important;
-  padding: 10px 0 !important;
-  border-radius: 14px !important;
-  background: rgba(8, 14, 26, 0.6) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 212, 255, 0.2) !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5) !important;
-}
-.radar-wiadomosci .rss-track {
-  display: inline-flex !important;
-  gap: 16px !important;
-  animation: scrollRadarRss 55s linear infinite !important;
-  align-items: center !important;
-  width: max-content !important;
-  padding: 0 16px !important;
-  margin: 0 !important;
-  will-change: transform;
-}
-
- .radar-wiadomosci .rss-container:hover .rss-track,
-.radar-wiadomosci .rss-container:active .rss-track {
-  animation-play-state: paused !important;
-}
-
-@keyframes scrollRadarRss {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.radar-wiadomosci .rss-card {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  min-width: 290px !important;
-  max-width: 320px !important;
-  height: 68px !important;
-  padding: 8px 12px !important;
-  background: rgba(15, 23, 42, 0.8) !important;
-  border: 1px solid rgba(0, 212, 255, 0.3) !important;
-  border-radius: 12px !important;
-  text-decoration: none !important;
-  flex-shrink: 0 !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-  box-sizing: border-box !important;
-}
-
-.radar-wiadomosci .rss-card:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: #00d4ff !important;
-  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.35) !important;
-}
-
-.radar-wiadomosci .rss-thumb {
-  width: 80px !important;
-  height: 60px !important;
-  border-radius: 8px !important;
-  object-fit: cover !important;
-  flex-shrink: 0 !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  background: #0f172a;
-}
-
-.radar-wiadomosci .rss-body {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  gap: 3px !important;
-  overflow: hidden !important;
-  white-space: normal !important;
-}
-
-.radar-wiadomosci .rss-tag {
-  font-size: 0.65rem !important;
-  font-weight: 800 !important;
-  color: #00e5ff !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.6px !important;
-}
-
-.radar-wiadomosci .rss-title {
-  color: #ffffff !important;
-  font-size: 0.78rem !important;
-  font-weight: 600 !important;
-  line-height: 1.25 !important;
-  margin: 0 !important;
-  display: -webkit-box !important;
-  line-clamp: 2 !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-        .glass-panel {
-    position: relative;
-    max-width: 550px;
+/* Szklana ramka główna (Glassmorphism) */
+.glass-panel {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 20px;
     margin: 20px auto;
-    padding: 22px;
-    border-radius: 20px;
-    background: linear-gradient(155deg, rgba(15, 23, 42, 0.60), rgba(8, 47, 73, 0.75)),
-                url('natallia-strok-KnN0Gtfh2RI-unsplash.jpg') center/cover no-repeat;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1.5px solid rgba(56, 189, 248, 0.2);
+    max-width: 550px;
     color: #ffffff;
-    box-sizing: border-box;
-    overflow: hidden;
-        }
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
         
 
 .report-title {
@@ -1151,13 +1055,12 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             status.innerText = "GRA TERAZ: " + nazwa;
         }
 
-       // ==========================================
-// SILNIK RSS BEZ ZEWNĘTRZNYCH BRAMEK JSON (DOMParser)
+      // ==========================================
+// NOWY SILNIK RSS (AllOrigins + DOMParser)
 // ==========================================
-
 async function bezpiecznyFetchRSS(url) {
     try {
-        // AllOrigins działa jako czysty tunel CORS, zwraca surowy XML w polu 'contents'
+        // Tunel CORS omijający blokady
         const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
         const res = await fetch(proxyUrl);
         if (!res.ok) return null;
@@ -1165,7 +1068,7 @@ async function bezpiecznyFetchRSS(url) {
         const data = await res.json();
         if (!data || !data.contents) return null;
 
-        // Parsowanie surowego XML bezpośrednio w silniku przeglądarki
+        // Natywny parser XML w przeglądarce
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data.contents, "text/xml");
         
@@ -1177,7 +1080,6 @@ async function bezpiecznyFetchRSS(url) {
             const title = el.querySelector("title")?.textContent || "Brak tytułu";
             const link = el.querySelector("link")?.textContent || "#";
             
-            // Szukanie miniatury zdjęcia w tagu enclosure lub w treści
             let foto = "";
             const enclosure = el.querySelector("enclosure");
             if (enclosure && enclosure.getAttribute("url")) {
@@ -1197,7 +1099,7 @@ async function bezpiecznyFetchRSS(url) {
 
         return { items: sformatowaneWpisy };
     } catch (err) {
-        console.error("Błąd parsowania strumienia:", err);
+        console.error("Błąd parsowania:", err);
         return null;
     }
 }
@@ -1207,16 +1109,14 @@ async function pobierzWiadomosci() {
     const loading = document.getElementById('radar-loading');
     if (!kontener) return;
 
-    // Bezpośrednie źródła kanałów RSS
-const rssPolska = 'https://wiadomosci.gazeta.pl/pub/rss/wiadomosci.xml';    
-            const rssSport = 'https://rss.sport.pl/pub/rss/sport.xml';
-            const rssSwiat = 'https://wydarzenia.interia.pl/feed';
+    // Stabilne, pewne kanały RSS (Polsat zamiast blokującej się Interii i Gazety)
+    const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';    
+    const rssSport = 'https://www.polsatsport.pl/rss/wszystkie.xml';
+    const rssSwiat = 'https://www.polsatnews.pl/rss/swiat.xml';
 
-
-
-
-    
-    const domyslneFoto = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
+    const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
+    const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
+    const imgSwiat = 'https://cdn-icons-png.flaticon.com/512/2965/2965306.png';
 
     try {
         const [danePolska, daneSport, daneSwiat] = await Promise.all([
@@ -1228,16 +1128,17 @@ const rssPolska = 'https://wiadomosci.gazeta.pl/pub/rss/wiadomosci.xml';
         if (loading) loading.style.display = 'none';
         kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
 
-        let html = `<h3 style="color: var(--main-title, #ffffff); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
+        // Przywrócone czyste polskie znaki i emotikony
+        let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
             WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
         </h3>`;
 
-        function budujSekcje(dane, kategoria, kolorTagu) {
+        // Skrócona pętla generująca kod HTML kafelków
+        function budujSekcje(dane, kategoria, kolorTagu, domyslneFoto) {
             if (!dane || !dane.items || dane.items.length === 0) return '';
             const wpisy = dane.items.slice(0, 6);
             let blok = `<div class="rss-container"><div class="rss-track">`;
             
-            // Podwójna pętla (k < 2) dla zapewnienia płynnego zapętlenia animacji
             for (let k = 0; k < 2; k++) {
                 wpisy.forEach(art => {
                     const img = art.thumbnail || domyslneFoto;
@@ -1255,36 +1156,23 @@ const rssPolska = 'https://wiadomosci.gazeta.pl/pub/rss/wiadomosci.xml';
             return blok;
         }
 
-        html += budujSekcje(danePolska, '📰 🇵🇱 WIADOMOŚCI', '#38bdf8');
-        html += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b');
-        html += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444');
+        html += budujSekcje(danePolska, '📰 WIADOMOŚCI', '#38bdf8', imgPolska);
+        html += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b', imgSport);
+        html += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
 
-        if (html !== '') {
-            kontener.innerHTML = html;
-        } else if (loading) {
-            loading.innerText = 'Brak nowych wiadomości w strumieniach RSS.';
-        }
-    } catch (err) {
-        if (loading) loading.innerText = 'Błąd wczytywania strumieni RSS.';
+        if (html !== '') kontener.innerHTML = html;
+    } catch (error) {
+        if (loading) loading.innerText = 'Błąd połączenia ze strumieniem RSS.';
     }
 }
 
-// Uruchomienie przy starcie i interwał co 5 minut
-pobierzWiadomosci();
 setInterval(pobierzWiadomosci, 300000);
- 
 
-        
-
-// Protokół GPS
 function uruchomProtokolGPS() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
     }
 }
-
-// Wywołaj funkcję pobierania na starcie aplikacji
-pobierzWiadomosci();
         
         
          
