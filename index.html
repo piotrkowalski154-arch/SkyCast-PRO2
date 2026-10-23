@@ -770,22 +770,28 @@ body.night-mode .rss-card {
  <!-- MODUŁ: Pytanie Dnia i Meldunki Live (SkyCast PRO) -->
         <div class="glass-panel" id="live-weather-reports">
             
-            <!-- ========================================== -->
-            <!-- 🎯 NOWA SEKCJA: WYRÓŻNIONE PYTANIE DNIA    -->
-            <!-- ========================================== -->
-            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 16px; padding: 18px 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.05);">
-                
-                <!-- Główny tytuł z neonowym podkreśleniem -->
-                <h3 style="text-align: center; color: #38bdf8; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);">
-                    🎯 Pytanie Dnia
-                </h3>
-                <div style="width: 60px; height: 3px; background: #38bdf8; margin: 0 auto 18px auto; border-radius: 2px; box-shadow: 0 0 10px #38bdf8;"></div>
+            <!-- ========================================================= -->
+        <!-- 🎯 MODUŁ 1: PYTANIE DNIA (HALLOWEENOWY SZKLANY PANEL)     -->
+        <!-- ========================================================= -->
+        
+        <!-- 1. ZAPŁON: Dodana klasa "halloween-theme" obok "glass-panel" -->
+        <div class="glass-panel halloween-theme" style="margin-bottom: 20px;">
+            
+            <!-- Tytuł (Teraz CSS odpali tu mroczny, bursztynowy kolor) -->
+            <h3 style="text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px 0;">
+                🎃 Pytanie Dnia
+            </h3>
+            
+            <!-- 2. ZAPŁON LINII: Dodana klasa "halloween-line" -->
+            <div class="halloween-line" style="width: 60px; height: 3px; margin: 0 auto 20px auto; border-radius: 2px;"></div>
 
-                <!-- SZAFECZKA 1A: NA DZIEŃ (06:00 - 17:59) -->
-                <div id="day-radar" class="radar-box">
-                    <p style="text-align: center; color: #f1f5f9; font-size: 1.05rem; font-weight: 700; margin: 0 0 15px 0;">
-                        ☀️ Sobotni Poranek (24.10) – Jaki masz plan?
-                    </p>
+            <!-- SZAFECZKA 1A: NA DZIEŃ (06:00 - 17:59) -->
+            <div id="day-radar" class="radar-box">
+                <p class="report-subtitle" style="text-align: center; margin-bottom: 15px;">
+                    ☀️ Sobotni Poranek (24.10) – Jaki masz plan?
+                </p>
+
+                <!-- ... (tutaj reszta Twoich pasków z opcjami, nic nie musisz zmieniać) ... -->
 
                     <div class="poll-option" data-option="0">
                         <div class="poll-bar" style="width: 0%;"></div>
