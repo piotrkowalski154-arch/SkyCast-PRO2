@@ -519,11 +519,26 @@ body.night-mode .rss-card {
     transition: width 0.4s ease;
 }
 
+/* Baza dla obu elementów - wysunięcie nad pasek i twardy cień */
 .poll-text, .poll-percent {
     position: relative;
     z-index: 2;
     font-size: 0.95rem;
     font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 1. Treść opcji - lodowy, czysty błękit (nie męczy oka i nie jest surową, płaską bielą) */
+.poll-text {
+    color: #f1f5f9;
+}
+
+/* 2. Wynik procentowy - neonowy błękit SkyCast z lekką poświatą */
+.poll-percent {
+    color: #38bdf8;
+    font-weight: 700;
+    font-feature-settings: "tnum"; /* blokuje skakanie szerokości przy zmianie cyfr */
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5), 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 /* Formularz wpisywania meldunku */
