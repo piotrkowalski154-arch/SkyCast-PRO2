@@ -1282,19 +1282,18 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                     const wpisy = dane.items.slice(0, 6);
                     let blok = `<div class="rss-container"><div class="rss-track">`;
                     
-                    for (let k = 0; k < 2; k++) {
-    wpisy.forEach(art => {
-        const img = art.thumbnail || domyslneFoto;
-        blok += `
-        <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-            <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
-            <div class="rss-body">
-                <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
-                <p class="rss-title">${art.title}</p>
-            </div>
-        </a>`;
-    });
-}
+                    for (let k = 0; k < 2; k++) {
+                        wpisy.forEach(art => {
+                            const img = art.thumbnail || domyslneFoto;
+                            blok += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
                     blok += `</div></div>`;
                     return blok;
                 }
