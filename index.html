@@ -452,23 +452,30 @@ body.night-mode .rss-card {
 /* =========================================
    🍁 JESIENNY / HALLOWEENOWY PANEL (TŁO LOKALNE)
    ========================================= */
+/* =========================================
+   🎃 HALLOWEENOWY PANEL (CZYSTY CSS - NEON GLOW)
+   ========================================= */
 .glass-panel.halloween-theme {
-    /* 1. Podwójne tło z Twojego kodu (Gradient przyciemniający + Lokalne zdjęcie) */
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.86), rgba(30, 20, 15, 0.90)),
-                url('lukasz-szmigiel-ps2daRcXYes-unsplash.jpg') center/cover no-repeat;
+    /* 1. Wielowarstwowe tło CSS (Bursztynowy blask góra-prawo + Mroczny fiolet dół-lewo + Ciemna baza) */
+    background: 
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.35) 0%, transparent 65%),
+        radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.25) 0%, transparent 65%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 20, 15, 0.95) 100%);
     
-    /* 2. Mocne szkło z Twojego kodu */
+    /* 2. Mocne szkło */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     
-    /* 3. Bursztynowa ramka i zaokrąglenia */
+    /* 3. Bursztynowa ramka i miękkie zaokrąglenia */
     border: 2px solid #f59e0b; 
     border-radius: 24px;
     padding: 22px;
     margin: 20px auto;
     
-    /* 4. Ciepły, złoty blask */
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(245, 158, 11, 0.15);
+    /* 4. Ciepły, złoty blask dookoła szafeczki (zewnętrzny i wewnętrzny) */
+    box-shadow: 
+        0 10px 30px rgba(245, 158, 11, 0.25), 
+        inset 0 0 15px rgba(245, 158, 11, 0.15);
     
     box-sizing: border-box;
     overflow: hidden; 
@@ -486,6 +493,7 @@ body.night-mode .rss-card {
     background: #f59e0b !important;
     box-shadow: 0 0 12px #f59e0b !important;
 }
+
 
 
 .report-title {
@@ -1379,10 +1387,12 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             const rssSport = 'https://sport.interia.pl/feed';
             const rssSwiat = 'https://wydarzenia.interia.pl/feed';
 
-            const imgPolska = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="%23ffffff"/><rect y="32" width="90" height="32" fill="%23dc2626"/></svg>`;
-            const imgSport = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`;
-            const imgSwiat = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`;
-
+            // Wbudowane grafiki wektorowe SVG (Zabezpieczone przez encodeURIComponent - zero krzaków i ptaszków!)
+            const imgPolska = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="#ffffff"/><rect y="32" width="90" height="32" fill="#dc2626"/></svg>`);
+            
+            const imgSport = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`);
+            
+            const imgSwiat = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`);
             try {
                 const [danePolska, daneSport, daneSwiat] = await Promise.all([
                     bezpiecznyFetchRSS(rssPolska),
