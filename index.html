@@ -449,49 +449,48 @@ body.night-mode .rss-card {
 }
 
 
+
+ 
 /* =========================================
-   🍁 JESIENNY / HALLOWEENOWY PANEL (TŁO LOKALNE)
+   ⭐ UNIWERSALNY PANEL ANKIETY (SKYCAST PRO)
    ========================================= */
-/* =========================================
-   🎃 HALLOWEENOWY PANEL (CZYSTY CSS - NEON GLOW)
-   ========================================= */
-.glass-panel.halloween-theme {
-    /* 1. Wielowarstwowe tło CSS (Bursztynowy blask góra-prawo + Mroczny fiolet dół-lewo + Ciemna baza) */
+.glass-panel.poll-theme {
+    /* 1. Chłodne, nowoczesne tło (Błękitny blask + Granatowa baza) */
     background: 
-        radial-gradient(circle at top right, rgba(245, 158, 11, 0.35) 0%, transparent 65%),
-        radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.25) 0%, transparent 65%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 20, 15, 0.95) 100%);
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.15) 0%, transparent 65%),
+        radial-gradient(circle at bottom left, rgba(2, 132, 199, 0.15) 0%, transparent 65%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.95) 100%);
     
     /* 2. Mocne szkło */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     
-    /* 3. Bursztynowa ramka i miękkie zaokrąglenia */
-    border: 2px solid #f59e0b; 
+    /* 3. Błękitna, szklana ramka */
+    border: 2px solid rgba(56, 189, 248, 0.4); 
     border-radius: 24px;
     padding: 22px;
     margin: 20px auto;
     
-    /* 4. Ciepły, złoty blask dookoła szafeczki (zewnętrzny i wewnętrzny) */
+    /* 4. Chłodny, neonowy blask wewnątrz i na zewnątrz */
     box-shadow: 
-        0 10px 30px rgba(245, 158, 11, 0.25), 
-        inset 0 0 15px rgba(245, 158, 11, 0.15);
+        0 10px 30px rgba(0, 0, 0, 0.4), 
+        inset 0 0 15px rgba(56, 189, 248, 0.15);
     
     box-sizing: border-box;
     overflow: hidden; 
     animation: slideUp 0.5s ease-out forwards;
 }
 
-/* Dopasowanie tytułu "Pytanie Dnia" do nowej, bursztynowej ramki */
-.glass-panel.halloween-theme h3 {
-    color: #f59e0b !important; 
-    text-shadow: 0 0 12px rgba(245, 158, 11, 0.6), 0 2px 4px rgba(0,0,0,0.9) !important;
+/* Uniwersalny, błękitny tytuł */
+.glass-panel.poll-theme h3 {
+    color: #38bdf8 !important; 
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.5), 0 2px 4px rgba(0,0,0,0.9) !important;
 }
 
-/* Bursztynowy podkreślnik pod tytułem */
-.glass-panel.halloween-theme .halloween-line {
-    background: #f59e0b !important;
-    box-shadow: 0 0 12px #f59e0b !important;
+/* Błękitny podkreślnik pod tytułem */
+.glass-panel.poll-theme .poll-line {
+    background: #38bdf8 !important;
+    box-shadow: 0 0 12px #38bdf8 !important;
 }
 
 
