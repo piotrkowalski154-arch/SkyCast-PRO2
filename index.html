@@ -811,39 +811,13 @@ body.night-mode .rss-card {
         </div>
 
 
-        <!-- ========================================================= -->
-        <!-- 🛰️ MODUŁ RADARU POGODOWO-OPADOWEGO (LIVE)                -->
-        <!-- ========================================================= -->
-        <div class="glass-panel" id="radar-section" style="padding: 15px; margin: 20px auto; max-width: 550px; box-sizing: border-box;">
-            
-            <h3 style="text-align: center; color: #38bdf8; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px 0;">
-                🛰️ Live Radar & Chmury
-            </h3>
-            
-            <div style="width: 60px; height: 3px; background: #38bdf8; margin: 0 auto 15px auto; border-radius: 2px; box-shadow: 0 0 10px #38bdf8;"></div>
-
-            <p style="text-align: center; color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">
-                Aktualny ruch frontów opadowych w regionie (Europa / Polska)
-            </p>
-
-            <!-- Kontener z mapą radaru w ciemnym stylu -->
-            <div style="position: relative; width: 100%; height: 380px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: inset 0 0 15px rgba(0,0,0,0.5);">
-                
-                <iframe src="https://www.rainviewer.com/map.html?loc=50.06,19.94,7&oCn=0&oAA=0&oFav=0&oM=1&oC=1&oU=0&oCS=1&oF=1&oCl=0&oMe=0&oTs=1" 
-                        width="100%" 
-                        height="100%" 
-                        frameborder="0" 
-                        style="border:0; background: #0f172a;" 
-                        allowfullscreen>
-                </iframe>
-                
-            </div>
-            
-            <p style="text-align: center; color: #94a3b8; font-size: 0.75rem; margin-top: 10px;">
-                Źródło danych: RainViewer API (Siatka opadów czasu rzeczywistego)
-            </p>
-        </div>
-        <!-- KONIEC MODUŁU RADARU -->
+        <div style="position: relative; width: 100%; height: 380px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.3);">
+    <iframe src="https://embed.windy.com/embed2.html?lat=50.060&lon=19.937&zoom=7&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" 
+            width="100%" 
+            height="100%" 
+            frameborder="0">
+    </iframe>
+</div>
 
        
       <!-- ========================================================= -->
