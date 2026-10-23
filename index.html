@@ -1208,9 +1208,14 @@ async function pobierzWiadomosci() {
     if (!kontener) return;
 
     // Bezpośrednie źródła kanałów RSS
-    const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';    
-    const rssSport = 'https://www.polsatsport.pl/rss/wszystkie.xml';
-    const rssSwiat = 'https://www.polsatnews.pl/rss/swiat.xml';
+const rssPolska = 'https://wiadomosci.gazeta.pl/pub/rss/wiadomosci.xml';    
+            const rssSport = 'https://rss.sport.pl/pub/rss/sport.xml';
+            const rssSwiat = 'https://wydarzenia.interia.pl/feed';
+
+
+
+
+    
     const domyslneFoto = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
 
     try {
