@@ -694,7 +694,6 @@ body.night-mode .rss-card {
                     width="100%" 
                     height="120" 
                     src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2FDefectedrecords%2Fdefected-radio-show-ferreck-dawn-takeover-230824%2F"
-                    
                     frameborder="0" 
                     sandbox="allow-scripts allow-same-origin">
                 </iframe>
@@ -1001,9 +1000,9 @@ body.night-mode .rss-card {
                 `;  
 
                 const TYTUL_WEEKEND = 'PROGNOZA NA WEEKEND: SŁONECZNY START, ZMIANA CZASU I NIEDZIELNE ZAŁAMANIE (23.10 – 25.10)';
-const GODZINA_WEEKEND = '08:00';
+                const GODZINA_WEEKEND = '08:00';
 
-const tresc = `Siemanko! Weekendowa aktualizacja meteo dla Krakowa i całej Polski na piątek, sobotę i niedzielę (23–25 października 2026). Przed nami dynamiczny weekend: zaczynamy pięknym, złotym piątkiem, w sobotę łapiemy stabilną aurę przed zmianą czasu, a w niedzielę wchodzi chłodny front z deszczem. Sprawdźcie szczegóły, żeby dobrze zaplanować wolne dni:
+                const tresc = `Siemanko! Weekendowa aktualizacja meteo dla Krakowa i całej Polski na piątek, sobotę i niedzielę (23–25 października 2026). Przed nami dynamiczny weekend: zaczynamy pięknym, złotym piątkiem, w sobotę łapiemy stabilną aurę przed zmianą czasu, a w niedzielę wchodzi chłodny front z deszczem. Sprawdźcie szczegóły, żeby dobrze zaplanować wolne dni:
 
 🍁 PROGNOZA DLA KRAKOWA (23 – 25 PAŹDZIERNIKA) 🌤️
 
@@ -1042,7 +1041,6 @@ const tresc = `Siemanko! Weekendowa aktualizacja meteo dla Krakowa i całej Pols
 
 📻 SKYCAST PRO RADIO – WEEKENDOWY RESET:
 Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – płynący Progressive Trance i głębokie brzmienia idealnie zgrają się ze słonecznym piątkiem i leniwą sobotą przed ekranem! 🎧☕📻`;
-                
                 
                 okienko.innerHTML = `
                     <div style="
@@ -1153,129 +1151,187 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             status.innerText = "GRA TERAZ: " + nazwa;
         }
 
-      // ==========================================
-// NOWY SILNIK RSS (AllOrigins + DOMParser)
-// ==========================================
-async function bezpiecznyFetchRSS(url) {
-    try {
-        // Tunel CORS omijający blokady
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-        const res = await fetch(proxyUrl);
-        if (!res.ok) return null;
-        
-        const data = await res.json();
-        if (!data || !data.contents) return null;
+        // =========================================================================
+        // 🛡️ PANCERNY SILNIK RSS 3.0 (Dekoder Base64 + Kaskada Proxy + DOMParser)
+        // =========================================================================
 
-        // Natywny parser XML w przeglądarce
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-        
-        const items = xmlDoc.querySelectorAll("item");
-        if (!items || items.length === 0) return null;
-
-        const sformatowaneWpisy = [];
-        items.forEach(el => {
-            const title = el.querySelector("title")?.textContent || "Brak tytułu";
-            const link = el.querySelector("link")?.textContent || "#";
-            
-            let foto = "";
-            const enclosure = el.querySelector("enclosure");
-            if (enclosure && enclosure.getAttribute("url")) {
-                foto = enclosure.getAttribute("url");
-            } else {
-                const desc = el.querySelector("description")?.textContent || "";
-                const imgMatch = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-                if (imgMatch && imgMatch[1]) foto = imgMatch[1];
+        // 1. Funkcja rozkodowująca Base64 (gdy AllOrigins spakuje XML w data:application/rss+xml;base64)
+        function odkodujTekstXML(contents) {
+            if (!contents) return "";
+            if (contents.startsWith("data:")) {
+                const base64Index = contents.indexOf("base64,");
+                if (base64Index !== -1) {
+                    try {
+                        const base64 = contents.substring(base64Index + 7);
+                        const binString = atob(base64);
+                        const bytes = Uint8Array.from(binString, (znak) => znak.codePointAt(0));
+                        return new TextDecoder("utf-8").decode(bytes);
+                    } catch (e) {
+                        console.error("Błąd dekodowania Base64:", e);
+                    }
+                }
             }
-
-            sformatowaneWpisy.push({
-                title: title.trim(),
-                link: link.trim(),
-                thumbnail: foto
-            });
-        });
-
-        return { items: sformatowaneWpisy };
-    } catch (err) {
-        console.error("Błąd parsowania:", err);
-        return null;
-    }
-}
-
-async function pobierzWiadomosci() {
-    const kontener = document.getElementById('radar-wiadomosci');
-    const loading = document.getElementById('radar-loading');
-    if (!kontener) return;
-
-    // Stabilne, pewne kanały RSS (Polsat zamiast blokującej się Interii i Gazety)
-     const rssPolska = 'http://rss.gazeta.pl/pub/rss/wiadomosci.xml';    
-           const rssSport = 'https://sport.interia.pl/feed';
-            const rssSwiat = 'https://wydarzenia.interia.pl/feed';
-
-    const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
-    const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
-    const imgSwiat = 'https://cdn-icons-png.flaticon.com/512/2965/2965306.png';
-
-    try {
-        const [danePolska, daneSport, daneSwiat] = await Promise.all([
-            bezpiecznyFetchRSS(rssPolska),
-            bezpiecznyFetchRSS(rssSport),
-            bezpiecznyFetchRSS(rssSwiat)
-        ]);
-
-        if (loading) loading.style.display = 'none';
-        kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
-
-        // Przywrócone czyste polskie znaki i emotikony
-        let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
-            WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
-        </h3>`;
-
-        // Skrócona pętla generująca kod HTML kafelków
-        function budujSekcje(dane, kategoria, kolorTagu, domyslneFoto) {
-            if (!dane || !dane.items || dane.items.length === 0) return '';
-            const wpisy = dane.items.slice(0, 6);
-            let blok = `<div class="rss-container"><div class="rss-track">`;
-            
-            for (let k = 0; k < 2; k++) {
-                wpisy.forEach(art => {
-                    const img = art.thumbnail || domyslneFoto;
-                    blok += `
-                        <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                            <img src="${img}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${domyslneFoto}'">
-                            <div class="rss-body">
-                                <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
-                                <p class="rss-title">${art.title}</p>
-                            </div>
-                        </a>`;
-                });
-            }
-            blok += `</div></div>`;
-            return blok;
+            return contents;
         }
 
-        html += budujSekcje(danePolska, '📰 WIADOMOŚCI', '#38bdf8', imgPolska);
-        html += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b', imgSport);
-        html += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
+        // 2. Funkcja pobierająca surowy XML przez kaskadę tuneli CORS
+        async function pobierzSurowyXML(url) {
+            // Tunel 1: AllOrigins (z obsługą JSON i Base64)
+            try {
+                const res1 = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                if (res1.ok) {
+                    const data = await res1.json();
+                    if (data && data.contents) {
+                        const xmlText = odkodujTekstXML(data.contents);
+                        if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
+                    }
+                }
+            } catch (e) {
+                console.warn("Tunel 1 (AllOrigins) niedostępny dla:", url);
+            }
 
-        if (html !== '') kontener.innerHTML = html;
-    } catch (error) {
-        if (loading) loading.innerText = 'Błąd połączenia ze strumieniem RSS.';
-    }
-}
+            // Tunel 2 (Zapasowy): CodeTabs Proxy
+            try {
+                const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`);
+                if (res2.ok) {
+                    const xmlText = await res2.text();
+                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
+                }
+            } catch (e) {
+                console.warn("Tunel 2 (CodeTabs) niedostępny dla:", url);
+            }
 
-setInterval(pobierzWiadomosci, 300000);
+            return null;
+        }
 
-function uruchomProtokolGPS() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
-    }
-}
-        
-        
-         
+        // 3. Parser rozbierający XML na tablicę gotowych obiektów z wiadomościami
+        async function bezpiecznyFetchRSS(url) {
+            try {
+                const surowyXML = await pobierzSurowyXML(url);
+                if (!surowyXML) return null;
 
-        
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(surowyXML, "text/xml");
+                
+                const items = xmlDoc.querySelectorAll("item, entry");
+                if (!items || items.length === 0) return null;
+
+                const sformatowaneWpisy = [];
+                items.forEach(el => {
+                    const title = el.querySelector("title")?.textContent || "Brak tytułu";
+                    const linkEl = el.querySelector("link");
+                    const link = linkEl?.textContent?.trim() || linkEl?.getAttribute("href") || "#";
+                    
+                    // Wyciąganie zdjęcia ze wszystkich możliwych standardów RSS
+                    let foto = "";
+                    const enclosure = el.querySelector("enclosure");
+                    const mediaContent = el.querySelector("media\\:content, content");
+                    const mediaThumb = el.querySelector("media\\:thumbnail, thumbnail");
+
+                    if (enclosure && enclosure.getAttribute("url")) {
+                        foto = enclosure.getAttribute("url");
+                    } else if (mediaContent && mediaContent.getAttribute("url")) {
+                        foto = mediaContent.getAttribute("url");
+                    } else if (mediaThumb && mediaThumb.getAttribute("url")) {
+                        foto = mediaThumb.getAttribute("url");
+                    } else {
+                        const desc = el.querySelector("description")?.textContent || "";
+                        const imgMatch = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+                        if (imgMatch && imgMatch[1]) foto = imgMatch[1];
+                    }
+
+                    sformatowaneWpisy.push({
+                        title: title.trim(),
+                        link: link,
+                        thumbnail: foto.trim()
+                    });
+                });
+
+                return { items: sformatowaneWpisy };
+            } catch (err) {
+                console.error("Błąd parsowania RSS:", err);
+                return null;
+            }
+        }
+
+        // 4. Główna funkcja renderująca kafelki na ekranie
+        async function pobierzWiadomosci() {
+            const kontener = document.getElementById('radar-wiadomosci');
+            const loading = document.getElementById('radar-loading');
+            if (!kontener) return;
+
+            // Szyfrowane (HTTPS), stabilne kanały RSS
+            const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';    
+            const rssSport = 'https://sport.interia.pl/feed';
+            const rssSwiat = 'https://wydarzenia.interia.pl/feed';
+
+            // Wbudowane grafiki wektorowe SVG (Data URI) – 0 zapytań do sieci, 0 blokad limitów
+            const imgPolska = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="%23ffffff"/><rect y="32" width="90" height="32" fill="%23dc2626"/></svg>`;
+            const imgSport = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`;
+            const imgSwiat = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`;
+
+            try {
+                const [danePolska, daneSport, daneSwiat] = await Promise.all([
+                    bezpiecznyFetchRSS(rssPolska),
+                    bezpiecznyFetchRSS(rssSport),
+                    bezpiecznyFetchRSS(rssSwiat)
+                ]);
+
+                function budujSekcje(dane, kategoria, kolorTagu, domyslneFoto) {
+                    if (!dane || !dane.items || dane.items.length === 0) return '';
+                    const wpisy = dane.items.slice(0, 6);
+                    let blok = `<div class="rss-container"><div class="rss-track">`;
+                    
+                    for (let k = 0; k < 2; k++) {
+                        wpisy.forEach(art => {
+                            const img = art.thumbnail || domyslneFoto;
+                            blok += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                                    <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
+                    blok += `</div></div>`;
+                    return blok;
+                }
+
+                // Najpierw budujemy same paski z kafelkami
+                let paskiHTML = '';
+                paskiHTML += budujSekcje(danePolska, '📰 WIADOMOŚCI', '#38bdf8', imgPolska);
+                paskiHTML += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b', imgSport);
+                paskiHTML += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
+
+                // Sprawdzamy, czy faktycznie powstał chociaż jeden pasek z wiadomościami
+                if (paskiHTML !== '') {
+                    if (loading) loading.style.display = 'none';
+                    kontener.innerHTML = `
+                        <h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
+                            WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
+                        </h3>
+                        ${paskiHTML}
+                    `;
+                } else {
+                    if (loading) {
+                        loading.style.display = 'block';
+                        loading.innerText = 'Brak odpowiedzi ze strumieni RSS. Ponawiam próbę...';
+                    }
+                }
+            } catch (error) {
+                if (loading) loading.innerText = 'Błąd połączenia ze strumieniem RSS.';
+            }
+        }
+
+        setInterval(pobierzWiadomosci, 300000);
+
+        function uruchomProtokolGPS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
+            }
+        }
 
         function tlumaczPogodeTeraz(iconCode, description) {
             let icon = "☁️";
@@ -1828,67 +1884,64 @@ function uruchomProtokolGPS() {
         });
 
         // ---------- MELDUNKI ----------
-       function startReports() {
-    return {
-        "-0seed9": { 
-            loc: "DK94 (Olkusz – Kraków)", 
-            msg: "23.10, 12:30 – 🚧 PRZEBUDOWA: Trwają prace drogowe i zatłaczanie pustek krasowych w Olkuszu. Ruch odbywa się po jezdni północnej, lokalne zwężenia i spowolnienia.", 
-            likes: 29, 
-            ts: 9 
-        },
-        "-0seed8": { 
-            loc: "Autostrada A1 (Pyrzowice – Piekary Śląskie)", 
-            msg: "23.10, 12:30 – ⚠️ ROBOTY DROGOWE: Utrudnienia na odcinku remontowym, wprowadzono ruch dwukierunkowy oraz ograniczenie prędkości do 60 km/h.", 
-            likes: 23, 
-            ts: 8 
-        },
-        "-0seed7": { 
-            loc: "Trasa S7 (Widoma – Kraków Nowa Huta)", 
-            msg: "23.10, 12:30 – 🚗 RUCH PRZEDWEEKENDOWY: Zwiększone natężenie ruchu na północnym wjeździe do Krakowa, przejazd w stronę węzła z A4 odbywa się płynnie.", 
-            likes: 21, 
-            ts: 7 
-        },
-        "-0seed6": { 
-            loc: "Wrocław", 
-            msg: "23.10, 12:30 – 14°C, częściowo słonecznie i ciepło na Dolnym Śląsku, umiarkowany wiatr południowy (15 km/h, w porywach do 20 km/h), ciśnienie 1017 hPa.", 
-            likes: 32, 
-            ts: 6 
-        },
-        "-0seed5": { 
-            loc: "Zakopane", 
-            msg: "23.10, 12:30 – 11°C, słoneczne i pogodne południe pod Tatrami, niska wilgotność powietrza (48%) oraz bardzo słaby wiatr z południa (3 km/h).", 
-            likes: 27, 
-            ts: 5 
-        },
-        "-0seed4": { 
-            loc: "Rzeszów", 
-            msg: "23.10, 12:30 – 14°C, pełne słońce i bezchmurne niebo na Podkarpaciu, wyczuwalny lekki wiatr południowo-zachodni (10 km/h), brak opadów.", 
-            likes: 19, 
-            ts: 4 
-        },
-        "-0seed3": { 
-            loc: "Katowice", 
-            msg: "23.10, 12:30 – 13°C, słoneczna aura w centrum aglomeracji śląskiej, umiarkowana wilgotność (59%) i łagodny wiatr południowy (10 km/h).", 
-            likes: 16, 
-            ts: 3 
-        },
-        "-0seed2": { 
-            loc: "Lublin", 
-            msg: "23.10, 12:30 – 12°C, przeważnie słonecznie na Lubelszczyźnie, umiarkowany wiatr zachodni (15 km/h), ciśnienie 1020 hPa i bardzo dobra jakość powietrza.", 
-            likes: 14, 
-            ts: 2 
-        },
-        "-0seed1": { 
-            loc: "Sopot", 
-            msg: "23.10, 12:30 – 12°C (odczuwalna 11°C), słoneczne południe nad Zatoką Gdańską, wiatr południowo-zachodni (11 km/h), wilgotność na poziomie 77%.", 
-            likes: 18, 
-            ts: 1 
+        function startReports() {
+            return {
+                "-0seed9": { 
+                    loc: "DK94 (Olkusz – Kraków)", 
+                    msg: "23.10, 12:30 – 🚧 PRZEBUDOWA: Trwają prace drogowe i zatłaczanie pustek krasowych w Olkuszu. Ruch odbywa się po jezdni północnej, lokalne zwężenia i spowolnienia.", 
+                    likes: 29, 
+                    ts: 9 
+                },
+                "-0seed8": { 
+                    loc: "Autostrada A1 (Pyrzowice – Piekary Śląskie)", 
+                    msg: "23.10, 12:30 – ⚠️ ROBOTY DROGOWE: Utrudnienia na odcinku remontowym, wprowadzono ruch dwukierunkowy oraz ograniczenie prędkości do 60 km/h.", 
+                    likes: 23, 
+                    ts: 8 
+                },
+                "-0seed7": { 
+                    loc: "Trasa S7 (Widoma – Kraków Nowa Huta)", 
+                    msg: "23.10, 12:30 – 🚗 RUCH PRZEDWEEKENDOWY: Zwiększone natężenie ruchu na północnym wjeździe do Krakowa, przejazd w stronę węzła z A4 odbywa się płynnie.", 
+                    likes: 21, 
+                    ts: 7 
+                },
+                "-0seed6": { 
+                    loc: "Wrocław", 
+                    msg: "23.10, 12:30 – 14°C, częściowo słonecznie i ciepło na Dolnym Śląsku, umiarkowany wiatr południowy (15 km/h, w porywach do 20 km/h), ciśnienie 1017 hPa.", 
+                    likes: 32, 
+                    ts: 6 
+                },
+                "-0seed5": { 
+                    loc: "Zakopane", 
+                    msg: "23.10, 12:30 – 11°C, słoneczne i pogodne południe pod Tatrami, niska wilgotność powietrza (48%) oraz bardzo słaby wiatr z południa (3 km/h).", 
+                    likes: 27, 
+                    ts: 5 
+                },
+                "-0seed4": { 
+                    loc: "Rzeszów", 
+                    msg: "23.10, 12:30 – 14°C, pełne słońce i bezchmurne niebo na Podkarpaciu, wyczuwalny lekki wiatr południowo-zachodni (10 km/h), brak opadów.", 
+                    likes: 19, 
+                    ts: 4 
+                },
+                "-0seed3": { 
+                    loc: "Katowice", 
+                    msg: "23.10, 12:30 – 13°C, słoneczna aura w centrum aglomeracji śląskiej, umiarkowana wilgotność (59%) i łagodny wiatr południowy (10 km/h).", 
+                    likes: 16, 
+                    ts: 3 
+                },
+                "-0seed2": { 
+                    loc: "Lublin", 
+                    msg: "23.10, 12:30 – 12°C, przeważnie słonecznie na Lubelszczyźnie, umiarkowany wiatr zachodni (15 km/h), ciśnienie 1020 hPa i bardzo dobra jakość powietrza.", 
+                    likes: 14, 
+                    ts: 2 
+                },
+                "-0seed1": { 
+                    loc: "Sopot", 
+                    msg: "23.10, 12:30 – 12°C (odczuwalna 11°C), słoneczne południe nad Zatoką Gdańską, wiatr południowo-zachodni (11 km/h), wilgotność na poziomie 77%.", 
+                    likes: 18, 
+                    ts: 1 
+                }
+            };
         }
-    };
-       }
-        
-        
-        
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
 
