@@ -322,7 +322,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
 /* =========================================
    RADAR RSS 2.0 - SZKLANA TAŚMA KAFELKOWA (POGODA)
    ========================================= */
-#radar-wiadomosci {
+.radar-wiadomosci {
   padding: 15px 0 !important;
   overflow: hidden !important;
   display: flex !important;
@@ -330,7 +330,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   gap: 10px !important;
 }
 
-#radar-wiadomosci .rss-container {
+.radar-wiadomosci .rss-container {
   width: 100% !important;
   overflow: hidden !important;
   position: relative !important;
@@ -344,8 +344,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   border: 1px solid rgba(0, 212, 255, 0.2) !important;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5) !important;
 }
-
-#radar-wiadomosci .rss-track {
+.radar-wiadomosci .rss-track {
   display: inline-flex !important;
   gap: 16px !important;
   animation: scrollRadarRss 55s linear infinite !important;
@@ -356,8 +355,8 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   will-change: transform;
 }
 
-#radar-wiadomosci .rss-container:hover .rss-track,
-#radar-wiadomosci .rss-container:active .rss-track {
+ .radar-wiadomosci .rss-container:hover .rss-track,
+.radar-wiadomosci .rss-container:active .rss-track {
   animation-play-state: paused !important;
 }
 
@@ -366,7 +365,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   100% { transform: translateX(-50%); }
 }
 
-#radar-wiadomosci .rss-card {
+.radar-wiadomosci .rss-card {
   display: inline-flex !important;
   align-items: center !important;
   gap: 12px !important;
@@ -384,13 +383,13 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   box-sizing: border-box !important;
 }
 
-#radar-wiadomosci .rss-card:hover {
+.radar-wiadomosci .rss-card:hover {
   transform: translateY(-2px) scale(1.02);
   border-color: #00d4ff !important;
   box-shadow: 0 6px 20px rgba(0, 212, 255, 0.35) !important;
 }
 
-#radar-wiadomosci .rss-thumb {
+.radar-wiadomosci .rss-thumb {
   width: 80px !important;
   height: 60px !important;
   border-radius: 8px !important;
@@ -400,7 +399,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   background: #0f172a;
 }
 
-#radar-wiadomosci .rss-body {
+.radar-wiadomosci .rss-body {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -409,7 +408,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   white-space: normal !important;
 }
 
-#radar-wiadomosci .rss-tag {
+.radar-wiadomosci .rss-tag {
   font-size: 0.65rem !important;
   font-weight: 800 !important;
   color: #00e5ff !important;
@@ -417,7 +416,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   letter-spacing: 0.6px !important;
 }
 
-#radar-wiadomosci .rss-title {
+.radar-wiadomosci .rss-title {
   color: #ffffff !important;
   font-size: 0.78rem !important;
   font-weight: 600 !important;
@@ -430,7 +429,7 @@ body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
-        #.glass-panel {
+        .glass-panel {
     position: relative;
     max-width: 550px;
     margin: 20px auto;
