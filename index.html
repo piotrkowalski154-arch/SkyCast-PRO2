@@ -1152,128 +1152,144 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
         }
 
         // ==========================================
-        // SILNIK RSS Z PANCERNYM POBIERANIEM KAFELKÓW
-        // ==========================================
-        function znajdzZdjecie(art, domyslnyHerb) {
-            if (art.enclosure && art.enclosure.link) return art.enclosure.link;
-            if (art.thumbnail && art.thumbnail.startsWith('http')) return art.thumbnail;
-            if (art.description) {
-                const dopasowanie = art.description.match(/<img[^>]+src=["']([^"']+)["']/i);
-                if (dopasowanie && dopasowanie[1]) return dopasowanie[1];
+// SILNIK RSS Z PANCERNYM POBIERANIEM KAFELKÓW
+// ==========================================
+function znajdzZdjecie(art, domyslnyHerb) {
+    if (art.enclosure && art.enclosure.link) return art.enclosure.link;
+    if (art.thumbnail && art.thumbnail.startsWith('http')) return art.thumbnail;
+    if (art.description) {
+        const dopasowanie = art.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (dopasowanie && dopasowanie[1]) return dopasowanie[1];
+    }
+    return domyslnyHerb;
+}
+
+async function bezpiecznyFetchRSS(url) {
+    try {
+        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return (data && data.status === 'ok') ? data : null;
+    } catch (err) {
+        return null;
+    }
+}
+
+async function pobierzWiadomosci() {
+    const kontener = document.getElementById('radar-wiadomosci');
+    const loading = document.getElementById('radar-loading');
+    if (!kontener) return;
+
+    // Używamy stabilnych adresów RSS z HTTPS, które przechodzą przez bramkę
+    const rssPolska = 'https://tvn24.pl/najwazniejsze.xml';    
+    const rssSport = 'https://transfery.info/rss.xml';
+    const rssSwiat = 'https://www.theguardian.com/world/rss';
+
+    const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
+    const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
+    const imgSwiat = 'https://cdn-icons-png.flaticon.com/512/2965/2965306.png';
+
+    try {
+        const [danePolska, daneSport, daneSwiat] = await Promise.all([
+            bezpiecznyFetchRSS(rssPolska),
+            bezpiecznyFetchRSS(rssSport),
+            bezpiecznyFetchRSS(rssSwiat)
+        ]);
+
+        if (loading) loading.style.display = 'none';
+        kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
+
+        let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
+            WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
+        </h3>`;
+
+        // --- PANCERNY BLOK: POLSKA ---
+        if (danePolska && danePolska.items && danePolska.items.length > 0) {
+            const items = danePolska.items.slice(0, 6);
+            html += `<div class="rss-container"><div class="rss-track">`;
+            for (let k = 0; k < 2; k++) {
+                items.forEach(art => {
+                    const foto = znajdzZdjecie(art, imgPolska) || imgPolska;
+                    html += `
+                        <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                            <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgPolska}'">
+                            <div class="rss-body">
+                                <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
+                                <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                            </div>
+                        </a>`;
+                });
             }
-            return domyslnyHerb;
+            html += `</div></div>`;
         }
 
-        async function bezpiecznyFetchRSS(url) {
-            try {
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-                if (!res.ok) return null;
-                const data = await res.json();
-                return (data && data.status === 'ok') ? data : null;
-            } catch (err) {
-                return null;
+        // --- PANCERNY BLOK: SPORT ---
+        if (daneSport && daneSport.items && daneSport.items.length > 0) {
+            const items = daneSport.items.slice(0, 6);
+            html += `<div class="rss-container"><div class="rss-track">`;
+            for (let k = 0; k < 2; k++) {
+                items.forEach(art => {
+                    const foto = znajdzZdjecie(art, imgSport) || imgSport;
+                    html += `
+                        <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                            <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSport}'">
+                            <div class="rss-body">
+                                <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
+                                <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                            </div>
+                        </a>`;
+                });
             }
+            html += `</div></div>`;
         }
 
-        async function pobierzWiadomosci() {
-            const kontener = document.getElementById('radar-wiadomosci');
-            const loading = document.getElementById('radar-loading');
-            if (!kontener) return;
-
-            const rssPolska = 'http://rss.gazeta.pl/pub/rss/wiadomosci.xml';    
-            const rssSport = 'https://www.sport.pl/pub/rss/sport.xml';
-            const rssSwiat = 'https://wydarzenia.interia.pl/feed';
-
-            const imgPolska = 'https://cdn-icons-png.flaticon.com/512/197/197532.png';
-            const imgSport = 'https://cdn-icons-png.flaticon.com/512/1165/1165183.png';
-            const imgSwiat = 'https://cdn-icons-png.flaticon.com/512/2965/2965306.png';
-
-            try {
-                const [danePolska, daneSport, daneSwiat] = await Promise.all([
-                    bezpiecznyFetchRSS(rssPolska),
-                    bezpiecznyFetchRSS(rssSport),
-                    bezpiecznyFetchRSS(rssSwiat)
-                ]);
-
-                if (loading) loading.style.display = 'none';
-                kontener.querySelectorAll('.rss-container, h3').forEach(el => el.remove());
-
-                let html = `<h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
-                    WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
-                </h3>`;
-
-                // --- PANCERNY BLOK: POLSKA ---
-                if (danePolska && danePolska.items && danePolska.items.length > 0) {
-                    const items = danePolska.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgPolska) || imgPolska;
-                            html += `
-                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgPolska}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #38bdf8;">📰 WIADOMOŚCI</span>
-                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
-
-                // --- PANCERNY BLOK: SPORT ---
-                if (daneSport && daneSport.items && daneSport.items.length > 0) {
-                    const items = daneSport.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSport) || imgSport;
-                            html += `
-                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSport}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #f59e0b;">⚽ SPORT</span>
-                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
-
-                // --- PANCERNY BLOK: ŚWIAT ---
-                if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
-                    const items = daneSwiat.items.slice(0, 6);
-                    html += `<div class="rss-container"><div class="rss-track">`;
-                    for (let k = 0; k < 2; k++) {
-                        items.forEach(art => {
-                            const foto = znajdzZdjecie(art, imgSwiat) || imgSwiat;
-                            html += `
-                                <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
-                                    <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSwiat}'">
-                                    <div class="rss-body">
-                                        <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
-                                        <p class="rss-title">${art.title || "Brak tytułu"}</p>
-                                    </div>
-                                </a>`;
-                        });
-                    }
-                    html += `</div></div>`;
-                }
-
-                if (html !== '') kontener.innerHTML = html;
-            } catch (error) {
-                if (loading) loading.innerText = 'Brak połączenia z radarem RSS.';
+        // --- PANCERNY BLOK: ŚWIAT ---
+        if (daneSwiat && daneSwiat.items && daneSwiat.items.length > 0) {
+            const items = daneSwiat.items.slice(0, 6);
+            html += `<div class="rss-container"><div class="rss-track">`;
+            for (let k = 0; k < 2; k++) {
+                items.forEach(art => {
+                    const foto = znajdzZdjecie(art, imgSwiat) || imgSwiat;
+                    html += `
+                        <a href="${art.link || '#'}" target="_blank" rel="noopener noreferrer" class="rss-card">
+                            <img src="${foto}" alt="News" class="rss-thumb" loading="lazy" onerror="this.onerror=null;this.src='${imgSwiat}'">
+                            <div class="rss-body">
+                                <span class="rss-tag" style="color: #ef4444;">🌍 ŚWIAT</span>
+                                <p class="rss-title">${art.title || "Brak tytułu"}</p>
+                            </div>
+                        </a>`;
+                });
             }
+            html += `</div></div>`;
         }
-        setInterval(pobierzWiadomosci, 300000);
 
-        function uruchomProtokolGPS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
-            }
+        if (html !== '') {
+            kontener.innerHTML = html;
+        } else {
+            if (loading) loading.innerText = 'Brak nowych wiadomości w strumieniach RSS.';
         }
+    } catch (error) {
+        if (loading) loading.innerText = 'Brak połączenia z radarem RSS.';
+    }
+}
+
+// Uruchomienie interwału odświeżania wiadomości co 5 minut
+setInterval(pobierzWiadomosci, 300000);
+
+// Protokół GPS
+function uruchomProtokolGPS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
+    }
+}
+
+// Wywołaj funkcję pobierania na starcie aplikacji
+pobierzWiadomosci();
+        
+        
+         
+
+        
 
         function tlumaczPogodeTeraz(iconCode, description) {
             let icon = "☁️";
