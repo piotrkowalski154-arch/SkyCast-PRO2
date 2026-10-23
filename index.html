@@ -451,30 +451,35 @@ body.night-mode .rss-card {
 
 
  
+
 /* =========================================
-   ⭐ UNIWERSALNY PANEL ANKIETY (SKYCAST PRO)
+   ⭐ UNIWERSALNY PANEL ANKIETY (TŁO Z NETA)
    ========================================= */
 .glass-panel.poll-theme {
-    /* 1. Chłodne, nowoczesne tło (Błękitny blask + Granatowa baza) */
+    /* Wielowarstwowe tło: 
+       1 i 2 - Błękitne neony w rogach
+       3 - Przyciemniający granatowy filtr (żeby ankieta była czytelna)
+       4 - Zdjęcie z internetu dopasowane do kafelka */
     background: 
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.15) 0%, transparent 65%),
-        radial-gradient(circle at bottom left, rgba(2, 132, 199, 0.15) 0%, transparent 65%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.95) 100%);
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.25) 0%, transparent 65%),
+        radial-gradient(circle at bottom left, rgba(2, 132, 199, 0.25) 0%, transparent 65%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.90) 100%),
+        url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
     
-    /* 2. Mocne szkło */
+    /* Mocne szkło */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     
-    /* 3. Błękitna, szklana ramka */
+    /* Błękitna, szklana ramka */
     border: 2px solid rgba(56, 189, 248, 0.4); 
     border-radius: 24px;
     padding: 22px;
     margin: 20px auto;
     
-    /* 4. Chłodny, neonowy blask wewnątrz i na zewnątrz */
+    /* Chłodny, neonowy blask wewnątrz i na zewnątrz */
     box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.4), 
-        inset 0 0 15px rgba(56, 189, 248, 0.15);
+        0 10px 30px rgba(0, 0, 0, 0.5), 
+        inset 0 0 15px rgba(56, 189, 248, 0.2);
     
     box-sizing: border-box;
     overflow: hidden; 
@@ -492,7 +497,6 @@ body.night-mode .rss-card {
     background: #38bdf8 !important;
     box-shadow: 0 0 12px #38bdf8 !important;
 }
-
 
 
 .report-title {
