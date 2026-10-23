@@ -450,27 +450,42 @@ body.night-mode .rss-card {
 
 
 /* =========================================
-   🎃 HALLOWEENOWE SZKŁO (TŁO Z OBRAZKIEM)
+   🍁 JESIENNY / HALLOWEENOWY PANEL (TŁO LOKALNE)
    ========================================= */
 .glass-panel.halloween-theme {
-    /* 1. Podwójne tło: przyciemniający gradient nałożony na klimatyczne zdjęcie z internetu */
-    background: 
-        linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(88, 28, 135, 0.6) 50%, rgba(234, 88, 12, 0.45) 100%),
-        url('https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+    /* 1. Podwójne tło z Twojego kodu (Gradient przyciemniający + Lokalne zdjęcie) */
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.86), rgba(30, 20, 15, 0.90)),
+                url('lukasz-szmigiel-ps2daRcXYes-unsplash.jpg') center/cover no-repeat;
     
-    border: 1px solid rgba(249, 115, 22, 0.4);
+    /* 2. Mocne szkło z Twojego kodu */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     
-    /* 2. Cienie z zewnątrz i wewnątrz kafelka */
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.6),           
-        0 0 20px rgba(234, 88, 12, 0.25),         
-        inset 0 0 15px rgba(234, 88, 12, 0.15);   
+    /* 3. Bursztynowa ramka i zaokrąglenia */
+    border: 2px solid #f59e0b; 
+    border-radius: 24px;
+    padding: 22px;
+    margin: 20px auto;
     
-    /* 3. Szklany filtr nałożony bezpośrednio na obrazek */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    /* 4. Ciepły, złoty blask */
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(245, 158, 11, 0.15);
+    
+    box-sizing: border-box;
+    overflow: hidden; 
+    animation: slideUp 0.5s ease-out forwards;
 }
 
+/* Dopasowanie tytułu "Pytanie Dnia" do nowej, bursztynowej ramki */
+.glass-panel.halloween-theme h3 {
+    color: #f59e0b !important; 
+    text-shadow: 0 0 12px rgba(245, 158, 11, 0.6), 0 2px 4px rgba(0,0,0,0.9) !important;
+}
+
+/* Bursztynowy podkreślnik pod tytułem */
+.glass-panel.halloween-theme .halloween-line {
+    background: #f59e0b !important;
+    box-shadow: 0 0 12px #f59e0b !important;
+}
 
 
 .report-title {
