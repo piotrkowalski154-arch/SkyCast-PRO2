@@ -734,82 +734,96 @@ body.night-mode .rss-card {
             <img src="TEMP_ODCZ_1782587741.webp" alt="Opis Twojego pliku">
         </div>
 
-        <!-- MODUŁ: Meldunki Pogodowe Live (SkyCast PRO) -->
+ <!-- MODUŁ: Pytanie Dnia i Meldunki Live (SkyCast PRO) -->
         <div class="glass-panel" id="live-weather-reports">
-            <h3 class="report-title">📡 Meldunki Pogodowe Live 🌧️☀️</h3>
-            <p class="report-subtitle">Rzut oka za okno, łyk kawy ☕ – jaka aura panuje dziś u Ciebie?</p>
-
+            
             <!-- ========================================== -->
-            <!-- SZAFECZKA 1A: PYTANIE DNIA (06:00 - 17:59) -->
+            <!-- 🎯 NOWA SEKCJA: WYRÓŻNIONE PYTANIE DNIA    -->
             <!-- ========================================== -->
-            <div id="day-radar" class="radar-box">
-                <div class="mode-badge">☀️ Pytanie Dnia: Sobotni Poranek (24.10)</div>
+            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 16px; padding: 18px 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.05);">
+                
+                <!-- Główny tytuł z neonowym podkreśleniem -->
+                <h3 style="text-align: center; color: #38bdf8; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);">
+                    🎯 Pytanie Dnia
+                </h3>
+                <div style="width: 60px; height: 3px; background: #38bdf8; margin: 0 auto 18px auto; border-radius: 2px; box-shadow: 0 0 10px #38bdf8;"></div>
 
-                <div class="poll-option" data-option="0">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">☕ Kawa, ciepły koc i domowy reset</span>
-                    <span class="poll-percent">0%</span>
+                <!-- SZAFECZKA 1A: NA DZIEŃ (06:00 - 17:59) -->
+                <div id="day-radar" class="radar-box">
+                    <p style="text-align: center; color: #f1f5f9; font-size: 1.05rem; font-weight: 700; margin: 0 0 15px 0;">
+                        ☀️ Sobotni Poranek (24.10) – Jaki masz plan?
+                    </p>
+
+                    <div class="poll-option" data-option="0">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">☕ Kawa, ciepły koc i domowy reset</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
+
+                    <div class="poll-option" data-option="1">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🍂 Ciepła kurtka i jesienny spacer</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
+
+                    <div class="poll-option" data-option="2">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🚗 W trasie / auto odpalone i sprawy</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
+
+                    <div class="poll-option" data-option="3">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🏃 Aktywna sobota bez względu na aurę</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
                 </div>
 
-                <div class="poll-option" data-option="1">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🍂 Ciepła kurtka i jesienny spacer</span>
-                    <span class="poll-percent">0%</span>
-                </div>
+                <!-- SZAFECZKA 1B: NA WIECZÓR (18:00 - 05:59) -->
+                <div id="night-radar" class="radar-box" style="display: none;">
+                    <p style="text-align: center; color: #f1f5f9; font-size: 1.05rem; font-weight: 700; margin: 0 0 15px 0;">
+                        🌙 Sobotni Klimat (24.10) – Jak spędzasz wieczór?
+                    </p>
 
-                <div class="poll-option" data-option="2">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🚗 W trasie / auto odpalone i sprawy</span>
-                    <span class="poll-percent">0%</span>
-                </div>
+                    <div class="poll-option" data-option="0">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🛋️ Domowy seans, film i święty spokój</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
 
-                <div class="poll-option" data-option="3">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🏃 Aktywna sobota bez względu na aurę</span>
-                    <span class="poll-percent">0%</span>
+                    <div class="poll-option" data-option="1">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🎃 Dyniowy / halloweenowy nastrój w cieple</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
+
+                    <div class="poll-option" data-option="2">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🚗 Nocna trasa / w mieście za kółkiem</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
+
+                    <div class="poll-option" data-option="3">
+                        <div class="poll-bar" style="width: 0%;"></div>
+                        <span class="poll-text">🎧 Dobre audio ze SkyCast i pełen relaks</span>
+                        <span class="poll-percent">0%</span>
+                    </div>
                 </div>
             </div>
 
             <!-- ========================================== -->
-            <!-- SZAFECZKA 1B: PYTANIE NA WIECZÓR (18:00 - 05:59) -->
+            <!-- 📡 SEKCJA: FORMULARZ MELDUNKÓW             -->
             <!-- ========================================== -->
-            <div id="night-radar" class="radar-box" style="display: none;">
-                <div class="mode-badge">🌙 Pytanie Wieczoru: Sobotni Klimat (24.10)</div>
-
-                <div class="poll-option" data-option="0">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🛋️ Domowy seans, film i święty spokój</span>
-                    <span class="poll-percent">0%</span>
-                </div>
-
-                <div class="poll-option" data-option="1">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🎃 Dyniowy / halloweenowy nastrój w cieple</span>
-                    <span class="poll-percent">0%</span>
-                </div>
-
-                <div class="poll-option" data-option="2">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🚗 Nocna trasa / w mieście za kółkiem</span>
-                    <span class="poll-percent">0%</span>
-                </div>
-
-                <div class="poll-option" data-option="3">
-                    <div class="poll-bar" style="width: 0%;"></div>
-                    <span class="poll-text">🎧 Dobre audio ze SkyCast i pełen relaks</span>
-                    <span class="poll-percent">0%</span>
+            <div style="border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 20px;">
+                <h3 class="report-title">📡 Meldunki Pogodowe Live 🌧️☀️</h3>
+                <p class="report-subtitle">Rzut oka za okno, łyk kawy ☕ – co się dzieje u Ciebie?</p>
+                
+                <div class="report-form" style="margin-top: 10px; border-top: none; padding-top: 0;">
+                    <input type="text" id="report-location" placeholder="Twoje miasto / ulica (np. Kraków, A4...)" maxlength="30">
+                    <input type="text" id="report-text" placeholder="Co dzieje się za Twoim oknem lub na drodze?" maxlength="80">
+                    <button id="send-report-btn">Nadaj meldunek 📡</button>
                 </div>
             </div>
-
-            <!-- ========================================== -->
-            <!-- SZAFECZKA 2: FORMULARZ DODAWANIA MELDUNKU  -->
-            <!-- ========================================== -->
-            <div class="report-form">
-                <input type="text" id="report-location" placeholder="Twoje miasto / ulica (np. Kraków, A4...)" maxlength="30">
-                <input type="text" id="report-text" placeholder="Co dzieje się za Twoim oknem lub na drodze?" maxlength="80">
-                <button id="send-report-btn">Nadaj meldunek 📡</button>
-            </div>
-
             
             <!-- ========================================== -->
             <!-- SZAFECZKA 2B: FORMULARZ DROGOWY            -->
