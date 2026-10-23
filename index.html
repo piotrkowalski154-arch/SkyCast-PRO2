@@ -1181,11 +1181,11 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             status.innerText = "GRA TERAZ: " + nazwa;
         }
 
-        // =========================================================================
-        // 🛡️ PANCERNY SILNIK RSS 3.0 (Dekoder Base64 + Kaskada Proxy + DOMParser)
+// =========================================================================
+        // 🛡️ PANCERNY SILNIK RSS 3.0 (Kaskada 3 Tuneli + Auto-Dekoder + Tolerancyjny DOM)
         // =========================================================================
 
-        // 1. Funkcja rozkodowująca Base64 (gdy AllOrigins spakuje XML w data:application/rss+xml;base64)
+        // 1. Uniwersalny dekoder (obsługuje czysty tekst, Base64 oraz znaki URL-encoded)
         function odkodujTekstXML(contents) {
             if (!contents) return "";
             if (contents.startsWith("data:")) {
@@ -1199,16 +1199,32 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                     } catch (e) {
                         console.error("Błąd dekodowania Base64:", e);
                     }
+                } else {
+                    // Obsługa wariantu, gdy proxy zwraca tekst w formacie URL-encoded (%3Cxml...)
+                    try {
+                        const commaIndex = contents.indexOf(",");
+                        if (commaIndex !== -1) {
+                            return decodeURIComponent(contents.substring(commaIndex + 1));
+                        }
+                    } catch (e) {
+                        console.error("Błąd dekodowania URI:", e);
+                    }
                 }
             }
             return contents;
         }
 
-        // 2. Funkcja pobierająca surowy XML przez kaskadę tuneli CORS
+        // 2. Kaskada 3 niezależnych tuneli CORS z twardym limitem 4 sekund na próbę
         async function pobierzSurowyXML(url) {
-            // Tunel 1: AllOrigins (z obsługą JSON i Base64)
+            const encUrl = encodeURIComponent(url);
+
+            // Tunel 1: AllOrigins (Główny)
             try {
-                const res1 = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                const kontroler1 = new AbortController();
+                const timeout1 = setTimeout(() => kontroler1.abort(), 4000);
+                const res1 = await fetch(`https://api.allorigins.win/get?url=${encUrl}`, { signal: kontroler1.signal });
+                clearTimeout(timeout1);
+
                 if (res1.ok) {
                     const data = await res1.json();
                     if (data && data.contents) {
@@ -1217,33 +1233,57 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                     }
                 }
             } catch (e) {
-                console.warn("Tunel 1 (AllOrigins) niedostępny dla:", url);
+                console.warn("Tunel 1 (AllOrigins) zajęty, przełączam...");
             }
 
-            // Tunel 2 (Zapasowy): CodeTabs Proxy
+            // Tunel 2: CodeTabs Proxy (Zapasowy 1)
             try {
-                const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`);
+                const kontroler2 = new AbortController();
+                const timeout2 = setTimeout(() => kontroler2.abort(), 4000);
+                const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encUrl}`, { signal: kontroler2.signal });
+                clearTimeout(timeout2);
+
                 if (res2.ok) {
                     const xmlText = await res2.text();
                     if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
                 }
             } catch (e) {
-                console.warn("Tunel 2 (CodeTabs) niedostępny dla:", url);
+                console.warn("Tunel 2 (CodeTabs) zajęty, przełączam...");
+            }
+
+            // Tunel 3: CorsProxy.io (Zapasowy 2 - błyskawiczny awaryjny)
+            try {
+                const kontroler3 = new AbortController();
+                const timeout3 = setTimeout(() => kontroler3.abort(), 4000);
+                const res3 = await fetch(`https://corsproxy.io/?${encUrl}`, { signal: kontroler3.signal });
+                clearTimeout(timeout3);
+
+                if (res3.ok) {
+                    const xmlText = await res3.text();
+                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
+                }
+            } catch (e) {
+                console.warn("Wszystkie 3 tunele proxy wyczerpane dla:", url);
             }
 
             return null;
         }
 
-        // 3. Parser rozbierający XML na tablicę gotowych obiektów z wiadomościami
+        // 3. Bezpieczny parser z automatycznym przejściem na tryb tolerancyjny (HTML fallback)
         async function bezpiecznyFetchRSS(url) {
             try {
                 const surowyXML = await pobierzSurowyXML(url);
                 if (!surowyXML) return null;
 
                 const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(surowyXML, "text/xml");
-                
-                const items = xmlDoc.querySelectorAll("item, entry");
+                let doc = parser.parseFromString(surowyXML, "text/xml");
+
+                // Jeśli XML miał błąd składni (np. niespójny znak &), przełączamy na parser HTML
+                if (doc.querySelector("parsererror")) {
+                    doc = parser.parseFromString(surowyXML, "text/html");
+                }
+
+                const items = doc.querySelectorAll("item, entry");
                 if (!items || items.length === 0) return null;
 
                 const sformatowaneWpisy = [];
@@ -1251,23 +1291,26 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                     const title = el.querySelector("title")?.textContent || "Brak tytułu";
                     const linkEl = el.querySelector("link");
                     const link = linkEl?.textContent?.trim() || linkEl?.getAttribute("href") || "#";
-                    
-                    // Wyciąganie zdjęcia ze wszystkich możliwych standardów RSS
+
                     let foto = "";
                     const enclosure = el.querySelector("enclosure");
-                    const mediaContent = el.querySelector("media\\:content, content");
-                    const mediaThumb = el.querySelector("media\\:thumbnail, thumbnail");
-
                     if (enclosure && enclosure.getAttribute("url")) {
                         foto = enclosure.getAttribute("url");
-                    } else if (mediaContent && mediaContent.getAttribute("url")) {
-                        foto = mediaContent.getAttribute("url");
-                    } else if (mediaThumb && mediaThumb.getAttribute("url")) {
-                        foto = mediaThumb.getAttribute("url");
                     } else {
-                        const desc = el.querySelector("description")?.textContent || "";
-                        const imgMatch = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-                        if (imgMatch && imgMatch[1]) foto = imgMatch[1];
+                        const allChildren = el.querySelectorAll("*");
+                        for (let child of allChildren) {
+                            const nodeName = child.nodeName.toLowerCase();
+                            if ((nodeName.includes("content") || nodeName.includes("thumbnail")) && child.getAttribute("url")) {
+                                foto = child.getAttribute("url");
+                                break;
+                            }
+                        }
+
+                        if (!foto) {
+                            const desc = el.querySelector("description")?.textContent || "";
+                            const match = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+                            if (match && match[1]) foto = match[1];
+                        }
                     }
 
                     sformatowaneWpisy.push({
@@ -1279,23 +1322,21 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
 
                 return { items: sformatowaneWpisy };
             } catch (err) {
-                console.error("Błąd parsowania RSS:", err);
+                console.error("Błąd parsowania strumienia:", err);
                 return null;
             }
         }
 
-        // 4. Główna funkcja renderująca kafelki na ekranie
+        // 4. Renderowanie z natychmiastowym wyświetlaniem dostępnych kategorii
         async function pobierzWiadomosci() {
             const kontener = document.getElementById('radar-wiadomosci');
             const loading = document.getElementById('radar-loading');
             if (!kontener) return;
 
-            // Szyfrowane (HTTPS), stabilne kanały RSS
-            const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';    
+            const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';
             const rssSport = 'https://sport.interia.pl/feed';
             const rssSwiat = 'https://wydarzenia.interia.pl/feed';
 
-            // Wbudowane grafiki wektorowe SVG (Data URI) – 0 zapytań do sieci, 0 blokad limitów
             const imgPolska = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="%23ffffff"/><rect y="32" width="90" height="32" fill="%23dc2626"/></svg>`;
             const imgSport = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`;
             const imgSwiat = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="%230f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`;
@@ -1311,31 +1352,30 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                     if (!dane || !dane.items || dane.items.length === 0) return '';
                     const wpisy = dane.items.slice(0, 6);
                     let blok = `<div class="rss-container"><div class="rss-track">`;
-                    
-                    for (let k = 0; k < 2; k++) {
-    wpisy.forEach(art => {
-        const img = art.thumbnail || domyslneFoto;
-        blok += `
-            <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card" title="${art.title}">
-                <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
-                <div class="rss-body">
-                    <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
-                    <p class="rss-title" title="${art.title}">${art.title}</p>
-                </div>
-            </a>`;
-    });
-}
+
+                    for (let k = 0; k < 2; k++) {
+                        wpisy.forEach(art => {
+                            const img = art.thumbnail || domyslneFoto;
+                            const czystyTytul = art.title.replace(/"/g, '&quot;');
+                            blok += `
+                                <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card" title="${czystyTytul}">
+                                    <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
+                                    <div class="rss-body">
+                                        <span class="rss-tag" style="color: ${kolorTagu};">${kategoria}</span>
+                                        <p class="rss-title">${art.title}</p>
+                                    </div>
+                                </a>`;
+                        });
+                    }
                     blok += `</div></div>`;
                     return blok;
                 }
 
-                // Najpierw budujemy same paski z kafelkami
                 let paskiHTML = '';
                 paskiHTML += budujSekcje(danePolska, '📰 WIADOMOŚCI', '#38bdf8', imgPolska);
                 paskiHTML += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b', imgSport);
                 paskiHTML += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
 
-                // Sprawdzamy, czy faktycznie powstał chociaż jeden pasek z wiadomościami
                 if (paskiHTML !== '') {
                     if (loading) loading.style.display = 'none';
                     kontener.innerHTML = `
@@ -1347,7 +1387,7 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
                 } else {
                     if (loading) {
                         loading.style.display = 'block';
-                        loading.innerText = 'Brak odpowiedzi ze strumieni RSS. Ponawiam próbę...';
+                        loading.innerText = 'Trwa odnawianie połączenia z radarami informacyjnymi...';
                     }
                 }
             } catch (error) {
@@ -1355,14 +1395,21 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             }
         }
 
+        // =========================================================================
+        // 5. ZAPALNIKI (START I PĘTLA ODŚWIEŻANIA)
+        // =========================================================================
+        
+        // Pętla: odświeżaj taśmę co równe 5 minut (300 000 ms)
         setInterval(pobierzWiadomosci, 300000);
 
-        function uruchomProtokolGPS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(() => console.log("GPS Gotowy."));
-            }
-        }
+        // Start: odpal od razu po wczytaniu szkieletu HTML (nie czeka na ciężkie skrypty)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof pobierzWiadomosci === "function") pobierzWiadomosci();
+        });
 
+
+
+        
         function tlumaczPogodeTeraz(iconCode, description) {
             let icon = "☁️";
             const style3D = 'font-size: 1.5em; display: inline-block; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));';
