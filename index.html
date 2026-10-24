@@ -2114,62 +2114,47 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
         });
 
         
-        // ---------- MELDUNKI (4 MIEJSCOWOŚCI + 4 DROGOWE: 24.10, 13:55) ----------
-function startReports() {
-    return {
-        // --- 4 NAJWAŻNIEJSZE ZDARZENIA DROGOWE ---
-        "-0seed8": {
-            loc: "A4 – Małopolska (węzeł Rudno, kierunek Kraków)",
-            msg: "24.10, 13:55 – 💥 Stoimy na A4 przed Balicami w stronę Krakowa! Trzy osobówki wjechały w siebie na lewym pasie. Służby już działają, ale korek ciągnie się na dobre 4 km. Jak możecie, uciekajcie wcześniej przez Krzeszowice!",
-            likes: 76,
-            ts: 8
-        },
-        "-0seed7": {
-            loc: "DK7 – Zakopianka (Gaj – Głogoczów, Małopolska)",
-            msg: "24.10, 13:55 – 🚗 Zakopianka w stronę gór zapchana po brzegi. Przed zwężką w Gaju toczymy się na jedynce, w korku stracicie lekko pół godziny. Uzbrójcie się w cierpliwość albo wybierzcie objazd przez Wieliczkę i Dobczyce.",
-            likes: 68,
-            ts: 7
-        },
-        "-0seed6": {
-            loc: "Warszawa – Trasa S8 (Most Grota-Roweckiego)",
-            msg: "24.10, 13:55 – 🚨 Na Moście Grota w stronę Marek dalej gęsto po stłuczce na środkowym pasie. Laweta już zabiera rozbite auto, ale cała trasa S8 od Bemowa wciąż toczy się w żółwim tempie.",
-            likes: 62,
-            ts: 6
-        },
-        "-0seed5": {
-            loc: "A1 – odcinek Łódź Północ – Tuszyn",
-            msg: "24.10, 13:55 – 🚧 Przypominajka z A1 pod Łodzią: w stronę Katowic na zwężce remontowej zrobiło się już tłoczno. Przez 4 km jedziemy dwoma wąskimi pasami, jest ograniczenie do 80 km/h i tracimy tu jakieś 15-20 minut.",
-            likes: 49,
-            ts: 5
-        },
-
-        // --- 4 MELDUNKI Z MIEJSCOWOŚCI ---
-        "-0seed4": {
-            loc: "Kraków",
-            msg: "24.10, 13:55 – 🌦️ W Krakowie popołudniowy szczyt wokół galerii i w ścisłym centrum – zaparkować w okolicach Kazimierza czy Rynku graniczy z cudem. Od zachodu powoli zbierają się ciemniejsze chmury, więc na spacer warto wziąć parasol.",
-            likes: 61,
-            ts: 4
-        },
-        "-0seed3": {
-            loc: "Zakopane i Podhale",
-            msg: "24.10, 13:55 – 🏔️ Pod Tatrami pełne oblężenie, parkingi na Palenicy i w Kuźnicach zatkane na amen. W dolinach przyjemnie, ale wyżej na graniach strasznie urywa głowę od wiatru i robi się lodowato – ubierzcie się ciepło!",
-            likes: 55,
-            ts: 3
-        },
-        "-0seed2": {
-            loc: "Katowice i Górnośląsko-Zagłębiowska Metropolia",
-            msg: "24.10, 13:55 – 🚦 W Katowicach korki pod rozkopanymi wiaduktami kolejowymi, a dodatkowo przytykają się wjazdy do Silesii i Trzech Stawów. Autobusy łapią drobne opóźnienia, lepiej sprawdźcie tablicę odjazdów w apce.",
-            likes: 41,
-            ts: 2
-        },
-        "-0seed1": {
-            loc: "Gdańsk i Trójmiasto",
-            msg: "24.10, 13:55 – 🌬️ W Trójmieście na głównych trasach płynnie, ale nad samą wodą w Brzeźnie i Sopocie konkretnie dmucha od zatoki. Fale coraz większe, a na molo bez czapki i kurtki przeciwdeszczowej ani rusz!",
-            likes: 38,
-            ts: 1
+             // ---------- MELDUNKI ----------
+        function startReports() {
+            return {
+                "-0seed6": { 
+                    loc: "Warszawa", 
+                    msg: "19.10, 12:06 – 9°C, pochmurno, chłodny jesienny dzień w stolicy.", 
+                    likes: 6, 
+                    ts: 6 
+                },
+                "-0seed5": { 
+                    loc: "Wrocław", 
+                    msg: "19.10, 12:06 – 12°C, duże zachmurzenie, powoli zbierają się chmury na deszcz.", 
+                    likes: 4, 
+                    ts: 5 
+                },
+                "-0seed4": { 
+                    loc: "Poznań", 
+                    msg: "19.10, 12:06 – 11°C, pochmurno z przelotnymi opadami, typowa jesień.", 
+                    likes: 3, 
+                    ts: 4 
+                },
+                "-0seed3": { 
+                    loc: "Kraków", 
+                    msg: "19.10, 12:06 – 10°C, szaro i pochmurno, ale stabilnie. Idealna pogoda na gorącą kawę.", 
+                    likes: 4, 
+                    ts: 3 
+                },
+                "-0seed2": { 
+                    loc: "Katowice", 
+                    msg: "19.10, 12:06 – 9°C, gęste chmury, dość chłodno jak na środek dnia.", 
+                    likes: 3, 
+                    ts: 2 
+                },
+                "-0seed1": { 
+                    loc: "Gdańsk", 
+                    msg: "19.10, 12:06 – 8°C, chłodny wiatr znad morza, pochmurne niebo po porannych mgłach.", 
+                    likes: 5, 
+                    ts: 1 
+                }
+            };
         }
-    };
-}
         
         
 
