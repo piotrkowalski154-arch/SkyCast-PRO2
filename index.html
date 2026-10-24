@@ -2052,8 +2052,7 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
         updateRadarUI();
         renderReports();
     </script>
-
-    <!-- FIREBASE REALTIME DATABASE: głosowanie ankiety + meldunki live. -->
+<!-- FIREBASE REALTIME DATABASE: głosowanie ankiety + meldunki live. -->
     <script type="module">
         import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, runTransaction, push, set, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -2113,53 +2112,63 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             });
         });
 
-        
-             // ---------- MELDUNKI ----------
-        function startReports() {
-            return {
-                "-0seed6": { 
-                    loc: "Warszawa", 
-                    msg: "19.10, 12:06 – 9°C, pochmurno, chłodny jesienny dzień w stolicy.", 
-                    likes: 6, 
-                    ts: 6 
-                },
-                "-0seed5": { 
-                    loc: "Wrocław", 
-                    msg: "19.10, 12:06 – 12°C, duże zachmurzenie, powoli zbierają się chmury na deszcz.", 
-                    likes: 4, 
-                    ts: 5 
-                },
-                "-0seed4": { 
-                    loc: "Poznań", 
-                    msg: "19.10, 12:06 – 11°C, pochmurno z przelotnymi opadami, typowa jesień.", 
-                    likes: 3, 
-                    ts: 4 
-                },
-                "-0seed3": { 
-                    loc: "Kraków", 
-                    msg: "19.10, 12:06 – 10°C, szaro i pochmurno, ale stabilnie. Idealna pogoda na gorącą kawę.", 
-                    likes: 4, 
-                    ts: 3 
-                },
-                "-0seed2": { 
-                    loc: "Katowice", 
-                    msg: "19.10, 12:06 – 9°C, gęste chmury, dość chłodno jak na środek dnia.", 
-                    likes: 3, 
-                    ts: 2 
-                },
-                "-0seed1": { 
-                    loc: "Gdańsk", 
-                    msg: "19.10, 12:06 – 8°C, chłodny wiatr znad morza, pochmurne niebo po porannych mgłach.", 
-                    likes: 5, 
-                    ts: 1 
-                }
-            };
-        }
-        
-        
+       // ---------- MELDUNKI (4 MIEJSCOWOŚCI + 4 DROGOWE: 24.10, 14:10) ----------
+function startReports() {
+    return {
+        // --- 4 NAJWAŻNIEJSZE ZDARZENIA DROGOWE ---
+        "-0seed8": {
+            loc: "A4 – Małopolska (węzeł Rudno, kierunek Kraków)",
+            msg: "24.10, 14:10 – 💥 AKTUALIZACJA: Rozbite auta z lewego pasa zostały już ściągnięte na pobocze przed punktem poboru opłat w Balicach. Służby kończą sprzątanie odłamków. Ruch ruszył dwoma pasami, ale zator ma wciąż blisko 5 km i jego rozładowanie trochę potrwa.",
+            likes: 92,
+            ts: 8
+        },
+        "-0seed7": {
+            loc: "DK7 – Zakopianka (Gaj – Głogoczów, Małopolska)",
+            msg: "24.10, 14:10 – 🚗 Na Zakopiance potężny szczyt popołudniowy w obie strony. Do zwężki w Gaju od strony Krakowa stoimy już od kładki w Mogilanach. Z kolei w stronę Krakowa korek zaczyna się przed fotoradarem w Głogoczowie. Stracicie tu minimum 35 minut.",
+            likes: 84,
+            ts: 7
+        },
+        "-0seed6": {
+            loc: "Warszawa – Trasa S8 (Most Grota-Roweckiego)",
+            msg: "24.10, 14:10 – 🚨 NOWA STŁUCZKA: Ledwo uprzątnięto poranne zderzenie, a na Moście Grota w stronę Marek doszło do kolejnego najechania trzech aut, tym razem na lewym pasie. Trasa S8 dosłownie zamarła od węzła Prymasa Tysiąclecia.",
+            likes: 89,
+            ts: 6
+        },
+        "-0seed5": {
+            loc: "A1 – odcinek Łódź Północ – Tuszyn",
+            msg: "24.10, 14:10 – 🚧 Na zwężce remontowej w stronę Katowic utworzył się zator na około 3 kilometry. Kierowcy jadący na Śląsk masowo zjeżdżają na węźle Łódź Południe na starą jedynkę (DK91), przez co tam też zaczyna się mocno korkować.",
+            likes: 57,
+            ts: 5
+        },
 
- 
-        
+        // --- 4 MELDUNKI Z MIEJSCOWOŚCI ---
+        "-0seed4": {
+            loc: "Kraków",
+            msg: "24.10, 14:10 – 🌧️ AKTUALIZACJA POGODY: Zgodnie z zapowiedziami nad miasto nadciągnął front. W rejonie Krowodrzy, Podgórza i Nowej Huty zaczęło dość intensywnie padać. Temperatura w ciągu godziny spadła do 11°C i zerwał się nieprzyjemny wiatr.",
+            likes: 74,
+            ts: 4
+        },
+        "-0seed3": {
+            loc: "Zakopane i Podhale",
+            msg: "24.10, 14:10 – 🏔️ ALERT Z GÓR: Nad Tatry nadciągają bardzo gęste, ciemne chmury, a wiatr na Kasprowym przekracza już w porywach 75 km/h. TOPR ostrzega przed gwałtownym załamaniem pogody i deszczem, który w wyższych partiach przejdzie w deszcz ze śniegiem.",
+            likes: 81,
+            ts: 3
+        },
+        "-0seed2": {
+            loc: "Katowice i Górnośląsko-Zagłębiowska Metropolia",
+            msg: "24.10, 14:10 – 🚦 Sobotni paraliż wokół dużych obiektów handlowych. Skrzyżowania przy Silesia City Center oraz DTŚ w stronę Chorzowa są całkowicie zablokowane przez auta próbujące wjechać na parkingi. Jeśli nie musicie, omijajcie te rejony.",
+            likes: 53,
+            ts: 2
+        },
+        "-0seed1": {
+            loc: "Gdańsk i Trójmiasto",
+            msg: "24.10, 14:10 – 🌊 Pogoda nad morzem zrobiła się typowo sztormowa. Na molo w Sopocie wejście jest utrudnione przez przelewające się fale i bardzo silne porywy wiatru z północnego zachodu. Spacerowicze uciekają do nadmorskich kawiarni.",
+            likes: 46,
+            ts: 1
+        }
+    };
+}
+
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
 
@@ -2180,7 +2189,11 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             console.error("Firebase: nie udało się odczytać meldunków.", error);
         });
 
-        window.addEventListener("smsg) return;
+        // Nasłuchiwanie dodania meldunku (naprawione)
+        window.addEventListener("skycast:add-report", (event) => {
+            const loc = event.detail?.loc;
+            const msg = event.detail?.msg;
+            if (!loc || !msg) return;
 
             set(push(reportsRef), { loc, msg, likes: 1, ts: Date.now() })
                 .catch((error) => console.error("Firebase: nie udało się dodać meldunku.", error));
