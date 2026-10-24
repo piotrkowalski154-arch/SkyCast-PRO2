@@ -2113,65 +2113,64 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
             });
         });
 
-        // ---------- MELDUNKI ----------
-        function startReports() {
+        
+        // ---------- MELDUNKI (4 MIEJSCOWOŚCI + 4 DROGOWE: 24.10, 11:10) ----------
+function startReports() {
     return {
-        "-0seed9": { 
-            loc: "Zjazd z autostrady A4 (Węzeł Balice)", 
-            msg: "23.10, 19:50 – ⚠️ KOLIZJA: Dwa auta zderzyły się na pasie wjazdowym w stronę lotniska. Tworzy się spory zator, korek ciągnie się już od bramek. Służby są na miejscu, omijajcie jeśli możecie!", 
-            likes: 42, 
-            ts: 9 
+        // --- 4 NAJWAŻNIEJSZE ZDARZENIA DROGOWE ---
+        "-0seed8": {
+            loc: "S7 – Północna Obwodnica Krakowa (węzeł Zielonki)",
+            msg: "24.10, 11:10 – 💥 WYPADEK / AKCJA SŁUŻB: Zderzenie dwóch samochodów osobowych na pasie w kierunku Warszawy. Na miejscu pracują straż pożarna i policja, zablokowany prawy pas ruchu. Tworzy się zator o długości około 3 km.",
+            likes: 64,
+            ts: 8
         },
-        "-0seed8": { 
-            loc: "Autostrada A4 (Kraków – Tarnów)", 
-            msg: "23.10, 19:50 – 🚧 ROBOTY NOCNE: Ekipy remontowe rozstawiły się właśnie w rejonie Brzeska. Zaczęło się wieczorne zwężenie do jednego pasa, prędkość obcięta do 80 km/h, lekki ścisk.", 
-            likes: 29, 
-            ts: 8 
+        "-0seed7": {
+            loc: "Wrocław – AOW (A8, Most Rędziński)",
+            msg: "24.10, 11:10 – 🚨 KARAMBOL: Zderzenie trzech aut osobowych na zjeździe z Mostu Rędzińskiego w stronę Długołęki. Dwa pasy zablokowane, straż pożarna neutralizuje wycieki płynów eksploatacyjnych.",
+            likes: 61,
+            ts: 7
         },
-        "-0seed7": { 
-            loc: "DK7 Zakopianka (Gaj – Mogilany)", 
-            msg: "23.10, 19:50 – 🚗 WEEKENDOWY SZCZYT: Tradycyjny piątkowy tłok w stronę Myślenic. Na zwężeniach wokół budowanych węzłów jedziemy zderzak w zderzak, ale powoli się to toczy.", 
-            likes: 35, 
-            ts: 7 
+        "-0seed6": {
+            loc: "Warszawa – Trasa S8 (Most Grota-Roweckiego)",
+            msg: "24.10, 11:10 – 🚗 KOLIZJA NA TRASIE: Najechanie na tył pojazdu na jezdni w stronę Marek. Zablokowany środkowy pas, służby drogowe zabezpieczają miejsce zdarzenia. Ruch odbywa się w znacznym spowolnieniu.",
+            likes: 58,
+            ts: 6
         },
-        "-0seed6": { 
-            loc: "Kraków", 
-            msg: "23.10, 19:50 – 10°C, robi się rześko. Niebo jest prawie bezchmurne, ale w okolicach Wisły zaczyna snuć się mgła. Idealna noc na ciepłą herbatę w domu.", 
-            likes: 51, 
-            ts: 6 
+        "-0seed5": {
+            loc: "A1 – odcinek Łódź Północ – Tuszyn",
+            msg: "24.10, 11:10 – 🚧 REMONT / ZWĘŻENIE: Wymiana dylatacji i naprawa nawierzchni w kierunku Katowic. Ruch na odcinku 4 km prowadzony jest dwoma zawężonymi pasami z ograniczeniem prędkości do 80 km/h.",
+            likes: 39,
+            ts: 5
         },
-        "-0seed5": { 
-            loc: "Zakopane", 
-            msg: "23.10, 19:50 – 6°C pod Tatrami, zimna noc przed nami. Gwiazdy widać jak na dłoni, wiatr całkowicie ucichł. Kto rusza rano na szlaki, niech szykuje grube kurtki!", 
-            likes: 44, 
-            ts: 5 
+
+        // --- 4 MELDUNKI Z MIEJSCOWOŚCI ---
+        "-0seed4": {
+            loc: "Kraków",
+            msg: "24.10, 11:10 – 🌦️ SYTUACJA W MIEŚCIE: Wzmożony sobotni ruch w rejonie głównych arterii wylotowych i centrów handlowych. Pogoda sprzyja spacerom, jednak w różnych częściach miasta mogą występować lokalne wahania temperatury i wiatru.",
+            likes: 51,
+            ts: 4
         },
-        "-0seed4": { 
-            loc: "Wrocław", 
-            msg: "23.10, 19:50 – 11°C, bardzo przyjemny i spokojny wieczór na Dolnym Śląsku. Gdzieniegdzie wiszą jeszcze chmury, ale jest sucho, wiatr ledwo wyczuwalny.", 
-            likes: 38, 
-            ts: 4 
+        "-0seed3": {
+            loc: "Zakopane i Podhale",
+            msg: "24.10, 11:10 – 🏔️ WARUNKI W GÓRACH: Duży napływ turystów na szlaki i w okolice Krupówek. W wyższych partiach Tatr panuje silniejszy wiatr i niższa temperatura – przed wyjściem w góry sprawdź komunikaty TPN i zabierz odzież termiczną.",
+            likes: 44,
+            ts: 3
         },
-        "-0seed3": { 
-            loc: "Rzeszów", 
-            msg: "23.10, 19:50 – 9°C, czyste niebo i szybki spadek temperatury. Na obrzeżach miasta w obniżeniach terenu widoczność zaczyna siadać przez mgłę – kierowcy, noga z gazu.", 
-            likes: 27, 
-            ts: 3 
+        "-0seed2": {
+            loc: "Katowice i Górnośląsko-Zagłębiowska Metropolia",
+            msg: "24.10, 11:10 – 🚦 RUCH MIEJSKI: Spowolnienia w rejonie przebudowywanych wiaduktów kolejowych w centrum Katowic. Komunikacja miejska i pociągi kursują według zmienionego rozkładu – zachowaj ostrożność przy tymczasowych przejściach.",
+            likes: 35,
+            ts: 2
         },
-        "-0seed2": { 
-            loc: "Katowice", 
-            msg: "23.10, 19:50 – 10°C, na drogach aglomeracji powoli mija piątkowy szał, ruch wraca do normy. Powietrze rześkie, zachmurzenie małe, bez deszczu.", 
-            likes: 31, 
-            ts: 2 
-        },
-        "-0seed1": { 
-            loc: "Gdańsk", 
-            msg: "23.10, 19:50 – 9°C, znad morza dmucha chłodny wiatr, przez co odczuwalna temperatura jest znacznie niższa. Niebo częściowo pokryte chmurami, ale nie pada.", 
-            likes: 33, 
-            ts: 1 
+        "-0seed1": {
+            loc: "Gdańsk i Trójmiasto",
+            msg: "24.10, 11:10 – 🌬️ AURA NAD ZATOKĄ: Silniejsze porywy wiatru w pasie nadmorskim od Brzeźna po Sopot. Temperatura odczuwalna na plaży i molo jest wyraźnie niższa niż w głębi Trójmiasta.",
+            likes: 33,
+            ts: 1
         }
     };
 }
+        
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
 
