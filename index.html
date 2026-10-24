@@ -2189,8 +2189,8 @@ function startReports() {
             console.error("Firebase: nie udało się odczytać meldunków.", error);
         });
 
-        // Nasłuchiwanie dodania meldunku (naprawione)
-        window.addEventListener("skycast:add-report", (event) => {
+    // Nasłuchiwanie dodania meldunku (naprawione - połączone z formularzem)
+        window.addEventListener("skycast:report-send", (event) => {
             const loc = event.detail?.loc;
             const msg = event.detail?.msg;
             if (!loc || !msg) return;
