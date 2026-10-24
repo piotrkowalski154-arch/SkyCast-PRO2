@@ -2114,62 +2114,132 @@ Masz wolne po ciężkim tygodniu? Odpal nasze wbudowane radio w SkyCast PRO – 
         });
 
         
-        // ---------- MELDUNKI (4 MIEJSCOWOŚCI + 4 DROGOWE: 24.10, 11:10) ----------
+        
+// ---------- MELDUNKI (BAZA 11:10 + DOPISANA AKTUALIZACJA 13:10 - LUDZKI STYL) ----------
 function startReports() {
     return {
-        // --- 4 NAJWAŻNIEJSZE ZDARZENIA DROGOWE ---
+        // =========================================================================
+        // NOWE WPISY (24.10, 13:10) – 5 ALERTÓW DROGOWYCH (PISANE PRZEZ LUDZI)
+        // =========================================================================
+        "-0seed18": {
+            loc: "A4 – Małopolska (węzeł Rudno, kierunek Kraków)",
+            msg: "24.10, 13:10 – 💥 Stoimy na A4 przed Balicami w stronę Krakowa! Trzy osobówki wjechały w siebie na lewym pasie. Służby już są, ale korek ciągnie się na dobre 4 km. Jak możecie, uciekajcie wcześniej na starą drogę przez Krzeszowice!",
+            likes: 76,
+            ts: 18
+        },
+        "-0seed17": {
+            loc: "DK7 – Zakopianka (Gaj – Głogoczów, Małopolska)",
+            msg: "24.10, 13:10 – 🚗 Zakopianka w stronę gór zapchana po brzegi. Przed zwężką w Gaju toczymy się na jedynce, w korku stracicie lekko pół godziny. Uzbrójcie się w cierpliwość albo wybierzcie objazd przez Wieliczkę i Dobczyce.",
+            likes: 68,
+            ts: 17
+        },
+        "-0seed16": {
+            loc: "DK75 – Brzesko – Nowy Sącz (Małopolska, rejon Czchowa)",
+            msg: "24.10, 13:10 – 🚨 Dzwon na Sądeczance koło Czchowa, osobówka wjechała w tył tira. Policja puszcza ruch wahadłowo, więc w obie strony zrobiło się już straszne wahadło. Lepiej omijać przez Zakliczyn.",
+            likes: 54,
+            ts: 16
+        },
+        "-0seed15": {
+            loc: "A2 – Obwodnica Poznania (węzeł Poznań Krzesiny)",
+            msg: "24.10, 13:10 – 🚛 Zepsuty tir blokuje prawy pas na obwodnicy Poznania w stronę Warszawy. Laweta już go wyciąga, ale zostały tylko dwa pasy i od Komornik jedzie się bardzo wolno. Noga z gazu!",
+            likes: 49,
+            ts: 15
+        },
+        "-0seed14": {
+            loc: "S7 – odcinek Gdańsk – Elbląg (węzeł Żuławy Wschód)",
+            msg: "24.10, 13:10 – ⚠️ Uważajcie na S7 w stronę Warszawy! Ktoś wyleciał z drogi i rozbił się o barierki przed Elblągiem. Strażacy blokują jeden pas, jest ślisko po deszczu, więc łatwo o kolejną stłuczkę.",
+            likes: 45,
+            ts: 14
+        },
+
+        // =========================================================================
+        // NOWE WPISY (24.10, 13:10) – 5 ALERTÓW POGODOWYCH (PISANE PRZEZ LUDZI)
+        // =========================================================================
+        "-0seed13": {
+            loc: "Tatry i Podhale (Małopolska)",
+            msg: "24.10, 13:10 – 🌬️ W Tatrach dzisiaj dosłownie urywa głowę! Na Kasprowym i wyżej na graniach wieje tak mocno, że ciężko ustać, a w cieniu kamienie są już oblodzone. Bez czapki, rękawiczek i raczków nawet nie wychodźcie powyżej schronisk!",
+            likes: 71,
+            ts: 13
+        },
+        "-0seed12": {
+            loc: "Kraków i Kotlina Oświęcimska (Małopolska)",
+            msg: "24.10, 13:10 – ☁️ Nad Kraków od zachodu ciągną ciemne chmury i robi się coraz zimniej. W okolicach Oświęcimia i Balic już zaczyna kropić, więc jak wybieracie się na popołudniowy spacer na Błonia czy Bulwary, weźcie ze sobą parasole.",
+            likes: 59,
+            ts: 12
+        },
+        "-0seed11": {
+            loc: "Beskid Sądecki i Gorce (Krynica-Zdrój, Nowy Targ)",
+            msg: "24.10, 13:10 – 🌧️ W Gorcach i koło Krynicy mleko takie, że na szlaku nie widać nic na 50 metrów. Do tego mży i w lesie jest straszne błoto – łatwo wywinąć orła na korzeniach, załóżcie dobre buty!",
+            likes: 47,
+            ts: 11
+        },
+        "-0seed10": {
+            loc: "Pomorze i Wybrzeże (Świnoujście – Ustka – Hel)",
+            msg: "24.10, 13:10 – 🌊 Nad morzem zaczyna się konkretny sztorm. W Ustce i na Helu fale już biją przez falochrony, a wiatr z deszczem zacina prosto w twarz. Fajny widok, ale ubierzcie się jak na zimę!",
+            likes: 52,
+            ts: 10
+        },
+        "-0seed9": {
+            loc: "Dolny Śląsk i Karkonosze (Wrocław – Jelenia Góra)",
+            msg: "24.10, 13:10 – 🍂 Ależ się nagle ochłodziło w okolicach Jeleniej Góry! Na Śnieżce prószy już deszcz ze śniegiem, a na drogach pełno mokrych liści – przed zakrętami hamujcie wcześniej, bo auto płynie jak na lodzie.",
+            likes: 43,
+            ts: 9
+        },
+
+        // =========================================================================
+        // WCZEŚNIEJSZE WPISY Z GODZINY 11:10 (ZACHOWANE, W NATURALNYM TONIE)
+        // =========================================================================
         "-0seed8": {
             loc: "S7 – Północna Obwodnica Krakowa (węzeł Zielonki)",
-            msg: "24.10, 11:10 – 💥 WYPADEK / AKCJA SŁUŻB: Zderzenie dwóch samochodów osobowych na pasie w kierunku Warszawy. Na miejscu pracują straż pożarna i policja, zablokowany prawy pas ruchu. Tworzy się zator o długości około 3 km.",
+            msg: "24.10, 11:10 – 💥 Dzwon dwóch osobówek na nowej obwodnicy Krakowa w stronę Warszawy (węzeł Zielonki). Straż i policja blokują prawy pas, korek ma już ze 3 kilometry i rośnie.",
             likes: 64,
             ts: 8
         },
         "-0seed7": {
             loc: "Wrocław – AOW (A8, Most Rędziński)",
-            msg: "24.10, 11:10 – 🚨 KARAMBOL: Zderzenie trzech aut osobowych na zjeździe z Mostu Rędzińskiego w stronę Długołęki. Dwa pasy zablokowane, straż pożarna neutralizuje wycieki płynów eksploatacyjnych.",
+            msg: "24.10, 11:10 – 🚨 Karambol trzech aut na zjeździe z Mostu Rędzińskiego na Długołękę! Dwa pasy stoją, strażacy zasypują rozlany olej. Omijajcie AOW szerokim łukiem!",
             likes: 61,
             ts: 7
         },
         "-0seed6": {
             loc: "Warszawa – Trasa S8 (Most Grota-Roweckiego)",
-            msg: "24.10, 11:10 – 🚗 KOLIZJA NA TRASIE: Najechanie na tył pojazdu na jezdni w stronę Marek. Zablokowany środkowy pas, służby drogowe zabezpieczają miejsce zdarzenia. Ruch odbywa się w znacznym spowolnieniu.",
+            msg: "24.10, 11:10 – 🚗 Klasyka na Moście Grota w stronę Marek – najechanie na tył na środkowym pasie. Służby już zabezpieczają, ale cała trasa S8 od Bemowa stoi w ogromnym korku.",
             likes: 58,
             ts: 6
         },
         "-0seed5": {
             loc: "A1 – odcinek Łódź Północ – Tuszyn",
-            msg: "24.10, 11:10 – 🚧 REMONT / ZWĘŻENIE: Wymiana dylatacji i naprawa nawierzchni w kierunku Katowic. Ruch na odcinku 4 km prowadzony jest dwoma zawężonymi pasami z ograniczeniem prędkości do 80 km/h.",
+            msg: "24.10, 11:10 – 🚧 Przypominajka z A1 pod Łodzią: w stronę Katowic dalej dłubią przy nawierzchni. Przez 4 km jedziemy dwoma wąskimi pasami, jest ograniczenie do 80 km/h i zaczyna się już przytykać.",
             likes: 39,
             ts: 5
         },
-
-        // --- 4 MELDUNKI Z MIEJSCOWOŚCI ---
         "-0seed4": {
             loc: "Kraków",
-            msg: "24.10, 11:10 – 🌦️ SYTUACJA W MIEŚCIE: Wzmożony sobotni ruch w rejonie głównych arterii wylotowych i centrów handlowych. Pogoda sprzyja spacerom, jednak w różnych częściach miasta mogą występować lokalne wahania temperatury i wiatru.",
+            msg: "24.10, 11:10 – 🌦️ W Krakowie od rana spory ruch wokół galerii i na wylotówkach. Na razie pogoda całkiem niezła na spacer, ale miejscami podwiewa chłodem – ubierzcie coś cieplejszego na cebulkę.",
             likes: 51,
             ts: 4
         },
         "-0seed3": {
             loc: "Zakopane i Podhale",
-            msg: "24.10, 11:10 – 🏔️ WARUNKI W GÓRACH: Duży napływ turystów na szlaki i w okolice Krupówek. W wyższych partiach Tatr panuje silniejszy wiatr i niższa temperatura – przed wyjściem w góry sprawdź komunikaty TPN i zabierz odzież termiczną.",
+            msg: "24.10, 11:10 – 🏔️ Pod Tatrami najazd turystów, na Krupówkach i pod wejściami na szlaki robi się tłoczno. Na dole przyjemnie, ale w górach zimno i mocno wieje – nie idźcie na szlak w adidasach!",
             likes: 44,
             ts: 3
         },
         "-0seed2": {
             loc: "Katowice i Górnośląsko-Zagłębiowska Metropolia",
-            msg: "24.10, 11:10 – 🚦 RUCH MIEJSKI: Spowolnienia w rejonie przebudowywanych wiaduktów kolejowych w centrum Katowic. Komunikacja miejska i pociągi kursują według zmienionego rozkładu – zachowaj ostrożność przy tymczasowych przejściach.",
+            msg: "24.10, 11:10 – 🚦 W centrum Katowic standardowo korki pod rozkopanymi wiaduktami kolejowymi. Autobusy i pociągi mają pozmieniane rozkłady, więc lepiej sprawdźcie apkę przed wyjściem na przystanek.",
             likes: 35,
             ts: 2
         },
         "-0seed1": {
             loc: "Gdańsk i Trójmiasto",
-            msg: "24.10, 11:10 – 🌬️ AURA NAD ZATOKĄ: Silniejsze porywy wiatru w pasie nadmorskim od Brzeźna po Sopot. Temperatura odczuwalna na plaży i molo jest wyraźnie niższa niż w głębi Trójmiasta.",
+            msg: "24.10, 11:10 – 🌬️ W Trójmieście na mieście w miarę spokojnie, ale nad samą wodą w Brzeźnie i Sopocie mocno ciągnie zimnem od zatoki. Na molo bez kurtki przeciwdeszczowej ani rusz!",
             likes: 33,
             ts: 1
         }
     };
 }
+        
         
 
         const latestReportsQuery = query(reportsRef, limitToLast(30));
@@ -2191,10 +2261,7 @@ function startReports() {
             console.error("Firebase: nie udało się odczytać meldunków.", error);
         });
 
-        window.addEventListener("skycast:report-send", (event) => {
-            const loc = String(event.detail?.loc ?? "").trim().slice(0, 30);
-            const msg = String(event.detail?.msg ?? "").trim().slice(0, 80);
-            if (!loc || !msg) return;
+        window.addEventListener("smsg) return;
 
             set(push(reportsRef), { loc, msg, likes: 1, ts: Date.now() })
                 .catch((error) => console.error("Firebase: nie udało się dodać meldunku.", error));
