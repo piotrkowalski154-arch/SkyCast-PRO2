@@ -14,16 +14,16 @@
    ========================================= */
 .glass-panel.halloween-poll-theme {
     /* Zmniejszyliśmy przyciemnienie gradientu z 0.92/0.86 na 0.65/0.55, 
-       dzięki czemu tło z liśćmi z Unsplasha jest dużo bardziej widoczne! */
+       dzięki czemu tło z liśćmi jest dużo bardziej widoczne! */
     background: 
     linear-gradient(135deg, rgba(20, 15, 10, 0.45) 0%, rgba(45, 27, 12, 0.55) 50%, rgba(15, 10, 5, 0.7) 100%),
-    url('https://unsplash.com/photos/cHWGe_tp02M/download?force=true&w=1600') center/cover no-repeat;
+    url('images/jesien-2.jpg') center/cover no-repeat;
     /* Efekt szkła */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(14px);
     
-    /* Jaśniejsza, bardziej widoczna rdzawa ramka */
-    border: 1px solid rgba(249, 115, 22, 0.8); 
+    /* Jaśniejsza, bardziej widoczna bordowa ramka */
+    border: 1px solid rgba(190, 18, 60, 0.8); 
     border-radius: 24px;
     padding: 24px;
     margin: 20px auto;
@@ -31,29 +31,29 @@
     /* Mocniejszy blask 3D */
     box-shadow: 
         0 16px 45px rgba(0, 0, 0, 0.9), 
-        inset 0 0 35px rgba(249, 115, 22, 0.3);
+        inset 0 0 35px rgba(190, 18, 60, 0.3);
     
     box-sizing: border-box;
     overflow: hidden; 
     animation: slideUp 0.5s ease-out forwards;
 }
 
-/* Nagłówek - mocno nasycony, jasny pomarańcz z ostrą poświatą */
+/* Nagłówek - złoty z ostrą poświatą */
 .glass-panel.halloween-poll-theme h3 {
-    color: #fb923c !important; /* Jaśniejszy odcień pomarańczu */
-    text-shadow: 0 0 16px rgba(251, 146, 60, 0.8), 0 2px 8px rgba(0,0,0,0.95) !important;
+    color: #facc15 !important; /* Złoty */
+    text-shadow: 0 0 16px rgba(250, 204, 21, 0.8), 0 2px 8px rgba(0,0,0,0.95) !important;
     font-weight: 700;
     letter-spacing: 0.6px;
     font-size: 1.15rem;
     margin-bottom: 8px;
 }
 
-/* Podkreślnik pod tytułem */
+/* Podkreślnik pod tytułem - złoto przechodzące w bordo */
 .glass-panel.halloween-poll-theme .halloween-line {
-    background: linear-gradient(90deg, #fb923c, #f97316) !important;
+    background: linear-gradient(90deg, #facc15, #be123c) !important;
     height: 3px;
     border-radius: 2px;
-    box-shadow: 0 0 12px rgba(251, 146, 60, 0.8) !important;
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.8) !important;
     margin: 10px 0 18px 0;
 }
 
@@ -67,8 +67,8 @@
 /* Opcje ankiety - jaśniejsze tło i wyraźniejszy tekst dla maksymalnej czytelności */
 .glass-panel.halloween-poll-theme .poll-option {
     background: rgba(255, 255, 255, 0.08); /* Nieco jaśniejsze półprzezroczyste tło */
-    border: 1px solid rgba(249, 115, 22, 0.5);
-    color: #ffedd5; /* Bardzo jasny, ciepły odcień tekstowy */
+    border: 1px solid rgba(190, 18, 60, 0.5);
+    color: #fef3c7; /* Ciepły jasny tekst */
     padding: 12px 16px;
     border-radius: 12px;
     text-align: left;
@@ -79,10 +79,10 @@
 }
 
 .glass-panel.halloween-poll-theme .poll-option:hover {
-    background: rgba(249, 115, 22, 0.3);
-    border-color: #fb923c;
+    background: rgba(190, 18, 60, 0.3);
+    border-color: #e11d48;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+    box-shadow: 0 6px 20px rgba(190, 18, 60, 0.5);
 }
         
 
