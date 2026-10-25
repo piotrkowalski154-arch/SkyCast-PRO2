@@ -304,10 +304,13 @@ body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
     overflow-x: auto; 
     gap: 12px; 
     padding-bottom: 10px; 
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .h-box { 
     min-width: 85px; 
+    flex: 0 0 auto; /* <-- KLUCZOWE: to blokuje rozjeżdżanie się kafelka na boki! */
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -315,8 +318,9 @@ body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
     border: 1px solid var(--glass-border); 
     padding: 15px 5px; 
     border-radius: 22px; 
-    box-sizing: border-box;
 }
+        
+
         
 .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
 .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
