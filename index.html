@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+mi<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,27 @@
     overflow: hidden; 
     animation: slideUp 0.5s ease-out forwards;
 }
+#hourlyCard {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
 
+#hourlyCard .h-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+        
+#hourlyCard {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+        }
+        
+        
 /* Nagłówek - jasne złoto z mocną poświatą */
 .glass-panel.halloween-poll-theme h3 {
     color: #fde047 !important;
@@ -47,9 +67,7 @@
     font-size: 1.15rem;
     margin-bottom: 8px;
 }
-.hourlyCard {
-    overflow: hidden; /* Odcina rozpychanie na boki */
-}
+
 /* Podkreślnik pod tytułem - złoto w czerwień */
 .glass-panel.halloween-poll-theme .halloween-line {
     background: linear-gradient(90deg, #fde047, #f59e0b, #dc2626) !important;
