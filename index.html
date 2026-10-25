@@ -295,8 +295,17 @@ body.night-mode .temp { color: hsl(47, 100%, 71%); text-shadow: 0 0 10px rgba(17
 .label { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000000; margin-bottom: 12px; display: block; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; }
 body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
 
+
+        
+ 
 /* POPRAWIONA SEKCJA POGODY GODZINOWEJ */
-.h-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; };
+.h-scroll { 
+    display: flex; 
+    overflow-x: auto; 
+    gap: 12px; 
+    padding-bottom: 10px; 
+}
+
 .h-box { 
     min-width: 85px; 
     display: flex; 
@@ -307,8 +316,7 @@ body.night-mode .atm-label, body.night-mode .label { color: #ffffff; }
     padding: 15px 5px; 
     border-radius: 22px; 
 }
-body.night-mode .h-box div:last-child { color: #00d2ff !important; font-size: 1.3rem !important; font-weight: 900 !important; }
-
+        
 .manifest { background: rgba(0,0,0,0.85); color: white; border-radius: 30px; padding: 25px; backdrop-filter: blur(20px); }
 .wiadomosci { background: rgba(255, 255, 255, 0.29); border: 2px solid #FFD600; border-radius: 15px; padding: 15px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
 body.night-mode .wiadomosci { background-color: rgba(15, 23, 42, 0.6) !important; border-color: #38bdf8; }
