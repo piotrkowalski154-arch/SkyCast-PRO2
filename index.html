@@ -1673,71 +1673,91 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
             const widget = document.getElementById('thesisWidget');
             if (widget) widget.style.display = 'block';
 
-            let mysl = "Październik w sam raz, żeby wyjść z domu i poszurać w liściach! Łap gorącą kawę w termos i leć podbijać jesienny dzień. 🍂☕";
+            let mysl = "Listopad w pełnej krasie! Czas, kiedy wyjście z domu wymaga negocjacji z samym sobą. Łap termos z gorącą kawą i nie daj się jesiennej chandrze! 🍂☕";
             let cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
             let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
             let titleColor = isNight ? "#ffffff" : "#000000";
 
             if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-                mysl = "⚡ Październikowa burza?! Zamiast moknąć na jesiennym wietrze, zostań na chacie. Zrób herbatę z imbirem, odpal serial i przeczekaj ten pokaz! ⛈️🍵";
+                mysl = "⚡ Listopadowa burza?! Matka Natura chyba pomyliła scenariusze! Zamiast sprawdzać, czy parasol zadziała jak piorunochron, zabunkruj się pod kocem z herbatą i serialem! ⛈️🍵";
                 cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
                 textColor = "#ffffff"; 
                 titleColor = "#c084fc";
             } else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-                mysl = "🌧️ Klasyczna październikowa szaruga i leje jak z cebra! Jesień mówi: 'wskakuj pod koc'. Idealny moment na gorącą pizzę i dobry film! 🌧️🍕🛋️";
+                mysl = "🌧️ Klasyczny listopad: pięćdziesiąt twarzy szarości i zacinający deszcz! Pogoda oficjalnie zwalnia z wychodzenia z domu. Zamawiaj gorącą pizzę, odpalaj film i udawaj, że świat za oknem nie istnieje! 🍕🛋️";
                 cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
                 textColor = "#ffffff"; 
                 titleColor = "#60a5fa";
+            } else if (weatherObj.id >= 600 && weatherObj.id <= 622) {
+                // Obsługa kodów śniegu (np. 601 – umiarkowany śnieg, 602 – sypie na całego!)
+                if (weatherObj.id === 602) {
+                    mysl = "❄️ Syberia w listopadzie! Sypie tak gęsto, że zaraz zgubisz auto na parkingu. Odpalaj tryb zimowy, szukaj łopaty i uważaj na drogach, bo zima znowu zaskoczyła drogowców! ☃️🚜💨";
+                } else {
+                    mysl = "🌨️ Pierwsze białe płatki! Listopad oficjalnie odpalił testową wersję zimy. Śnieg z deszczem próbuje zamienić świat w błotną ciapę – wyciągaj nieprzemakalne buty! 🥾❄️";
+                }
+                cardBg = "linear-gradient(135deg, rgba(203, 213, 225, 0.6), rgba(148, 163, 184, 0.8))";
+                textColor = "#0f172a";
+                titleColor = "#1e293b";
             } else if (weatherObj.id === 800 && isNight) {
-                mysl = "🌙 Czyste październikowe niebo, ale nocny chłód już szczypie! Wskakuj pod gruby koc i podkręcaj grzejnik. Jesienne spacery po zmroku tylko dla twardzieli! 🌌🥶✨";
+                mysl = "🌙 Czyste listopadowe niebo, czyli w nocy mróz jak z bajki! Przytul się do grzejnika, wskakuj w najgrubsze skarpety, a wychodzenie po zmroku zostaw polarnikom! 🌌🥶✨";
                 cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
                 textColor = "#ffffff"; 
                 titleColor = "#38bdf8";
             } else if (weatherObj.id === 800 && !isNight) {
-                mysl = "☀️ Prawdziwa złota polska jesień i zero chmur! Wskakuj w kurtkę, łap październikowe słońce i ciesz się dniem, zanim zrobi się ciemno o szesnastej! 🍂😎🚶‍♂️";
+                mysl = "☀️ Słońce w listopadzie?! Szybko, rób zdjęcie, bo nikt Ci nie uwierzy! Łap kurtkę i leć ładować baterie słoneczne, zanim o piętnastej znowu zapadnie egipska ciemność! 🍂😎🚶‍♂️";
                 cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
                 textColor = "#1e293b"; 
                 titleColor = "#0f172a";
             } else if (currentData.main.temp > 34) {
-                mysl = "🔥 Co tu się dzieje?! Afryka w środku października?! Zamiast grabić liście, szukaj cienia i zimnych napojów. Kalendarz chyba zwariował! 🥵🧊🧛‍♂️";
+                mysl = "🔥 Halo, symulacja się zawiesiła! Tropiki w środku listopada?! Zamiast odśnieżać auto, szukaj basenu i napojów z lodem. Kalendarz poszedł na L4! 🥵🧊🌴";
                 cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
                 textColor = "#ffffff"; 
                 titleColor = "#fca5a5";
             } else if (currentData.main.temp >= 30 && currentData.main.temp <= 34) {
-                mysl = "☀️ Ktoś zapomniał przełączyć wrzesień na październik! Korzystaj z tego anomalnego żaru, bo w szafie już czekają zimowe kurtki! 🕶️🥤🔥";
+                mysl = "☀️ Listopad pojechał na Erasmusa do Hiszpanii! Korzystaj z tego absurdalnego upału, bo za chwilę zamiast kremu z filtrem będziesz szukać skrobaczki do szyb! 🕶️🥤🔥";
                 cardBg = "linear-gradient(135deg, rgba(251, 146, 60, 0.5), rgba(234, 88, 12, 0.7))";
                 textColor = "#ffffff"; 
                 titleColor = "#fdba74";
             } else if (currentData.main.temp > 25) {
                 let timeGreeting = isNight 
-                    ? "Niesamowicie ciepły październikowy wieczór – aż żal siedzieć w czterech ścianach!" 
-                    : "Lato w środku jesieni! Październik rozpieszcza na całego, zero chłodu, żyć nie umierać.";
-                mysl = `😎 O proszę, jaka jesienna niespodzianka! ${timeGreeting} Łap ten klimat! 🍂☀️`;
+                    ? "Niesamowicie ciepły listopadowy wieczór – ktoś chyba zostawił otwarte drzwi do lata!" 
+                    : "Ponad 25 stopni w listopadzie?! Chowaj puchówkę z powrotem do szafy, mamy darmowe wakacje!";
+                mysl = `😎 O proszę, jaka anomalia! ${timeGreeting} Łap ten klimat, póki pogoda się nie zorientuje! 🍂☀️`;
                 cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.25)"; 
                 textColor = isNight ? "#e2e8f0" : "#0f172a";
                 titleColor = isNight ? "#38bdf8" : "#0284c7";
             } else if (currentData.main.temp >= 20 && currentData.main.temp <= 25) {
                 let timeGreeting = isNight 
-                    ? "Przyjemny, łagodny jesienny wieczór. Ani śladu październikowego chłodu!" 
-                    : "Złoty październik w najlepszym wydaniu – na spacer wśród kolorowych liści nawet nie trzeba grubej kurtki.";
-                mysl = `⛅ Pełen komfort! ${timeGreeting} Jesień na medal, można śmiało wychodzić! 🍂😎`;
+                    ? "Przyjemny, zaskakująco łagodny wieczór. Czy to na pewno listopad?" 
+                    : "Listopad w wersji premium! Zamiast marznąć na przystanku, można śmiało spacerować bez grubej kurtki.";
+                mysl = `⛅ Pełen komfort! ${timeGreeting} Taka jesień to czyste złoto! 🍂😎`;
                 cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)"; 
                 textColor = isNight ? "#e2e8f0" : "#0f172a";
                 titleColor = isNight ? "#38bdf8" : "#0284c7";
             } else if (currentData.main.temp >= 10 && currentData.main.temp < 20) {
                 let timeGreeting = isNight 
-                    ? "Chłodny październikowy wieczór! Czas na ciepłe skarpety i wielki kubek gorącej herbaty z cytryną." 
-                    : "Klasyczny, rześki październik! Bez dobrej bluzy albo jesiennej kurtki nawet nie wychodź z domu.";
-                mysl = `🍂 ${timeGreeting} Sezon na szaliki i kasztany w kieszeni trwa w najlepsze! 🧥☕`;
+                    ? "Chłodny listopadowy wieczór! Czas na protokół: dresy, koc i wiadro gorącej herbaty z cytryną." 
+                    : "Całkiem znośny ten listopad! Nie ma dramatu, ale bez ciepłej bluzy lub kurtki ani rusz.";
+                mysl = `🍂 ${timeGreeting} Sezon na warstwową stylówkę 'na cebulkę' trwa w najlepsze! 🧥☕`;
                 cardBg = isNight ? "rgba(15, 23, 42, 0.5)" : "rgba(255, 255, 255, 0.2)";
                 textColor = isNight ? "#e2e8f0" : "#0f172a";
                 titleColor = isNight ? "#38bdf8" : "#0284c7";
+            } else if (currentData.main.temp >= 5 && currentData.main.temp < 10) {
+                // Łatamy dziurę między 5 a 10 stopni
+                let timeGreeting = isNight
+                    ? "Ziąb wykręca nosy! Idealna noc na to, żeby sprawdzić, czy grzejniki działają na maksa."
+                    : "Typowy listopadowy dzień. Mgła, wilgoć i przeszywający chłód. Kto nie ma czapki, ten zaraz będzie kichał!";
+                mysl = `🥶 ${timeGreeting} Bez ciepłych butów i szalika nawet nie podchodź do drzwi! 🧣`;
+                cardBg = isNight ? "rgba(30, 41, 59, 0.6)" : "rgba(241, 245, 249, 0.4)";
+                textColor = isNight ? "#cbd5e1" : "#334155";
+                titleColor = isNight ? "#94a3b8" : "#475569";
             } else if (currentData.main.temp < 5) {
-                mysl = "🥶 Październik włączył tryb zimowy! Czas rozkręcić grzejniki na maksa. Gorąca zupa, gruby sweter i przetrwamy te pierwsze przymrozki! ☕❄️🥶";
+                mysl = "🥶 Listopad już trenuje przed grudniem! Ziąb aż szczypie w nos. Odkręcaj grzejniki na piątkę, wyciągaj czapkę i ratuj się gorącym rosołem! ☕❄️🧣";
                 cardBg = "linear-gradient(135deg, rgba(186, 230, 253, 0.5), rgba(56, 189, 248, 0.6))";
                 textColor = "#0f172a"; 
                 titleColor = "#0369a1";
-            }
+                          }
+            
 
             if (widget) {
                 widget.style.background = cardBg;
