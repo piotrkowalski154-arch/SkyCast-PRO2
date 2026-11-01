@@ -1140,56 +1140,60 @@ body.night-mode .rss-card {
                     box-sizing: border-box;   
                     margin: 0;    
                 `;  
-const TYTUL_WEEKEND = 'DOKŁADNA PROGNOZA METEO: FRONT DESZCZOWY, OCHŁODZENIE I MGLISTY WEEKEND WSZYSTKICH ŚWIĘTYCH (30.10 – 01.11)';
-const GODZINA_WEEKEND = '15:00';
 
-const tresc = `Siemanko! Szczegółowa telemetria meteo dla Krakowa i całej Polski na piątek, sobotę i niedzielę (30 października – 1 listopada 2026). Potężny wyż baryczny ustępuje miejsca chłodnej zatoce niżowej i masom polarno-morskim. Piątek to ostatni dzień złotej jesieni i absolutna kulminacja ciepła (do 15–16°C!), jednak w weekend Wszystkich Świętych czeka nas drastyczne załamanie pogody – spadek temperatur poniżej 10°C, frontowe opady deszczu oraz bardzo gęste, paraliżujące poranne mgły radiacyjne. Sprawdźcie dokładne dane:
 
-🍁 SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (30 PAŹDZIERNIKA – 1 LISTOPADA) ☀️🌧️
 
-☀️ PIĄTEK (30 PAŹDZIERNIKA) – KULMINACJA CIEPŁA PRZED ŚWIĘTAMI:
-• Kraków: Najcieplejszy i najprzyjemniejszy dzień! Po poranku z temperaturą ok. 4–5°C, w południe i po południu słupki rtęci powędrują aż do 15–16°C. Dużo słońca, niegroźne przejaśnienia i całkowicie sucho (0 mm). Wiatr południowy (S) w porywach do 22 km/h. Ciśnienie zacznie spadać: 1016 hPa. Idealne warunki na ostatnie przedświąteczne porządki. Zmrok zapada już o 16:22 – wtedy temperatura zacznie gwałtownie lecieć w dół.
+                const TYTUL_WEEKEND = 'DOKŁADNA PROGNOZA METEO: PONURA JESIEŃ, CHŁODNY FRONT I PIERWSZE PRZYMROZKI (02.11 – 04.11)';
+const GODZINA_WEEKEND = '14:00';
 
-🌧️ SOBOTA (31 PAŹDZIERNIKA) – GWAŁTOWNE ZAŁAMANIE POGODY I DESZCZ:
-• Kraków: Dynamiczne wejście frontu. Niebo całkowicie zaciągnie się chmurami (99–100%), a temperatura maksymalna spadnie o ponad 6 stopni, osiągając zaledwie 9°C (w nocy spadek do 5°C). W ciągu dnia wystąpią okresowe, słabe opady deszczu oraz mżawki (w sumie do 1-2 mm). Wiatr słaby, zmienny (do 17 km/h), potęgujący odczucie przejmującego chłodu. Ciśnienie stabilne: 1015 hPa. Szykujcie parasole i cieplejsze kurtki!
+const tresc = `Siemanko! Szczegółowa telemetria meteo dla Krakowa i całej Polski na poniedziałek, wtorek i środę (2 – 4 listopada 2026). Po mglistym weekendzie Wszystkich Świętych wchodzimy w głąb chłodnej masy powietrza polarno-morskiego z północy. Nad Polską rozbudowuje się stabilny, ale zimny klin wyżowy. Czeka nas typowo listopadowa, pochmurna aura z temperaturami rzędu 6–9°C w dzień oraz wyraźnym spadkiem temperatury w połowie tygodnia, który przyniesie pierwsze nocne przymrozki i ryzyko gołoledzi. IMGW nie wydaje oficjalnych alertów ostrzegawczych, ale warunki na drogach będą zdradliwe. Sprawdźcie dokładne dane:
 
-🌫️ NIEDZIELA (1 LISTOPADA – WSZYSTKICH ŚWIĘTYCH) – CHŁODNA, MGLISTA I PONURA AURA:
-• Kraków: Dzień zadumy w typowo jesiennej, zimnej oprawie. Temperatura maksymalna to zaledwie 9°C, a rano zobaczymy tylko 4°C (przy gruncie lokalnie 1–2°C). Zachmurzenie niskie, całkowite (stratus). Opady będą już zanikać, możliwe jedynie symboliczne, lokalne mżawki. Wiatr północno-wazchodni wzmoże się w porywach do 25 km/h, przez co odczuwalna temperatura na otwartych przestrzeniach nekropolii spadnie do ok. 5°C.
+🍁 SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (2 – 4 LISTOPADA) ☁️❄️
 
----
+☁️ PONIEDZIAŁEK (2 LISTOPADA – DZIEŃ ZADUSZNY) – ZGNIŁY WYŻ I CHŁÓD:
+• Kraków: Po świątecznym weekendzie wracamy do pracy w ponurej, szarej oprawie. Przez cały dzień utrzyma się całkowite zachmurzenie warstwowe (stratus). Rano na termometrach ok. 6°C, a w najcieplejszym momencie dnia zobaczymy maksymalnie 8°C. Szansa na słaby, przelotny deszcz lub mżawkę wynosi zaledwie 15%. Wiatr słaby, północno-wschodni (NE) do 10 km/h. Ciśnienie stabilne: 1018 hPa, wilgotność ok. 83%. Zmrok zapada już o 16:17!
 
-⏱️ DOKŁADNY ROZKŁAD GODZINOWY NA WEEKEND W KRAKOWIE (31.10 – 01.11):
+🌧️ WTOREK (3 LISTOPADA) – WILGOTNO, ZIMNO I MOŻLIWA MŻAWKA:
+• Kraków: Dalsze ochładzanie mas powietrza. Niebo pozostanie szczelnie zasnute chmurami, a temperatura maksymalna osiągnie tylko 7°C (w nocy spadek do 4°C). W ciągu dnia możliwa lokalna, słaba mżawka, a późnym wieczorem i w nocy przy napływie chłodniejszego powietrza niewykluczony symboliczny deszcz ze śniegiem (szansa 15%). Wiatr północno-wschodni nieco przybierze na sile (w porywach do 13–18 km/h), obniżając temperaturę odczuwalną do ok. 3–4°C. Wilgotność wzrośnie do 84%.
 
-• SOBOTA (31.10) – DZIEŃ Z FRONTEM I DESZCZEM:
-  - 07:00 – 11:00: Pochmurny, wilgotny poranek (5°C do 7°C). Pojawiają się pierwsze zamglenia oraz lokalna mżawka. Wiatr słaby.
-  - 11:00 – 16:00: Maksimum termiczne dnia (9°C). Niebo całkowicie zasnute, okresowe opady słabego deszczu. Drogi robią się mokre.
-  - 16:00 (GODZINA_WEEKEND): Temperatura zaczyna opadać (8°C), pełne zachmurzenie, alejki cmentarne śliskie i wilgotne.
-  - 16:20 – 22:00: Szybki zmierzch. Temperatura spada do 6°C. Opady powoli zanikać będą na rzecz gęstniejących mgieł (wilgotność 98%).
-
-• NIEDZIELA (01.11) – WSZYSTKICH ŚWIĘTYCH:
-  - 07:00 – 11:00: Lodowaty, skrajnie mglisty poranek (4°C). Widzialność w okolicach cmentarzy (Batowice, Grębałów) ograniczona do 200 m! 
-  - 11:00 – 16:00: Mgła podnosi się w niskie chmury warstwowe. Temperatura wzrasta do 9°C, ale wiatr obniża temperaturę odczuwalną. Bez opadów.
-  - 16:00 (GODZINA_WEEKEND): Słońce chowa się za horyzont (16:19). Na termometrach 7°C, odczuwalnie zaledwie 4°C. Masowe powroty z cmentarzy.
-  - 16:30 – 22:00: Gwałtowne wychłodzenie po zmroku do 5°C. Powietrze staje się ciężkie, gęstnieje smog nad miastem, duże korki wyjazdowe.
+🌤️ ŚRODA (4 LISTOPADA) – PRZEJAŚNIENIA I NOCNY ATAK PRZYMROZKÓW:
+• Kraków: W ciągu dnia chmury w końcu zaczną się miejscami rozrywać – liczymy na pierwsze w tym tygodniu przejaśnienia i całkowity zanik opadów. Termometry w południe wskażą 7°C przy słabym wietrze (do 8 km/h). Jednak pogodne niebo wieczorem oznacza gwałtowną radiację ciepła! Po zachodzie słońca temperatura poleci na łeb na szyję, spadając w nocy do 1°C, a przy gruncie do -1°C i -2°C. Czas wyjąć skrobaczki do szyb!
 
 ---
 
-🗺️ SYTUACJA SYNOPTYCZNA W POLSCE (RAPORT REGIONALNY NA WEEKEND):
-• Północ i Wybrzeże (Gdańsk, Szczecin): W piątek jeszcze przejaśnienia (13°C), ale w weekend pełne zachmurzenie. W niedzielę 1 listopada nad morzem prognozowane są silniejsze porywy wiatru do 45 km/h oraz przelotne opady deszczu. Temperatura stabilna: ok. 10–11°C.
-• Centrum i Wschód (Warszawa, Białystok, Lublin): Piątek ciepły (do 15°C). W sobotę przejdzie tu front ze słabym deszczem i dużym ochłodzeniem – na Podlasiu w weekend zaledwie 7–8°C! W niedzielny poranek w całym regionie wystąpią paraliżujące, bardzo gęste mgły radiacyjne.
-• Południowy Zachód (Wrocław, Opole): Najcieplejszy region kraju. Piątek z temperaturą do 17°C. W sobotę i niedzielę front dotrze tu najpóźniej i przyniesie najmniej wilgoci. Termometry w weekend wskażą przyjemne 11–13°C przy umiarkowanym zachmurzeniu.
-• Południowy Wschód (Rzeszów, Kielce): Po ciepłym piątku (15°C) sobota przyniesie załamanie pogody, mżawkę i spadek do 8°C. W niedzielę 1 listopada rano możliwe przygruntowe przymrozki do -1°C w dolinach rzecznych, w dzień maksymalnie 8°C.
-• Tatry i Beskidy (Zakopane, Krynica-Zdrój): Koniec wyżowej inwersji. W piątek w Zakopanem jeszcze słoneczne 12°C. W weekend gwałtowne ochłodzenie (w dzień max 3–5°C), w nocy spadki poniżej 0°C. Powyżej 1200 m n.p.m. spadnie pierwszy przejściowy śnieg i deszcz ze śniegiem. Śliskie i trudne warunki na Zakopiance!
+⏱️ DOKŁADNY ROZKŁAD GODZINOWY DLA KRAKOWA (02.11 – 04.11):
+
+• PONIEDZIAŁEK (02.11) – DZIEŃ ZADUSZNY:
+  - 06:00 – 10:00: Szary, mglisty poranek (6°C). Duży ruch powrotny i dojazdy do pracy, lokalnie wilgotna nawierzchnia.
+  - 10:00 – 15:00: Monotonne, pełne zachmurzenie. Temperatura dobija do skromnych 8°C. Bez istotnych opadów.
+  - 15:00 (GODZINA_WEEKEND): Początek popołudniowego szczytu komunikacyjnego. Na termometrach 7°C, szybko robi się szaro.
+  - 16:15 – 22:00: Szybki zmrok. Temperatura powoli spada do 6°C. Przez brak wiatru w kotlinie krakowskiej zaczyna gęstnieć smog.
+
+• WTOREK i ŚRODA (03.11 – 04.11) – PRZEBIEG DOBOWY:
+  - 06:00 – 10:00: Zimne poranki (od 4°C we wtorek do zaledwie 1–2°C w środę). W dolinach i nad Wisłą lokalne zamglenia.
+  - 10:00 – 15:00: Maksimum termiczne (7°C). We wtorek pochmurno z możliwą mżawką, w środę przyjemniejsze przejaśnienia.
+  - 15:00 (GODZINA_WEEKEND): Temperatura zaczyna spadać (6°C). Odczuwalny nieprzyjemny, przenikliwy chłód z północy.
+  - 16:30 – 23:00: W środowy wieczór przy rozpogodzeniach gwałtowny spadek temperatury w okolice 0°C. Ryzyko oblodzenia mostów i wiaduktów!
+
+---
+
+🗺️ SYTUACJA SYNOPTYCZNA W POLSCE (RAPORT REGIONALNY 02.11 – 04.11):
+• Północ i Wybrzeże (Gdańsk, Szczecin): W poniedziałek i wtorek dużo chmur ze słabymi, przelotnymi opadami deszczu. Wciąż uwaga na lokalne, gęste mgły o poranku! Temperatura od 8°C do 9°C, wiatr umiarkowany, nad samym morzem porywisty z północy.
+• Centrum i Wschód (Warszawa, Białystok, Lublin): Najchłodniejsza strefa w kraju. Przez pierwsze dwa dni dominować będą niskie chmury i 6–8°C. W środę rano oraz w nocy ze środy na czwartek uderzą tu powszechne przymrozki – temperatura spadnie do -1°C (przy gruncie do -3°C).
+• Południowy Zachód (Wrocław, Opole): Najłagodniejsza aura. Choć chmur nie zabraknie, to w środę pojawi się tu najwięcej słońca. Termometry wskażą od 8°C do maksymalnie 9–10°C, a nocne przymrozki będą najsłabsze.
+• Południowy Wschód (Rzeszów, Kielce): Pochmurno i zimno (6–7°C). W nocy z wtorku na środę oraz ze środy na czwartek po rozpogodzeniach szybkie spadki temperatury poniżej zera (do -1°C).
+• Tatry i Beskidy (Zakopane, Krynica-Zdrój): Prawdziwe przedzimie. Na Podhalu w dzień zaledwie 1–4°C, nocami stały mróz. W wyższych partiach gór opady śniegu i deszczu ze śniegiem. IMGW i TOPR ostrzegają przed oblodzeniem – szlaki powyżej linii lasu są bardzo śliskie i niebezpieczne!
 
 ---
 
 ⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW I MIESZKAŃCÓW:
-1. Fatalna widoczność w niedzielny poranek: Między 05:00 a 10:00 rano 1 listopada gęste mgły sparaliżują drogi w większości kraju. Ruch wokół nekropolii będzie gigantyczny – zdejmijcie nogę z gazu, piesi w rejonach słabo oświetlonych będą niewidoczni.
-2. Śliskie alejki i liście: Sobotni deszcz zmiesza się z opadającymi liśćmi, tworząc na cmentarnych schodach i chodnikach śliską warstwę. Ostrzeżcie starszych członków rodziny i zadbajcie o stabilne obuwie.
-3. Termika po godzinie 16:00: Dłuższe stanie w miejscu podczas popołudniowych i wieczornych odwiedzin grobów przy temperaturze odczuwalnej spadającej do ok. 4°C grozi szybkim wychłodzeniem organizmu. Zimowe kurtki, czapki i rękawiczki będą obowiązkowe!
+1. Brak alertów IMGW, ale uwaga na "czarny lód": Choć IMGW nie wydało oficjalnych żółtych alertów na dni 2–4 listopada, noc ze środy na czwartek (4/5.11) przyniesie spadki temperatury do -1°C. Wilgoć zalegająca po mgłach i wtorkowej mżawce zacznie zamarzać na drogach, tworząc zdradliwą gołoledź!
+2. Ostatni dzwonek na wymianę opon: Temperatury w całym kraju spadają na stałe poniżej progu 7°C, a o porankach czekają nas wartości bliskie zera. Letnia mieszanka gumy traci przyczepność – to ostateczny moment na montaż opon zimowych.
+3. Smogowy początek tygodnia w Małopolsce: Niskie temperatury, słaby wiatr (8–10 km/h) i wyżowa inwersja sprawią, że wieczorami w Krakowie i okolicznych "obwarzankowych" gminach normy pyłów PM10 i PM2.5 będą wyraźnie przekroczone.
 
 📻 SKYCAST PRO RADIO – TWÓJ MUZYCZNY AZYL:
-Deszczowa sobota w trasie czy chłodny wieczór Wszystkich Świętych pełen wspomnień? Odpal SkyCast PRO – nasza selekcja Melodic & Progressive House z domieszką ambientowych brzmień rozgrzeje Cię i zapewni idealny klimat do refleksji w ten wyjątkowy weekend. 🎧☕📻`;
+Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Odpal SkyCast PRO – nasza selekcja głębokiego Melodic & Progressive House z domieszką ciepłych, ambientowych brzmień rozgrzeje Cię i zapewni idealny fokus na cały tydzień!`;
+                
                 
         
                 
