@@ -844,7 +844,7 @@ frameborder="0">
  
 <div class="glass-panel halloween-poll-theme">
  <h3 style="text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 1.8px; margin: 0 0 8px 0; font-size: 1.2rem; color: #fef3c7; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">
- 🕒 Radar Nastrojów: Czas Zimowy
+ 🕒 Radar Nastrojów: Listopad & Urodziny
  </h3>
 
  <div class="halloween-line" style="width: 60px; height: 3px; margin: 0 auto 20px auto; border-radius: 2px;"></div>
@@ -852,30 +852,30 @@ frameborder="0">
  <!-- SZAFECZKA 1A: NA DZIEŃ (06:00 - 17:59) -->
  <div id="day-radar" class="radar-box">
  <p class="report-subtitle" style="text-align: center; margin-bottom: 15px; color: #fef3c7; font-size: 1.05rem; font-weight: 700;">
- ⏰ Niedziela po zmianie czasu (25.10) – Zegarki cofnięte, zmrok już o 16:30. Jak wykorzystasz dodatkową godzinę?
+ ⏰ Listopad wszedł na pełnej! Czekamy na wtorkowy front, a w środę odpalam urodziny! 🎂 Jakie plany na dziś?
  </p>
 
  <div class="poll-option" data-option="0">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">😴 Śpię dłużej i nic mnie nie rusza</span>
+ <span class="poll-text">☕ Kawa, kodowanie i łapanie jesiennego słońca</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="1">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🏛️ Idę na Kopiec Kościuszki – dziś 203 lata od zakończenia jego sypania</span>
+ <span class="poll-text">🍂 Szybki spacer, póki liście jeszcze nie zgniły</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="2">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🍂 Spacer po jesiennym lesie, póki jest jasno</span>
+ <span class="poll-text">🍕 Ciśnienie spada, wjeżdża cieplutka pizza z pieca!</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="3">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">☕ Kawa, koc i nadrabianie serialu na kanapie</span>
+ <span class="poll-text">💻 Odliczam do środy i lecę z własnymi projektami</span>
  <span class="poll-percent">0%</span>
  </div>
  </div>
@@ -883,34 +883,34 @@ frameborder="0">
  <!-- SZAFECZKA 1B: NA WIECZÓR (18:00 - 05:59) -->
  <div id="night-radar" class="radar-box" style="display: none;">
  <p class="report-subtitle" style="text-align: center; margin-bottom: 15px; color: #fef3c7; font-size: 1.05rem; font-weight: 700;">
- 🌙 Wieczór (25.10) – Czas zimowy, zmrok od 16:30, a jutro rano pełnia Księżyca. Co u Ciebie?
+ 🌙 Listopadowy wieczór. Mokry asfalt, a do moich urodzin coraz bliżej. Co u Ciebie?
  </p>
 
  <div class="poll-option" data-option="0">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🍵 Herbata, dobry serial / książka i pełna regeneracja</span>
+ <span class="poll-text">🍵 Odpalam gorącą herbatę i dobry serial na grubo</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="1">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🎧 Odpalam Progressive Trance w SkyCast Radio i resetuję głowę</span>
+ <span class="poll-text">🎧 SkyCast Radio gra, a ja relaksuję mózg</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="2">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🥶 Czas zimowy mnie oszukał – o 20:00 czuję się, jakby była północ</span>
+ <span class="poll-text">🌧️ Słucham, jak deszcz bębni w parapet – czysty chillout</span>
  <span class="poll-percent">0%</span>
  </div>
 
  <div class="poll-option" data-option="3">
  <div class="poll-bar" style="width: 0%;"></div>
- <span class="poll-text">🌕 Wychodzę popatrzeć na niebo – jutro rano pełnia</span>
+ <span class="poll-text">🎂 Szykuję mentalny toast na urodzinową środę!</span>
  <span class="poll-percent">0%</span>
  </div>
  </div>
- </div>
+</div>
 
  <!-- ========================================================= -->
  <!-- 📡 MODUŁ 2: MELDUNKI POGODOWE LIVE -->
@@ -1136,50 +1136,49 @@ box-sizing: border-box;
 margin: 0; 
 `; 
 
-const TYTUL_WEEKEND = 'DOKŁADNA PROGNOZA METEO: NIEDZIELNY FRONT, HALNY W GÓRACH I WYŻOWE OCHŁODZENIE (25.10 – 27.10)';
- const GODZINA_WEEKEND = '22:00';
+const TYTUL_WEEKEND = 'RAPORT METEO SKYCAST: LISTOPADOWA ZMIENNOŚĆ, PORANNE SKROBANIE I MOJE URODZINY! (02.11 – 04.11)';
+ const GODZINA_WEEKEND = '14:30';
 
- const tresc = `Siemanko! Szczegółowa telemetria meteo dla Krakowa i całej Polski na niedzielę, poniedziałek i wtorek (25–27 października 2026). Zaczynamy funkcjonować w czasie zimowym! W niedzielę czeka nas dynamiczne starcie ciepłego powietrza z chłodnym frontem (wieczorny deszcz i spadek ciśnienia do 1002 hPa), po którym w poniedziałek i wtorek stery przejmie pogodny wyż – wróci słońce, ale noce przyniosą pierwsze spadki w okolice 0°C. Sprawdźcie dokładne dane:
+ const tresc = `Siemanko, ekipa! Tutaj Piotrek. Szybki meldunek na najbliższe dni (2-4 listopada 2026). Zrzuciliśmy już z siebie poświąteczny pancerz i wjeżdżamy w pełny listopad. Będzie klasyczna przeplatanka – trochę porannych przymrozków, trochę frontowego deszczu, a na koniec... odpalam dla Was moją urodzinową środę z wiatrem z południa! Sprawdźcie, jak to się ułoży na mapach:
 
-🍁 SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (25 – 27 PAŹDZIERNIKA) 🌤️
+🍁 SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (02 – 04 LISTOPADA) 🌤️
 
-🌧️ NIEDZIELA (25 PAŹDZIERNIKA) – CIEPŁE POPOŁUDNIE I WIECZORNE UDERZENIE FRONTU:
-• Kraków: Pierwsza połowa dnia i wczesne popołudnie jeszcze suche i zaskakująco ciepłe (maksymalnie 14–15°C za sprawą południowego napływu powietrza). Wiatr z południa (S), umiarkowany, w porywach do 32 km/h. Po godz. 16:30–17:00 nad miasto nasunie się front atmosferyczny – wystąpią ciągłe opady deszczu (szansa 70%, suma 3–5 mm) przy wysokiej wilgotności (90–93%). Ciśnienie spadnie do 1002 hPa. W nocy ochłodzenie do 6°C.
+🥶 PONIEDZIAŁEK (02 LISTOPADA) – RZEŚKO, SUCHO I ODDECH PO ZADUSZKACH:
+• Kraków: Zaczynamy dzień od chłodnego poranka (2–3°C, lokalnie przy gruncie możliwe wylosowanie 0°C – uwaga na mostach!). W ciągu dnia ciśnienie poszybuje do 1024 hPa, chmury zaczną ustępować miejsca słońcu, ale przez zachodni wiatr odczujemy maksymalnie jakieś 8–9°C. Idealna, stabilna aura na powroty z przedłużonego weekendu. Zero deszczu. 
 
-🌤️ PONIEDZIAŁEK (26 PAŹDZIERNIKA) – SPŁYW CHŁODU, WIATR I PRZEJAŚNIENIA:
-• Kraków: Za frontem napłynie chłodniejsze powietrze polarne morskie – w dzień maksymalnie 10–12°C (przez zachodni wiatr w porywach do 35–37 km/h temperatura odczuwalna rano wyniesie tylko 4–5°C!). O poranku możliwa jeszcze zanikająca mżawka, ale od południa chmury zaczną pękać i pojawi się słońce (zachmurzenie spadnie do 40%). Ciśnienie wystrzeli w górę do 1019 hPa. Noc bezchmurna i lodowata – spadek do 1°C!
+🌧️ WTOREK (03 LISTOPADA) – ZATOKA NIŻOWA I WIECZORNE MOCZENIE ASFALTU:
+• Kraków: Od rana chmurzy się na potęgę. Przed południem jeszcze ok. 6°C i sucho, ale po godzinie 14:00 nad miasto wciśnie się front okluzji z zachodu. Wiatr skręci na północno-zachodni i zacznie się typowa, listopadowa szaruga. Wieczorem i w nocy ciągłe, słabe opady deszczu (szansa 80%, suma ok. 4-6 mm). Drogi będą śliskie jak tafla – ściągamy nogę z gazu!
 
-☀️ WTOREK (27 PAŹDZIERNIKA) – WYŻOWE SŁOŃCE PO PRZYMROZKOWYM PORANKU:
-• Kraków: O wschodzie słońca (06:21) w mieście ok. 0–1°C, a przy gruncie i w podkrakowskich dolinach lekkie przymrozki (-1 do -2°C) oraz lokalne mgły radiacyjne nad Wisłą. W ciągu dnia idealna, złota jesień – bezchmurne niebo, 0% szans na deszcz, wysokie ciśnienie (1022 hPa) i 12–13°C na termometrach przy słabym wietrze (8–10 km/h).
+🔥 ŚRODA (04 LISTOPADA) – MOJE URODZINY! 🎂 WIEJE Z POŁUDNIA I ROBI SIĘ CIEPLEJ:
+• Kraków: Budzimy się w mokrym, zalanym deszczem mieście (ok. 5°C), ale z każdą godziną będzie tylko lepiej! Cyklon znad Atlantyku skieruje do nas cieplejsze powietrze z południowego zachodu. Po południu chmury rozejdą się, zza nich wyjdzie słońce, a termometry podskoczą nawet do 11–12°C. Wiatr umiarkowany, do 35 km/h. To mój dzień, więc pogoda musiała się postarać – od poobiedniej kawy idealny czas na spacer i regenerację!
 
 ---
 
-⏱️ DOKŁADNY ROZKŁAD GODZINOWY NA NIEDZIELĘ W KRAKOWIE (25.10 – CZAS ZIMOWY):
-• 06:00 – 10:00: Rześki poranek (7–10°C), zachmurzenie umiarkowane z przejaśnieniami, sucho (0 mm). Wiatr S 12 km/h.
-• 10:00 – 14:00: Szybkie ocieplenie do 13–15°C. Dużo chmur na niebie, ale wciąż bez opadów – najlepsze okno pogodowe na wyjście z domu.
-• 14:00 – 17:00: Zagęszczenie chmur frontowych (100%), spadek temperatury do 11–12°C, porywy wiatru do 32 km/h. Około 16:30 pierwsze krople deszczu na zachodzie miasta.
-• 17:00 – 23:00: Ciągłe opady deszczu (3–5 mm), wilgotność 92%, spadek temperatury do 6–8°C (odczuwalna 5°C).
+⏱️ DOKŁADNY ROZKŁAD GODZINOWY NA MOJĄ URODZINOWĄ ŚRODĘ (04.11):
+• 06:00 – 10:00: Mokry, pochmurny poranek (4–6°C). Końcówka nocnych opadów mżawki, dużo wilgoci (95%).
+• 10:00 – 14:00: Przebijanie się słońca przez front! Szybki wzrost temperatury do 9–10°C, drogi w końcu przesychają.
+• 14:00 – 17:00: Złoty strzał pogodowy – najcieplejszy moment dnia (12°C), słońce świeci na pełnej, zanim zajdzie krótko po 16:15.
+• 17:00 – 23:00: Noc już bez opadów, ciśnienie spada do 1012 hPa. Chłodno (ok. 7°C), ale stabilnie.
 
 ---
 
 🗺️ SYTUACJA SYNOPTYCZNA W POLSCE (RAPORT REGIONALNY):
-• Północ i Wybrzeże (Gdańsk, Szczecin): W niedzielę uderzenie niżu – ulewny deszcz (10–15 mm), zaledwie 8–9°C i wichura nad samym morzem w porywach do 75 km/h. Poniedziałek i wtorek ze słońcem i temperaturą 9–11°C.
-• Centrum i Wschód (Warszawa, Białystok): W niedzielę w Warszawie 12–13°C i deszcz od popołudnia (4–6 mm). W poniedziałek i wtorek słonecznie, ale chłodno (w dzień 9–11°C, w nocy na Podlasiu przymrozki do -2°C!).
-• Południowy Zachód (Wrocław): W niedzielę intensywne opady (w mieście 10 mm, u podnóża Sudetów do 20 mm) i 9–11°C. Od poniedziałku rozpogodzenia, a we wtorek najcieplej w kraju – słoneczne 13–14°C.
-• Południowy Wschód (Rzeszów): W niedzielę najcieplej w Polsce (do 16–17°C dzięki wiatrowi fenowemu), deszcz dotrze dopiero późnym wieczorem. Od poniedziałku ochłodzenie do 11–12°C.
-• Tatry i Sudety (Zakopane, Karpacz): W niedzielę groźny halny – w Tatrach porywy do 100 km/h, a na Śnieżce do 120 km/h! Wieczorem deszcz w dolinach, a na szczytach opady śniegu. Poniedziałek i wtorek słoneczne, ale z mrozem w nocy (do -4°C).
+• Północ i Wybrzeże (Gdańsk, Szczecin): We wtorek uderzenie niżu prosto z Bałtyku – ulewy i wichura w porywach do 80 km/h nad samym morzem. W urodzinową środę (04.11) uspokojenie, chłodne 7–8°C i lokalne przejaśnienia.
+• Centrum i Wschód (Warszawa, Białystok): Poniedziałek słoneczny z wysokim ciśnieniem, wtorek deszczowy. Środa to z kolei poranne mgły i szadź na Podlasiu (nawet -3°C w nocy!), ale w dzień wyjdzie słońce z max 8°C na termometrach.
+• Południowy Zachód (Wrocław): Tutaj we wtorek najmocniej popada, ale za to środa przyniesie najcieplejszą aurę w kraju – do 13°C i sporo słońca zza chmur. 
+• Tatry i Sudety (Zakopane, Karpacz): We wtorkową noc opady deszczu ze śniegiem. W środę szczyty w mrozie (-2°C na Kasprowym), a w dolinach rześkie 6°C i sporo słońca.
 
 ---
 
-⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW I MIESZKAŃCÓW:
-1. Wcześniejszy zmrok (Czas Zimowy): W niedzielę słońce w Krakowie zajdzie już o 16:29 – dokładnie w tym samym momencie, gdy nad miasto wejdzie strefa deszczu. Widoczność na drogach podczas powrotów z weekendu będzie bardzo słaba!
-2. Alert wiatrowy w górach: Ze względu na porywy halnego do 100–120 km/h i wieczorne oblodzenie szlaków, w niedzielę bezwzględnie odradzamy wyjścia w wyższe partie gór.
-3. Pierwsze skrobanie szyb: Przygotujcie skrobaczki i odmrażacze na wtorkowy oraz środowy poranek (27–28.10) – bezchmurne noce przyniosą lokalne przymrozki i gęste mgły ograniczające widzialność do 200 m.
+⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW:
+1. Skrobaczki w ruch: We wtorek (03.11) nad ranem na wschodzie i południu Polski (również w dolinach pod Krakowem) szykujcie się na przymrozki przy gruncie (do -2°C). Pierwsze w tym sezonie intensywne drapanie szyb gwarantowane!
+2. Wtorkowy wieczór (Aquaplaning): Front, który wejdzie po południu 3 listopada, przyniesie ciągłe opady. Drogi osiedlowe, zawalone śliskimi, gnijącymi liśćmi, mogą być zdradliwe – hamowanie wydłuża się dwukrotnie.
 
-📻 SKYCAST PRO RADIO – TWÓJ MUZYCZNY AZYL:
-Niedzielny wieczór pod znakiem deszczu bębniącego o parapet? Zrób sobie gorącą herbatę i odpal nasze wbudowane radio w SkyCast PRO – selekcja głębokiego Progressive Trance idealnie zresetuje głowę przed słonecznym startem nowego tygodnia! 🎧☕📻`;
- 
-okienko.innerHTML = `
+📻 SKYCAST PRO RADIO – KLIMAT NA LISTOPAD:
+Urodziny to urodziny, a ja dzisiaj odpuszczam grzebanie w kodzie! Jeśli dopadnie Was wtorkowa szaruga, odpalajcie naszego SkyCast Radio, zaparzajcie dobrą kawę i pozwólcie, żeby bity wyrównały ciśnienie. Do przodu, ekipa! 🎧⚡`;
+
+  
+  okienko.innerHTML = `
  <div style="
  width: 100%; 
 max-width: 1007px; 
@@ -1288,8 +1287,8 @@ audio.src = url;
  status.innerText = "GRA TERAZ: " + nazwa;
  }
 
-        // ==========================================
-        // SILNIK RSS 4.0 PANCERNY (HYBRYDA + CACHE)
+       // ==========================================
+        // SILNIK RSS 4.1 ULTRA PANCERNY (HYBRYDA + CACHE + BULDOŻER)
         // ==========================================
         const RSS_CACHE_KEY = 'skycast_rss_cache_v4';
         let isFetchingRSS = false;
@@ -1305,16 +1304,7 @@ audio.src = url;
                         const bytes = Uint8Array.from(binString, (znak) => znak.codePointAt(0));
                         return new TextDecoder("utf-8").decode(bytes);
                     } catch (e) {
-                        console.error("Błąd dekodowania Base64:", e);
-                    }
-                } else {
-                    try {
-                        const commaIndex = contents.indexOf(",");
-                        if (commaIndex !== -1) {
-                            return decodeURIComponent(contents.substring(commaIndex + 1));
-                        }
-                    } catch (e) {
-                        console.error("Błąd dekodowania URI:", e);
+                        return "";
                     }
                 }
             }
@@ -1324,55 +1314,78 @@ audio.src = url;
         async function pobierzSurowyXML(url) {
             const encUrl = encodeURIComponent(url);
 
-            try {
-                const kontroler1 = new AbortController();
-                const timeout1 = setTimeout(() => kontroler1.abort(), 6000);
-                const res1 = await fetch(`https://api.allorigins.win/raw?url=${encUrl}`, { signal: kontroler1.signal });
-                clearTimeout(timeout1);
-                if (res1.ok) {
-                    const xmlText = await res1.text();
-                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
-                }
-            } catch (e) {}
+            // Zestaw niezawodnych tuneli – skrypt sprawdza jeden po drugim
+            const tunele = [
+                `https://api.allorigins.win/raw?url=${encUrl}`,
+                `https://api.allorigins.win/get?url=${encUrl}`,
+                `https://corsproxy.io/?url=${encUrl}`,
+                `https://api.codetabs.com/v1/proxy?quest=${encUrl}`
+            ];
 
-            try {
-                const kontroler2 = new AbortController();
-                const timeout2 = setTimeout(() => kontroler2.abort(), 6000);
-                const res2 = await fetch(`https://api.allorigins.win/get?url=${encUrl}`, { signal: kontroler2.signal });
-                clearTimeout(timeout2);
-                if (res2.ok) {
-                    const data = await res2.json();
-                    if (data && data.contents) {
-                        const xmlText = odkodujTekstXML(data.contents);
-                        if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
+            for (let i = 0; i < tunele.length; i++) {
+                try {
+                    const kontroler = new AbortController();
+                    const timeout = setTimeout(() => kontroler.abort(), 6000);
+                    const res = await fetch(tunele[i], { signal: kontroler.signal });
+                    clearTimeout(timeout);
+                    
+                    if (res.ok) {
+                        let xmlText = "";
+                        if (tunele[i].includes("/get?url=")) {
+                            const data = await res.json();
+                            if (data && data.contents) xmlText = odkodujTekstXML(data.contents);
+                        } else {
+                            xmlText = await res.text();
+                        }
+                        
+                        if (xmlText && (xmlText.includes("<item") || xmlText.includes("<entry"))) {
+                            return xmlText;
+                        }
                     }
+                } catch (e) {
+                    // Ciche przejście do kolejnego tunelu przy awarii
                 }
-            } catch (e) {}
-
-            try {
-                const kontroler3 = new AbortController();
-                const timeout3 = setTimeout(() => kontroler3.abort(), 6000);
-                const res3 = await fetch(`https://corsproxy.io/?url=${encUrl}`, { signal: kontroler3.signal });
-                clearTimeout(timeout3);
-                if (res3.ok) {
-                    const xmlText = await res3.text();
-                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
-                }
-            } catch (e) {}
-
+            }
             return null;
         }
 
         async function bezpiecznyFetchRSS(url) {
             try {
+                // 1. Szybka próba JSON (ominięcie całego XML)
+                try {
+                    const kontroler = new AbortController();
+                    const timeout = setTimeout(() => kontroler.abort(), 5000);
+                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`, { signal: kontroler.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.status === 'ok' && Array.isArray(data.items)) {
+                            return {
+                                items: data.items.map(item => {
+                                    let foto = item.thumbnail || (item.enclosure && item.enclosure.link) || "";
+                                    if (!foto && item.description) {
+                                        const m = item.description.match(/<img[^>]+src=["'](https?:\/\/[^"']+)["']/i);
+                                        if (m && m[1]) foto = m[1];
+                                    }
+                                    if (foto && foto.startsWith("//")) foto = "https:" + foto;
+                                    return {
+                                        title: (item.title ? String(item.title) : "Wiadomość").trim(),
+                                        link: item.link || "#",
+                                        thumbnail: foto
+                                    };
+                                })
+                            };
+                        }
+                    }
+                } catch (e) {}
+
+                // 2. Zapasowy parser XML (Buldożer do wyrywania obrazków)
                 const surowyXML = await pobierzSurowyXML(url);
                 if (!surowyXML) return null;
 
                 const parser = new DOMParser();
                 let doc = parser.parseFromString(surowyXML, "text/xml");
-                if (doc.querySelector("parsererror")) {
-                    doc = parser.parseFromString(surowyXML, "text/html");
-                }
+                if (doc.querySelector("parsererror")) doc = parser.parseFromString(surowyXML, "text/html");
 
                 const items = doc.querySelectorAll("item, entry");
                 if (!items || items.length === 0) return null;
@@ -1384,24 +1397,27 @@ audio.src = url;
                     const link = linkEl?.textContent?.trim() || linkEl?.getAttribute("href") || "#";
 
                     let foto = "";
-                    const enclosure = el.querySelector("enclosure");
-                    if (enclosure && enclosure.getAttribute("url")) {
-                        foto = enclosure.getAttribute("url");
-                    } else {
-                        const allChildren = el.querySelectorAll("*");
-                        for (let child of allChildren) {
-                            const nodeName = child.nodeName.toLowerCase();
-                            if ((nodeName.includes("content") || nodeName.includes("thumbnail")) && child.getAttribute("url")) {
-                                foto = child.getAttribute("url");
+                    const enc = el.querySelector("enclosure");
+                    if (enc && enc.getAttribute("url")) foto = enc.getAttribute("url");
+
+                    if (!foto) {
+                        const allTags = el.querySelectorAll("*");
+                        for (let child of allTags) {
+                            const urlAttr = child.getAttribute("url");
+                            if (urlAttr && (urlAttr.match(/\.(jpeg|jpg|gif|png|webp)/i) || child.nodeName.includes("media"))) {
+                                foto = urlAttr;
                                 break;
                             }
                         }
-                        if (!foto) {
-                            const desc = el.querySelector("description")?.textContent || "";
-                            const match = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-                            if (match && match[1]) foto = match[1];
-                        }
                     }
+
+                    if (!foto) {
+                        const rawContent = el.innerHTML || el.textContent || "";
+                        const imgMatch = rawContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+                        if (imgMatch && imgMatch[1]) foto = imgMatch[1];
+                    }
+
+                    if (foto && foto.startsWith("//")) foto = "https:" + foto;
 
                     sformatowaneWpisy.push({
                         title: title.trim(),
@@ -1421,7 +1437,7 @@ audio.src = url;
             const loading = document.getElementById('radar-loading');
             if (!kontener) return;
 
-            // Błyskawiczny start z pamięci podręcznej telefonu
+            // Start z pamięci podręcznej (Cache)
             const zapisanyPasek = localStorage.getItem(RSS_CACHE_KEY);
             if (zapisanyPasek && loading) {
                 loading.style.display = 'none';
@@ -1435,9 +1451,10 @@ audio.src = url;
             const rssSport = 'https://sport.interia.pl/feed';
             const rssSwiat = 'https://wydarzenia.interia.pl/feed';
 
-            const imgPolska = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="#ffffff"/><rect y="32" width="90" height="32" fill="#dc2626"/></svg>`);
-            const imgSport = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`);
-            const imgSwiat = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`);
+            // Naprawione obrazki – bezpieczne, bezpośrednie linki zamiast kodu SVG
+            const imgPolska = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/160px-Flag_of_Poland.svg.png';
+            const imgSport = 'https://cdn-icons-png.flaticon.com/128/536/536066.png';
+            const imgSwiat = 'https://cdn-icons-png.flaticon.com/128/921/921490.png';
             
             try {
                 const wyniki = await Promise.allSettled([
@@ -1457,8 +1474,13 @@ audio.src = url;
 
                     for (let k = 0; k < 2; k++) {
                         wpisy.forEach(art => {
-                            const img = art.thumbnail || domyslneFoto;
-                            const czystyTytul = art.title.replace(/"/g, '&quot;');
+                            let img = domyslneFoto;
+                            if (art.thumbnail && art.thumbnail.length > 5) {
+                                img = art.thumbnail;
+                            }
+                            
+                            const czystyTytul = art.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+                            
                             blok += `
                                 <a href="${art.link}" target="_blank" rel="noopener noreferrer" class="rss-card" title="${czystyTytul}">
                                     <img src="${img}" alt="News" class="rss-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${domyslneFoto}'">
