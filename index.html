@@ -1308,95 +1308,81 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
             status.innerText = "GRA TERAZ: " + nazwa;
         }
 
+        
         // ==========================================
-        // SILNIK RSS 3.0
+        // SILNIK RSS 4.0 PANCERNY (HYBRYDA + CACHE)
         // ==========================================
-        function odkodujTekstXML(contents) {
-            if (!contents) return "";
-            if (contents.startsWith("data:")) {
-                const base64Index = contents.indexOf("base64,");
-                if (base64Index !== -1) {
-                    try {
-                        const base64 = contents.substring(base64Index + 7);
-                        const binString = atob(base64);
-                        const bytes = Uint8Array.from(binString, (znak) => znak.codePointAt(0));
-                        return new TextDecoder("utf-8").decode(bytes);
-                    } catch (e) {
-                        console.error("Błąd dekodowania Base64:", e);
-                    }
-                } else {
-                    try {
-                        const commaIndex = contents.indexOf(",");
-                        if (commaIndex !== -1) {
-                            return decodeURIComponent(contents.substring(commaIndex + 1));
-                        }
-                    } catch (e) {
-                        console.error("Błąd dekodowania URI:", e);
-                    }
+        const RSS_CACHE_KEY = 'skycast_rss_cache_v4';
+        let isFetchingRSS = false;
+
+        async function pobierzZ_RSS2JSON(url) {
+            try {
+                const kontroler = new AbortController();
+                const timeout = setTimeout(() => kontroler.abort(), 6000);
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`, { signal: kontroler.signal });
+                clearTimeout(timeout);
+
+                if (!res.ok) return null;
+                const data = await res.json();
+                if (data && data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+                    return {
+                        items: data.items.map(item => {
+                            let foto = item.thumbnail || (item.enclosure && item.enclosure.link) || "";
+                            if (!foto && item.description) {
+                                const m = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+                                if (m && m[1]) foto = m[1];
+                            }
+                            return {
+                                title: (item.title || "Wiadomość").trim(),
+                                link: item.link || "#",
+                                thumbnail: foto
+                            };
+                        })
+                    };
                 }
+            } catch (e) {
+                // Przejście do zapasowych tuneli XML
             }
-            return contents;
+            return null;
         }
 
-        async function pobierzSurowyXML(url) {
+        async function pobierzZapasowyXML(url) {
             const encUrl = encodeURIComponent(url);
+            const tunele = [
+                `https://api.allorigins.win/raw?url=${encUrl}`,
+                `https://corsproxy.io/?url=${encUrl}`
+            ];
 
-            try {
-                const kontroler1 = new AbortController();
-                const timeout1 = setTimeout(() => kontroler1.abort(), 4000);
-                const res1 = await fetch(`https://api.allorigins.win/get?url=${encUrl}`, { signal: kontroler1.signal });
-                clearTimeout(timeout1);
+            for (let tunel of tunele) {
+                try {
+                    const kontroler = new AbortController();
+                    const timeout = setTimeout(() => kontroler.abort(), 7000);
+                    const res = await fetch(tunel, { signal: kontroler.signal });
+                    clearTimeout(timeout);
 
-                if (res1.ok) {
-                    const data = await res1.json();
-                    if (data && data.contents) {
-                        const xmlText = odkodujTekstXML(data.contents);
+                    if (res.ok) {
+                        const xmlText = await res.text();
                         if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
                     }
+                } catch (e) {
+                    // Próba kolejnego tunelu
                 }
-            } catch (e) {
-                console.warn("Tunel 1 (AllOrigins) zajęty, przełączam...");
             }
-
-            try {
-                const kontroler2 = new AbortController();
-                const timeout2 = setTimeout(() => kontroler2.abort(), 4000);
-                const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encUrl}`, { signal: kontroler2.signal });
-                clearTimeout(timeout2);
-
-                if (res2.ok) {
-                    const xmlText = await res2.text();
-                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
-                }
-            } catch (e) {
-                console.warn("Tunel 2 (CodeTabs) zajęty, przełączam...");
-            }
-
-            try {
-                const kontroler3 = new AbortController();
-                const timeout3 = setTimeout(() => kontroler3.abort(), 4000);
-                const res3 = await fetch(`https://corsproxy.io/?${encUrl}`, { signal: kontroler3.signal });
-                clearTimeout(timeout3);
-
-                if (res3.ok) {
-                    const xmlText = await res3.text();
-                    if (xmlText.includes("<item") || xmlText.includes("<entry")) return xmlText;
-                }
-            } catch (e) {
-                console.warn("Wszystkie 3 tunele proxy wyczerpane dla:", url);
-            }
-
             return null;
         }
 
         async function bezpiecznyFetchRSS(url) {
+            // 1. Próba przez szybki silnik JSON
+            const jsonDane = await pobierzZ_RSS2JSON(url);
+            if (jsonDane) return jsonDane;
+
+            // 2. Awaryjne pobranie surowego XML
             try {
-                const surowyXML = await pobierzSurowyXML(url);
+                const surowyXML = await pobierzZapasowyXML(url);
                 if (!surowyXML) return null;
 
                 const parser = new DOMParser();
                 let doc = parser.parseFromString(surowyXML, "text/xml");
-
                 if (doc.querySelector("parsererror")) {
                     doc = parser.parseFromString(surowyXML, "text/html");
                 }
@@ -1440,7 +1426,6 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
 
                 return { items: sformatowaneWpisy };
             } catch (err) {
-                console.error("Błąd parsowania strumienia:", err);
                 return null;
             }
         }
@@ -1450,6 +1435,16 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
             const loading = document.getElementById('radar-loading');
             if (!kontener) return;
 
+            // Błyskawiczny start z pamięci podręcznej telefonu
+            const zapisanyPasek = localStorage.getItem(RSS_CACHE_KEY);
+            if (zapisanyPasek && loading) {
+                loading.style.display = 'none';
+                kontener.innerHTML = zapisanyPasek;
+            }
+
+            if (isFetchingRSS) return;
+            isFetchingRSS = true;
+
             const rssPolska = 'https://www.polsatnews.pl/rss/wszystkie.xml';
             const rssSport = 'https://sport.interia.pl/feed';
             const rssSwiat = 'https://wydarzenia.interia.pl/feed';
@@ -1457,13 +1452,17 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
             const imgPolska = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="32" fill="#ffffff"/><rect y="32" width="90" height="32" fill="#dc2626"/></svg>`);
             const imgSport = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">⚽</text></svg>`);
             const imgSwiat = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64"><rect width="90" height="64" fill="#0f172a"/><text x="45" y="42" font-size="30" text-anchor="middle">🌍</text></svg>`);
-            
+
             try {
-                const [danePolska, daneSport, daneSwiat] = await Promise.all([
+                const wyniki = await Promise.allSettled([
                     bezpiecznyFetchRSS(rssPolska),
                     bezpiecznyFetchRSS(rssSport),
                     bezpiecznyFetchRSS(rssSwiat)
                 ]);
+
+                const danePolska = wyniki[0].status === 'fulfilled' ? wyniki[0].value : null;
+                const daneSport = wyniki[1].status === 'fulfilled' ? wyniki[1].value : null;
+                const daneSwiat = wyniki[2].status === 'fulfilled' ? wyniki[2].value : null;
 
                 function budujSekcje(dane, kategoria, kolorTagu, domyslneFoto) {
                     if (!dane || !dane.items || dane.items.length === 0) return '';
@@ -1494,26 +1493,31 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
                 paskiHTML += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
 
                 if (paskiHTML !== '') {
-                    if (loading) loading.style.display = 'none';
-                    kontener.innerHTML = `
+                    const pelnySzablon = `
                         <h3 style="color: var(--main-title); text-align: center; margin-bottom: 5px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase;">
                             WIADOMOŚCI 🇵🇱 SPORT ⚽ ŚWIAT 🌍
                         </h3>
                         ${paskiHTML}
                     `;
-                } else {
+                    kontener.innerHTML = pelnySzablon;
+                    localStorage.setItem(RSS_CACHE_KEY, pelnySzablon);
+                } else if (!localStorage.getItem(RSS_CACHE_KEY)) {
                     if (loading) {
                         loading.style.display = 'block';
                         loading.innerText = 'Trwa odnawianie połączenia z radarami informacyjnymi...';
                     }
                 }
             } catch (error) {
-                if (loading) loading.innerText = 'Błąd połączenia ze strumieniem RSS.';
+                if (!localStorage.getItem(RSS_CACHE_KEY) && loading) {
+                    loading.innerText = 'Błąd połączenia ze strumieniem RSS.';
+                }
+            } finally {
+                isFetchingRSS = false;
             }
         }
 
         setInterval(pobierzWiadomosci, 300000);
-
+        
         
         });
 
