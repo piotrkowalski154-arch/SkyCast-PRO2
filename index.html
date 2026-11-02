@@ -1521,8 +1521,13 @@ Ponury, zaduszkowy poniedziałek za kółkiem czy mroźny wieczór pod kocem? Od
             }
         }
 
+                // Uruchamiaj co 5 minut w tle
         setInterval(pobierzWiadomosci, 300000);
-        
+
+        // Odpal natychmiast przy starcie apki (nie czekając na radary!)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof pobierzWiadomosci === "function") pobierzWiadomosci();
+        });
         
         
         });
