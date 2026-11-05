@@ -1265,11 +1265,19 @@ if (typeof uruchomZlotySkaner === "function") {
  });
  }
 
- const btnFootball = document.getElementById('btnSkycastFootball');
- if (btnFootball) {
- btnFootball.addEventListener('click', function() {
- okienko.remove();
- window.open('https://sky-cast-pro-football.vercel.app', '_blank');
+const btnFootball = document.getElementById('btnSkycastFootball');
+if (btnFootball) {
+    btnFootball.addEventListener('click', function() {
+        console.log("⚡ Aktualizacja systemu: Już wkrótce nowości w SkyCast Pro Football!");
+        
+        // Komunikat informacyjny na ekranie
+        alert("Aktualizacja: już wkrótce nowości.");
+        
+        okienko.remove();
+        
+   
+
+ );
  });
  }
  }
