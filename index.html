@@ -1684,98 +1684,98 @@ if (alertIMGW && alertIMGW.trim() !== "") {
 
   // === MYŚL PIOTRKA: SILNIK LISTOPADOWY (OD 10 LISTOPADA) ===
 const widget = document.getElementById('thesisWidget');
-if (widget) widget.style.display = 'block';
+    if (widget) widget.style.display = 'block';
 
-let mysl = "Listopad w pełnej krasie – ciemno rano, ciemno po południu! Łap gorącą kawę, ubieraj się ciepło i trzymamy tempo! 🍂☕";
-let cardBg = isNight ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.25)"; 
-let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
-let titleColor = isNight ? "#38bdf8" : "#0284c7";
+    let mysl = "Listopad w pełnej krasie – ciemno rano, ciemno po południu! Łap gorącą kawę, ubieraj się ciepło i trzymamy tempo! 🍂☕";
+    let cardBg = isNight ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.25)"; 
+    let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
+    let titleColor = isNight ? "#38bdf8" : "#0284c7";
 
-const t = currentData.main.temp;
+    const t = currentData.main.temp;
 
-// --- 1. EKSTREMALNE ANOMALIE CIEPŁA (POWYŻEJ 20°C) ---
-if (t > 30) {
-    mysl = "🔥 Halo, policja?! Ktoś podmienił polski listopad na Saharę! Zamiast rogali świętomarcińskich i zimowych kurtek szukajmy basenu z lodem. Matrix ewidentnie się zawiesił! 🥵🧊🌴";
-    cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
-    textColor = "#ffffff"; 
-    titleColor = "#fca5a5";
+    // --- 1. EKSTREMALNE ANOMALIE CIEPŁA (POWYŻEJ 20°C) ---
+    if (t > 30) {
+        mysl = "🔥 Halo, policja?! Ktoś podmienił polski listopad na Saharę! Zamiast rogali świętomarcińskich i zimowych kurtek szukajmy basenu z lodem. Matrix ewidentnie się zawiesił! 🥵🧊🌴";
+        cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
+        textColor = "#ffffff"; 
+        titleColor = "#fca5a5";
 
-} else if (t >= 20 && t <= 30) {
-    let timeGreeting = isNight 
-        ? "Tropikalny listopadowy wieczór – grzejniki idą w odstawkę, okna otwarte!" 
-        : "Dwadzieścia stopni w listopadzie to jak wygrać los na loterii! Spacer w samej bluzie przed 11 listopada obowiązkowy!";
-    mysl = `😎 Pełen luksus! ${timeGreeting} Taki listopad to ja rozumiem! 🍂☀️`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.65)" : "rgba(255, 255, 255, 0.3)"; 
-    textColor = isNight ? "#e2e8f0" : "#0f172a";
-    titleColor = isNight ? "#38bdf8" : "#0284c7";
+    } else if (t >= 20 && t <= 30) {
+        let timeGreeting = isNight 
+            ? "Tropikalny listopadowy wieczór – grzejniki idą w odstawkę, okna otwarte!" 
+            : "Dwadzieścia stopni w listopadzie to jak wygrać los na loterii! Spacer w samej bluzie przed 11 listopada obowiązkowy!";
+        mysl = `😎 Pełen luksus! ${timeGreeting} Taki listopad to ja rozumiem! 🍂☀️`;
+        cardBg = isNight ? "rgba(15, 23, 42, 0.65)" : "rgba(255, 255, 255, 0.3)"; 
+        textColor = isNight ? "#e2e8f0" : "#0f172a";
+        titleColor = isNight ? "#38bdf8" : "#0284c7";
 
-// --- 2. UMIARKOWANA JESIEŃ (10°C DO 20°C) ---
-} else if (t >= 10 && t < 20) {
-    let timeGreeting = isNight 
-        ? "Przyjemny, spokojny listopadowy wieczór. Czas na herbatę z imbirem, koc i reset w azylu." 
-        : "Całkiem znośny ten listopad! Nie ma mrozu, ale kurtka obowiązkowa.";
-    mysl = `🍂 ${timeGreeting} Sezon na jesieniarstwo, odliczanie do wolnego 11.11 i rogale świętomarcińskie trwa w najlepsze! 🥐☕`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.25)";
-    textColor = isNight ? "#e2e8f0" : "#0f172a";
-    titleColor = isNight ? "#38bdf8" : "#0284c7";
+    // --- 2. UMIARKOWANA JESIEŃ (10°C DO 20°C) ---
+    } else if (t >= 10 && t < 20) {
+        let timeGreeting = isNight 
+            ? "Przyjemny, spokojny listopadowy wieczór. Czas na herbatę z imbirem, koc i reset w azylu." 
+            : "Całkiem znośny ten listopad! Nie ma mrozu, ale kurtka obowiązkowa.";
+        mysl = `🍂 ${timeGreeting} Sezon na jesieniarstwo, odliczanie do wolnego 11.11 i rogale świętomarcińskie trwa w najlepsze! 🥐☕`;
+        cardBg = isNight ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.25)";
+        textColor = isNight ? "#e2e8f0" : "#0f172a";
+        titleColor = isNight ? "#38bdf8" : "#0284c7";
 
-// --- 3. TYPOWY LISTOPADOWY ZIĄB (5°C DO 10°C) ---
-} else if (t >= 5 && t < 10) {
-    let timeGreeting = isNight 
-        ? "Zimny listopadowy wieczór – jutro rano szykuj się na chłodny start i parujące szyby!" 
-        : "Typowy ziąb po 10 listopada! Niby na plusie, ale wiatr od rzeki robi swoje i szczypie w uszy.";
-    mysl = `🧣 ${timeGreeting} Owijaj szalikiem szyję po same oczy, bierz kawę na wynos i nie daj się listopadowi! ☕🧤`;
-    cardBg = isNight ? "rgba(15, 23, 42, 0.75)" : "rgba(226, 232, 240, 0.35)";
-    textColor = isNight ? "#e2e8f0" : "#0f172a";
-    titleColor = isNight ? "#fbbf24" : "#b45309";
+    // --- 3. TYPOWY LISTOPADOWY ZIĄB (5°C DO 10°C) ---
+    } else if (t >= 5 && t < 10) {
+        let timeGreeting = isNight 
+            ? "Zimny listopadowy wieczór – jutro rano szykuj się na chłodny start i parujące szyby!" 
+            : "Typowy ziąb po 10 listopada! Niby na plusie, ale wiatr od rzeki robi swoje i szczypie w uszy.";
+        mysl = `🧣 ${timeGreeting} Owijaj szalikiem szyję po same oczy, bierz kawę na wynos i nie daj się listopadowi! ☕🧤`;
+        cardBg = isNight ? "rgba(15, 23, 42, 0.75)" : "rgba(226, 232, 240, 0.35)";
+        textColor = isNight ? "#e2e8f0" : "#0f172a";
+        titleColor = isNight ? "#fbbf24" : "#b45309";
 
-// --- 4. LISTOPADOWA LODÓWKA (1°C DO 5°C) ---
-} else if (t >= 1 && t < 5) {
-    mysl = "🥶 Listopadowa lodówka otwarta na oścież! Na zewnątrz taka aura, że nawet jeże w Dniu Jeża zakopują się dwa metry pod liśćmi. Ubieraj się na cebulę, odpalaj grzejnik i nie wychodź bez termosu! 🦔🧅☕";
-    cardBg = "linear-gradient(135deg, rgba(14, 116, 144, 0.5), rgba(15, 23, 42, 0.85))";
-    textColor = "#ffffff"; 
-    titleColor = "#67e8f9";
+    // --- 4. LISTOPADOWA LODÓWKA (1°C DO 5°C) ---
+    } else if (t >= 1 && t < 5) {
+        mysl = "🥶 Listopadowa lodówka otwarta na oścież! Na zewnątrz taka aura, że nawet jeże w Dniu Jeża zakopują się dwa metry pod liśćmi. Ubieraj się na cebulę, odpalaj grzejnik i nie wychodź bez termosu! 🦔🧅☕";
+        cardBg = "linear-gradient(135deg, rgba(14, 116, 144, 0.5), rgba(15, 23, 42, 0.85))";
+        textColor = "#ffffff"; 
+        titleColor = "#67e8f9";
 
-// --- 5. PRZYMROZKI I ŚLISKI ASFALT (OD -10°C DO 0°C) ---
-} else if (t > -11 && t < 1) {
-    let frostGreeting = isNight 
-        ? "Słupek rtęci leci poniżej zera! Drogi robią się zdradliwe – uważaj na czarny lód na mostach i wiaduktach, a rano skrobaczka w dłoń!" 
-        : "Zimowy ziąb szczypie w nos! Ziemia zamarznięta, widać własny oddech – listopad pokazuje zimowe pazury.";
-    mysl = `❄️ ${frostGreeting} Odkręcaj kaloryfer na maksa, gorąca herbata i pełna ostrożność za kółkiem! 🚗🧊🥶`;
-    cardBg = "linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(15, 23, 42, 0.9))";
-    textColor = "#ffffff"; 
-    titleColor = "#38bdf8";
+    // --- 5. PRZYMROZKI I ŚLISKI ASFALT (OD -10°C DO 0°C) ---
+    } else if (t > -11 && t < 1) {
+        let frostGreeting = isNight 
+            ? "Słupek rtęci leci poniżej zera! Drogi robią się zdradliwe – uważaj na czarny lód na mostach i wiaduktach, a rano skrobaczka w dłoń!" 
+            : "Zimowy ziąb szczypie w nos! Ziemia zamarznięta, widać własny oddech – listopad pokazuje zimowe pazury.";
+        mysl = `❄️ ${frostGreeting} Odkręcaj kaloryfer na maksa, gorąca herbata i pełna ostrożność za kółkiem! 🚗🧊🥶`;
+        cardBg = "linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(15, 23, 42, 0.9))";
+        textColor = "#ffffff"; 
+        titleColor = "#38bdf8";
 
-// --- 6. TWÓJ ZIMOWY BASTION (PONIŻEJ LUB RÓWNO -11°C) ---
-} else if (t <= -11) {
-    mysl = "🥶 Arktyczny mróz! Słupek zleciał poniżej -11°C! Zima wjechała z buta bez pytania o zgodę. Odpalaj piec i grzejniki na pełną parę, barykaduj się pod kołdrą i chroń akumulator w aucie! 🧊❄️🛌";
-    cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98))";
-    textColor = "#ffffff"; 
-    titleColor = "#a5f3fc";
-}
+    // --- 6. TWÓJ ZIMOWY BASTION (PONIŻEJ LUB RÓWNO -11°C) ---
+    } else if (t <= -11) {
+        mysl = "🥶 Arktyczny mróz! Słupek zleciał poniżej -11°C! Zima wjechała z buta bez pytania o zgodę. Odpalaj piec i grzejniki na pełną parę, barykaduj się pod kołdrą i chroń akumulator w aucie! 🧊❄️🛌";
+        cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98))";
+        textColor = "#ffffff"; 
+        titleColor = "#a5f3fc";
+    }
 
-// --- 7. APLIKACJA STYLÓW I TEKSTU DO ELEMENTÓW STRONY ---
-if (widget) {
-    widget.style.background = cardBg;
-    widget.style.backdropFilter = "blur(18px)";
-    widget.style.webkitBackdropFilter = "blur(18px)";
-    widget.style.border = isNight ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(0, 0, 0, 0.1)";
-    widget.style.borderRadius = "24px";
-    widget.style.boxShadow = "0 8px 30px rgba(0, 0, 0, 0.3)";
-}
+    // --- 7. APLIKACJA STYLÓW I TEKSTU DO ELEMENTÓW STRONY ---
+    if (widget) {
+        widget.style.background = cardBg;
+        widget.style.backdropFilter = "blur(18px)";
+        widget.style.webkitBackdropFilter = "blur(18px)";
+        widget.style.border = isNight ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(0, 0, 0, 0.1)";
+        widget.style.borderRadius = "24px";
+        widget.style.boxShadow = "0 8px 30px rgba(0, 0, 0, 0.3)";
+    }
 
-const thesisP = document.getElementById('thesisP');
-if (thesisP) {
-    thesisP.innerText = mysl;
-    thesisP.style.color = textColor;
-    thesisP.style.fontWeight = "600";
-    thesisP.style.textShadow = isNight ? "0px 1px 4px rgba(0, 0, 0, 0.85)" : "0px 1px 2px rgba(255, 255, 255, 0.8)";
-}
+    const thesisP = document.getElementById('thesisP');
+    if (thesisP) {
+        thesisP.innerText = mysl;
+        thesisP.style.color = textColor;
+        thesisP.style.fontWeight = "600";
+        thesisP.style.textShadow = isNight ? "0px 1px 4px rgba(0, 0, 0, 0.85)" : "0px 1px 2px rgba(255, 255, 255, 0.8)";
+    }
 
-const thesisTitle = widget ? widget.querySelector('h4') : null;
-if (thesisTitle) {
-    thesisTitle.style.color = titleColor;
-}
+    const thesisTitle = widget ? widget.querySelector('h4') : null;
+    if (thesisTitle) {
+        thesisTitle.style.color = titleColor;
+    }
 
 
  if (widget) {
