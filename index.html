@@ -2056,101 +2056,35 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
  });
  });
 
- function startReports() {
-            return {
-                "-0seed15": {
-                    loc: "A4 – MAŁOPOLSKA (Odcinek Chrzanów – Węzeł Mysłowice)",
-                    msg: "10.11, 19:00 – ⛔ STREFA ŚMIERCI: A4 oficjalnie umarła. 45 kilometrów zderzak w zderzak. Ludzie gaszą silniki, wychodzą na papierosa w deszczu. Karetka próbuje się przebić korytarzem życia od 20 minut. 💡 RADA OSTATECZNA: Jeśli jesteś przed bramkami w Balicach – ZAWRACAJ! Jedź do domu albo na pociąg. Nie dojedziesz przed 22:00.",
-                    likes: 3890,
-                    ts: 15
-                },
-                "-0seed14": {
-                    loc: "SPODEK – PŁYTA GŁÓWNA / WEJŚCIA",
-                    msg: "10.11, 19:00 – 🔊 STAN WNĘTRZA: Piekło zamarzło – w środku gorąco, na zewnątrz lodowaty prysznic! Kolejka 'mokrych szczurów' wciąż ma 300 metrów. Ochrona wpuszcza partiami po 50 osób. Przeszukiwanie jest totalne – buty, paski, portfele. 💡 RADA: Nie dyskutuj z ochroną, bo wylecisz na koniec kolejki.",
-                    likes: 4500,
-                    ts: 14
-                },
-                "-0seed13": {
-                    loc: "DK94 – OLKUSZ (Wielka Przebudowa)",
-                    msg: "10.11, 19:00 – 🚧 PUŁAPKA: Olkusz to jeden wielki zator. Rozkopana 'krajówka' + tysiące aut uciekających z A4 = paraliż totalny. W Sławkowie ruch wahadłowy sterowany przez policję zablokował się sam sobą. 💡 OBJAZD: Brak. Utknąłeś. Wyłącz silnik, oszczędzaj paliwo.",
-                    likes: 2100,
-                    ts: 13
-                },
-                "-0seed12": {
-                    loc: "KOSZUTKA / BOGUCICE (Uliczki osiedlowe)",
-                    msg: "10.11, 19:00 – 🚓 RZEŹ LAWETOWA: Straż Miejska wezwała posiłki z sąsiednich miast! 8 lawet krąży w pętli. Wywożą wszystko: z trawników, z bram, z zakazów. Mandat to 500 zł + 600 zł holowanie. 💡 OSTRZEŻENIE: Mieszkańcy rzucają jajkami w auta parkujące na ich miejscach. Uciekaj stąd!",
-                    likes: 3450,
-                    ts: 12
-                },
-                "-0seed11": {
-                    loc: "Węzeł Murckowska – ZJAZD DO CENTRUM",
-                    msg: "10.11, 19:00 – 👮‍♂️ BLOKADA OPERACYJNA: Policja zamknęła prawy pas zjazdu pachołkami. Przepuszczają tylko jedno auto na 10 sekund. Pełna kontrola dokumentów i trzeźwości. Zator wylał się na 3 km na autostradę. 💡 RADA: Nie wbijaj się na chama! 'Szeryfowanie' kończy się mandatem 1000 zł.",
-                    likes: 2780,
-                    ts: 11
-                },
-                "-0seed10": {
-                    loc: "S86 – SOSNOWIEC (Węzeł Pogoń – Milowice)",
-                    msg: "10.11, 19:00 – 🌊 BASEN OLIMPIJSKI: Woda zalała lewy i środkowy pas pod wiaduktem w Milowicach! Przejazd tylko prawym pasem, koła zanurzone do połowy. Trzy auta utopione (zassana woda do silnika). 💡 RADA: Nie ryzykuj wjazdu w kałużę! Jedź przez Czeladź Piaski.",
-                    likes: 1980,
-                    ts: 10
-                },
-                "-0seed9": {
-                    loc: "DK79 – JAWORZNO (Byczyna – Jeleń)",
-                    msg: "10.11, 19:00 – 🌫️ MGŁA I CIEMNOŚĆ: Na skrótach przez lasy widoczność spadła do zera. Kierowcy błądzą. Wiele aut w rowach na zakrętach. 💡 APEL: Włączcie nawigację głosową i skupcie się na drodze. Ślisko jak na lodowisku.",
-                    likes: 1230,
-                    ts: 9
-                },
-                "-0seed8": {
-                    loc: "DWORZEC PKP KATOWICE -> 3 MAJA",
-                    msg: "10.11, 19:00 – 🏃‍♂️ SPRINT OSTATNIEJ SZANSY: Tłumy biegną ul. 3 Maja. Ludzie zdejmują przemoczone buty i biegną w skarpetkach. Taksówki żądają 100 zł za kurs pod Rondo (1 km). 💡 RADA: Nie płać! Szybkim marszem będziesz pod Spodkiem w 12 minut.",
-                    likes: 2900,
-                    ts: 8
-                },
-                "-0seed7": {
-                    loc: "S1 – MYSŁOWICE (Węzeł Kosztowy)",
-                    msg: "10.11, 19:00 – 🐕 K-9 W AKCJI: Policyjne psy przeszukują auta na poboczu. Zatrzymano grupę aut z Małopolski. Rewizja bagaży. Korek na S1 w stronę Tychów. 💡 OSTRZEŻENIE: Jeśli masz coś, czego nie powinieneś – zawracaj do domu.",
-                    likes: 2150,
-                    ts: 7
-                },
-                "-0seed6": {
-                    loc: "Tunel pod Rondem – KATOWICE",
-                    msg: "10.11, 19:00 – ❌ ZAMKNIĘTY: Czerwone światła na wlotach. Tunel jest 'przedmuchiwany' z spalin. W środku stoi karetka do zasłabnięcia. Objazd górą przez Rondo stoi w miejscu. 💡 RADA: Omijaj centrum szerokim łukiem przez A4 i Batory.",
-                    likes: 1670,
-                    ts: 6
-                },
-                "-0seed5": {
-                    loc: "DK44 – OŚWIĘCIM/TYCHY (Fiata)",
-                    msg: "10.11, 19:00 – 💥 DZWON: Zderzenie czołowe na wąskim odcinku leśnym. Droga zablokowana. Karetki w drodze. Małopolska południowa (Oświęcim/Wadowice) odcięta od Śląska tą trasą. 💡 OBJAZD: Jedź na Pszczynę (DW933) i wskakuj na DK1.",
-                    likes: 1450,
-                    ts: 5
-                },
-                "-0seed4": {
-                    loc: "P&R ZAWODZIE",
-                    msg: "10.11, 19:00 – ⚠️ 99% ZAPEŁNIENIA: Zostało może 15 miejsc na parkingu. System wpuszcza po jednym aucie. Tramwaje odjeżdżają tak nabite, że ludzie wiszą na stopniach. 💡 RADA: Jedź na P&R Brynów (południe) – tam jeszcze jest luz!",
-                    likes: 3200,
-                    ts: 4
-                },
-                "-0seed3": {
-                    loc: "CHORZÓW – ESTAKADA (DK79)",
-                    msg: "10.11, 19:00 – 🛑 ZATOR: Uciekinierzy z tunelu zablokowali Chorzów. Estakada stoi. Rynek w Chorzowie stoi. Tramwaje zablokowane przez auta na torach. 💡 RADA: Parkuj pod Stadionem Śląskim i idź przez park (ciemno, ale do przodu).",
-                    likes: 1120,
-                    ts: 3
-                },
-                "-0seed2": {
-                    loc: "GALERIA KATOWICKA (Parking)",
-                    msg: "10.11, 19:00 – ✅ OAZA SPOKOJU: Parking podziemny ma jeszcze 200 miejsc (płatny). To jedyne miejsce w centrum, gdzie nie zmokniesz i nie dostaniesz blokady. 💡 RADA: Wjeżdżaj od ul. Słowackiego (przez tunel pod dworcem), tam jest mniejszy korek.",
-                    likes: 2600,
-                    ts: 2
-                },
-                "-0seed1": {
-                    loc: "KOMUNIKAT SPECJALNY – POGODA",
-                    msg: "10.11, 19:00 – 🌧️ STAN POGODY: Ulewa przybiera na sile. Temperatura 3°C. Wiatr porywisty. Tanie parasole łamią się jak zapałki. 💡 RADA: Nie stój na zewnątrz w samej koszulce, bo imprezę skończysz w szpitalu z zapaleniem płuc.",
-                    likes: 4100,
-                    ts: 1
-                }
-            };
- }
-                 
+                     function startReports() {
+    return {
+        "-0seed4": {
+            loc: "A4 – WĘZEŁ KRAKÓW TYNIEC",
+            msg: "10.11, 19:15 – ⚠️ OSTATNI DZWONEK: Za 45 minut (od 20:00) drogowcy zamykają łącznicę na węźle! Już teraz jazda odbywa się po sfrezowanym asfalcie bez linii (limit 110 km/h). Uważajcie na opony i brak trakcji. 💡 RADA: Śmigajcie teraz, za godzinę będą tu potężne zatory wyjazdowe!",
+            likes: 312,
+            ts: 4
+        },
+        "-0seed3": {
+            loc: "TRASA: KRAKÓW ➔ KATOWICE (SPODEK)",
+            msg: "10.11, 19:15 – 🟢 ZIELONE ŚWIATŁO: Droga na Mayday jest teraz całkowicie czysta! Główny przelot A4 odbywa się bez opóźnień. Nawigacja pod Spodek pokazuje równą 1 godz. i 2 min (83 km). Kto wyjeżdża w tej sekundzie, ma czysty lot!",
+            likes: 428,
+            ts: 3
+        },
+        "-0seed2": {
+            loc: "DK7 ZAKOPIANKA – LIBERTÓW (Wylot)",
+            msg: "10.11, 19:15 – 🛑 ZATOR: Jeśli lecicie z południa na bramki, w Libertowie stracicie obecnie ok. 30 minut. Zwężenie do 1 pasa robi swoje, radar świeci na mocno czerwono. 💡 OBJAZD: Szukajcie alternatywy przez Skawinę, żeby nie utknąć na samym starcie.",
+            likes: 185,
+            ts: 2
+        },
+        "-0seed1": {
+            loc: "A4 – KRAKÓW SKAWINA ➔ KRAKÓW POŁUDNIE",
+            msg: "10.11, 19:15 – 🚧 NOCNE ZWĘŻENIE: Od 20:00 do 06:00 wjeżdża ciężki sprzęt i zwężają nitkę do 1 pasa na odcinku 4,5 km (limit 80 km/h). 💡 OSTRZEŻENIE: Spóźnialscy jadący na Śląsk wpadną tu w pułapkę. Wyjeżdżajcie przed 20:00!",
+            likes: 240,
+            ts: 1
+        }
+    };
+  }
+  
   
              
   
