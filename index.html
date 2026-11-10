@@ -2058,69 +2058,79 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
 
                      
   
-                function startReports() {
+                        
+        
+function startReports() {
     return {
+        "-0seed11": {
+            loc: "A4 – Kraków Skawina / Kraków Południe / węzeł Tyniec",
+            msg: "10.11, 20:30 – 🌙 ROBOTY NOCNE: Na A4 między węzłami Kraków Skawina i Kraków Południe (km 412,7, odcinek 4,5 km) rozpoczął się nocny remont nawierzchni prawej jezdni. W godzinach 20:00–06:00 ruch może być zwężony do jednego pasa. Limit 80 km/h. Dodatkowo na węźle Kraków Tyniec (km 409) etapowo zamykane są nocą poszczególne łącznice. Objazdy prowadzą przez węzły Kraków Bielany i Kraków Skawina. Obowiązuje ograniczenie do 110 km/h.",
+            likes: 0,
+            ts: 11
+        },
         "-0seed10": {
-            loc: "A4 – PPO Balice (kierunek Katowice)",
-            msg: "10.11, 20:11 – 🚧 AKCJA MAYDAY: Trwa wymiana nawierzchni na placu poboru opłat w Balicach. Poszczególne pasy do bramek są sukcesywnie zamykane, co przy fali dojazdowej na imprezę i wyjazdach na długi weekend tworzy kilkukilometrowy zator.",
+            loc: "A4 – PPO Balice / odcinek Balice–Targowisko",
+            msg: "10.11, 20:30 – 🚧 AKCJA MAYDAY: Na placu poboru opłat w Balicach od 3 do 16 listopada sukcesywnie zamykane są poszczególne pasy poboru opłat w obu kierunkach. Operator informuje, że prace nie powinny znacząco ograniczać przepustowości autostrady. Dodatkowo GDDKiA prowadzi na odcinku Balice–Targowisko (16,8 km) czyszczenie nawierzchni i odwodnienia. Obowiązuje 80 km/h, a nocą możliwe jest zajęcie lewego pasa. Nie ma potwierdzenia kilkukilometrowego zatoru.",
             likes: 850,
             ts: 10
         },
         "-0seed9": {
-            loc: "DK94 – Olkusz (przebudowa centrum miasta)",
-            msg: "10.11, 20:11 – 🛑 FAKT: Przejazd alternatywą do A4 jest dziś skrajnie trudny. W Olkuszu trwa budowa dwupoziomowego węzła – ruch odbywa się jedną jezdnią dwukierunkowo na odcinku 1,2 km. Przejazd przez miasto zajmuje obecnie ok. 40-50 minut.",
+            loc: "DK94 – Olkusz / przebudowa drogi krajowej",
+            msg: "10.11, 20:30 – 🚧 UWAGA KIEROWCY: Przebudowa DK94 w Olkuszu nadal trwa na odcinku około 4,4 km. Obowiązuje etapowa organizacja ruchu i liczne ograniczenia na skrzyżowaniach. 3 listopada ruch na końcowym odcinku około 1,25 km przełożono na jezdnię północną. Otwarto skrzyżowania z ul. Wiejską i Wyszyńskiego, natomiast skrzyżowanie z ul. 20 Straconych nadal pozostaje zamknięte. Nie ma wiarygodnego potwierdzenia przejazdu przez miasto w 40–50 minut. Kierowcy powinni uwzględnić możliwe opóźnienia.",
             likes: 620,
             ts: 9
         },
         "-0seed8": {
-            loc: "Katowice – ul. Francuska (Centrum / Wiadukt PKP)",
-            msg: "10.11, 20:11 – ❌ TWIERDZA KATOWICE: Przypominamy, że przejazd pod wiaduktem kolejowym na ul. Francuskiej jest całkowicie ZAMKNIĘTY. Objazd pod Spodek od strony A4 prowadzi przez ul. Damrota lub nowo otwarty dwukierunkowy odcinek ul. Mikołowskiej.",
+            loc: "Katowice – ul. Francuska / wiadukt kolejowy",
+            msg: "10.11, 20:30 – 🚫 ZAMKNIĘCIE: Przejazd pod wiaduktem kolejowym na ul. Francuskiej pozostaje zamknięty. Zmiana obowiązuje od 1 września. Autobusy linii 1, 154 i 910 w kierunku centrum korzystają z przejazdu pod wiaduktem na ul. Damrota. Przejazd na ul. Mikołowskiej został wcześniej przywrócony w obu kierunkach. Kierowcy powinni stosować się do aktualnego oznakowania objazdów.",
             likes: 930,
             ts: 8
         },
         "-0seed7": {
-            loc: "S86 – Sosnowiec (odcinek od IKEA do węzła Roździeńskiego)",
-            msg: "10.11, 20:11 – 🔦 AKCJA MAYDAY: Przebudowa oświetlenia i ekranów akustycznych na odcinku 2,6 km między miastami. Wyłączony z ruchu lewy pas w kierunku Katowic powoduje spowolnienie już od wysokości salonu Agata Meble.",
+            loc: "S86 – Katowice–Sosnowiec / km 18,0",
+            msg: "10.11, 20:30 – 🔧 ROBOTY DROGOWE: Na S86 trwa budowa ekranów dźwiękochłonnych. GDDKiA wykazuje zamknięcie pasa awaryjnego na około 400-metrowym odcinku lewej jezdni w kierunku Będzina. Obowiązuje ograniczenie do 80 km/h. Utrudnienie ma obowiązywać do 20 listopada, godz. 12:00. Nie jest to potwierdzone zamknięcie lewego pasa ruchu na odcinku 2,6 km.",
             likes: 410,
             ts: 7
         },
         "-0seed6": {
-            loc: "A4 – km 392 (odcinek Rudno – PPO Balice)",
-            msg: "10.11, 20:11 – ⚠️ Naprawa mostu: Pomiędzy Rudnem a Balicami trwa remont obiektu inżynierskiego. Ruch odbywa się dwoma zwężonymi pasami w obu kierunkach. Przy obecnej mgle widoczność barierek jest ograniczona.",
+            loc: "A4 – km 392,3 / Rudno–PPO Balice",
+            msg: "10.11, 20:30 – ⚠️ REMONT MOSTU: Pomiędzy węzłem Rudno a PPO Balice trwa naprawa elementów żelbetowych obiektu mostowego. Roboty zajmują lewy pas na obu jezdniach autostrady. Ruch odbywa się dwoma zwężonymi pasami w każdym kierunku. W godzinach nocnych mogą występować dodatkowe okresowe zwężenia do jednego pasa. Prace mają potrwać do końca listopada. Kierowcy powinni zachować szczególną ostrożność w rejonie wygrodzeń.",
             likes: 315,
             ts: 6
         },
         "-0seed5": {
-            loc: "Katowice – Rondo im. Ziętka / Spodek",
-            msg: "10.11, 20:11 – 🔊 MAYDAY START! W Spodku grają już Korenberg i Discox, a przed Rondem trwa oblężenie. Parkingi w Strefie Kultury są już PEŁNE. Policja kieruje nadmiar aut na Centra Przesiadkowe Zawodzie i Brynów.",
+            loc: "Katowice – Spodek / MAYDAY POLAND 2026",
+            msg: "10.11, 20:30 – 🎧 AKCJA BEZPIECZNY MAYDAY: W Spodku trwa 27. edycja MAYDAY POLAND. Według oficjalnego harmonogramu na scenie Arena o 20:30 rozpoczyna się występ Perc, zaplanowany do 22:00. Korenberg grał 17:00–18:00, a Discox 18:00–19:00. Na scenie Showroom do 21:00 występuje Noemi Black. Nie mamy potwierdzenia, że parkingi Strefy Kultury są pełne ani że Centrum Przesiadkowe Zawodzie ma wolne miejsca. Przed wyjazdem sprawdźcie dostępność parkingów i komunikację miejską. Nie jedźcie po alkoholu ani przemęczeni.",
             likes: 1540,
             ts: 5
         },
         "-0seed4": {
-            loc: "DK44 – Oświęcim / Bieruń",
-            msg: "10.11, 20:11 – 🚧 Budowa drogi ekspresowej S1: Wyjazdy z placów budowy nowej trasy powodują miejscowe zabrudzenia jezdni. W strugach mżawki nawierzchnia na trasie Oświęcim – Tychy jest bardzo śliska.",
+            loc: "DK44 – Bieruń / ul. Warszawska i Oświęcimska",
+            msg: "10.11, 20:30 – 🚧 ZMIANA ORGANIZACJI RUCHU: Dziś rano otwarto nowy wiadukt w ciągu ul. Warszawskiej nad budowaną trasą S1. Kierowcy korzystają już z docelowego przejazdu zamiast wcześniejszego bypassu. Utrudnienia pozostają jednak na drugim odcinku ul. Oświęcimskiej, gdzie wprowadzono ruch wahadłowy. Możliwe lokalne spowolnienia. Nie ma potwierdzenia, że cała trasa Oświęcim–Tychy jest obecnie zablokowana lub wyjątkowo śliska.",
             likes: 210,
             ts: 4
         },
         "-0seed3": {
-            loc: "S1 – Dąbrowa Górnicza (węzeł Pogoria)",
-            msg: "10.11, 20:11 – 🚦 Przebudowa odcinka do Podwarpia: Obowiązuje ograniczenie prędkości i tymczasowe oznakowanie poziome. Kierowcy jadący z północy (A1/Pyrzowice) muszą uważać na nieintuicyjne zjazdy w rejonie jezior.",
+            loc: "S1 – Kosztowy / Lędziny / Bieruń",
+            msg: "10.11, 20:30 – 🏗️ BUDOWA S1: Aktualne utrudnienia dotyczą przede wszystkim rejonu Kosztowy–Lędziny–Bieruń. Obowiązuje tymczasowa organizacja ruchu związana z budową nowej trasy. Na jednym z odcinków zamknięta jest łącznica relacji Lędziny–Tychy. Objazd prowadzi przez węzeł Dziećkowice. Organizacja ruchu może zmieniać się wraz z kolejnymi etapami budowy. Nie należy łączyć tych robót z zakończoną wcześniej przebudową węzła Pogoria.",
             likes: 185,
             ts: 3
         },
         "-0seed2": {
-            loc: "Katowice – CP Zawodzie (ul. 1 Maja)",
-            msg: "10.11, 20:11 – ✅ INFO: Najszybszy dojazd pod Spodek gwarantuje zostawienie auta na Centrum Przesiadkowym Zawodzie. Parking ma jeszcze wolne miejsca, a tramwaje 7, 14, 15 dowożą pod samo Rondo w 7-8 minut.",
+            loc: "Katowice – CP Zawodzie / dojazd na MAYDAY",
+            msg: "10.11, 20:30 – 🚋 INFORMACJA DLA UCZESTNIKÓW: Centrum Przesiadkowe Zawodzie może być rozważane jako alternatywa dla wjazdu samochodem do ścisłego centrum Katowic. Nie posiadamy jednak potwierdzenia aktualnej liczby wolnych miejsc parkingowych ani rzeczywistego czasu dojazdu tramwajem pod Spodek. Przed pozostawieniem samochodu sprawdź dostępność parkingu i aktualny rozkład GZM. Nie publikujemy niezweryfikowanej informacji o wolnych miejscach.",
             likes: 1100,
             ts: 2
         },
         "-0seed1": {
-            loc: "Aglomeracja Śląska – Warunki pogodowe (IMGW)",
-            msg: "10.11, 20:11 – 🌫️ ALERT POGODOWY: Obowiązuje ostrzeżenie 1. stopnia przed gęstą mgłą. Widoczność lokalnie spada do 150-200 metrów. Temperatura odczuwalna to zaledwie 1°C. Zachowajcie bezpieczny odstęp!",
+            loc: "Aglomeracja Śląska – zdarzenia drogowe i alerty pogodowe",
+            msg: "10.11, 20:30 – 🚨 RAPORT BEZPIECZEŃSTWA: W dzisiejszym komunikacie GDDKiA odnotowano kolizję samochodu osobowego z barierami na łącznicy A4/DK86 przy km 340,5, między węzłami Katowice Murckowska i Jeleń. Lewy pas łącznicy w kierunku Sosnowca był zablokowany, a planowany koniec utrudnienia wyznaczono na 16:00. Nie jest to potwierdzony aktywny zator o 20:30. Ostrzeżenia IMGW przed gęstą mgłą dla omawianych obszarów wygasły najpóźniej dziś rano; nie należy publikować alertu jako nadal obowiązującego. Kolejne zdarzenia należy potwierdzać w bieżących komunikatach służb.",
             likes: 1890,
             ts: 1
         }
     };
+}
+  
                                                    }
   
   
