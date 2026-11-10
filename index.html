@@ -2057,100 +2057,72 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
  });
 
                      
-  function startReports() {
-            return {
-                "-0seed15": {
-                    loc: "A4 – WĘZEŁ MURCKOWSKA (Zjazd do Centrum)",
-                    msg: "10.11, 20:05 – 🚓 BLOKADA TAKTYCZNA: Policja zamknęła całkowicie jeden pas zjazdu z A4 do centrum! Stworzyli tzw. lejek filtracyjny. Każde auto z młodymi ludźmi jest kierowane na bok. Korek wylał się na główną nitkę autostrady w stronę Wrocławia. 💡 RADA: Nie próbuj cwaniakować. Jedź dalej do węzła Batory (Chorzów) i wracaj DTŚ.",
-                    likes: 3560,
-                    ts: 15
-                },
-                "-0seed14": {
-                    loc: "SPODEK – BRAMKI WEJŚCIOWE",
-                    msg: "10.11, 20:05 – 🛂 STAN KRYTYCZNY: Ochrona znalazła 'zakazane substancje' u grupy wchodzącej. Wejście A zablokowane operacyjnie na 15 minut. Tłum napiera, ludzie mokną. W środku już trzęsienie ziemi od basu. 💡 INFO: Wyrzuć wszystko, co masz nielegalnego, zanim podejdziesz do bramki. Psy są na miejscu.",
-                    likes: 4200,
-                    ts: 14
-                },
-                "-0seed13": {
-                    loc: "DK94 – OLKUSZ (Centrum - Przebudowa)",
-                    msg: "10.11, 20:05 – ⛔ CZARNA DZIURA: Olkusz oficjalnie 'umarł'. Na rozkopanym odcinku DK94 doszło do awarii sygnalizacji świetlnej w deszczu. Chaos totalny. Auta stoją zderzak w zderzak od Zedermana. 💡 RADA OSTATECZNA: Jeśli jesteś przed Olkuszem – ZAWRACAJ na Kraków i jedź pociągiem. Autem nie dotrzesz przed 23:00.",
-                    likes: 2100,
-                    ts: 13
-                },
-                "-0seed12": {
-                    loc: "KOSZUTKA / GWIAZDY (Osiedla przy Spodku)",
-                    msg: "10.11, 20:05 – 🚔 LAWETY W NATARCIU: Mieszkańcy zgłaszają każde obce auto. Straż Miejska pracuje na 3 zmiany. Odholowują auta blokujące bramy i stojące na zieleni. Parkingowy 'Tetris' kończy się mandatem 500 zł. 💡 OSTRZEŻENIE: Nie parkuj w ciemnych zaułkach, bo nie znajdziesz auta po imprezie.",
-                    likes: 3890,
-                    ts: 12
-                },
-                "-0seed11": {
-                    loc: "S86 – SOSNOWIEC (Węzeł z DK94)",
-                    msg: "10.11, 20:05 – 💥 KOLIZJA: Deszcz + prędkość + nerwy. BMW wbiło się w bariery energochłonne na 'zakręcie mistrzów' (zjazd na Katowice). Lewy pas zablokowany. Służby w drodze. Korek sięga Będzina. 💡 RADA: Jedź przez Czeladź Piaski, omiń trasę szybkiego ruchu.",
-                    likes: 1780,
-                    ts: 11
-                },
-                "-0seed10": {
-                    loc: "Tunel pod Rondem – KATOWICE",
-                    msg: "10.11, 20:05 – 🌫️ ZATOR: Tunel otwarty, ale jedzie się 10 km/h. W środku duszno od spalin. Kierowcy trąbią. Na wyjeździe w stronę Chorzowa patrol drogówki 'suszy' tych, co chcą nadrobić czas po wyjeździe z korka. 💡 RADA: Trzymaj dystans, w tunelu łatwo o karambol.",
-                    likes: 2450,
-                    ts: 10
-                },
-                "-0seed9": {
-                    loc: "DK44 – TYCHY/BIERUŃ (Wjazd od Oświęcimia)",
-                    msg: "10.11, 20:05 – 🌧️ PODTOPINIE: Woda stoi na jezdni w rejonie fabryki Fiata. Auta osobowe boją się przejeżdżać. Utworzył się zator 'wodny'. Małopolska południowa (Oświęcim/Zator) odcięta. 💡 OBJAZD: Jedź przez Wolę i Bojszowy, tam jest wyżej i sucho.",
-                    likes: 1230,
-                    ts: 9
-                },
-                "-0seed8": {
-                    loc: "S1 – MYSŁOWICE (Węzeł Kosztowy)",
-                    msg: "10.11, 20:05 – 🐕 KONTROLA NARKOTYKOWA: Akcja 'Bezpieczna Noc'. Radiowozy ściągają wyrywkowo auta na MOP. Przeszukują bagaże. Jeśli jedziesz na Mayday, jesteś w grupie ryzyka. 💡 APEL: Pełna kultura. Nerwowe ruchy tylko pogarszają sytuację.",
-                    likes: 1990,
-                    ts: 8
-                },
-                "-0seed7": {
-                    loc: "DK79 – CHORZÓW (Park Śląski)",
-                    msg: "10.11, 20:05 – 🚓 SUSZARKA: Patrol z laserem stoi w ciemności przy Stadionie Śląskim (kier. Katowice). Łapią tych, co pędzą 'na ostatnią chwilę'. Ograniczenie do 50 km/h jest tam bezwzględne. 💡 RADA: Zwolnij. Mandat nie jest wart spóźnienia.",
-                    likes: 1450,
-                    ts: 7
-                },
-                "-0seed6": {
-                    loc: "A1 – GLIWICE (Węzeł Sośnica)",
-                    msg: "10.11, 20:05 – 🚧 ROBOTY: Drogowcy zwężają pasy na nocne prace serwisowe! Idealny moment wybrali... Korek dla jadących od Wrocławia i Rybnika. Zderzenie dwóch ciężarówek na zwężeniu. 💡 OBJAZD: Uciekaj na DK88 (starą drogę) przez Gliwice.",
-                    likes: 1120,
-                    ts: 6
-                },
-                "-0seed5": {
-                    loc: "P&R ZAWODZIE / BRYNÓW",
-                    msg: "10.11, 20:05 – ✅ STATUS: PEŁNE: Wyświetlacze pokazują 'BRAK MIEJSC'. Szlabany opuszczone. Kierowcy parkują na dziko przy supermarketach w okolicy. 💡 OSTATECZNA SZANSA: Parking podziemny Galerii Katowickiej (płatny) – tam jeszcze jest luz, bo ludzie boją się wjeżdżać do centrum.",
-                    likes: 3100,
-                    ts: 5
-                },
-                "-0seed4": {
-                    loc: "DK7 – KRAKÓW WYLOT (Michałowice)",
-                    msg: "10.11, 20:05 – 🚗 DESPERACJA: Ludzie, którzy zrezygnowali z A4 i DK94, ruszyli na Warszawę, żeby odbić na Miechów/Wolbrom. Efekt? Korek w Michałowicach o 20:00 w niedzielę. 💡 RADA: To trasa na 2,5 godziny. Lepiej zawróć.",
-                    likes: 980,
-                    ts: 4
-                },
-                "-0seed3": {
-                    loc: "Dworzec PKP Katowice",
-                    msg: "10.11, 20:05 – 🏃‍♂️ SPRINT: Ostatnie pociągi z Krakowa i Warszawy dowiozły tłumy. Ludzie biegną w deszczu przez ul. Stawową. Taksówki nie istnieją. Uber: cena x5. 💡 RADA: Idź pieszo. Deszcz zmyje grzechy, a bas wysuszy ubranie.",
-                    likes: 2600,
-                    ts: 3
-                },
-                "-0seed2": {
-                    loc: "TRASA S1 – DĄBROWA GÓRNICZA",
-                    msg: "10.11, 20:05 – 🏗️ REMONT: Zwężenie w rejonie węzła Pogoria to pułapka. W nocy słabe oznakowanie + deszcz = kierowcy gubią pasy. Dwie stłuczki w ciągu godziny. 💡 RADA: Patrz na żółte pasy, nie ufaj tym białym (są nieaktualne!).",
-                    likes: 1340,
-                    ts: 2
-                },
-                "-0seed1": {
-                    loc: "CENTRUM ZARZĄDZANIA KRYZYSOWEGO",
-                    msg: "10.11, 20:05 – ⚠️ KOMUNIKAT: Katowice są nasycone. Nie wjeżdżajcie do ścisłego centrum autami. Zalecamy pozostawienie pojazdów na obrzeżach i spacer. Sytuacja na drogach jest dynamiczna i niebezpieczna.",
-                    likes: 4800,
-                    ts: 1
-                }
-            };
-  }
+  
+                function startReports() {
+    return {
+        "-0seed10": {
+            loc: "A4 – PPO Balice (kierunek Katowice)",
+            msg: "10.11, 20:11 – 🚧 AKCJA MAYDAY: Trwa wymiana nawierzchni na placu poboru opłat w Balicach. Poszczególne pasy do bramek są sukcesywnie zamykane, co przy fali dojazdowej na imprezę i wyjazdach na długi weekend tworzy kilkukilometrowy zator.",
+            likes: 850,
+            ts: 10
+        },
+        "-0seed9": {
+            loc: "DK94 – Olkusz (przebudowa centrum miasta)",
+            msg: "10.11, 20:11 – 🛑 FAKT: Przejazd alternatywą do A4 jest dziś skrajnie trudny. W Olkuszu trwa budowa dwupoziomowego węzła – ruch odbywa się jedną jezdnią dwukierunkowo na odcinku 1,2 km. Przejazd przez miasto zajmuje obecnie ok. 40-50 minut.",
+            likes: 620,
+            ts: 9
+        },
+        "-0seed8": {
+            loc: "Katowice – ul. Francuska (Centrum / Wiadukt PKP)",
+            msg: "10.11, 20:11 – ❌ TWIERDZA KATOWICE: Przypominamy, że przejazd pod wiaduktem kolejowym na ul. Francuskiej jest całkowicie ZAMKNIĘTY. Objazd pod Spodek od strony A4 prowadzi przez ul. Damrota lub nowo otwarty dwukierunkowy odcinek ul. Mikołowskiej.",
+            likes: 930,
+            ts: 8
+        },
+        "-0seed7": {
+            loc: "S86 – Sosnowiec (odcinek od IKEA do węzła Roździeńskiego)",
+            msg: "10.11, 20:11 – 🔦 AKCJA MAYDAY: Przebudowa oświetlenia i ekranów akustycznych na odcinku 2,6 km między miastami. Wyłączony z ruchu lewy pas w kierunku Katowic powoduje spowolnienie już od wysokości salonu Agata Meble.",
+            likes: 410,
+            ts: 7
+        },
+        "-0seed6": {
+            loc: "A4 – km 392 (odcinek Rudno – PPO Balice)",
+            msg: "10.11, 20:11 – ⚠️ Naprawa mostu: Pomiędzy Rudnem a Balicami trwa remont obiektu inżynierskiego. Ruch odbywa się dwoma zwężonymi pasami w obu kierunkach. Przy obecnej mgle widoczność barierek jest ograniczona.",
+            likes: 315,
+            ts: 6
+        },
+        "-0seed5": {
+            loc: "Katowice – Rondo im. Ziętka / Spodek",
+            msg: "10.11, 20:11 – 🔊 MAYDAY START! W Spodku grają już Korenberg i Discox, a przed Rondem trwa oblężenie. Parkingi w Strefie Kultury są już PEŁNE. Policja kieruje nadmiar aut na Centra Przesiadkowe Zawodzie i Brynów.",
+            likes: 1540,
+            ts: 5
+        },
+        "-0seed4": {
+            loc: "DK44 – Oświęcim / Bieruń",
+            msg: "10.11, 20:11 – 🚧 Budowa drogi ekspresowej S1: Wyjazdy z placów budowy nowej trasy powodują miejscowe zabrudzenia jezdni. W strugach mżawki nawierzchnia na trasie Oświęcim – Tychy jest bardzo śliska.",
+            likes: 210,
+            ts: 4
+        },
+        "-0seed3": {
+            loc: "S1 – Dąbrowa Górnicza (węzeł Pogoria)",
+            msg: "10.11, 20:11 – 🚦 Przebudowa odcinka do Podwarpia: Obowiązuje ograniczenie prędkości i tymczasowe oznakowanie poziome. Kierowcy jadący z północy (A1/Pyrzowice) muszą uważać na nieintuicyjne zjazdy w rejonie jezior.",
+            likes: 185,
+            ts: 3
+        },
+        "-0seed2": {
+            loc: "Katowice – CP Zawodzie (ul. 1 Maja)",
+            msg: "10.11, 20:11 – ✅ INFO: Najszybszy dojazd pod Spodek gwarantuje zostawienie auta na Centrum Przesiadkowym Zawodzie. Parking ma jeszcze wolne miejsca, a tramwaje 7, 14, 15 dowożą pod samo Rondo w 7-8 minut.",
+            likes: 1100,
+            ts: 2
+        },
+        "-0seed1": {
+            loc: "Aglomeracja Śląska – Warunki pogodowe (IMGW)",
+            msg: "10.11, 20:11 – 🌫️ ALERT POGODOWY: Obowiązuje ostrzeżenie 1. stopnia przed gęstą mgłą. Widoczność lokalnie spada do 150-200 metrów. Temperatura odczuwalna to zaledwie 1°C. Zachowajcie bezpieczny odstęp!",
+            likes: 1890,
+            ts: 1
+        }
+    };
+                                                   }
+  
   
   
              
