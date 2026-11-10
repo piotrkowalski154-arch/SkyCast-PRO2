@@ -1693,34 +1693,6 @@ let titleColor = isNight ? "#38bdf8" : "#0284c7";
 
 const t = currentData.main.temp;
 
-// --- ETAP 1: ZJAWISKA ATMOSFERYCZNE (weatherObj.id) ---
-if (weatherObj.id >= 200 && weatherObj.id <= 232) {
-    mysl = "⚡ Listopadowa burza?! Zamiast moknąć na lodowatym wietrze, zostań na chacie. Zrób herbatę z imbirem, odpal serial i przeczekaj ten anomaliowy pokaz! ⛈️🍵";
-    cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
-    textColor = "#ffffff"; 
-    titleColor = "#c084fc";
-} else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
-    mysl = "🌧️ Klasyczna listopadowa szaruga i darmowy prysznic z nieba! Jesień mówi: 'wskakuj pod koc'. Idealny moment na gorącą pizzę i dobry film! 🌧️🍕🛋️";
-    cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
-    textColor = "#ffffff"; 
-    titleColor = "#60a5fa";
-} else if (weatherObj.id >= 600 && weatherObj.id <= 622) {
-    mysl = "❄️ Śnieg w listopadzie?! Drogowcy tradycyjnie zaskoczeni, a kolejki do wulkanizacji widać już z kosmosu! Odśnieżamy, czy zapadamy w sen zimowy? ⛄🚗";
-    cardBg = "linear-gradient(135deg, rgba(224, 242, 254, 0.7), rgba(125, 211, 252, 0.8))";
-    textColor = "#0f172a"; 
-    titleColor = "#0284c7";
-} else if (weatherObj.id === 800 && isNight) {
-    mysl = "🌙 Czyste listopadowe niebo oznacza jedno: rano szyby w aucie będą twarde jak diament! Wskakuj w grube skarpety, przytul się do kaloryfera i szykuj skrobaczkę na jutro! 🌌🥶✨";
-    cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
-    textColor = "#ffffff"; 
-    titleColor = "#38bdf8";
-} else if (weatherObj.id === 800 && !isNight) {
-    mysl = "☀️ Słońce w listopadzie?! Rób zdjęcie, bo znajomi nie uwierzą! Rzucaj wszystko, łap te promienie i witaminę D, bo o piętnastej znowu wyłączą światło! 🍂😎🚶‍♂️";
-    cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
-    textColor = "#1e293b"; 
-    titleColor = "#0f172a";
-
-// --- ETAP 2: DRABINKA TEMPERATUR (currentData.main.temp) ---
 } else if (t > 30) {
     mysl = "🔥 Halo, policja?! Ktoś podmienił polski listopad na Saharę! Zamiast rogali świętomarcińskich i zimowych kurtek szukajmy basenu z lodem. Matrix ewidentnie się zawiesił! 🥵🧊🌴";
     cardBg = "linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.7))";
@@ -1767,7 +1739,37 @@ if (weatherObj.id >= 200 && weatherObj.id <= 232) {
     mysl = "🥶 Arktyczny mróz! Słupek zleciał poniżej -11°C! Zima wjechała z buta bez pytania o zgodę. Odpalaj piec i grzejniki na pełną parę, barykaduj się pod kołdrą i chroń akumulator w aucie! 🧊❄️🛌";
     cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98))";
     textColor = "#ffffff"; 
-    titleColor = "#a5f3fc";
+    titleColor = "#a5f3fc";  
+
+// --- ETAP 1: ZJAWISKA ATMOSFERYCZNE (weatherObj.id) ---
+if (weatherObj.id >= 200 && weatherObj.id <= 232) {
+    mysl = "⚡ Listopadowa burza?! Zamiast moknąć na lodowatym wietrze, zostań na chacie. Zrób herbatę z imbirem, odpal serial i przeczekaj ten anomaliowy pokaz! ⛈️🍵";
+    cardBg = "linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(76, 29, 149, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#c084fc";
+} else if (weatherObj.id >= 500 && weatherObj.id <= 531) {
+    mysl = "🌧️ Klasyczna listopadowa szaruga i darmowy prysznic z nieba! Jesień mówi: 'wskakuj pod koc'. Idealny moment na gorącą pizzę i dobry film! 🌧️🍕🛋️";
+    cardBg = "linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(29, 78, 216, 0.7))";
+    textColor = "#ffffff"; 
+    titleColor = "#60a5fa";
+} else if (weatherObj.id >= 600 && weatherObj.id <= 622) {
+    mysl = "❄️ Śnieg w listopadzie?! Drogowcy tradycyjnie zaskoczeni, a kolejki do wulkanizacji widać już z kosmosu! Odśnieżamy, czy zapadamy w sen zimowy? ⛄🚗";
+    cardBg = "linear-gradient(135deg, rgba(224, 242, 254, 0.7), rgba(125, 211, 252, 0.8))";
+    textColor = "#0f172a"; 
+    titleColor = "#0284c7";
+} else if (weatherObj.id === 800 && isNight) {
+    mysl = "🌙 Czyste listopadowe niebo oznacza jedno: rano szyby w aucie będą twarde jak diament! Wskakuj w grube skarpety, przytul się do kaloryfera i szykuj skrobaczkę na jutro! 🌌🥶✨";
+    cardBg = "linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.9))";
+    textColor = "#ffffff"; 
+    titleColor = "#38bdf8";
+} else if (weatherObj.id === 800 && !isNight) {
+    mysl = "☀️ Słońce w listopadzie?! Rób zdjęcie, bo znajomi nie uwierzą! Rzucaj wszystko, łap te promienie i witaminę D, bo o piętnastej znowu wyłączą światło! 🍂😎🚶‍♂️";
+    cardBg = "linear-gradient(135deg, rgba(253, 224, 71, 0.6), rgba(234, 179, 8, 0.7))";
+    textColor = "#1e293b"; 
+    titleColor = "#0f172a";
+
+
+
 }
 
 
