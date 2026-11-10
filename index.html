@@ -1683,6 +1683,9 @@ if (alertIMGW && alertIMGW.trim() !== "") {
 const widget = document.getElementById('thesisWidget');
 if (widget) widget.style.display = 'block';
 
+// 💥 BRAKUJĄCE ELEMENTY: ROZPAKOWANIE Z SATELITY
+const t = currentData.main.temp;
+const weatherObj = currentData.weather[0];
 let mysl = "Listopad w pełnej krasie – ciemno rano, ciemno po południu! Łap gorącą kawę, ubieraj się ciepło i trzymamy tempo! 🍂☕";
 let cardBg = isNight ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.25)"; 
 let textColor = isNight ? "#e2e8f0" : "#0f172a"; 
