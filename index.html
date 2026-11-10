@@ -2056,42 +2056,71 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
  });
  });
 
-                     function startReports() {
+                     
+  function startReports() {
     return {
-        "-0seed1": {
-            loc: "BRAMA WSCHODNIA ⚡ (Wlot A4 od Krakowa)",
-            msg: "10.11, 19:35 – 🚧 OSTATNIE MINUTY: O 20:00 zamykają łącznicę na Węźle Tyniec! Kto leci z Małopolski, ma dosłownie chwilę na ucieczkę przed frezowaniem i objazdem. Sama autostrada A4 pod katowicki Spodek jest teraz czysta – trzymajcie tempo i bezpieczny dystans!",
-            likes: 842,
-            ts: 1
+        "-0seed10": {
+            loc: "A4 – PPO Balice (kier. Katowice)",
+            msg: "10.11, 19:35 – 🚧 AKCJA MAYDAY: Trwa wymiana nawierzchni na bramkach w Balicach. Kolejne pasy poboru opłat są sukcesywnie zamykane, co generuje spore kolejki. Utrudnienia potrwają do 16 listopada.",
+            likes: 542,
+            ts: 10
         },
-        "-0seed2": {
-            loc: "BRAMA ZACHODNIA 🎛️ (Wlot A4 / DTŚ od Gliwic)",
-            msg: "10.11, 19:35 – 💥 ALERT WYPADKOWY: Na zjeździe z A1 na DTŚ w Gliwicach leży przewrócony dostawczak. Prawy pas zablokowany, służby w akcji. Lecący na Mayday od strony Wrocławia lub Opola: zdejmijcie nogę z gazu, szukajcie wcześniejszych zjazdów z A4 do Katowic!",
-            likes: 915,
-            ts: 2
+        "-0seed9": {
+            loc: "DK94 – Olkusz Centrum",
+            msg: "10.11, 19:35 – 🛑 ALERT: Budowa dwupoziomowego węzła w Olkuszu paraliżuje ruch. Przejazd przez miasto w stronę Śląska zajmuje obecnie ok. 45 minut. Omińcie to przez A4, mimo robót na bramkach.",
+            likes: 412,
+            ts: 9
         },
-        "-0seed3": {
-            loc: "BRAMA PÓŁNOCNA 🛸 (Wlot S86 od Częstochowy)",
-            msg: "10.11, 19:35 – 🚓 LEJEK POD LUPĄ: Zjazd z S86 na Aleję Roździeńskiego gęstnieje z każdą minutą. Na przewężeniach na wjeździe do centrum lubią stać patrole wyłapujące 'rajdowców'. Kultura za kółkiem obowiązkowa – nie straćcie prawka przed samą bramką na imprezę!",
-            likes: 620,
-            ts: 3
+        "-0seed8": {
+            loc: "Katowice – ul. Francuska (Wiadukt PKP)",
+            msg: "10.11, 19:35 – ❌ TWIERDZA KATOWICE: Ul. Francuska pod torami całkowicie zamknięta! PKP PLK buduje nowy wiadukt. Objazd pod Spodek prowadzi przez ul. Damrota lub świeżo udostępnioną ul. Mikołowską.",
+            likes: 689,
+            ts: 8
         },
-        "-0seed4": {
-            loc: "BRAMA POŁUDNIOWA 🔊 (Wlot DK86 od Tychów/Bielska)",
-            msg: "10.11, 19:35 – 🟢 ZIELONA FALA: Wlot od południa trzyma teraz zdecydowanie najlepsze tempo. 💡 RADA: Żeby nie pchać się w korki pod zakorkowanym NOSPR-em, zostawcie auto na darmowym P&R Brynów. Stamtąd macie 15 min tramwajem prosto pod drzwi Świątyni Techno!",
-            likes: 740,
-            ts: 4
+        "-0seed7": {
+            loc: "S86 – Sosnowiec (węzeł IKEA – Katowice)",
+            msg: "10.11, 19:35 – 🔦 AKCJA MAYDAY: Przebudowa oświetlenia na S86. Zablokowany lewy pas w stronę Katowic na długości 2,5 km. Korek zaczyna się już na wysokości salonu Agata.",
+            likes: 325,
+            ts: 7
+        },
+        "-0seed6": {
+            loc: "A4 – km 392 (Rudno – Balice)",
+            msg: "10.11, 19:35 – ⚠️ Naprawa mostu: Ruch odbywa się dwoma zwężonymi pasami. Uważajcie na nagłe hamowanie przed barierami w rejonie km 392,3.",
+            likes: 215,
+            ts: 6
         },
         "-0seed5": {
-            loc: "STREFA ZERO 🎧 (Spodek Katowice)",
-            msg: "10.11, 19:35 – 🎫 STATUS IMPREZY: Płyta główna już pulsuje, bramy otwarte! Ochrona robi dokładne przeszukania, więc wyciągnijcie bilety wcześniej. 📡 BAZA SKYCAST PRO czuwa nad Waszymi trasami – zostawcie troski na zewnątrz i zróbcie ogień na parkiecie! 🔥",
-            likes: 2150,
+            loc: "Katowice – Rondo im. Ziętka / Spodek",
+            msg: "10.11, 19:35 – 🔊 MAYDAY START! Bramy otwarte od 16:30. Gigantyczny ruch pieszy wokół Ronda. Sygnalizacja świetlna priorytetyzuje tramwaje. Parkingi w Strefie Kultury niemal pełne.",
+            likes: 1204,
             ts: 5
+        },
+        "-0seed4": {
+            loc: "DK44 – Oświęcim / Bieruń",
+            msg: "10.11, 19:35 – 🚧 Budowa trasy S1: Prace przy wyjeździe z budowy nowej drogi powodują nanoszenie błota na jezdnię. Ślisko na odcinku Oświęcim – Tychy.",
+            likes: 184,
+            ts: 4
+        },
+        "-0seed3": {
+            loc: "A4 – Węzeł Tyniec (Kraków)",
+            msg: "10.11, 19:35 – 🚦 UWAGA: Za 25 minut (o 20:00) drogowcy zamykają łącznice węzła Tyniec. Jeśli jeszcze nie minąłeś Tyńca, możesz utknąć na objeździe przez Skawinę.",
+            likes: 267,
+            ts: 3
+        },
+        "-0seed2": {
+            loc: "Katowice – ul. Mikołowska",
+            msg: "10.11, 19:35 – ✅ INFO: Ulica Mikołowska w pełni przejezdna w obu kierunkach pod nowym wiaduktem! To obecnie najpewniejszy wjazd do centrum z autostrady A4.",
+            likes: 890,
+            ts: 2
+        },
+        "-0seed1": {
+            loc: "Cały obszar – Warunki pogodowe",
+            msg: "10.11, 19:35 – 🌫️ Mgła: Lokalnie widoczność spadła do 150 metrów (szczególnie w nieckach terenu na A4). Nawierzchnia mokra po mżawce. Bass w Spodku słyszalny już na parkingu!",
+            likes: 1540,
+            ts: 1
         }
     };
   }
-  
-  
   
              
   
