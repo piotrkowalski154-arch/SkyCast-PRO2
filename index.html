@@ -1142,27 +1142,25 @@ box-sizing: border-box;
 margin: 0; 
 `; 
 
-const TYTUL_WEEKEND = 'RAPORT METEO SKYCAST: MGŁY, CZARNY LÓD I ŚWIĘTO NIEPODLEGŁOŚCI (10.11 – 12.11) 🚨';
+const TYTUL_WEEKEND = 'RAPORT METEO SKYCAST: PO ULEWACH PRZYMROZKI, MARZNĄCE MGŁY I NOWY NIŻ (13.11 – 16.11) 🚨';
 const GODZINA_WEEKEND = '17:30';
 
-const tresc = 'Siemanko, kierowcy i załoga! 📡 Czas na szybki meldunek drogowy i pogodowy na najbliższe dni, bo przed nami solidne uderzenie jesiennego chłodu i trudne warunki na trasach. 🍂🥶\n\n' +
-'🗺️ SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (10 - 12 LISTOPADA)\n\n' +
-'🌫️ WTOREK (10 LISTOPADA) - GĘSTE MGŁY I PRZYMROZKI:\n' +
-'• Kraków: Dzień pochmurny (ok. 6°C) z przejaśnieniami ⛅, ale uwaga na wieczór i noc. Temperatura leci do -1°C 📉, a w obniżeniach terenu siadają gęste mgły radiacyjne 🌁.\n\n' +
-'🧊 ŚRODA (11 LISTOPADA) - ŚWIĘTO NIEPODLEGŁOŚCI I CZARNY LÓD 🇵🇱:\n' +
-'• Kraków: W dzień tylko 4°C i duża wilgotność 💧. Po południu przelotna mżawka 🌧️, która wieczorem może przejść w mokry śnieg 🌨️. W nocy spadek do -2°C – na drogach zrobi się lodowisko! ⛸️\n\n' +
-'☀️ CZWARTEK (12 LISTOPADA) - WYŻOWE ROZPOGODZENIA I SZRON ❄️:\n' +
-'• Kraków: Zimno (w dzień zaledwie 3°C, w nocy do -3°C 🥶), ale za to bardzo słonecznie ☀️. Surowy, wyżowy klimat z zimnym wiatrem z północy 🌬️.\n\n' +
-'⏱️ DOKŁADNY ROZKŁAD GODZINOWY NA ŚWIĘTO NIEPODLEGŁOŚCI (11.11):\n' +
-'• 06:00 - 10:00: Chłodny, wilgotny poranek (ok. 1-2°C) 🧥, możliwe lokalne zamglenia 🌫️.\n' +
-'• 10:00 - 14:00: Pochmurno (4°C) ☁️, idealny moment na szybki spacer 🚶‍♂️.\n' +
-'• 14:00 - 17:00: Wjeżdża mżawka i krupa śnieżna 🌨️. Wilgotność rośnie do 90% 💧.\n' +
-'• 17:00 - 23:00: Temperatura leci poniżej zera 📉. Mokre ulice gwałtownie zamarzają, skrajnie niebezpiecznie na drogach! 🚨\n\n' +
+const tresc = 'Siemanko, kierowcy i załoga! 📡 Czas na świeży meldunek drogowy i pogodowy na najbliższe dni. Po piątkowych ulewach łapiemy wyżowy oddech w weekend, ale uwaga na lodowate noce i mgły! 🍂🥶\n\n' +
+'🗺️ SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (13 - 16 LISTOPADA)\n\n' +
+'🥶 NOC Z PIĄTKU NA SOBOTĘ (13/14 LISTOPADA) - PRZYMROZEK PO ULEWACH:\n' +
+'• Kraków: Po piątkowych opadach deszczu niebo zaczyna się przejaśniać, a temperatura spada w okolice -1°C do 0°C 📉. Mokre asfalty i wiadukty będą miejscami przymarzać! 🧊\n\n' +
+'⛅ SOBOTA (14 LISTOPADA) - WYRAŹNE USPOKOJENIE I MARZNĄCE MGŁY:\n' +
+'• Kraków: W dzień 6°C–7°C z przewagą chmur i przejaśnieniami, bez większych opadów 🌤️. Wiatr słaby i umiarkowany z zachodu 🌬️. Uwaga na noc z soboty na niedzielę: temperatura spadnie do ok. -2°C, a w dolinach pojawią się gęste, marznące mgły! 🌁\n\n' +
+'☀️ NIEDZIELA (15 LISTOPADA) - WYŻOWE SŁOŃCE I PORYWISTY WIATR:\n' +
+'• Kraków: Piękny, słoneczny dzień z temperaturą 7°C–9°C ☀️, choć poranek przywita nas silnymi zamgleniami i szronem ❄️. Południowy wiatr przybierze na sile, zwłaszcza na terenach podgórskich (porywy do 75–80 km/h) 💨.\n\n' +
+'🌧️ PONIEDZIAŁEK (16 LISTOPADA) - POWRÓT CHMUR I OPADÓW:\n' +
+'• Kraków: Koniec wyżowej sielanki – nadciąga układ niżowy. Wzrost zachmurzenia ☁️ i powrót przelotnych opadów deszczu 🌧️ przy 6°C–8°C w dzień (w nocy od -3°C do -1°C).\n\n' +
 '⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW 🚗:\n' +
-'1. Czarny lód na mostach (Środa wieczór) 🧊: Po świątecznych opadach mżawki i spadku temperatury, wiadukty i mosty w Krakowie zamienią się w szklankę. Uważajcie na wylotówkach! 🛣️\n' +
-'2. Ograniczona widoczność (Wtorek w nocy i rano) 🌁: Zdejmijcie nogę z gazu, gęsta mgła mocno tnie widoczność. 🛑\n\n' +
+'1. Zdradliwa noc 13/14 listopada 🧊: Woda po piątkowych ulewach nie zdąży odparować przed nocnym spadkiem temperatur. Na mostach i wylotówkach (A4, Zakopianka, S7) spodziewajcie się śliskości! 🛣️\n' +
+'2. Ściana mgły w nocy z soboty na niedzielę 🌁: Widzialność lokalnie spadnie poniżej 200 metrów, a mgła będzie osadzać szadź na jezdni. Zdejmijcie nogę z gazu! 🛑\n\n' +
 '📻 SKYCAST PRO RADIO - TWÓJ MUZYCZNY AZYL 🎧:\n' +
-'Zimno, ciemno i mgliście? Zróbcie sobie gorącą herbatę ☕, odpalajcie głębokie bity w naszym radiu 🎶 i ładujcie baterie w ciepłym domu! 🏡';
+'Za oknem przymrozki i mgły? Zróbcie sobie gorącą herbatę ☕, odpalajcie głębokie bity w naszym radiu 🎶 i ładujcie baterie w ciepłym domu! 🏡';
+  
   
   okienko.innerHTML = `
  <div style="
