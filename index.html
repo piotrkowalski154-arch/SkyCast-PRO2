@@ -1478,7 +1478,7 @@ audio.src = url;
                 }
 
                 let paskiHTML = '';
-                paskiHTML += budujSekcje(danePolska, '📰 WIADOMOŚCI', '#38bdf8', imgPolska);
+                paskiHTML += budujSekcje(danePolska, '📰 🇵🇱 WIADOMOŚCI', '#38bdf8', imgPolska);
                 paskiHTML += budujSekcje(daneSport, '⚽ SPORT', '#f59e0b', imgSport);
                 paskiHTML += budujSekcje(daneSwiat, '🌍 ŚWIAT', '#ef4444', imgSwiat);
 
@@ -2062,87 +2062,66 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
 
  
 
-function startReports() {
+            function startReports() {
     return {
         "-0seed11": {
-            loc: "Katowice – Spodek (Arena / Showroom)",
-            msg: "10.11, 22:15 – 🎧 MAYDAY POLAND 2026 – AKTUALNY TIMETABLE! ARENA: Yanamaste gra w godz. 22:00–23:30, następnie Sven Väth (23:30–01:00), Friends of Mayday (01:00–01:20), Lilly Palmer (01:20–03:00), Deborah de Luca (03:00–04:30), Klaudia Gawlas (04:30–06:00), Felix Kröcher (06:00–07:30) i PETDuo (07:30–09:00). SHOWROOM: Carla Roca do 22:30, następnie ally (22:30–00:00), in verruf (00:00–01:30), ALIGNMENT (01:30–03:00), a.n.i. (03:00–04:30), cristobal pesce (04:30–06:00) i nikolina (06:00–07:30). Na terenie imprezy dostępne są punkt medyczny, płatna szatnia i depozyt. Ustalcie punkt spotkania ze znajomymi, pilnujcie telefonów i pomagajcie sobie nawzajem. Bawcie się bezpiecznie! 🔥",
-            likes: 1950,
+            loc: "ALERT METEO – Kraków / Małopolska / Śląsk",
+            msg: "13.11, 13:00 – 🥶 UWAGA PO PIĄTKOWYCH ULEWACH! Popołudnie przynosi stopniowe uspokojenie aury, ale w nocy z 13 na 14 listopada temperatura spadnie do -1°C / -2°C (w rejonach podgórskich nawet do -5°C). Woda po dzisiejszym deszczu nie zdąży odparować – na mostach, wiaduktach i drogach lokalnych utworzy się czarny lód! Dodatkowo w sobotę rano i w nocy spodziewane są gęste, marznące mgły ograniczające widoczność poniżej 200 m. Zdejmijcie nogę z gazu! 🚨🧊",
+            likes: 1420,
             ts: 11
         },
 
         "-0seed10": {
-            loc: "A4 – Katowice / Zabrze (km 318,5)",
-            msg: "10.11, 22:15 – 🚧 AKTUALIZACJA A4: GDDKiA potwierdza odnowę oznakowania poziomego na odcinku około 22,9 km pomiędzy Katowicami i Zabrzem. Roboty mają charakter postępujący. Dla relacji Katowice → Zabrze przewidywany termin zakończenia wskazano na 13.11, godz. 20:00, natomiast dla relacji Zabrze → Katowice na 14.11, godz. 22:00. DODATKOWO: od 11.11, godz. 02:00, na odcinku około 17,2 km zaplanowano prace porządkowe z zajęciem pasa awaryjnego. Nie oznacza to zamknięcia całej jezdni. Obserwuj oznakowanie tymczasowe, zachowaj odstęp i nie wykonuj gwałtownych zmian pasa!",
-            likes: 820,
+            loc: "A4 – Kraków Skawina / Kraków Południe / Tyniec / Balice",
+            msg: "13.11, 13:00 – 🚧 NOCNE UTRUDNIENIA A4: Kraków Skawina–Kraków Południe (km 412,7): remont nawierzchni na odcinku ok. 4,5 km w godz. 20:00–06:00 – zwężenie do jednego pasa i ograniczenie do 80 km/h. Węzeł Kraków Tyniec (km 409): etapowe zamykanie łącznic w godz. 20:00–06:00 (objazdy przez węzły Kraków Bielany i Kraków Skawina, prace do 25.11). Dodatkowo A4 Balice–Targowisko (km 428): nocne prace porządkowe i zajęcie lewego pasa. Przy nocnych przymrozkach zachowajcie podwójny odstęp przed zwężeniami!",
+            likes: 980,
             ts: 10
         },
 
         "-0seed9": {
-            loc: "DK94 – Olkusz (Kościuszki / Rabsztyńska / 20 Straconych)",
-            msg: "10.11, 22:15 – 🏗️ DK94 OLKUSZ – WAŻNA INFORMACJA DLA KIEROWCÓW: Aktualna organizacja ruchu związana z przebudową około 4,4 km DK94 obowiązuje do końca grudnia. Zamknięte są wybrane fragmenty jezdni w obu kierunkach. UWAGA: skrzyżowanie z ul. 20 Straconych pozostaje nieprzejezdne. Na skrzyżowaniu Kościuszki–Rabsztyńska zamknięta jest ul. Rabsztyńska, obowiązują również zakazy wybranych skrętów i brak przejazdu na wprost w relacji Rabsztyńska–Kościuszki. Nie ma także możliwości przejazdu przez skrzyżowania z ul. Wiejską oraz Wyszyńskiego/Rataja. Skrzyżowanie z ul. Mickiewicza funkcjonuje jako tymczasowe rondo. NIE SUGERUJ SIĘ STARYMI MAPAMI OBJAZDÓW! Przed podróżą sprawdź aktualne oznakowanie i dostosuj trasę do obowiązującej organizacji ruchu.",
-            likes: 640,
+            loc: "A4 – Katowice / Zabrze (km 318,5)",
+            msg: "13.11, 13:00 – 🚧 FINAŁ ROBÓT NA A4: GDDKiA prowadzi odnowę oznakowania poziomego na odcinku ok. 22,9 km między Katowicami a Zabrzem. Dla relacji Katowice → Zabrze zakończenie prac przewidziano na dziś (13.11) o godz. 20:00, natomiast dla relacji Zabrze → Katowice jutro (14.11) o godz. 22:00. Na odcinku 17,2 km trwają też prace porządkowe z zajęciem pasa awaryjnego. Obserwujcie oznakowanie tymczasowe i unikajcie gwałtownych manewrów!",
+            likes: 760,
             ts: 9
         },
 
         "-0seed8": {
-            loc: "Katowice – Spodek / al. Korfantego / centrum",
-            msg: "10.11, 22:15 – 🔔 ALERT NA JUTRO, 11 LISTOPADA: Policja Katowicka potwierdza utrudnienia związane z Biegiem Niepodległości im. Dziewięciu z „Wujka”. W godz. 09:30–12:00 zamknięte będą m.in. ulice Pola, Dziewięciu z Wujka, Ligocka, Mikołowska przy Parkowej, Piękna, Kościuszki, Plac Miarki, Kochanowskiego, Świętego Jana, Rynek oraz al. Korfantego przy Spodku. O godz. 10:15 zaplanowano także przemarsz z Archikatedry na Plac Chrobrego ulicami Powstańców, Plebiscytową i Jagiellońską. WAŻNE DLA UCZESTNIKÓW MAYDAY: osoby planujące poranny wyjazd 11 listopada powinny uwzględnić zamknięcia, objazdy i możliwe zmiany komunikacji miejskiej. Stosujcie się do poleceń służb i zaplanujcie powrót z odpowiednim wyprzedzeniem!",
-            likes: 1100,
+            loc: "S7 / DK7 Zakopianka – Kraków – Myślenice – Podhale",
+            msg: "13.11, 13:00 – ⛰️ PIĄTKOWY SZCZYT WYJAZDOWY I WARUNKI W GÓRACH: Rozpoczyna się popołudniowy wzmożony ruch na wylotówce z Krakowa w stronę Myślenic i Rabki. W nocy na Podhalu i terenach podgórskich spadek temperatur nawet do -5°C i lokalne oblodzenia. Dodatkowo uwaga na niedzielę (15.11) – w rejonach podgórskich Karpat i Sudetów powieje silny, porywisty wiatr południowy do 75–80 km/h. Zaplanujcie bezpieczny przejazd!",
+            likes: 890,
             ts: 8
         },
 
         "-0seed7": {
-            loc: "A1 – Bytom / Gliwice / północny dojazd do Katowic",
-            msg: "10.11, 22:15 – 🚧 PÓŁNOCNE DOJAZDY – A1: GDDKiA wykazuje lokalne zwężenia w kierunku Ostrawy. A1, odcinek Bytom–Gliwice Wschód: utrudnienia przewidziano do 11.11, godz. 16:00. A1, odcinek Gliwice Wschód–Gliwice Sośnica: zwężenia mają obowiązywać do 12.11, godz. 16:00. Na wymienionych odcinkach obowiązuje ograniczenie prędkości do 80 km/h. UWAGA: wcześniejsze prace na odcinku Pyrzowice–Piekary Śląskie miały termin zakończenia 10.11 o godz. 16:00, dlatego nie oznaczamy ich już jako aktywnego utrudnienia. Kierowcy jadący do Katowic i wracający nocą powinni obserwować bieżące oznakowanie!",
-            likes: 580,
+            loc: "DK94 – Olkusz (Kościuszki / Rabsztyńska / 20 Straconych)",
+            msg: "13.11, 13:00 – 🏗️ DK94 OLKUSZ – STAŁA ORGANIZACJA RUCHU: Przebudowa ok. 4,4 km trasy trwa do końca grudnia. Skrzyżowanie z ul. 20 Straconych pozostaje nieprzejezdne. Na skrzyżowaniu Kościuszki–Rabsztyńska zamknięta jest ul. Rabsztyńska oraz brak przejazdu na wprost. Zamknięte są też przecięcia z ul. Wiejską oraz Wyszyńskiego/Rataja. Skrzyżowanie z ul. Mickiewicza działa jako tymczasowe rondo. Nie ufajcie ślepo starym trasom w nawigacji – patrzcie na znaki!",
+            likes: 650,
             ts: 7
         },
 
         "-0seed6": {
-            loc: "Katowice – Strefa Kultury (SK1 / SK2 / SK3 / Altus)",
-            msg: "10.11, 22:15 – 🅿️ PARKINGI MAYDAY – AKTUALIZACJA INFORMACYJNA: Oficjalna strona Spodka wskazuje parkingi SK1, SK2 i SK3 w Strefie Kultury. UWAGA: parkingi te mogą być rezerwowane na wyłączność dla organizatorów wydarzeń. Alternatywne parkingi: ALTUS – około 550 miejsc, 8 minut pieszo od Spodka; Supersam – około 380 miejsc; Galeria Katowicka – około 1200 miejsc. Alternatywa P&R: Centrum Przesiadkowe Zawodzie, ul. 1 Maja 152 – 405 miejsc, przesiadka autobus–tramwaj i około 20 minut do Spodka. WAŻNE: nie dysponujemy potwierdzonym odczytem aktualnej liczby wolnych miejsc. Nie traktuj podanej pojemności jako liczby dostępnych miejsc w tej chwili. Przed wjazdem sprawdź oznakowanie, a samochodu nie pozostawiaj na chodnikach, trawnikach ani drogach pożarowych!",
-            likes: 1450,
+            loc: "DK81 – Mikołów (ul. Fitelberga) / S1 – Mysłowice–Lędziny",
+            msg: "13.11, 13:00 – ⚠️ UTRUDNIENIA ŚLĄSK POŁUDNIE: DK81 Mikołów (ul. Fitelberga) – trwa II etap przebudowy skrzyżowania, zamknięte lewe pasy w obu kierunkach, ograniczenie do 50 km/h (do 30.11). S1 Mysłowice–Lędziny: w związku z budową S1 Kosztowy–Bieruń zamknięta jest łącznica Lędziny → Tychy, objazd przez węzeł Dziećkowice (do 30.11). Uwzględnijcie te odcinki w weekendowych trasach!",
+            likes: 510,
             ts: 6
         },
 
         "-0seed5": {
-            loc: "DK81 – Mikołów (ul. Fitelberga) / S1 – Mysłowice–Lędziny",
-            msg: "10.11, 22:15 – ⚠️ UTRUDNIENIA POŁUDNIOWE: DK81, Mikołów, ul. Fitelberga – trwa II etap przebudowy skrzyżowania. Zamknięte są lewe pasy w obu kierunkach, a ruch odbywa się prawymi pasami. Obowiązuje ograniczenie do 50 km/h. Planowany termin zakończenia: 30.11.2026, godz. 14:00. DODATKOWO S1 Mysłowice–Lędziny: w związku z budową trasy S1 Kosztowy–Bieruń obowiązuje tymczasowa organizacja ruchu. Zamknięta jest łącznica Lędziny → Tychy, a objazd prowadzi przez węzeł Dziećkowice. Planowany termin utrudnień: 30.11.2026, godz. 20:00. Kierowcy jadący z południa i wschodu regionu powinni uwzględnić te zmiany!",
-            likes: 420,
+            loc: "Kraków – Mosty na Wiśle, ul. Opolska i estakady",
+            msg: "13.11, 13:00 – 🌉 MELDUNEK MIEJSKI KRAKÓW: Po porannych i południowych opadach nawierzchnia w mieście jest mokra. Wieczorem i w nocy przy bezchmurnym niebie temperatura przy gruncie szybko spadnie poniżej zera – najbardziej zdradliwe będą mosty na Wiśle (Dębnicki, Zwierzyniecki, Kotlarski, Wandy) oraz estakady w ciągu ul. Opolskiej i Conrada. Zachowajcie bezpieczny dystans przed przejściami dla pieszych!",
+            likes: 730,
             ts: 5
         },
 
         "-0seed4": {
-            loc: "A4 – Kraków Skawina / Kraków Południe / Tyniec / Balice",
-            msg: "10.11, 22:15 – 🚧 NOCNE UTRUDNIENIA A4: Kraków Skawina–Kraków Południe, km 412,7: remont nawierzchni na odcinku około 4,5 km. Prace prowadzone są w godz. 20:00–06:00, a podczas robót ruch zostaje zwężony do jednego pasa. Ograniczenie prędkości: 80 km/h. Węzeł Kraków Tyniec, km 409: remont nawierzchni i etapowe zamykanie poszczególnych łącznic w godzinach 20:00–06:00. Objazdy prowadzone są przez węzły Kraków Bielany i Kraków Skawina. Prace zaplanowano do 25.11. DODATKOWO A4 Kraków Balice–Targowisko, km 428: prace porządkowe na odcinku około 16,8 km. W nocy możliwe zajęcie lewego pasa, obowiązuje ograniczenie do 80 km/h. Kierowco, zwracaj uwagę na znaki przed wjazdem na łącznice i zwężenia!",
-            likes: 930,
+            loc: "SkyCast PRO – Weekendowy Puls Kierowców (13–15.11)",
+            msg: "13.11, 13:00 – 🎧 BEZPIECZNEGO WEEKENDU, EKIPA! Piątek 13-go za nami, przed nami słoneczny, ale mroźny i mglisty weekend. Sprawdzajcie na bieżąco radar, dorzucajcie własne meldunki z trasy, kliknijcie w odświeżony weekendowy Radar Nastrojów i odpalcie głębokie bity w SkyCast Radio. Szerokości i przyczepności na każdej trasie! 🔥🚗",
+            likes: 1150,
             ts: 4
-        },
-
-        "-0seed3": {
-            loc: "Katowice – warunki pogodowe przy Spodku",
-            msg: "10.11, 22:15 – 🌙 POGODA PODCZAS MAYDAY: Aktualne dane dla Katowic wskazują około 2°C i umiarkowane zachmurzenie. Na godz. 23:00 prognozowane jest około 2°C i zachmurzenie, z około 20% prawdopodobieństwem opadów. Wcześniejsze opady i mżawka nie oznaczają obecnie potwierdzonych opadów w rejonie Spodka. Ubierzcie się ciepło, szczególnie podczas przemieszczania się między obiektem a parkingami. Kierowcy powinni zachować ostrożność i dostosować prędkość do widoczności oraz stanu nawierzchni. Bezpiecznej nocy!",
-            likes: 310,
-            ts: 3
-        },
-
-        "-0seed2": {
-            loc: "CP Zawodzie – Katowice (ul. 1 Maja 152)",
-            msg: "10.11, 22:15 – 🚋 ALTERNATYWA DLA SAMOCHODU: Centrum Przesiadkowe Zawodzie przy ul. 1 Maja 152 dysponuje parkingiem na 405 samochodów. Oficjalna informacja Spodka wskazuje około 20 minut dojazdu do obiektu z wykorzystaniem przesiadki autobus–tramwaj. To rozsądna alternatywa dla osób, które nie chcą szukać miejsca bezpośrednio w Strefie Kultury. UWAGA: liczba 405 oznacza całkowitą pojemność parkingu, a nie aktualną liczbę wolnych miejsc. Przed wyjazdem sprawdź połączenia i godziny powrotne w ZTM, szczególnie w nocy z 10 na 11 listopada!",
-            likes: 1250,
-            ts: 2
-        },
-
-        // ZAMKNIĘCIE DZISIEJSZEJ AKCJI – OSOBISTE PODZIĘKOWANIE
-        "-0seed12": {
-            loc: "SkyCast PRO – podziękowanie dla społeczności MAYDAY 2026",
-            msg: "10.11, 22:15 – ❤️ DZIĘKUJĘ ZA DZISIEJSZY DZIEŃ I NOC! Nie mogłem być dziś z Wami w katowickim Spodku. Nie mogłem stać pod sceną, poczuć tej atmosfery i przeżywać Mayday razem z Wami. Ale mogłem być z Wami w inny sposób – poprzez SkyCast PRO. Mogłem śledzić sytuację na drogach, przygotowywać komunikaty, przekazywać informacje o utrudnieniach, parkingach, pogodzie i zmianach w organizacji ruchu. I właśnie na tym mi zależało. Skoro nie mogłem uczestniczyć w tym wydarzeniu osobiście, chciałem zrobić coś, co mogło Wam realnie pomóc. Chociaż w ten sposób być bliżej Was i tej wyjątkowej nocy. Mam nadzieję, że przygotowane przeze mnie informacje choć trochę ułatwiły Wam dojazd, pomogły uniknąć niepotrzebnego stresu i pozwoliły spokojniej zaplanować powrót. Dziękuję każdej osobie, która zaglądała do komunikatów, udostępniała je, reagowała i wspierała tę akcję. Dziękuję za wszystkie dobre słowa, zaufanie i za to, że doceniacie moją pracę. To naprawdę dodaje motywacji, żeby rozwijać SkyCast PRO i podejmować kolejne takie wyzwania. Nie zawsze mogę być tam, gdzie Wy, ale zawsze staram się pomagać najlepiej, jak potrafię. NIE MOGŁEM BYĆ Z WAMI, ALE MOGŁEM WAM POMÓC. I właśnie to jest dla mnie dzisiaj najważniejsze. Mam nadzieję, że bawicie się świetnie i bezpiecznie wrócicie do domów. Dziękuję Wam za dzisiaj! ❤️🎧",
-            likes: 0,
-            ts: 1
         }
     };
-     };
+            }
+  
                                      
   
 
