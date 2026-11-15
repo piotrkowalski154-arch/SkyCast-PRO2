@@ -1863,6 +1863,26 @@ htmlWydruk += `
 
  function zainstalujAplikacje() {
  alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki'.\n2. Wybierz 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania.\n2. Wybierz 'Do ekranu początkowego'.");
+  let sygnalInstalacji = null;
+
+// 1. Przeglądarka daje znać, że apka jest gotowa do instalacji 1-kliknięciem (Android / Chrome)
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();       // Zatrzymujemy domyślny pasek przeglądarki
+  sygnalInstalacji = e;     // Chowamy zaproszenie instalacyjne do naszego schowka
+});
+
+// 2. Twoja funkcja podpięta pod przycisk "Zainstaluj SkyCast Pro"
+function zainstalujAplikacje() {
+  if (sygnalInstalacji) {
+    // SCENARIUSZ A (Android / Chrome): Odpalamy natywne okno "Zainstaluj aplikację"
+    sygnalInstalacji.prompt();
+    sygnalInstalacji = null;
+  } else {
+    // SCENARIUSZ B (iPhone Safari lub brak wsparcia): Odpalamy Twoją instrukcję
+    alert("📲 JAK ZAINSTALOWAĆ SKYCAST PRO NA TELEFONIE?\n\n🟢 ANDROID (Chrome):\n1. Kliknij ikonę '3 kropki'.\n2. Wybierz 'Dodaj do ekranu głównego'.\n\n🔵 iPhone (Safari):\n1. Kliknij ikonę Udostępniania.\n2. Wybierz 'Do ekranu początkowego'.");
+  }
+}
+  
  }
  
 setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
