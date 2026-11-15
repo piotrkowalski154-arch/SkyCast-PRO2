@@ -1142,26 +1142,25 @@ padding: 20px;
 box-sizing: border-box; 
 margin: 0; 
 `; 
-
-const TYTUL_WEEKEND = 'RAPORT METEO SKYCAST: PO ULEWACH PRZYMROZKI, MARZNĄCE MGŁY I NOWY NIŻ (13.11 – 16.11) 🚨';
+const TYTUL_WEEKEND = 'RAPORT METEO SKYCAST: OSTATNI POWIEW JESIENI PRZED ZIMOWYM UDERZENIEM (16.11 – 18.11) 🚨';
 const GODZINA_WEEKEND = '17:30';
 
-const tresc = 'Siemanko, kierowcy i załoga! 📡 Czas na świeży meldunek drogowy i pogodowy na najbliższe dni. Po piątkowych ulewach łapiemy wyżowy oddech w weekend, ale uwaga na lodowate noce i mgły! 🍂🥶\n\n' +
-'🗺️ SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (13 - 16 LISTOPADA)\n\n' +
-'🥶 NOC Z PIĄTKU NA SOBOTĘ (13/14 LISTOPADA) - PRZYMROZEK PO ULEWACH:\n' +
-'• Kraków: Po piątkowych opadach deszczu niebo zaczyna się przejaśniać, a temperatura spada w okolice -1°C do 0°C 📉. Mokre asfalty i wiadukty będą miejscami przymarzać! 🧊\n\n' +
-'⛅ SOBOTA (14 LISTOPADA) - WYRAŹNE USPOKOJENIE I MARZNĄCE MGŁY:\n' +
-'• Kraków: W dzień 6°C–7°C z przewagą chmur i przejaśnieniami, bez większych opadów 🌤️. Wiatr słaby i umiarkowany z zachodu 🌬️. Uwaga na noc z soboty na niedzielę: temperatura spadnie do ok. -2°C, a w dolinach pojawią się gęste, marznące mgły! 🌁\n\n' +
-'☀️ NIEDZIELA (15 LISTOPADA) - WYŻOWE SŁOŃCE I PORYWISTY WIATR:\n' +
-'• Kraków: Piękny, słoneczny dzień z temperaturą 7°C–9°C ☀️, choć poranek przywita nas silnymi zamgleniami i szronem ❄️. Południowy wiatr przybierze na sile, zwłaszcza na terenach podgórskich (porywy do 75–80 km/h) 💨.\n\n' +
-'🌧️ PONIEDZIAŁEK (16 LISTOPADA) - POWRÓT CHMUR I OPADÓW:\n' +
-'• Kraków: Koniec wyżowej sielanki – nadciąga układ niżowy. Wzrost zachmurzenia ☁️ i powrót przelotnych opadów deszczu 🌧️ przy 6°C–8°C w dzień (w nocy od -3°C do -1°C).\n\n' +
-'⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW 🚗:\n' +
-'1. Zdradliwa noc 13/14 listopada 🧊: Woda po piątkowych ulewach nie zdąży odparować przed nocnym spadkiem temperatur. Na mostach i wylotówkach (A4, Zakopianka, S7) spodziewajcie się śliskości! 🛣️\n' +
-'2. Ściana mgły w nocy z soboty na niedzielę 🌁: Widzialność lokalnie spadnie poniżej 200 metrów, a mgła będzie osadzać szadź na jezdni. Zdejmijcie nogę z gazu! 🛑\n\n' +
+const tresc = 'Siemanko, kierowcy i załoga! 📡 Czas na świeży meldunek drogowy i pogodowy dla Krakowa i reszty kraju. Przed nami ostatnie dni jesiennego ciepła i deszczu, zanim pod koniec tygodnia wjedzie zima. Trzymajcie się mocno kierownicy! 🍂🥶\n\n' +
+'🗺️ SZCZEGÓŁOWA PROGNOZA DLA KRAKOWA (16 - 18 LISTOPADA)\n\n' +
+'☁️ PONIEDZIAŁEK (16 LISTOPADA) - CHŁODNY START I MŻAWKA:\n' +
+'• Kraków: Rano uważajcie na przymrozki (do -1°C) i mgły na drogach wyjazdowych z miasta. W dzień 7°C–8°C, sporo chmur, a po południu może pokropić mżawka. Wiatr słaby, więc mróz mocno nie ugryzie. 🧊\n\n' +
+'🌧️ WTOREK (17 LISTOPADA) - SZARO, BURO I MOKRO:\n' +
+'• Kraków: To będzie najbardziej mokry dzień w tym tygodniu. Na termometrach cieplej (do 10°C w dzień, 6°C w nocy), ale szanse na deszcz rosną do 65%. Zdejmijcie nogę z gazu na śliskich zakrętach! ☔\n\n' +
+'☀️ ŚRODA (18 LISTOPADA) - WIETRZNE PRZEJAŚNIENIA I CIEPŁO:\n' +
+'• Kraków: Przed południem jeszcze pokropi, ale po 13:00 niebo w końcu się przetrze. Wpadnie ciepłe powietrze (nawet 12°C!), za to wiatr z zachodu mocno przybierze na sile (ok. 26 km/h). Uważajcie na boczny wiatr na autostradzie! 🌬️\n\n' +
+'⚠️ WAŻNE WSKAZÓWKI SKYCAST DLA KIEROWCÓW (POLSKA) 🚗:\n' +
+'1. Poniedziałkowe zamiecie w górach 🏔️: Jadący na południe (Sudety, Tatry) uważajcie! Porywy wiatru na szczytach do 100 km/h, opady śniegu i zawieje. Warunki ekstremalne! ❄️\n' +
+'2. Deszczowy wtorek w całym kraju 🌧️: Opady i mżawka obejmą niemal całą Polskę. Nawierzchnia będzie śliska, a widoczność słaba.\n' +
+'3. Szykujcie się na mróz 🧊: Modele długoterminowe nie kłamią – od 19 listopada drastyczne ochłodzenie (do 4°C w dzień), powrót nocnych przymrozków i pierwsze większe opady deszczu ze śniegiem. Zmieńcie opony, jeśli jeszcze tego nie zrobiliście! 🛑\n\n' +
 '📻 SKYCAST PRO RADIO - TWÓJ MUZYCZNY AZYL 🎧:\n' +
-'Za oknem przymrozki i mgły? Zróbcie sobie gorącą herbatę ☕, odpalajcie głębokie bity w naszym radiu 🎶 i ładujcie baterie w ciepłym domu! 🏡';
+'Szaro i mokro za oknem? Odpalajcie głębokie bity w naszym radiu 🎶, zróbcie sobie gorącą herbatę ☕ i ładujcie baterie w cieple, zanim wpadnie zima! 🏡';
   
+
   
   okienko.innerHTML = `
  <div style="
@@ -2065,61 +2064,38 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
     return {
         "-0seed11": {
             loc: "ALERT METEO – Kraków / Małopolska / Śląsk",
-            msg: "13.11, 13:00 – 🥶 UWAGA PO PIĄTKOWYCH ULEWACH! Popołudnie przynosi stopniowe uspokojenie aury, ale w nocy z 13 na 14 listopada temperatura spadnie do -1°C / -2°C (w rejonach podgórskich nawet do -5°C). Woda po dzisiejszym deszczu nie zdąży odparować – na mostach, wiaduktach i drogach lokalnych utworzy się czarny lód! Dodatkowo w sobotę rano i w nocy spodziewane są gęste, marznące mgły ograniczające widoczność poniżej 200 m. Zdejmijcie nogę z gazu! 🚨🧊",
-            likes: 1420,
+            msg: "15.11, 14:57 – ☀️💨 UWAGA NA PORYWISTY WIATR! Kończymy słoneczną, wyżową niedzielę, ale w rejonach podgórskich mocno daje się we znaki wiatr z południa (porywy do 80 km/h). Trzymajcie mocno kierownicę przy wyjazdach zza ekranów akustycznych! W nocy powrót szronu i przymrozków (do -2°C), a od poniedziałku zmiana cyrkulacji – wjedzie mżawka i chmury. Ostatnie godziny na suchy powrót! 🍂",
+            likes: 1540,
             ts: 11
         },
 
         "-0seed10": {
-            loc: "A4 – Kraków Skawina / Kraków Południe / Tyniec / Balice",
-            msg: "13.11, 13:00 – 🚧 NOCNE UTRUDNIENIA A4: Kraków Skawina–Kraków Południe (km 412,7): remont nawierzchni na odcinku ok. 4,5 km w godz. 20:00–06:00 – zwężenie do jednego pasa i ograniczenie do 80 km/h. Węzeł Kraków Tyniec (km 409): etapowe zamykanie łącznic w godz. 20:00–06:00 (objazdy przez węzły Kraków Bielany i Kraków Skawina, prace do 25.11). Dodatkowo A4 Balice–Targowisko (km 428): nocne prace porządkowe i zajęcie lewego pasa. Przy nocnych przymrozkach zachowajcie podwójny odstęp przed zwężeniami!",
-            likes: 980,
+            loc: "A4 – Kraków (Tyniec / Skawina / Południe)",
+            msg: "15.11, 14:57 – 🚧 NIEDZIELNE POWROTY A ZAMKNIĘCIA A4: Pamiętajcie, że dzisiaj o 20:00 drogowcy znów wchodzą na węzeł Kraków Tyniec i zamykają łącznice! Jeśli wracacie z weekendu do Krakowa lub lecicie tranzytem, postarajcie się minąć ten odcinek przed wieczorem. Na trasie Skawina–Kraków Południe po 20:00 również pojawi się zwężenie do 1 pasa. Uważajcie na spiętrzenie ruchu! 🚗🚨",
+            likes: 1210,
             ts: 10
         },
 
         "-0seed9": {
-            loc: "A4 – Katowice / Zabrze (km 318,5)",
-            msg: "13.11, 13:00 – 🚧 FINAŁ ROBÓT NA A4: GDDKiA prowadzi odnowę oznakowania poziomego na odcinku ok. 22,9 km między Katowicami a Zabrzem. Dla relacji Katowice → Zabrze zakończenie prac przewidziano na dziś (13.11) o godz. 20:00, natomiast dla relacji Zabrze → Katowice jutro (14.11) o godz. 22:00. Na odcinku 17,2 km trwają też prace porządkowe z zajęciem pasa awaryjnego. Obserwujcie oznakowanie tymczasowe i unikajcie gwałtownych manewrów!",
-            likes: 760,
+            loc: "A4 – Śląsk (Bramki / Tranzyt)",
+            msg: "15.11, 14:57 – 🚗 POWROTY NA ŚLĄSK I BRAMKI: Zbliżamy się do popołudniowego szczytu powrotów z weekendu. Na bramkach A4 (Balice/Mysłowice) ruch powoli, acz systematycznie gęstnieje, ale na ten moment bez gigantycznych zatorów. Zachowajcie bezpieczny odstęp – popołudniowe słońce zawieszone nisko nad horyzontem może mocno oślepiać na zachodnich kierunkach! ☀️🕶️",
+            likes: 850,
             ts: 9
         },
 
         "-0seed8": {
-            loc: "S7 / DK7 Zakopianka – Kraków – Myślenice – Podhale",
-            msg: "13.11, 13:00 – ⛰️ PIĄTKOWY SZCZYT WYJAZDOWY I WARUNKI W GÓRACH: Rozpoczyna się popołudniowy wzmożony ruch na wylotówce z Krakowa w stronę Myślenic i Rabki. W nocy na Podhalu i terenach podgórskich spadek temperatur nawet do -5°C i lokalne oblodzenia. Dodatkowo uwaga na niedzielę (15.11) – w rejonach podgórskich Karpat i Sudetów powieje silny, porywisty wiatr południowy do 75–80 km/h. Zaplanujcie bezpieczny przejazd!",
-            likes: 890,
+            loc: "S7 / DK7 Zakopianka – Powroty z Tatr i Myślenic",
+            msg: "15.11, 14:57 – ⛰️ CZERWONY ALARM ZAKOPIANKA: Zaczyna się rzeźnia powrotowa spod Tatr! W Klikuszowej, Skomielnej Białej i na przewężeniach w Libertowie robi się już bardzo ciasno. Dodatkowo jazdę na wyeksponowanych odcinkach mocno utrudnia wiatr halny. Omijajcie główne zatory przez lokalne skróty, jeśli macie taką opcję, i zdejmijcie nogę z gazu! 🌪️🚙",
+            likes: 1420,
             ts: 8
         },
 
         "-0seed7": {
-            loc: "DK94 – Olkusz (Kościuszki / Rabsztyńska / 20 Straconych)",
-            msg: "13.11, 13:00 – 🏗️ DK94 OLKUSZ – STAŁA ORGANIZACJA RUCHU: Przebudowa ok. 4,4 km trasy trwa do końca grudnia. Skrzyżowanie z ul. 20 Straconych pozostaje nieprzejezdne. Na skrzyżowaniu Kościuszki–Rabsztyńska zamknięta jest ul. Rabsztyńska oraz brak przejazdu na wprost. Zamknięte są też przecięcia z ul. Wiejską oraz Wyszyńskiego/Rataja. Skrzyżowanie z ul. Mickiewicza działa jako tymczasowe rondo. Nie ufajcie ślepo starym trasom w nawigacji – patrzcie na znaki!",
-            likes: 650,
-            ts: 7
-        },
-
-        "-0seed6": {
-            loc: "DK81 – Mikołów (ul. Fitelberga) / S1 – Mysłowice–Lędziny",
-            msg: "13.11, 13:00 – ⚠️ UTRUDNIENIA ŚLĄSK POŁUDNIE: DK81 Mikołów (ul. Fitelberga) – trwa II etap przebudowy skrzyżowania, zamknięte lewe pasy w obu kierunkach, ograniczenie do 50 km/h (do 30.11). S1 Mysłowice–Lędziny: w związku z budową S1 Kosztowy–Bieruń zamknięta jest łącznica Lędziny → Tychy, objazd przez węzeł Dziećkowice (do 30.11). Uwzględnijcie te odcinki w weekendowych trasach!",
-            likes: 510,
-            ts: 6
-        },
-
-        "-0seed5": {
-            loc: "Kraków – Mosty na Wiśle, ul. Opolska i estakady",
-            msg: "13.11, 13:00 – 🌉 MELDUNEK MIEJSKI KRAKÓW: Po porannych i południowych opadach nawierzchnia w mieście jest mokra. Wieczorem i w nocy przy bezchmurnym niebie temperatura przy gruncie szybko spadnie poniżej zera – najbardziej zdradliwe będą mosty na Wiśle (Dębnicki, Zwierzyniecki, Kotlarski, Wandy) oraz estakady w ciągu ul. Opolskiej i Conrada. Zachowajcie bezpieczny dystans przed przejściami dla pieszych!",
-            likes: 730,
-            ts: 5
-        },
-
-        "-0seed4": {
-            loc: "SkyCast PRO – Weekendowy Puls Kierowców (13–15.11)",
-            msg: "13.11, 13:00 – 🎧 BEZPIECZNEGO WEEKENDU, EKIPA! Piątek 13-go za nami, przed nami słoneczny, ale mroźny i mglisty weekend. Sprawdzajcie na bieżąco radar, dorzucajcie własne meldunki z trasy, kliknijcie w odświeżony weekendowy Radar Nastrojów i odpalcie głębokie bity w SkyCast Radio. Szerokości i przyczepności na każdej trasie! 🔥🚗",
-            likes: 1150,
-            ts: 4
-        }
-    };
-            }
+            loc: "DK94 – Olkusz (Przebudowa i objazdy)",
+            msg: "15.11, 14:57 – 🏗️ DK94 OLKUSZ: Przypominamy wracającym z weekendu na Jurze i Śląsku – w Olkuszu wciąż trwają grube przebudowy. Brak przejazdu na Rabsztyńskiej, zamknięte przecięcia z Wiejską i Wyszyńskiego. Mickiewicza działa jako rondo. Zwracajcie uwagę na żółte tablice objazdowe, bo nawigacje potrafią wariować na tych zmienionych odcinkach! 🚧🗺️",
+            likes: 670,
+            ts:
+             
   
                                      
   
