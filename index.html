@@ -2093,71 +2093,63 @@ setInterval(uruchomZlotySkaner, 3 * 60 * 60 * 1000);
   
 
  
-
-            
-
-
 function startReports() {
     return {
         "-0seed11": {
-            loc: "ALERT METEO – POLSKA / WARUNKI NA DROGACH",
-            msg: "16.11, 17:15 – 🌦️ WIECZORNY ALERT METEO – POLSKA: Pogoda mocno zróżnicowana regionalnie! Kraków: około 5°C i niewielki deszcz. Katowice: około 5°C, pochmurno. Wrocław: 9°C i duże zachmurzenie. Warszawa: 8°C, bezchmurnie. Gdańsk: 8°C i duże zachmurzenie. Na południu mokre nawierzchnie mogą utrudniać hamowanie, szczególnie w Małopolsce. Po zmroku uważajcie na pieszych, przejścia i nieoświetlone odcinki. Nie ma potwierdzenia ogólnopolskiej gołoledzi ani mgły na wszystkich trasach. Noga z gazu! 🚨",
-            likes: 2187,
+            loc: "Polska - Krajowy Skan Meteo IMGW / GDDKiA",
+            msg: "16.11, 20:42 ❄️ OGÓLNOPOLSKI ALERT METEO: Całkowity zmrok po szarówce, wilgotność pod 90% i przelotna mżawka przy odczuwalnych 3°C (w dolinach przy gruncie spadek do -2°C)! Na mostach w ciągu S7 (km 675), estakadach A4 (km 402-417) i wiaduktach A1 robi się zdradliwa, czarna szklanka – puszki i blaszaki tracą trakcję, noga z gazu!",
+            likes: 2418,
             ts: 11
         },
-
         "-0seed10": {
-            loc: "A4 / S7 – MAŁOPOLSKA / KRAKÓW / SKAWINA / TARNÓW / ZAKOPIANKA",
-            msg: "16.11, 17:15 – 🚧 A4 MAŁOPOLSKA – KILKA PUNKTÓW ROBÓT! 416,2 km, odcinek Kraków Południe–Kraków Skawina: naprawa wkładki dylatacyjnej, dzisiejsze okno prac kończy się o 17:00, roboty przewidziano do 20 listopada. 417,6 km, Kraków Południe–Kraków Wielicka: od 20:00 rusza naprawa gzymsu wiaduktu przy ul. Kąpielowej, możliwe prawostronne lub lewostronne zwężenie. 491,2 km, węzły Tarnów Mościce–Tarnów Centrum: wymiana oświetlenia przy MOP Komorów i Rudka, naprzemienne zajęcie pasa awaryjnego i ograniczenie do 80 km/h. 501,9 km, kierunek Kraków: trwają prace pod wiaduktem. DK94h, węzeł Modlnica–Modlniczka, 2,5 km robót odwodnieniowych, ograniczenie 70 km/h. Zakopianka: brak potwierdzonego nowego wypadku lub zamknięcia. Nie dopisujemy fikcyjnego korka! 🚗",
-            likes: 2391,
+            loc: "A4 Węzeł Balice - Węzeł Kraków Bieżanów (km 399-424) / DK7 Libertów",
+            msg: "16.11, 20:42 🚨 ZWĘŻENIA NA OBWODNICY I DZWON NA ZAKOPIANCE: A4 od km 412+700 do km 417+200 (między Węzłem Kraków Skawina a Węzłem Kraków Południe, jezdnia prawa w stronę Rzeszowa) dusi się przez remont nawierzchni i zwężone łącznice na Węźle Bieżanów! Na DK7 od Mogilan przez Libertów (km 675+005, pas na Kraków) blaszak po stłuczce z puszką stoi na prawym zawężonym pasie, a w mieście Aleje Trzech Wieszczów od Czarnowiejskiej do ul. Kawiory jadą zderzak w zderzak.",
+            likes: 2190,
             ts: 10
         },
-
         "-0seed9": {
-            loc: "A4 / DK81 / S1 / S86 – ŚLĄSK / KATOWICE / MYSŁOWICE / TYCHY",
-            msg: "16.11, 17:15 – 🚨 ŚLĄSK – UWAGA NA ORGANIZACJĘ RUCHU! A4 Katowice–Zabrze, km 318,5: wcześniejsze roboty przy oznakowaniu poziomym miały zakończyć się o 8:00, brak potwierdzenia ich dalszego prowadzenia o tej porze. S86 Katowice–Sosnowiec, km 18,0: zamknięty pas awaryjny lewej jezdni w kierunku Będzina, prace przy ekranach akustycznych do 20 listopada. S1 Mysłowice–Lędziny, km 555,7: budowa trasy Kosztowy–Bieruń, ruch dwukierunkowy przełożony na drugą jezdnię. Łącznica Lędziny–Tychy zamknięta, objazd przez węzeł Dziećkowice. DK81 Mikołów–Katowice: brak potwierdzonego aktywnego zatoru w wykazie GDDKiA. Nie wciskajcie się blaszakiem na zderzak poprzednika! 🛣️",
-            likes: 1934,
+            loc: "A4 Gliwice Sośnica - PPO Brzęczkowice (km 316-349) / DK81 Mikołów - Tychy",
+            msg: "16.11, 20:42 ⚠️ ŚLĄSK W KLESZCZACH: Na A4 (km 339, tuż przed Węzłem Katowice Murckowska, lewy pas w stronę Krakowa) dzwon dwóch puszek i zator aż od Węzła Chorzów Batory (km 333), a na bramkach PPO Brzęczkowice (km 349) zawężenie prawych skrajnych bramek trzyma blaszaki! Na DK81 od Węzła Mikołów (skrzyżowanie z DK44) do ul. Beskidzkiej w Tychach (kierunek Katowice) mokra szklanka na koleinach.",
+            likes: 1874,
             ts: 9
         },
-
         "-0seed8": {
-            loc: "A2 / S8 – CENTRUM POLSKI / WARSZAWA / ŁÓDŹ / SKIERNIEWICE",
-            msg: "16.11, 17:15 – 🚧 CENTRUM POLSKI – ZWĘŻENIA NA A2 I S8! A2, km 411,5, odcinek Pruszków–Granica Łodzi: obowiązuje czasowa organizacja ruchu, przejazd dwoma pasami bez pasa awaryjnego. A2, km 389,6, węzeł Skierniewice–węzeł Łowicz: do godz. 18:00 zajęty prawy pas w kierunku Poznania, ruch jednym pasem lewym, ograniczenie 70 km/h. S8, km 338,1, węzeł Wolbórz–węzeł Polichno: naprawa nawierzchni, prawy pas zamknięty w kierunku Wrocławia i Katowic, przejazd lewym pasem. Prace do 20 listopada. Warszawa, węzeł Powązkowska–Marymoncka: wcześniejsze zajęcie prawego pasa w kierunku Białegostoku miało zakończyć się o 13:15. Nie ma potwierdzenia, że utrudnienie nadal trwa. Kierowcy, spokojnie na przewiązkach! ⚠️",
-            likes: 1678,
+            loc: "S8 Węzeł Konotopa - Węzeł Marki (km 0-28) / A2 Węzeł Łódź Północ (km 362)",
+            msg: "16.11, 20:42 🚧 CENTRUM HAMUJE PO ZMROKU: Warszawa na S8 od Węzła Konotopa przez Prymasa Tysiąclecia aż po Most Grota-Roweckiego i Węzeł Marki (km 21, jezdnia w stronę Białegostoku) stoi na prawym i środkowym pasie przez wieczorne łatanie dylatacji! Na A2 przed Węzłem Łódź Północ (km 362, kierunek Warszawa) gęsta mgła z mżawką tnie widoczność i peleton blaszaków toczy się zderzak w zderzak od km 356.",
+            likes: 1432,
             ts: 8
         },
-
         "-0seed7": {
-            loc: "A4 – DOLNY ŚLĄSK / OPOLSZCZYZNA / WROCŁAW / KOSTOMŁOTY",
-            msg: "16.11, 17:15 – 🚨 A4 DOLNY ŚLĄSK I OPOLSZCZYZNA – UWAGA NA ZAMKNIĘTE ŁĄCZNICE! Węzeł Kostomłoty, km 125,7: zamknięta południowa łącznica w kierunku Katowic, utrudnienie przewidziane do 27 listopada, termin zależny od pogody. Węzeł Gościsław, km 120,3: zamknięta południowa łącznica w kierunku Wrocławia do 18 listopada, godz. 13:00. Objazd autostradą do węzła Kostomłoty i powrót; wjazd na A4 zalecany przez węzeł Budziszów. Opolszczyzna: A4 Brzeg–Opole Zachód, km 194,0, dzisiejsze zajęcie prawego i awaryjnego pasa w kierunku Katowic miało zakończyć się o 17:00. DK94 Pawłów–Strzelniki, km 146,0: odcinek 2,8 km, wahadło i ograniczenie 60 km/h do 17 listopada. Nie jedźcie na pamięć – patrzcie na znaki objazdowe! 🚧",
-            likes: 2256,
+            loc: "A4 Węzeł Bielany Wrocławskie (km 153) - Węzeł Opole Zachód (km 241)",
+            msg: "16.11, 20:42 🚛 ZATOR TRANZYTOWY NA DOLNYM ŚLĄSKU: A4 między Węzłem Bielany Wrocławskie (km 153) a Węzłem Brzezimierz (km 175, jezdnia południowa w stronę Opola i Katowic) – wyłączony pas awaryjny i prawy przez roboty barierowe, ogon ciężarówek stoi od km 150! Przed Węzłem Opole Południe (km 253, lewy pas na Wrocław) śliska nawierzchnia po opadzie i rozbita puszka przy barierach linowych.",
+            likes: 1589,
             ts: 7
         },
-
         "-0seed6": {
-            loc: "A1 – AUTOSTRADA BURSZTYNOWA / CZĘSTOCHOWA / KUJAWY / POMORZE",
-            msg: "16.11, 17:15 – 🚛 A1 – TRANZYT PÓŁNOC–POŁUDNIE! Południowy odcinek A1, km 424,0, pomiędzy węzłami Częstochowa Północ i Częstochowa Jasna Góra: obowiązuje ograniczenie prędkości do 80 km/h, utrudnienie przewidziane do 22 listopada. Północna część trasy, km 65,2, węzły Kopytkowo–Warlubie: zamknięta jezdnia w kierunku Łodzi. Ruch prowadzony dwoma pasami w stronę Gdańska i jednym pasem w stronę Łodzi. Na węźle Warlubie zamknięty zjazd od strony Gdańska i wjazd w kierunku Łodzi, dodatkowo zamknięty MOP Gajewo. Organizacja ruchu obowiązuje do 30 listopada. Kierowcy ciężarówek, pilnujcie odstępów i nie wykonujcie gwałtownych zmian pasa! 🛣️",
-            likes: 1437,
+            loc: "A1 Węzeł Piotrków Tryb. Zachód (km 348) - Węzeł Tuszyn (km 335) / Rusocin",
+            msg: "16.11, 20:42 ⚡ BURSZTYNOWA NA MOKRO: Autostrada A1 na 344. kilometrze między Węzłem Piotrków Trybunalski Północ a Węzłem Tuszyn (prawy pas w kierunku Gdańska) zablokowana przez zepsutego blaszaka bez oświetlenia! Na północnym odcinku od Węzła Pelplin (km 44) do bramek PPO Rusocin (km 6, jezdnia w stronę Łodzi) porywisty boczny wiatr i mokry asfalt mocno noszą puszki na łukach.",
+            likes: 982,
             ts: 6
         },
-
         "-0seed5": {
-            loc: "DK94 – OLKUSZ / KRUSZCOWA / KOŚCIUSZKI / RABSZTYŃSKA",
-            msg: "16.11, 17:15 – 🏗️ DK94 OLKUSZ – PRZEBUDOWA I MOCNO ZMIENIONY RUCH! Roboty na odcinku 294,9–299,3 km nadal trwają. Od km 294+898 do 296+450 zamknięta jezdnia południowa w kierunku Krakowa – rejon ul. Kruszcowej. Km 296+450–297+450: zamknięta jezdnia północna w stronę Katowic, okolice kładki KD-02. Km 297+450–298+000 ruch prowadzony łącznicami nr 1 i 2 oraz bypassem, z prawoskrętem w ul. Kościuszki. Kolejny fragment km 298+000–299+251 również objęty zamknięciem jezdni północnej. W rejonie skrzyżowania Kościuszki–Rabsztyńska obowiązuje zmieniona organizacja, w tym zamknięcie Rabsztyńskiej i ograniczenia relacji skrętnych. Przy Mickiewicza działa tymczasowe rondo. Kierowcy, nie próbujcie przeciskać się na siłę przez plac budowy! Noga z gazu! 🚧",
-            likes: 2463,
+            loc: "DK94 Olkusz (ul. Kościuszki / Rabsztyńska, km 299-303) - Modlnica (km 326)",
+            msg: "16.11, 20:42 🛑 OLKUSZ I JURA W SEPARATORACH: Przebudowa DK94 i wykop tunelu w Olkuszu (km 301) trzymają ruch na sztywno – na skrzyżowaniach z ul. Kościuszki oraz ul. Rabsztyńską (pas w kierunku Krakowa) ostre szykany, błoto na asfalcie i jazda zderzak w zderzak! Bliżej Krakowa w Jerzmanowicach (km 313, wahadło świetlne) i przed Węzłem Modlniczka (km 327, zjazd na S52) totalna szklanka na zjazdach.",
+            likes: 1965,
             ts: 5
         },
-
         "-0seed4": {
-            loc: "SKYCAST PRO – SKYCAST RADIO / WIECZORNY RAPORT DLA KIEROWCÓW",
-            msg: "16.11, 17:15 – 🎧 SIEMA, EKIPO SKYCAST RADIO! Meldujemy się z wieczorną porcją drogowych informacji! Małopolska: A4, okolice Skawiny i Tarnowa, a wieczorem dodatkowe roboty przy ul. Kąpielowej. Śląsk: S86 i S1, zwracajcie uwagę na organizację ruchu w rejonie Katowic, Mysłowic i Lędzin. Olkusz nadal walczy z wielką przebudową DK94 – Kościuszki i Rabsztyńska wymagają szczególnej uwagi. Centrum: A2 i S8, zwężenia na trasach w kierunku Poznania, Wrocławia i Katowic. A na A1 pamiętajcie o zamknięciach w rejonie Warlubia. Pogoda? Kraków lekki deszcz i 5 stopni, Katowice pochmurno, Warszawa jeszcze bezchmurna, Wrocław i Gdańsk pod chmurami. Nie siedźcie zderzak w zderzak, nie róbcie dzwonów i nie ścigajcie się z czasem. Odpalcie SkyCast Radio, ogrzejcie kabinę i spokojnie wracajcie do bazy. Szerokości, kierowcy! ❤️📻",
-            likes: 1829,
+            loc: "SkyCast Radio - Kanał Ogólnopolski (CB / App Live)",
+            msg: "16.11, 20:42 📻 KOMUNIKAT SKYCAST PRO: Mobilki z puszek i dużych zestawów, wieczorna mżawka i czarny asfalt po szarówce to gotowy przepis na dzwon! Od Węzła Balice po Konotopę zdejmijcie nogę z gazu, pilnujcie świateł mijania zamiast automatów dziennych i klikajcie w apce każdą nową szklankę na słupkach. Szerokości, przyczepności i bezpiecznego zjazdu na bazę!",
+            likes: 2491,
             ts: 4
         }
     };
 }
+  
+            
 
 
+            
 
 
  
